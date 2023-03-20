@@ -505,7 +505,8 @@ snapshots['test_schema_generation 1'] = {
                 'DOUBLE',
                 'BIT',
                 'HUGEINT',
-                'TINYINT'
+                'TINYINT',
+                'BLOB'
             ],
             'title': 'LogicalTypeId'
         },

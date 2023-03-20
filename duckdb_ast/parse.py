@@ -39,6 +39,7 @@ class LogicalTypeId(Enum):
     BIT = "BIT"
     HUGEINT = "HUGEINT"
     TINYINT = "TINYINT"
+    BLOB = "BLOB"
 
 
 class CatalogEntry(Base):
