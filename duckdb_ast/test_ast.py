@@ -17,6 +17,7 @@ import duckdb_ast.parse
         "select frog from frogs where height > 5 and leader = true",
         "create table dummy as select 1",
         "select 1 * 1",
+        "select frog.age from frogs",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

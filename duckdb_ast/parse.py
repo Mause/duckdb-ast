@@ -20,18 +20,6 @@ class StatementType(Enum):
     SELECT_NODE = "SELECT_NODE"
 
 
-class SelectClass(Enum):
-    CONSTANT = "CONSTANT"
-    STAR = "STAR"
-    COLUMN_REF = "COLUMN_REF"
-
-
-class VectorType(Enum):
-    STAR = "STAR"
-    CONSTANT = "CONSTANT"
-    COLUMN_REF = "COLUMN_REF"
-
-
 class LogicalTypeId(Enum):
     INTEGER = "INTEGER"
     BOOLEAN = "BOOLEAN"
@@ -86,29 +74,9 @@ class Cast(Base):
     try_cast: bool
 
 
-Select = Annotated[Union[ColumnRef, Star, Constant, Cast], Field(discriminator="type")]
-
-Cast.update_forward_refs()
-
-Cast.parse_obj(
-    {
-        "class": "CAST",
-        "type": "CAST",
-        "alias": "",
-        "child": {
-            "class": "CONSTANT",
-            "type": "CONSTANT",
-            "alias": "",
-            "value": {
-                "type": {"id": "VARCHAR", "type_info": None},
-                "is_null": False,
-                "value": "t",
-            },
-        },
-        "cast_type": {"id": "BOOLEAN", "type_info": None},
-        "try_cast": False,
-    }
-)
+Select = Annotated[
+    Union["Function", ColumnRef, Star, Constant, Cast], Field(discriminator="type")
+]
 
 
 class Comparison(Base):
@@ -207,17 +175,11 @@ class SuccessResponse(Base):
     statements: list[Statement]
 
 
-Root = Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="error")]
-
-
-# print(schema_json/_of(Root))
-
-
 def escape_sql(sql):
     return sql.replace('"', '""')
 
 
-def parse_sql(sql: str) -> Root:
+def parse_sql(sql: str) -> "Root":
     duckdb.install_extension("json")
     duckdb.load_extension("json")
 
@@ -228,23 +190,10 @@ def parse_sql(sql: str) -> Root:
     return parse_raw_as(Root, ast)
 
 
-def main():
-    sqls = [
-        "select 1",
-        "select * from range(0, 10)",
-        "select * from duckdb_tables",
-        "select frog from frogs",
-        "select frog from frogs where height > 5 and leader = true",
-        "create table dummy as select 1",
-    ]
-
-    for sql in sqls:
-        ret = parse_sql(sql)
-        if ret.error:
-            print(ret.error_message)
-        else:
-            print(ret)
+Root = Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="error")]
 
 
-# if __name__ == "__main__":
-#     main()
+Cast.update_forward_refs()
+Comparison.update_forward_refs()
+
+# print(schema_json_of(Root))
