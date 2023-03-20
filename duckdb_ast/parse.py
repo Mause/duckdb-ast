@@ -81,11 +81,10 @@ class StarExpression(ParsedExpression):
     expr: Optional["Select"]
 
 
-class Constant(Base):
+class ConstantExpression(ParsedExpression):
     type: Literal["CONSTANT"]
     clazz: Literal["CONSTANT"] = Field(alias="class")
 
-    alias: str
     value: Value
 
 
@@ -102,7 +101,13 @@ class CastExpression(ParsedExpression):
 
 
 Select = Annotated[
-    Union["Function", ColumnRefExpression, StarExpression, Constant, CastExpression],
+    Union[
+        "FunctionExpression",
+        ColumnRefExpression,
+        StarExpression,
+        ConstantExpression,
+        CastExpression,
+    ],
     Field(discriminator="type"),
 ]
 
@@ -148,25 +153,24 @@ class OrderModifier(Base):
     orders: list[object]
 
 
-class Function(Base):
+class FunctionExpression(ParsedExpression):
     clazz: Literal["FUNCTION"] = Field(alias="class")
     type: Literal["FUNCTION"]
     schema_name: str = Field(alias="schema")
     function_name: str
     catalog: str
-    alias: str
     is_operator: bool
     children: list[Select]
     distinct: bool
     order_bys: OrderModifier
     export_state: bool
-    filter: Optional[object]
+    filter: Optional[Select]
 
 
 class TableFunction(Base):
     type: Literal["TABLE_FUNCTION"]
     alias: str
-    function: Function
+    function: FunctionExpression
     sample: Optional[int]
     column_name_alias: Optional[list[str]]
 

@@ -36,13 +36,13 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
             from_table=TableFunction(
                 type='TABLE_FUNCTION',
                 alias='',
-                function=Function(
-                    clazz='FUNCTION',
+                function=FunctionExpression(
                     type='FUNCTION',
+                    clazz='FUNCTION',
+                    alias='',
                     schema_name='',
                     function_name='test_all_types',
                     catalog='',
-                    alias='',
                     is_operator=False,
                     children=[],
                     distinct=False,
@@ -134,16 +134,16 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
             from_table=TableFunction(
                 type='TABLE_FUNCTION',
                 alias='',
-                function=Function(
-                    clazz='FUNCTION',
+                function=FunctionExpression(
                     type='FUNCTION',
+                    clazz='FUNCTION',
+                    alias='',
                     schema_name='',
                     function_name='range',
                     catalog='',
-                    alias='',
                     is_operator=False,
                     children=[
-                        Constant(
+                        ConstantExpression(
                             type='CONSTANT',
                             clazz='CONSTANT',
                             alias='',
@@ -153,7 +153,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
                                 is_null=False
                             )
                         ),
-                        Constant(
+                        ConstantExpression(
                             type='CONSTANT',
                             clazz='CONSTANT',
                             alias='',
@@ -185,16 +185,16 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SuccessResponse(
             modifiers=[],
             cte_map={'map': []},
             select_list=[
-                Function(
-                    clazz='FUNCTION',
+                FunctionExpression(
                     type='FUNCTION',
+                    clazz='FUNCTION',
+                    alias='',
                     schema_name='',
                     function_name='*',
                     catalog='',
-                    alias='',
                     is_operator=True,
                     children=[
-                        Constant(
+                        ConstantExpression(
                             type='CONSTANT',
                             clazz='CONSTANT',
                             alias='',
@@ -204,7 +204,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SuccessResponse(
                                 is_null=False
                             )
                         ),
-                        Constant(
+                        ConstantExpression(
                             type='CONSTANT',
                             clazz='CONSTANT',
                             alias='',
@@ -242,7 +242,7 @@ snapshots['test_sql[select 1] 1'] = '''SuccessResponse(
             modifiers=[],
             cte_map={'map': []},
             select_list=[
-                Constant(
+                ConstantExpression(
                     type='CONSTANT',
                     clazz='CONSTANT',
                     alias='',
@@ -278,13 +278,13 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SuccessResponse(
                     type='CAST',
                     clazz='CAST',
                     alias='',
-                    child=Function(
-                        clazz='FUNCTION',
+                    child=FunctionExpression(
                         type='FUNCTION',
+                        clazz='FUNCTION',
+                        alias='',
                         schema_name='main',
                         function_name='list_value',
                         catalog='',
-                        alias='',
                         is_operator=False,
                         children=[],
                         distinct=False,
@@ -339,7 +339,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                             alias='',
                             column_names=['height']
                         ),
-                        right=Constant(
+                        right=ConstantExpression(
                             type='CONSTANT',
                             clazz='CONSTANT',
                             alias='',
@@ -364,7 +364,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                             type='CAST',
                             clazz='CAST',
                             alias='',
-                            child=Constant(
+                            child=ConstantExpression(
                                 type='CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
@@ -508,25 +508,25 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
             modifiers=[],
             cte_map={'map': []},
             select_list=[
-                Function(
-                    clazz='FUNCTION',
+                FunctionExpression(
                     type='FUNCTION',
+                    clazz='FUNCTION',
+                    alias='',
                     schema_name='',
                     function_name='list_apply',
                     catalog='',
-                    alias='',
                     is_operator=False,
                     children=[
-                        Function(
-                            clazz='FUNCTION',
+                        FunctionExpression(
                             type='FUNCTION',
+                            clazz='FUNCTION',
+                            alias='',
                             schema_name='main',
                             function_name='list_value',
                             catalog='',
-                            alias='',
                             is_operator=False,
                             children=[
-                                Constant(
+                                ConstantExpression(
                                     type='CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
@@ -536,7 +536,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
                                         is_null=False
                                     )
                                 ),
-                                Constant(
+                                ConstantExpression(
                                     type='CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
@@ -546,7 +546,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
                                         is_null=False
                                     )
                                 ),
-                                Constant(
+                                ConstantExpression(
                                     type='CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
@@ -562,13 +562,13 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
                             export_state=False,
                             filter=None
                         ),
-                        Function(
-                            clazz='FUNCTION',
+                        FunctionExpression(
                             type='FUNCTION',
+                            clazz='FUNCTION',
+                            alias='x',
                             schema_name='',
                             function_name='*',
                             catalog='',
-                            alias='x',
                             is_operator=True,
                             children=[
                                 ColumnRefExpression(
@@ -577,7 +577,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
                                     alias='',
                                     column_names=['x']
                                 ),
-                                Constant(
+                                ConstantExpression(
                                     type='CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
