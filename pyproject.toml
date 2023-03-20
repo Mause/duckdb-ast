@@ -8,7 +8,7 @@ readme = "README.md"
 packages = [{include = "duckdb_ast"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.8"
 duckdb = {version = "^0.7.2.dev899", allow-prereleases = true}
 pydantic = "^1.10.6"
 
