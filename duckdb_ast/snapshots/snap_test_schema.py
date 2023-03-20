@@ -65,6 +65,65 @@ snapshots['test_schema_generation 1'] = {
             'title': 'BaseTableRef',
             'type': 'object'
         },
+        'CaseCheck': {
+            'additionalProperties': False,
+            'properties': {
+                'then_expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'when_expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                }
+            },
+            'required': [
+                'when_expr',
+                'then_expr'
+            ],
+            'title': 'CaseCheck',
+            'type': 'object'
+        },
+        'CaseExpression': {
+            'additionalProperties': False,
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'case_checks': {
+                    'items': {
+                        '$ref': '#/definitions/CaseCheck'
+                    },
+                    'title': 'Case Checks',
+                    'type': 'array'
+                },
+                'class': {
+                    'enum': [
+                        'CASE'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'else_expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'CASE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'case_checks',
+                'else_expr'
+            ],
+            'title': 'CaseExpression',
+            'type': 'object'
+        },
         'CastExpression': {
             'additionalProperties': False,
             'description': 'https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/cast_expression.hpp#L22-L26',
@@ -587,6 +646,7 @@ snapshots['test_schema_generation 1'] = {
             'discriminator': {
                 'mapping': {
                     'AND': '#/definitions/ConjunctionExpression',
+                    'CASE': '#/definitions/CaseExpression',
                     'CAST': '#/definitions/CastExpression',
                     'COLUMN_REF': '#/definitions/ColumnRefExpression',
                     'CONSTANT': '#/definitions/ConstantExpression',
@@ -628,6 +688,9 @@ snapshots['test_schema_generation 1'] = {
                 },
                 {
                     '$ref': '#/definitions/OperatorExpression'
+                },
+                {
+                    '$ref': '#/definitions/CaseExpression'
                 }
             ],
             'title': 'ParsedExpressionSubclasses'
