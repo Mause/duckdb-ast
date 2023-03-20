@@ -1,12 +1,12 @@
 import json
-from typing import TypeVar, Generic, Optional, Literal, Annotated, Union
 from enum import Enum
+from typing import Annotated, Generic, Literal, Optional, TypeVar, Union
 
 import duckdb
-from pydantic import BaseModel, Field, Extra, schema_json_of, parse_raw_as
+from pydantic import BaseModel, Extra, Field, parse_raw_as
 from rich import print
 
-__all__ = ['parse_ast']
+__all__ = ["parse_sql"]
 
 T = TypeVar("T")
 
@@ -66,7 +66,6 @@ class Star(Base):
 
     replace_list: list[object]
     relation_name: str
-    columns: object
     exclude_list: list[object]
 
 
@@ -77,26 +76,40 @@ class Constant(Base):
     alias: str
     value: Value
 
+
 class Cast(Base):
     type: Literal["CAST"]
     clazz: Literal["CAST"] = Field(alias="class")
     alias: str
-    child: 'Select'
+    child: "Select"
     cast_type: ValueType
     try_cast: bool
+
 
 Select = Annotated[Union[ColumnRef, Star, Constant, Cast], Field(discriminator="type")]
 
 Cast.update_forward_refs()
 
-Cast.parse_obj({
-                            'class': 'CAST',
-                            'type': 'CAST',
-                            'alias': '',
-                            'child': {'class': 'CONSTANT', 'type': 'CONSTANT', 'alias': '', 'value': {'type': {'id': 'VARCHAR', 'type_info': None}, 'is_null': False, 'value': 't'}},
-                            'cast_type': {'id': 'BOOLEAN', 'type_info': None},
-                            'try_cast': False
-                        })
+Cast.parse_obj(
+    {
+        "class": "CAST",
+        "type": "CAST",
+        "alias": "",
+        "child": {
+            "class": "CONSTANT",
+            "type": "CONSTANT",
+            "alias": "",
+            "value": {
+                "type": {"id": "VARCHAR", "type_info": None},
+                "is_null": False,
+                "value": "t",
+            },
+        },
+        "cast_type": {"id": "BOOLEAN", "type_info": None},
+        "try_cast": False,
+    }
+)
+
 
 class Comparison(Base):
     clazz: Literal["COMPARISON"] = Field(alias="class")
@@ -110,10 +123,10 @@ class Conjunction(Base):
     clazz: Literal["CONJUNCTION"] = Field(alias="class")
     type: Literal["AND"]
     alias: str
-    children: list['Clause']
+    children: list["Clause"]
 
 
-Clause = Annotated[Union[Comparison,Conjunction], Field(discriminator='class')]
+Clause = Annotated[Union[Comparison, Conjunction], Field(discriminator="class")]
 
 Conjunction.update_forward_refs()
 
