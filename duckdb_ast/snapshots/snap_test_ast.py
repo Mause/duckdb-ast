@@ -1981,15 +1981,6 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
 )
 '''
 
-snapshots['test_sql[create table dummy as select 1] 1'] = '''Root(
-    __root__=ErrorResponse(
-        error=True,
-        error_message='Only SELECT statements can be serialized to json!',
-        error_type='not implemented'
-    )
-)
-'''
-
 snapshots['test_sql[select * from duckdb_tables] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,

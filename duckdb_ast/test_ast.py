@@ -15,7 +15,6 @@ import duckdb_ast.parse
         "select * from duckdb_tables",
         "select frog from frogs",
         "select frog from frogs where height > 5 and leader = true",
-        "create table dummy as select 1",
         "select 1 * 1",
         "select frog.age from frogs",
         "select []::boolean[]",
@@ -75,6 +74,8 @@ FROM test_all_types()
 )
 def test_sql(sql, snapshot: SnapshotTest):
     parsed = duckdb_ast.parse.parse_sql(sql)
+    root = parsed.__root__
+    assert not root.error, root.error_message
     fh = StringIO()
     Console(width=120, file=fh).print(parsed)
     snapshot.assert_match(fh.getvalue())
