@@ -31,17 +31,30 @@ class LogicalTypeId(Enum):
     BOOLEAN = "BOOLEAN"
     VARCHAR = "VARCHAR"
     LIST = "LIST"
+    DECIMAL = "DECIMAL"
 
 
-class ListTypeInfo(Base):
-    type: Literal["LIST_TYPE_INFO"]
+class ExtraTypeInfo(Base):
+    type: str
     alias: str
+
+
+class ListTypeInfo(ExtraTypeInfo):
+    type: Literal["LIST_TYPE_INFO"]
     child_type: "LogicalType"
+
+
+class DecimalTypeInfo(ExtraTypeInfo):
+    type: Literal["DECIMAL_TYPE_INFO"]
+    width: int
+    scale: int
 
 
 class LogicalType(Base):
     id: LogicalTypeId
-    type_info: Optional[ListTypeInfo]
+    type_info: Optional[
+        Annotated[Union[ListTypeInfo, DecimalTypeInfo], Field(discriminator="type")]
+    ]
 
 
 class Value(Base, Generic[T]):
