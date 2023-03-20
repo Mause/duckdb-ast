@@ -1,8 +1,9 @@
 from pytest import mark
 from snapshottest.snapshot import Snapshot
-
+from rich.console import Console
+from rich import print
 import duckdb_ast.parse
-
+from io import StringIO
 
 @mark.parametrize(
     'sql',
@@ -14,6 +15,8 @@ import duckdb_ast.parse
         "select frog from frogs where height > 5 and leader = true",
         "create table dummy as select 1",
     ])
-
 def test_sql(sql, snapshot: Snapshot):
-    snapshot.assert_match(duckdb_ast.parse.parse_sql(sql))
+    parsed = duckdb_ast.parse.parse_sql(sql)
+    file = StringIO()
+    Console(width=120, file=file).print(parsed)
+    snapshot.assert_match(file.getvalue())
