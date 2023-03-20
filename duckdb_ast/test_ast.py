@@ -41,6 +41,7 @@ FROM test_all_types()
         GROUP BY city
         HAVING COUNT(*) >= 50;
         """,
+        "SELECT 1 < 1, 1 <= 2",
         "SELECT '101010'::BIT",
         "SELECT 0::HUGEINT",
         "SELECT 0::UNION(num INT, str VARCHAR)",

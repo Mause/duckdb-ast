@@ -314,7 +314,9 @@ snapshots['test_schema_generation 1'] = {
                         'EQUAL',
                         'GREATERTHANOREQUALTO',
                         'NOT_DISTINCT_FROM',
-                        'DISTINCT_FROM'
+                        'DISTINCT_FROM',
+                        'LESSTHANOREQUALTO',
+                        'LESSTHAN'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -746,6 +748,8 @@ snapshots['test_schema_generation 1'] = {
                     'IN': '#/definitions/OperatorExpression',
                     'IS_NOT_NULL': '#/definitions/OperatorExpression',
                     'IS_NULL': '#/definitions/OperatorExpression',
+                    'LESSTHAN': '#/definitions/ComparisonExpression',
+                    'LESSTHANOREQUALTO': '#/definitions/ComparisonExpression',
                     'NOT': '#/definitions/OperatorExpression',
                     'NOT_DISTINCT_FROM': '#/definitions/ComparisonExpression',
                     'OR': '#/definitions/ConjunctionExpression',

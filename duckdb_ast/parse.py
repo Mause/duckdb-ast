@@ -161,6 +161,8 @@ class ComparisonExpression(ParsedExpression):
         "GREATERTHANOREQUALTO",
         "NOT_DISTINCT_FROM",
         "DISTINCT_FROM",
+        "LESSTHANOREQUALTO",
+        "LESSTHAN",
     ]
     left: "ParsedExpressionSubclasses"
     right: "ParsedExpressionSubclasses"

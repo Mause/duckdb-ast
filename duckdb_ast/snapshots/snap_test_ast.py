@@ -391,6 +391,92 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=ComparisonExpression(
+                            type='LESSTHAN',
+                            clazz='COMPARISON',
+                            alias='',
+                            left=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=1,
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            right=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=1,
+                                        is_null=False
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ComparisonExpression(
+                            type='LESSTHANOREQUALTO',
+                            clazz='COMPARISON',
+                            alias='',
+                            left=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=1,
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            right=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=2,
+                                        is_null=False
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NULL] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
