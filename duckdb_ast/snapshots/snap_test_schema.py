@@ -684,7 +684,8 @@ snapshots['test_schema_generation 1'] = {
                 'type': {
                     'enum': [
                         'IS_NULL',
-                        'IN'
+                        'IN',
+                        'NOT'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -740,6 +741,7 @@ snapshots['test_schema_generation 1'] = {
                     'GREATERTHANOREQUALTO': '#/definitions/ComparisonExpression',
                     'IN': '#/definitions/OperatorExpression',
                     'IS_NULL': '#/definitions/OperatorExpression',
+                    'NOT': '#/definitions/OperatorExpression',
                     'OR': '#/definitions/ConjunctionExpression',
                     'STAR': '#/definitions/StarExpression',
                     'SUBQUERY': '#/definitions/SubqueryExpression'

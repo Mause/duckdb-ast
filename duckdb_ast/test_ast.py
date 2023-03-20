@@ -54,6 +54,7 @@ FROM test_all_types()
         "SELECT 'hello' COLLATE NOCASE",
         "SELECT 'Math' IN ('CS', 'Math');",
         "SELECT a BETWEEN x AND y",
+        "SELECT a NOT BETWEEN x AND y",
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
