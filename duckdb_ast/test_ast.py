@@ -18,6 +18,7 @@ import duckdb_ast.parse
         "create table dummy as select 1",
         "select 1 * 1",
         "select frog.age from frogs",
+        "select []::boolean[]",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

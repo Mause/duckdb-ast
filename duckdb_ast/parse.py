@@ -34,11 +34,18 @@ class LogicalTypeId(Enum):
     INTEGER = "INTEGER"
     BOOLEAN = "BOOLEAN"
     VARCHAR = "VARCHAR"
+    LIST = "LIST"
+
+
+class ListTypeInfo(Base):
+    type: Literal["LIST_TYPE_INFO"]
+    alias: str
+    child_type: "ValueType"
 
 
 class ValueType(Base):
     id: LogicalTypeId
-    type_info: Optional[object]
+    type_info: Optional[ListTypeInfo]
 
 
 class Value(Base, Generic[T]):
@@ -212,5 +219,5 @@ Root = Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="err
 
 CastExpression.update_forward_refs()
 Comparison.update_forward_refs()
-
+ListTypeInfo.update_forward_refs()
 # print(schema_json_of(Root))

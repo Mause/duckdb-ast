@@ -213,6 +213,56 @@ snapshots['test_sql[select 1] 1'] = '''SuccessResponse(
 )
 '''
 
+snapshots['test_sql[select []::boolean[]] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        Statement(
+            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                CastExpression(
+                    type='CAST',
+                    clazz='CAST',
+                    alias='',
+                    child=Function(
+                        clazz='FUNCTION',
+                        type='FUNCTION',
+                        schema_name='main',
+                        function_name='list_value',
+                        catalog='',
+                        alias='',
+                        is_operator=False,
+                        children=[],
+                        distinct=False,
+                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                        export_state=False,
+                        filter=None
+                    ),
+                    cast_type=ValueType(
+                        id=<LogicalTypeId.LIST: 'LIST'>,
+                        type_info=ListTypeInfo(
+                            type='LIST_TYPE_INFO',
+                            alias='',
+                            child_type=ValueType(id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>, type_info=None)
+                        )
+                    ),
+                    try_cast=False
+                )
+            ],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=EmptyTable(type='EMPTY', alias='', sample=None)
+        )
+    ]
+)
+'''
+
 snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1'] = '''SuccessResponse(
     error=False,
     statements=[
