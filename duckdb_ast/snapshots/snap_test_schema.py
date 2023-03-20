@@ -641,7 +641,8 @@ snapshots['test_schema_generation 1'] = {
                 },
                 'type': {
                     'enum': [
-                        'IS_NULL'
+                        'IS_NULL',
+                        'IN'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -694,6 +695,7 @@ snapshots['test_schema_generation 1'] = {
                     'FUNCTION': '#/definitions/FunctionExpression',
                     'GREATERTHAN': '#/definitions/ComparisonExpression',
                     'GREATERTHANOREQUALTO': '#/definitions/ComparisonExpression',
+                    'IN': '#/definitions/OperatorExpression',
                     'IS_NULL': '#/definitions/OperatorExpression',
                     'OR': '#/definitions/ConjunctionExpression',
                     'STAR': '#/definitions/StarExpression',

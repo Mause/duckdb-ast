@@ -168,7 +168,7 @@ class ConjunctionExpression(ParsedExpression):
 
 class OperatorExpression(ParsedExpression):
     clazz: Literal["OPERATOR"] = Field(alias="class")
-    type: Literal["IS_NULL"]
+    type: Literal["IS_NULL", "IN"]
     children: list["ParsedExpressionSubclasses"]
 
 

@@ -684,6 +684,75 @@ snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\');] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=OperatorExpression(
+                            type='IN',
+                            clazz='OPERATOR',
+                            alias='',
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=ConstantExpression(
+                                        type='CONSTANT',
+                                        clazz='CONSTANT',
+                                        alias='',
+                                        value=Value(
+                                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                            value='Math',
+                                            is_null=False
+                                        )
+                                    )
+                                ),
+                                ParsedExpressionSubclasses(
+                                    __root__=ConstantExpression(
+                                        type='CONSTANT',
+                                        clazz='CONSTANT',
+                                        alias='',
+                                        value=Value(
+                                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                            value='CS',
+                                            is_null=False
+                                        )
+                                    )
+                                ),
+                                ParsedExpressionSubclasses(
+                                    __root__=ConstantExpression(
+                                        type='CONSTANT',
+                                        clazz='CONSTANT',
+                                        alias='',
+                                        value=Value(
+                                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                            value='Math',
+                                            is_null=False
+                                        )
+                                    )
+                                )
+                            ]
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
