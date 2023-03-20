@@ -181,6 +181,7 @@ class SubqueryExpression(ParsedExpression):
     subquery: "SelectNode"
     subquery_type: Literal["SCALAR"]
 
+
 class CaseCheck(Base):
     when_expr: "ParsedExpressionSubclasses"
     then_expr: "ParsedExpressionSubclasses"
@@ -191,7 +192,8 @@ class CaseExpression(ParsedExpression):
     clazz: Literal["CASE"] = Field(alias="class")
 
     case_checks: list[CaseCheck]
-    else_expr: 'ParsedExpressionSubclasses'
+    else_expr: "ParsedExpressionSubclasses"
+
 
 class ParsedExpressionSubclasses(Base):
     __root__: Union[
