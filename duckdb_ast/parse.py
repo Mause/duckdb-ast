@@ -65,17 +65,31 @@ class Constant(Base):
     value: Value
 
 
-class Cast(Base):
+class BaseExpression(Base):
+    type: str
+    clazz: str = Field(alias="class")
+    alias: str
+
+
+class ParsedExpression(BaseExpression):
+    pass
+
+
+class CastExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/cast_expression.hpp#L22-L26
+    """
+
     type: Literal["CAST"]
     clazz: Literal["CAST"] = Field(alias="class")
-    alias: str
     child: "Select"
     cast_type: ValueType
     try_cast: bool
 
 
 Select = Annotated[
-    Union["Function", ColumnRef, Star, Constant, Cast], Field(discriminator="type")
+    Union["Function", ColumnRef, Star, Constant, CastExpression],
+    Field(discriminator="type"),
 ]
 
 
@@ -193,7 +207,7 @@ def parse_sql(sql: str) -> "Root":
 Root = Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="error")]
 
 
-Cast.update_forward_refs()
+CastExpression.update_forward_refs()
 Comparison.update_forward_refs()
 
 # print(schema_json_of(Root))

@@ -247,7 +247,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                         type='EQUAL',
                         alias='',
                         left=ColumnRef(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['leader']),
-                        right=Cast(
+                        right=CastExpression(
                             type='CAST',
                             clazz='CAST',
                             alias='',
