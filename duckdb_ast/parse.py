@@ -203,6 +203,15 @@ class CaseExpression(ParsedExpression):
     else_expr: "ParsedExpressionSubclasses"
 
 
+class BetweenExpression(ParsedExpression):
+    clazz: Literal["BETWEEN"] = Field(alias="class")
+    type: Literal["COMPARE_BETWEEN"]
+
+    input: "ParsedExpressionSubclasses"
+    lower: "ParsedExpressionSubclasses"
+    upper: "ParsedExpressionSubclasses"
+
+
 class ParsedExpressionSubclasses(Base):
     __root__: Union[
         "FunctionExpression",
@@ -216,6 +225,7 @@ class ParsedExpressionSubclasses(Base):
         OperatorExpression,
         CaseExpression,
         CollateExpression,
+        BetweenExpression,
     ] = Field(discriminator="type")
 
 
@@ -354,6 +364,7 @@ OperatorExpression.update_forward_refs()
 CaseExpression.update_forward_refs()
 CaseCheck.update_forward_refs()
 CollateExpression.update_forward_refs()
+BetweenExpression.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
 
 

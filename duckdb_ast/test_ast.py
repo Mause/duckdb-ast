@@ -53,6 +53,7 @@ FROM test_all_types()
         "SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integers",
         "SELECT 'hello' COLLATE NOCASE",
         "SELECT 'Math' IN ('CS', 'Math');",
+        "SELECT a BETWEEN x AND y",
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):

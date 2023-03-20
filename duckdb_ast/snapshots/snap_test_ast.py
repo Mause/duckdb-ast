@@ -797,6 +797,61 @@ snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT a BETWEEN x AND y] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=BetweenExpression(
+                            type='COMPARE_BETWEEN',
+                            clazz='BETWEEN',
+                            alias='',
+                            input=ParsedExpressionSubclasses(
+                                __root__=ColumnRefExpression(
+                                    type='COLUMN_REF',
+                                    clazz='COLUMN_REF',
+                                    alias='',
+                                    column_names=['a']
+                                )
+                            ),
+                            lower=ParsedExpressionSubclasses(
+                                __root__=ColumnRefExpression(
+                                    type='COLUMN_REF',
+                                    clazz='COLUMN_REF',
+                                    alias='',
+                                    column_names=['x']
+                                )
+                            ),
+                            upper=ParsedExpressionSubclasses(
+                                __root__=ColumnRefExpression(
+                                    type='COLUMN_REF',
+                                    clazz='COLUMN_REF',
+                                    alias='',
+                                    column_names=['y']
+                                )
+                            )
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integers] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,

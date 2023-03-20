@@ -65,6 +65,48 @@ snapshots['test_schema_generation 1'] = {
             'title': 'BaseTableRef',
             'type': 'object'
         },
+        'BetweenExpression': {
+            'additionalProperties': False,
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'class': {
+                    'enum': [
+                        'BETWEEN'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'input': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'lower': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'COMPARE_BETWEEN'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                },
+                'upper': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'input',
+                'lower',
+                'upper'
+            ],
+            'title': 'BetweenExpression',
+            'type': 'object'
+        },
         'CaseCheck': {
             'additionalProperties': False,
             'properties': {
@@ -690,6 +732,7 @@ snapshots['test_schema_generation 1'] = {
                     'CAST': '#/definitions/CastExpression',
                     'COLLATE': '#/definitions/CollateExpression',
                     'COLUMN_REF': '#/definitions/ColumnRefExpression',
+                    'COMPARE_BETWEEN': '#/definitions/BetweenExpression',
                     'CONSTANT': '#/definitions/ConstantExpression',
                     'EQUAL': '#/definitions/ComparisonExpression',
                     'FUNCTION': '#/definitions/FunctionExpression',
@@ -736,6 +779,9 @@ snapshots['test_schema_generation 1'] = {
                 },
                 {
                     '$ref': '#/definitions/CollateExpression'
+                },
+                {
+                    '$ref': '#/definitions/BetweenExpression'
                 }
             ],
             'title': 'ParsedExpressionSubclasses'
