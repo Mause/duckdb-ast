@@ -220,7 +220,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
             type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
             modifiers=[],
             cte_map={'map': []},
-            select_list=[ColumnRef(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
+            select_list=[ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
             where_clause=Conjunction(
                 clazz='CONJUNCTION',
                 type='AND',
@@ -230,7 +230,12 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                         clazz='COMPARISON',
                         type='GREATERTHAN',
                         alias='',
-                        left=ColumnRef(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['height']),
+                        left=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['height']
+                        ),
                         right=Constant(
                             type='CONSTANT',
                             clazz='CONSTANT',
@@ -246,7 +251,12 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                         clazz='COMPARISON',
                         type='EQUAL',
                         alias='',
-                        left=ColumnRef(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['leader']),
+                        left=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['leader']
+                        ),
                         right=CastExpression(
                             type='CAST',
                             clazz='CAST',
@@ -294,7 +304,7 @@ snapshots['test_sql[select frog from frogs] 1'] = '''SuccessResponse(
             type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
             modifiers=[],
             cte_map={'map': []},
-            select_list=[ColumnRef(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
+            select_list=[ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
             where_clause=None,
             sample=None,
             qualify=None,
@@ -323,7 +333,9 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''SuccessResponse(
             type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
             modifiers=[],
             cte_map={'map': []},
-            select_list=[ColumnRef(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog', 'age'])],
+            select_list=[
+                ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog', 'age'])
+            ],
             where_clause=None,
             sample=None,
             qualify=None,

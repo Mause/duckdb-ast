@@ -16,6 +16,16 @@ class Base(BaseModel):
         extra = Extra.forbid
 
 
+class BaseExpression(Base):
+    type: str
+    clazz: str = Field(alias="class")
+    alias: str
+
+
+class ParsedExpression(BaseExpression):
+    pass
+
+
 class StatementType(Enum):
     SELECT_NODE = "SELECT_NODE"
 
@@ -37,11 +47,14 @@ class Value(Base, Generic[T]):
     is_null: bool
 
 
-class ColumnRef(Base):
+class ColumnRefExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/columnref_expression.hpp#L28
+    """
+
     type: Literal["COLUMN_REF"]
     clazz: Literal["COLUMN_REF"] = Field(alias="class")
 
-    alias: str
     column_names: list[str]
 
 
@@ -65,16 +78,6 @@ class Constant(Base):
     value: Value
 
 
-class BaseExpression(Base):
-    type: str
-    clazz: str = Field(alias="class")
-    alias: str
-
-
-class ParsedExpression(BaseExpression):
-    pass
-
-
 class CastExpression(ParsedExpression):
     """
     https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/cast_expression.hpp#L22-L26
@@ -88,7 +91,7 @@ class CastExpression(ParsedExpression):
 
 
 Select = Annotated[
-    Union["Function", ColumnRef, Star, Constant, CastExpression],
+    Union["Function", ColumnRefExpression, Star, Constant, CastExpression],
     Field(discriminator="type"),
 ]
 
