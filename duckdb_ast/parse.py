@@ -182,6 +182,11 @@ class QueryNode(Base):
     cte_map: dict
 
 
+TableRef = Annotated[
+    Union[BaseTable, EmptyTable, TableFunction], Field(discriminator="type")
+]
+
+
 class SelectNode(QueryNode):
     type: Literal["SELECT_NODE"]
     select_list: list[Select]
@@ -192,9 +197,7 @@ class SelectNode(QueryNode):
     group_sets: Optional[list[object]]
     group_expressions: Optional[list[object]]
     aggregate_handling: Optional[AggregrateHandling]
-    from_table: Annotated[
-        Union[BaseTable, EmptyTable, TableFunction], Field(discriminator="type")
-    ]
+    from_table: TableRef
 
 
 class ErrorResponse(Base):
