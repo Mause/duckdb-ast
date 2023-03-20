@@ -187,6 +187,14 @@ class CaseCheck(Base):
     then_expr: "ParsedExpressionSubclasses"
 
 
+class CollateExpression(ParsedExpression):
+    type: Literal["COLLATE"]
+    clazz: Literal["COLLATE"] = Field(alias="class")
+
+    child: "ParsedExpressionSubclasses"
+    collation: str
+
+
 class CaseExpression(ParsedExpression):
     type: Literal["CASE"]
     clazz: Literal["CASE"] = Field(alias="class")
@@ -207,6 +215,7 @@ class ParsedExpressionSubclasses(Base):
         SubqueryExpression,
         OperatorExpression,
         CaseExpression,
+        CollateExpression,
     ] = Field(discriminator="type")
 
 
@@ -344,6 +353,7 @@ SubqueryExpression.update_forward_refs()
 OperatorExpression.update_forward_refs()
 CaseExpression.update_forward_refs()
 CaseCheck.update_forward_refs()
+CollateExpression.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
 
 

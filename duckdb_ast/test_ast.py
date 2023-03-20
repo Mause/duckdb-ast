@@ -51,6 +51,7 @@ FROM test_all_types()
         "SELECT TIMESTAMP '1992-09-20 11:30:00'",
         "SELECT TIMESTAMPTZ '1992-09-20 11:30:00'",
         "SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integers",
+        "SELECT 'hello' COLLATE NOCASE",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):
