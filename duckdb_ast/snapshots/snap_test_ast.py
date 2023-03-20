@@ -684,6 +684,116 @@ snapshots["test_sql[SELECT TIMESTAMPTZ '1992-09-20 11:30:00'] 1"] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integers] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['i']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=CaseExpression(
+                            type='CASE',
+                            clazz='CASE',
+                            alias='test',
+                            case_checks=[
+                                CaseCheck(
+                                    when_expr=ParsedExpressionSubclasses(
+                                        __root__=ComparisonExpression(
+                                            type='GREATERTHAN',
+                                            clazz='COMPARISON',
+                                            alias='',
+                                            left=ParsedExpressionSubclasses(
+                                                __root__=ColumnRefExpression(
+                                                    type='COLUMN_REF',
+                                                    clazz='COLUMN_REF',
+                                                    alias='',
+                                                    column_names=['i']
+                                                )
+                                            ),
+                                            right=ParsedExpressionSubclasses(
+                                                __root__=ConstantExpression(
+                                                    type='CONSTANT',
+                                                    clazz='CONSTANT',
+                                                    alias='',
+                                                    value=Value(
+                                                        type=LogicalType(
+                                                            id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                            type_info=None
+                                                        ),
+                                                        value=2,
+                                                        is_null=False
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    then_expr=ParsedExpressionSubclasses(
+                                        __root__=ConstantExpression(
+                                            type='CONSTANT',
+                                            clazz='CONSTANT',
+                                            alias='',
+                                            value=Value(
+                                                type=LogicalType(
+                                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                    type_info=None
+                                                ),
+                                                value=1,
+                                                is_null=False
+                                            )
+                                        )
+                                    )
+                                )
+                            ],
+                            else_expr=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=0,
+                                        is_null=False
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(
+                    __root__=BaseTableRef(
+                        alias='',
+                        sample=None,
+                        type='BASE_TABLE',
+                        schema_name='',
+                        table_name='integers',
+                        catalog_name='',
+                        column_name_alias=[]
+                    )
+                )
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[create table dummy as select 1] 1'] = '''Root(
     __root__=ErrorResponse(
         error=True,
