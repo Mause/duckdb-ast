@@ -149,7 +149,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                 value=0,
                                 is_null=False
                             )
@@ -159,7 +159,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                 value=10,
                                 is_null=False
                             )
@@ -199,7 +199,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SuccessResponse(
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                 value=1,
                                 is_null=False
                             )
@@ -209,7 +209,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SuccessResponse(
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                 value=1,
                                 is_null=False
                             )
@@ -247,7 +247,7 @@ snapshots['test_sql[select 1] 1'] = '''SuccessResponse(
                     clazz='CONSTANT',
                     alias='',
                     value=Value(
-                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                         value=1,
                         is_null=False
                     )
@@ -292,12 +292,12 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SuccessResponse(
                         export_state=False,
                         filter=None
                     ),
-                    cast_type=ValueType(
+                    cast_type=LogicalType(
                         id=<LogicalTypeId.LIST: 'LIST'>,
                         type_info=ListTypeInfo(
                             type='LIST_TYPE_INFO',
                             alias='',
-                            child_type=ValueType(id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>, type_info=None)
+                            child_type=LogicalType(id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>, type_info=None)
                         )
                     ),
                     try_cast=False
@@ -344,7 +344,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                 value=5,
                                 is_null=False
                             )
@@ -369,12 +369,12 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
-                                    type=ValueType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                    type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
                                     value='t',
                                     is_null=False
                                 )
                             ),
-                            cast_type=ValueType(id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>, type_info=None),
+                            cast_type=LogicalType(id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>, type_info=None),
                             try_cast=False
                         )
                     )
@@ -531,7 +531,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
-                                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                         value=1,
                                         is_null=False
                                     )
@@ -541,7 +541,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
-                                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                         value=2,
                                         is_null=False
                                     )
@@ -551,7 +551,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
-                                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                         value=3,
                                         is_null=False
                                     )
@@ -582,7 +582,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
-                                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                                         value=2,
                                         is_null=False
                                     )

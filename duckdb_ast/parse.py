@@ -36,16 +36,16 @@ class LogicalTypeId(Enum):
 class ListTypeInfo(Base):
     type: Literal["LIST_TYPE_INFO"]
     alias: str
-    child_type: "ValueType"
+    child_type: "LogicalType"
 
 
-class ValueType(Base):
+class LogicalType(Base):
     id: LogicalTypeId
     type_info: Optional[ListTypeInfo]
 
 
 class Value(Base, Generic[T]):
-    type: ValueType
+    type: LogicalType
     value: T
     is_null: bool
 
@@ -92,7 +92,7 @@ class CastExpression(ParsedExpression):
     type: Literal["CAST"]
     clazz: Literal["CAST"] = Field(alias="class")
     child: "Select"
-    cast_type: ValueType
+    cast_type: LogicalType
     try_cast: bool
 
 
