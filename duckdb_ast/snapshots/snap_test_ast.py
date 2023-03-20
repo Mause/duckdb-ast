@@ -1125,6 +1125,98 @@ snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=FunctionExpression(
+                            type='FUNCTION',
+                            clazz='FUNCTION',
+                            alias='',
+                            schema_name='',
+                            function_name='min',
+                            catalog='',
+                            is_operator=False,
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=StarExpression(
+                                        type='STAR',
+                                        clazz='STAR',
+                                        alias='',
+                                        columns=True,
+                                        replace_list={},
+                                        relation_name='',
+                                        exclude_list=[],
+                                        expr=None
+                                    )
+                                )
+                            ],
+                            distinct=False,
+                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            export_state=False,
+                            filter=None
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=FunctionExpression(
+                            type='FUNCTION',
+                            clazz='FUNCTION',
+                            alias='',
+                            schema_name='',
+                            function_name='count',
+                            catalog='',
+                            is_operator=False,
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=StarExpression(
+                                        type='STAR',
+                                        clazz='STAR',
+                                        alias='',
+                                        columns=True,
+                                        replace_list={},
+                                        relation_name='',
+                                        exclude_list=[],
+                                        expr=None
+                                    )
+                                )
+                            ],
+                            distinct=False,
+                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            export_state=False,
+                            filter=None
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(
+                    __root__=BaseTableRef(
+                        alias='',
+                        sample=None,
+                        type='BASE_TABLE',
+                        schema_name='',
+                        table_name='numbers',
+                        catalog_name='',
+                        column_name_alias=[]
+                    )
+                )
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT NULL IS NULL] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,

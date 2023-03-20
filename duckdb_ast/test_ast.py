@@ -69,6 +69,7 @@ FROM test_all_types()
              FROM grades
              WHERE grades.course=grades_parent.course);
         """,
+        "SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;",
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
