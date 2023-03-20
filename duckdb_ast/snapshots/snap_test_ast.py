@@ -124,6 +124,63 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
 )
 '''
 
+snapshots['test_sql[select 1 * 1] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        Statement(
+            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                Function(
+                    clazz='FUNCTION',
+                    type='FUNCTION',
+                    schema_name='',
+                    function_name='*',
+                    catalog='',
+                    alias='',
+                    is_operator=True,
+                    children=[
+                        Constant(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                value=1,
+                                is_null=False
+                            )
+                        ),
+                        Constant(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                value=1,
+                                is_null=False
+                            )
+                        )
+                    ],
+                    distinct=False,
+                    order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                    export_state=False,
+                    filter=None
+                )
+            ],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=EmptyTable(type='EMPTY', alias='', sample=None)
+        )
+    ]
+)
+'''
+
 snapshots['test_sql[select 1] 1'] = '''SuccessResponse(
     error=False,
     statements=[
@@ -238,6 +295,35 @@ snapshots['test_sql[select frog from frogs] 1'] = '''SuccessResponse(
             modifiers=[],
             cte_map={'map': []},
             select_list=[ColumnRef(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=BaseTable(
+                type='BASE_TABLE',
+                alias='',
+                sample=None,
+                schema_name='',
+                table_name='frogs',
+                catalog_name='',
+                column_name_alias=[]
+            )
+        )
+    ]
+)
+'''
+
+snapshots['test_sql[select frog.age from frogs] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        Statement(
+            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[ColumnRef(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog', 'age'])],
             where_clause=None,
             sample=None,
             qualify=None,
