@@ -516,14 +516,14 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
             modifiers=[],
             cte_map={'map': []},
             select_list=[ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
-            where_clause=Conjunction(
-                clazz='CONJUNCTION',
+            where_clause=ConjunctionExpression(
                 type='AND',
+                clazz='CONJUNCTION',
                 alias='',
                 children=[
-                    Comparison(
-                        clazz='COMPARISON',
+                    ComparisonExpression(
                         type='GREATERTHAN',
+                        clazz='COMPARISON',
                         alias='',
                         left=ColumnRefExpression(
                             type='COLUMN_REF',
@@ -542,9 +542,9 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                             )
                         )
                     ),
-                    Comparison(
-                        clazz='COMPARISON',
+                    ComparisonExpression(
                         type='EQUAL',
+                        clazz='COMPARISON',
                         alias='',
                         left=ColumnRefExpression(
                             type='COLUMN_REF',

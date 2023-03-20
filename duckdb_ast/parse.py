@@ -129,6 +129,19 @@ class CastExpression(ParsedExpression):
     try_cast: bool
 
 
+class ComparisonExpression(ParsedExpression):
+    clazz: Literal["COMPARISON"] = Field(alias="class")
+    type: Literal["GREATERTHAN", "EQUAL"]
+    left: "Select"
+    right: "Select"
+
+
+class ConjunctionExpression(ParsedExpression):
+    clazz: Literal["CONJUNCTION"] = Field(alias="class")
+    type: Literal["AND", "OR"]
+    children: list["Select"]
+
+
 Select = Annotated[
     Union[
         "FunctionExpression",
@@ -136,29 +149,11 @@ Select = Annotated[
         StarExpression,
         ConstantExpression,
         CastExpression,
+        ComparisonExpression,
+        ConjunctionExpression,
     ],
     Field(discriminator="type"),
 ]
-
-
-class Comparison(Base):
-    clazz: Literal["COMPARISON"] = Field(alias="class")
-    type: Literal["GREATERTHAN", "EQUAL"]
-    alias: str
-    left: Select
-    right: Select
-
-
-class Conjunction(Base):
-    clazz: Literal["CONJUNCTION"] = Field(alias="class")
-    type: Literal["AND"]
-    alias: str
-    children: list["Clause"]
-
-
-Clause = Annotated[Union[Comparison, Conjunction], Field(discriminator="class")]
-
-Conjunction.update_forward_refs()
 
 
 class SampleMethod(Enum):
@@ -244,7 +239,7 @@ GroupingSet = set[int]
 class SelectNode(QueryNode):
     type: Literal["SELECT_NODE"]
     select_list: list[Select]
-    where_clause: Optional[Clause]
+    where_clause: Optional[Select]
     sample: Optional[SampleOptions]
     qualify: Optional[Select]
     having: Optional[Select]
@@ -284,7 +279,8 @@ Root = Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="err
 
 
 CastExpression.update_forward_refs()
-Comparison.update_forward_refs()
+ComparisonExpression.update_forward_refs()
 ListTypeInfo.update_forward_refs()
 StarExpression.update_forward_refs()
+ConjunctionExpression.update_forward_refs()
 # print(schema_json_of(Root))
