@@ -334,11 +334,20 @@ class ResultModifier(Base):
     type: ResultModifierType
 
 
+class CommonTableExpressionInfo(Base):
+    aliases: list[str]
+    query: "SelectNode"
+
+
+class CommonTableExpressionMap(Base):
+    map: dict[str, CommonTableExpressionInfo]
+
+
 class QueryNode(Base):
     type: str
     modifiers: list[ResultModifier]
 
-    cte_map: dict
+    cte_map: CommonTableExpressionMap
 
 
 class SubqueryRef(TableRef):
@@ -412,6 +421,7 @@ CaseExpression.update_forward_refs()
 CaseCheck.update_forward_refs()
 SubqueryRef.update_forward_refs()
 CollateExpression.update_forward_refs()
+CommonTableExpressionInfo.update_forward_refs()
 BetweenExpression.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
 

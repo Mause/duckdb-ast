@@ -14,7 +14,7 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=StarExpression(
@@ -71,7 +71,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=StarExpression(
@@ -109,7 +109,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                                 subquery=SelectNode(
                                     type='SELECT_NODE',
                                     modifiers=[],
-                                    cte_map={'map': []},
+                                    cte_map=CommonTableExpressionMap(map={}),
                                     select_list=[
                                         ParsedExpressionSubclasses(
                                             __root__=FunctionExpression(
@@ -213,7 +213,7 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ColumnRefExpression(
@@ -314,7 +314,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=StarExpression(
@@ -386,7 +386,7 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=SubqueryExpression(
@@ -398,7 +398,7 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''Root(
                             subquery=SelectNode(
                                 type='SELECT_NODE',
                                 modifiers=[],
-                                cte_map={'map': []},
+                                cte_map=CommonTableExpressionMap(map={}),
                                 select_list=[
                                     ParsedExpressionSubclasses(
                                         __root__=ConstantExpression(
@@ -452,7 +452,7 @@ snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''R
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=StarExpression(
@@ -507,7 +507,7 @@ snapshots['test_sql[SELECT 0::HUGEINT] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -552,7 +552,7 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -612,7 +612,7 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ComparisonExpression(
@@ -698,7 +698,7 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ComparisonExpression(
@@ -908,7 +908,7 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ComparisonExpression(
@@ -994,7 +994,7 @@ snapshots['test_sql[SELECT DATE \'1992-09-20\'] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -1039,7 +1039,7 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=SubqueryExpression(
@@ -1051,7 +1051,7 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
                             subquery=SelectNode(
                                 type='SELECT_NODE',
                                 modifiers=[],
-                                cte_map={'map': []},
+                                cte_map=CommonTableExpressionMap(map={}),
                                 select_list=[
                                     ParsedExpressionSubclasses(
                                         __root__=StarExpression(
@@ -1139,7 +1139,7 @@ snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=FunctionExpression(
@@ -1204,7 +1204,7 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=FunctionExpression(
@@ -1296,7 +1296,7 @@ snapshots['test_sql[SELECT NULL IS NULL] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=OperatorExpression(
@@ -1341,7 +1341,7 @@ snapshots['test_sql[SELECT TIMESTAMP \'1992-09-20 11:30:00\'] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -1386,7 +1386,7 @@ snapshots['test_sql[SELECT TIMESTAMPTZ \'1992-09-20 11:30:00\'] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -1434,7 +1434,7 @@ snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -1479,7 +1479,7 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Ro
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=SubqueryExpression(
@@ -1502,7 +1502,7 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Ro
                             subquery=SelectNode(
                                 type='SELECT_NODE',
                                 modifiers=[],
-                                cte_map={'map': []},
+                                cte_map=CommonTableExpressionMap(map={}),
                                 select_list=[
                                     ParsedExpressionSubclasses(
                                         __root__=ColumnRefExpression(
@@ -1557,7 +1557,7 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=OperatorExpression(
@@ -1667,7 +1667,7 @@ snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CollateExpression(
@@ -1711,7 +1711,7 @@ snapshots['test_sql[SELECT a BETWEEN x AND y] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=BetweenExpression(
@@ -1766,7 +1766,7 @@ snapshots['test_sql[SELECT a NOT BETWEEN x AND y] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=OperatorExpression(
@@ -1830,7 +1830,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=StarExpression(
@@ -1860,7 +1860,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                         subquery=SelectNode(
                             type='SELECT_NODE',
                             modifiers=[],
-                            cte_map={'map': []},
+                            cte_map=CommonTableExpressionMap(map={}),
                             select_list=[
                                 ParsedExpressionSubclasses(
                                     __root__=FunctionExpression(
@@ -1950,7 +1950,7 @@ snapshots['test_sql[SELECT expression IS NOT NULL] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=OperatorExpression(
@@ -1991,7 +1991,7 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ColumnRefExpression(
@@ -2101,7 +2101,7 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=StarExpression(
@@ -2147,7 +2147,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=StarExpression(
@@ -2229,7 +2229,7 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -2283,7 +2283,7 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -2339,7 +2339,7 @@ snapshots['test_sql[select 0::USER_TYPE] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -2392,7 +2392,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=FunctionExpression(
@@ -2457,7 +2457,7 @@ snapshots['test_sql[select 1] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
@@ -2493,7 +2493,7 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
@@ -2550,7 +2550,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ColumnRefExpression(
@@ -2672,7 +2672,7 @@ snapshots['test_sql[select frog from frogs] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ColumnRefExpression(
@@ -2714,7 +2714,7 @@ snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=StarExpression(
@@ -2760,7 +2760,7 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ColumnRefExpression(
@@ -2802,7 +2802,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=FunctionExpression(
@@ -2945,7 +2945,7 @@ snapshots['test_sql[select name from frogs GROUP BY age] 1'] = '''Root(
             SelectNode(
                 type='SELECT_NODE',
                 modifiers=[],
-                cte_map={'map': []},
+                cte_map=CommonTableExpressionMap(map={}),
                 select_list=[
                     ParsedExpressionSubclasses(
                         __root__=ColumnRefExpression(

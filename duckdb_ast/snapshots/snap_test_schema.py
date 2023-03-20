@@ -288,6 +288,44 @@ snapshots['test_schema_generation 1'] = {
             'title': 'ColumnRefExpression',
             'type': 'object'
         },
+        'CommonTableExpressionInfo': {
+            'additionalProperties': False,
+            'properties': {
+                'aliases': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Aliases',
+                    'type': 'array'
+                },
+                'query': {
+                    '$ref': '#/definitions/SelectNode'
+                }
+            },
+            'required': [
+                'aliases',
+                'query'
+            ],
+            'title': 'CommonTableExpressionInfo',
+            'type': 'object'
+        },
+        'CommonTableExpressionMap': {
+            'additionalProperties': False,
+            'properties': {
+                'map': {
+                    'additionalProperties': {
+                        '$ref': '#/definitions/CommonTableExpressionInfo'
+                    },
+                    'title': 'Map',
+                    'type': 'object'
+                }
+            },
+            'required': [
+                'map'
+            ],
+            'title': 'CommonTableExpressionMap',
+            'type': 'object'
+        },
         'ComparisonExpression': {
             'additionalProperties': False,
             'properties': {
@@ -929,8 +967,7 @@ snapshots['test_schema_generation 1'] = {
                     '$ref': '#/definitions/AggregrateHandling'
                 },
                 'cte_map': {
-                    'title': 'Cte Map',
-                    'type': 'object'
+                    '$ref': '#/definitions/CommonTableExpressionMap'
                 },
                 'from_table': {
                     '$ref': '#/definitions/TableRefSubclasses'
