@@ -55,6 +55,7 @@ FROM test_all_types()
         "SELECT 'Math' IN ('CS', 'Math');",
         "SELECT a BETWEEN x AND y",
         "SELECT a NOT BETWEEN x AND y",
+        "SELECT expression IS NOT NULL",
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
