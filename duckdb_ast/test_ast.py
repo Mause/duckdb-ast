@@ -44,6 +44,8 @@ FROM test_all_types()
         "SELECT '101010'::BIT",
         "SELECT 0::HUGEINT",
         "SELECT 0::UNION(num INT, str VARCHAR)",
+        # r"SELECT '\xAA'::BLOB",
+        "SELECT INTERVAL 1 YEAR",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

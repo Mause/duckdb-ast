@@ -436,6 +436,71 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=FunctionExpression(
+                            type='FUNCTION',
+                            clazz='FUNCTION',
+                            alias='',
+                            schema_name='',
+                            function_name='to_years',
+                            catalog='',
+                            is_operator=False,
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=CastExpression(
+                                        type='CAST',
+                                        clazz='CAST',
+                                        alias='',
+                                        child=ParsedExpressionSubclasses(
+                                            __root__=ConstantExpression(
+                                                type='CONSTANT',
+                                                clazz='CONSTANT',
+                                                alias='',
+                                                value=Value(
+                                                    type=LogicalType(
+                                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                        type_info=None
+                                                    ),
+                                                    value=1,
+                                                    is_null=False
+                                                )
+                                            )
+                                        ),
+                                        cast_type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        try_cast=False
+                                    )
+                                )
+                            ],
+                            distinct=False,
+                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            export_state=False,
+                            filter=None
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[create table dummy as select 1] 1'] = '''Root(
     __root__=ErrorResponse(
         error=True,
