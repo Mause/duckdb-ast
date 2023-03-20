@@ -2,7 +2,7 @@ from io import StringIO
 
 from pytest import mark
 from rich.console import Console
-from snapshottest.snapshot import Snapshot
+from snapshottest.module import SnapshotTest
 
 import duckdb_ast.parse
 
@@ -54,7 +54,7 @@ FROM test_all_types()
         "SELECT 'hello' COLLATE NOCASE",
     ],
 )
-def test_sql(sql, snapshot: Snapshot):
+def test_sql(sql, snapshot: SnapshotTest):
     parsed = duckdb_ast.parse.parse_sql(sql)
     file = StringIO()
     Console(width=120, file=file).print(parsed)
