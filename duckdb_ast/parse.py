@@ -36,6 +36,7 @@ class LogicalTypeId(Enum):
     USER = "USER"
     DOUBLE = "DOUBLE"
     BIT = "BIT"
+    HUGEINT = "HUGEINT"
 
 
 class CatalogEntry(Base):

@@ -42,6 +42,7 @@ FROM test_all_types()
         HAVING COUNT(*) >= 50;
         """,
         "SELECT '101010'::BIT",
+        "SELECT 0::HUGEINT",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):
