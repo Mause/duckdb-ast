@@ -310,8 +310,15 @@ class QueryNode(Base):
     cte_map: dict
 
 
+class SubqueryRef(TableRef):
+    type: Literal["SUBQUERY"]
+
+    subquery: "SelectNode"
+    column_name_alias: list[str]
+
+
 class TableRefSubclasses(Base):
-    __root__: Union[BaseTableRef, EmptyTableRef, TableFunctionRef] = Field(
+    __root__: Union[BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef] = Field(
         discriminator="type"
     )
 
@@ -372,6 +379,7 @@ SubqueryExpression.update_forward_refs()
 OperatorExpression.update_forward_refs()
 CaseExpression.update_forward_refs()
 CaseCheck.update_forward_refs()
+SubqueryRef.update_forward_refs()
 CollateExpression.update_forward_refs()
 BetweenExpression.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()

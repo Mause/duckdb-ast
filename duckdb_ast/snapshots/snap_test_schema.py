@@ -1085,6 +1085,43 @@ snapshots['test_schema_generation 1'] = {
             'title': 'SubqueryExpression',
             'type': 'object'
         },
+        'SubqueryRef': {
+            'additionalProperties': False,
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'column_name_alias': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Column Name Alias',
+                    'type': 'array'
+                },
+                'sample': {
+                    '$ref': '#/definitions/SampleOptions'
+                },
+                'subquery': {
+                    '$ref': '#/definitions/SelectNode'
+                },
+                'type': {
+                    'enum': [
+                        'SUBQUERY'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'alias',
+                'type',
+                'subquery',
+                'column_name_alias'
+            ],
+            'title': 'SubqueryRef',
+            'type': 'object'
+        },
         'SuccessResponse': {
             'additionalProperties': False,
             'properties': {
@@ -1152,6 +1189,7 @@ snapshots['test_schema_generation 1'] = {
                 'mapping': {
                     'BASE_TABLE': '#/definitions/BaseTableRef',
                     'EMPTY': '#/definitions/EmptyTableRef',
+                    'SUBQUERY': '#/definitions/SubqueryRef',
                     'TABLE_FUNCTION': '#/definitions/TableFunctionRef'
                 },
                 'propertyName': 'type'
@@ -1165,6 +1203,9 @@ snapshots['test_schema_generation 1'] = {
                 },
                 {
                     '$ref': '#/definitions/TableFunctionRef'
+                },
+                {
+                    '$ref': '#/definitions/SubqueryRef'
                 }
             ],
             'title': 'TableRefSubclasses'

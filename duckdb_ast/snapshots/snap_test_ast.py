@@ -1710,6 +1710,126 @@ snapshots['test_sql[SELECT a NOT BETWEEN x AND y] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=StarExpression(
+                            type='STAR',
+                            clazz='STAR',
+                            alias='',
+                            columns=False,
+                            replace_list={},
+                            relation_name='a',
+                            exclude_list=[],
+                            expr=None
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(
+                    __root__=SubqueryRef(
+                        alias='',
+                        sample=None,
+                        type='SUBQUERY',
+                        subquery=SelectNode(
+                            type='SELECT_NODE',
+                            modifiers=[],
+                            cte_map={'map': []},
+                            select_list=[
+                                ParsedExpressionSubclasses(
+                                    __root__=FunctionExpression(
+                                        type='FUNCTION',
+                                        clazz='FUNCTION',
+                                        alias='a',
+                                        schema_name='main',
+                                        function_name='struct_pack',
+                                        catalog='',
+                                        is_operator=False,
+                                        children=[
+                                            ParsedExpressionSubclasses(
+                                                __root__=ConstantExpression(
+                                                    type='CONSTANT',
+                                                    clazz='CONSTANT',
+                                                    alias='x',
+                                                    value=Value(
+                                                        type=LogicalType(
+                                                            id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                            type_info=None
+                                                        ),
+                                                        value=1,
+                                                        is_null=False
+                                                    )
+                                                )
+                                            ),
+                                            ParsedExpressionSubclasses(
+                                                __root__=ConstantExpression(
+                                                    type='CONSTANT',
+                                                    clazz='CONSTANT',
+                                                    alias='y',
+                                                    value=Value(
+                                                        type=LogicalType(
+                                                            id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                            type_info=None
+                                                        ),
+                                                        value=2,
+                                                        is_null=False
+                                                    )
+                                                )
+                                            ),
+                                            ParsedExpressionSubclasses(
+                                                __root__=ConstantExpression(
+                                                    type='CONSTANT',
+                                                    clazz='CONSTANT',
+                                                    alias='z',
+                                                    value=Value(
+                                                        type=LogicalType(
+                                                            id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                            type_info=None
+                                                        ),
+                                                        value=3,
+                                                        is_null=False
+                                                    )
+                                                )
+                                            )
+                                        ],
+                                        distinct=False,
+                                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                        export_state=False,
+                                        filter=None
+                                    )
+                                )
+                            ],
+                            where_clause=None,
+                            sample=None,
+                            qualify=None,
+                            having=None,
+                            group_sets=[],
+                            group_expressions=[],
+                            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                            from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+                        ),
+                        column_name_alias=[]
+                    )
+                )
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT expression IS NOT NULL] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
