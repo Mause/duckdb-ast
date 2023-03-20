@@ -37,10 +37,22 @@ class LogicalTypeId(Enum):
     DOUBLE = "DOUBLE"
 
 
+class CatalogEntry(Base):
+    pass
+
+
+class StandardEntry(CatalogEntry):
+    pass
+
+
+class TypeCatalogEntry(StandardEntry):
+    user_type: "LogicalType"
+
+
 class ExtraTypeInfo(Base):
     type: str
     alias: str
-    catalog_entry: Optional[object]
+    catalog_entry: Optional[TypeCatalogEntry]
 
 
 class ListTypeInfo(ExtraTypeInfo):
@@ -283,4 +295,4 @@ ComparisonExpression.update_forward_refs()
 ListTypeInfo.update_forward_refs()
 StarExpression.update_forward_refs()
 ConjunctionExpression.update_forward_refs()
-# print(schema_json_of(Root))
+TypeCatalogEntry.update_forward_refs()
