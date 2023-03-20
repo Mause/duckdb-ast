@@ -33,9 +33,10 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=TableFunction(
-                type='TABLE_FUNCTION',
+            from_table=TableFunctionRef(
                 alias='',
+                sample=None,
+                type='TABLE_FUNCTION',
                 function=FunctionExpression(
                     type='FUNCTION',
                     clazz='FUNCTION',
@@ -50,7 +51,6 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                     export_state=False,
                     filter=None
                 ),
-                sample=None,
                 column_name_alias=[]
             )
         )
@@ -91,10 +91,10 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''SuccessResponse(
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=BaseTable(
-                type='BASE_TABLE',
+            from_table=BaseTableRef(
                 alias='',
                 sample=None,
+                type='BASE_TABLE',
                 schema_name='',
                 table_name='duckdb_tables',
                 catalog_name='',
@@ -131,9 +131,10 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=TableFunction(
-                type='TABLE_FUNCTION',
+            from_table=TableFunctionRef(
                 alias='',
+                sample=None,
+                type='TABLE_FUNCTION',
                 function=FunctionExpression(
                     type='FUNCTION',
                     clazz='FUNCTION',
@@ -169,7 +170,6 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
                     export_state=False,
                     filter=None
                 ),
-                sample=None,
                 column_name_alias=[]
             )
         )
@@ -228,7 +228,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SuccessResponse(
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=EmptyTable(type='EMPTY', alias='', sample=None)
+            from_table=EmptyTableRef(alias='', sample=None, type='EMPTY')
         )
     ]
 )
@@ -260,7 +260,7 @@ snapshots['test_sql[select 1] 1'] = '''SuccessResponse(
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=EmptyTable(type='EMPTY', alias='', sample=None)
+            from_table=EmptyTableRef(alias='', sample=None, type='EMPTY')
         )
     ]
 )
@@ -310,7 +310,7 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SuccessResponse(
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=EmptyTable(type='EMPTY', alias='', sample=None)
+            from_table=EmptyTableRef(alias='', sample=None, type='EMPTY')
         )
     ]
 )
@@ -386,10 +386,10 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=BaseTable(
-                type='BASE_TABLE',
+            from_table=BaseTableRef(
                 alias='',
                 sample=None,
+                type='BASE_TABLE',
                 schema_name='',
                 table_name='frogs',
                 catalog_name='',
@@ -415,10 +415,10 @@ snapshots['test_sql[select frog from frogs] 1'] = '''SuccessResponse(
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=BaseTable(
-                type='BASE_TABLE',
+            from_table=BaseTableRef(
                 alias='',
                 sample=None,
+                type='BASE_TABLE',
                 schema_name='',
                 table_name='frogs',
                 catalog_name='',
@@ -455,10 +455,10 @@ snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SuccessRespon
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=BaseTable(
-                type='BASE_TABLE',
+            from_table=BaseTableRef(
                 alias='',
                 sample=None,
+                type='BASE_TABLE',
                 schema_name='',
                 table_name='frogs',
                 catalog_name='',
@@ -486,10 +486,10 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''SuccessResponse(
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=BaseTable(
-                type='BASE_TABLE',
+            from_table=BaseTableRef(
                 alias='',
                 sample=None,
+                type='BASE_TABLE',
                 schema_name='',
                 table_name='frogs',
                 catalog_name='',
@@ -607,7 +607,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
             group_sets=[],
             group_expressions=[],
             aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-            from_table=EmptyTable(type='EMPTY', alias='', sample=None)
+            from_table=EmptyTableRef(alias='', sample=None, type='EMPTY')
         )
     ]
 )

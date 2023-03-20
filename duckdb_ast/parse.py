@@ -128,20 +128,39 @@ Clause = Annotated[Union[Comparison, Conjunction], Field(discriminator="class")]
 Conjunction.update_forward_refs()
 
 
-class BaseTable(Base):
-    type: Literal["BASE_TABLE"]
+class SampleMethod(Enum):
+    SYSTEM_SAMPLE = "SYSTEM_SAMPLE"
+    BERNOULLI_SAMPLE = "BERNOULLI_SAMPLE"
+    RESERVOIR_SAMPLE = "RESERVOIR_SAMPLE"
+
+
+class SampleOptions(Base):
+    sample_size: Value
+    is_percentage: bool
+    method: SampleMethod
+    seed: int = -1
+
+
+class TableRef(Base):
     alias: str
-    sample: Optional[int]
+    sample: Optional[SampleOptions]
+
+
+class BaseTableRef(TableRef):
+    """
+    https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/tableref/basetableref.hpp
+    """
+
+    type: Literal["BASE_TABLE"]
+
     schema_name: str
     table_name: str
     catalog_name: str
     column_name_alias: Optional[list[str]]
 
 
-class EmptyTable(Base):
+class EmptyTableRef(TableRef):
     type: Literal["EMPTY"]
-    alias: str
-    sample: Optional[int]
 
 
 class OrderModifier(Base):
@@ -163,11 +182,10 @@ class FunctionExpression(ParsedExpression):
     filter: Optional[Select]
 
 
-class TableFunction(Base):
+class TableFunctionRef(TableRef):
     type: Literal["TABLE_FUNCTION"]
-    alias: str
+
     function: FunctionExpression
-    sample: Optional[int]
     column_name_alias: Optional[list[str]]
 
 
@@ -182,8 +200,8 @@ class QueryNode(Base):
     cte_map: dict
 
 
-TableRef = Annotated[
-    Union[BaseTable, EmptyTable, TableFunction], Field(discriminator="type")
+TableRefSubclasses = Annotated[
+    Union[BaseTableRef, EmptyTableRef, TableFunctionRef], Field(discriminator="type")
 ]
 
 
@@ -192,12 +210,12 @@ class SelectNode(QueryNode):
     select_list: list[Select]
     where_clause: Optional[Clause]
     sample: Optional[int]
-    qualify: Optional[list[object]]
-    having: Optional[list[object]]
+    qualify: Optional[Select]
+    having: Optional[Select]
     group_sets: Optional[list[object]]
     group_expressions: Optional[list[object]]
     aggregate_handling: Optional[AggregrateHandling]
-    from_table: TableRef
+    from_table: TableRefSubclasses
 
 
 class ErrorResponse(Base):
