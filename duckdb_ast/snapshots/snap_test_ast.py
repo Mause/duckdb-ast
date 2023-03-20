@@ -1478,7 +1478,7 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Ro
 )
 '''
 
-snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\');] 1'] = '''Root(
+snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'Math\')] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
         statements=[
@@ -1503,6 +1503,47 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\');] 1'] = '''Root(
                                             value='Math',
                                             is_null=False
                                         )
+                                    )
+                                ),
+                                ParsedExpressionSubclasses(
+                                    __root__=ConstantExpression(
+                                        type='CONSTANT',
+                                        clazz='CONSTANT',
+                                        alias='',
+                                        value=Value(
+                                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                            value='CS',
+                                            is_null=False
+                                        )
+                                    )
+                                ),
+                                ParsedExpressionSubclasses(
+                                    __root__=ConstantExpression(
+                                        type='CONSTANT',
+                                        clazz='CONSTANT',
+                                        alias='',
+                                        value=Value(
+                                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                            value='Math',
+                                            is_null=False
+                                        )
+                                    )
+                                )
+                            ]
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=OperatorExpression(
+                            type='COMPARE_NOT_IN',
+                            clazz='OPERATOR',
+                            alias='',
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=ColumnRefExpression(
+                                        type='COLUMN_REF',
+                                        clazz='COLUMN_REF',
+                                        alias='',
+                                        column_names=['X']
                                     )
                                 ),
                                 ParsedExpressionSubclasses(

@@ -691,7 +691,8 @@ snapshots['test_schema_generation 1'] = {
                         'IS_NULL',
                         'IN',
                         'NOT',
-                        'IS_NOT_NULL'
+                        'IS_NOT_NULL',
+                        'COMPARE_NOT_IN'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -740,6 +741,7 @@ snapshots['test_schema_generation 1'] = {
                     'COLLATE': '#/definitions/CollateExpression',
                     'COLUMN_REF': '#/definitions/ColumnRefExpression',
                     'COMPARE_BETWEEN': '#/definitions/BetweenExpression',
+                    'COMPARE_NOT_IN': '#/definitions/OperatorExpression',
                     'CONSTANT': '#/definitions/ConstantExpression',
                     'DISTINCT_FROM': '#/definitions/ComparisonExpression',
                     'EQUAL': '#/definitions/ComparisonExpression',
