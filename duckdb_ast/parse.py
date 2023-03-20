@@ -3,10 +3,10 @@ from enum import Enum
 from typing import Annotated, Generic, Literal, Optional, TypeVar, Union
 
 import duckdb
-from pydantic import BaseModel, Extra, Field, parse_raw_as
+from pydantic import BaseModel, Extra, Field, parse_raw_as, schema_of
 from rich import print
 
-__all__ = ["parse_sql"]
+__all__ = ["parse_sql", "get_schema"]
 
 T = TypeVar("T")
 
@@ -296,3 +296,7 @@ ListTypeInfo.update_forward_refs()
 StarExpression.update_forward_refs()
 ConjunctionExpression.update_forward_refs()
 TypeCatalogEntry.update_forward_refs()
+
+
+def get_schema():
+    return schema_of(Root)
