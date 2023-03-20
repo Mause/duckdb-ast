@@ -155,7 +155,13 @@ class CastExpression(ParsedExpression):
 
 class ComparisonExpression(ParsedExpression):
     clazz: Literal["COMPARISON"] = Field(alias="class")
-    type: Literal["GREATERTHAN", "EQUAL", "GREATERTHANOREQUALTO"]
+    type: Literal[
+        "GREATERTHAN",
+        "EQUAL",
+        "GREATERTHANOREQUALTO",
+        "NOT_DISTINCT_FROM",
+        "DISTINCT_FROM",
+    ]
     left: "ParsedExpressionSubclasses"
     right: "ParsedExpressionSubclasses"
 

@@ -312,7 +312,9 @@ snapshots['test_schema_generation 1'] = {
                     'enum': [
                         'GREATERTHAN',
                         'EQUAL',
-                        'GREATERTHANOREQUALTO'
+                        'GREATERTHANOREQUALTO',
+                        'NOT_DISTINCT_FROM',
+                        'DISTINCT_FROM'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -736,6 +738,7 @@ snapshots['test_schema_generation 1'] = {
                     'COLUMN_REF': '#/definitions/ColumnRefExpression',
                     'COMPARE_BETWEEN': '#/definitions/BetweenExpression',
                     'CONSTANT': '#/definitions/ConstantExpression',
+                    'DISTINCT_FROM': '#/definitions/ComparisonExpression',
                     'EQUAL': '#/definitions/ComparisonExpression',
                     'FUNCTION': '#/definitions/FunctionExpression',
                     'GREATERTHAN': '#/definitions/ComparisonExpression',
@@ -744,6 +747,7 @@ snapshots['test_schema_generation 1'] = {
                     'IS_NOT_NULL': '#/definitions/OperatorExpression',
                     'IS_NULL': '#/definitions/OperatorExpression',
                     'NOT': '#/definitions/OperatorExpression',
+                    'NOT_DISTINCT_FROM': '#/definitions/ComparisonExpression',
                     'OR': '#/definitions/ConjunctionExpression',
                     'STAR': '#/definitions/StarExpression',
                     'SUBQUERY': '#/definitions/SubqueryExpression'
