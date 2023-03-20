@@ -494,7 +494,6 @@ snapshots['test_schema_generation 1'] = {
         'LogicalTypeId': {
             'description': 'An enumeration.',
             'enum': [
-                'INTEGER',
                 'BOOLEAN',
                 'VARCHAR',
                 'LIST',
@@ -504,10 +503,17 @@ snapshots['test_schema_generation 1'] = {
                 'USER',
                 'DOUBLE',
                 'BIT',
-                'HUGEINT',
-                'TINYINT',
                 'BLOB',
-                'NULL'
+                'NULL',
+                'TINYINT',
+                'SMALLINT',
+                'INTEGER',
+                'BIGINT',
+                'HUGEINT',
+                'UTINYINT',
+                'USMALLINT',
+                'UINTEGER',
+                'UBIGINT'
             ],
             'title': 'LogicalTypeId'
         },

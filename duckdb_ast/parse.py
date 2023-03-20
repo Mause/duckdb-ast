@@ -27,7 +27,6 @@ class ParsedExpression(BaseExpression):
 
 
 class LogicalTypeId(Enum):
-    INTEGER = "INTEGER"
     BOOLEAN = "BOOLEAN"
     VARCHAR = "VARCHAR"
     LIST = "LIST"
@@ -37,10 +36,17 @@ class LogicalTypeId(Enum):
     USER = "USER"
     DOUBLE = "DOUBLE"
     BIT = "BIT"
-    HUGEINT = "HUGEINT"
-    TINYINT = "TINYINT"
     BLOB = "BLOB"
     NULL = "NULL"
+    TINYINT = "TINYINT"
+    SMALLINT = "SMALLINT"
+    INTEGER = "INTEGER"
+    BIGINT = "BIGINT"
+    HUGEINT = "HUGEINT"
+    UTINYINT = "UTINYINT"
+    USMALLINT = "USMALLINT"
+    UINTEGER = "UINTEGER"
+    UBIGINT = "UBIGINT"
 
 
 class CatalogEntry(Base):
