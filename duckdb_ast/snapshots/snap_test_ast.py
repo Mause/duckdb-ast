@@ -755,3 +755,34 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessRe
     ]
 )
 '''
+
+snapshots['test_sql[select name from frogs GROUP BY age] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        SelectNode(
+            type='SELECT_NODE',
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['name'])],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[{0}],
+            group_expressions=[
+                ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['age'])
+            ],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=BaseTableRef(
+                alias='',
+                sample=None,
+                type='BASE_TABLE',
+                schema_name='',
+                table_name='frogs',
+                catalog_name='',
+                column_name_alias=[]
+            )
+        )
+    ]
+)
+'''

@@ -237,6 +237,9 @@ TableRefSubclasses = Annotated[
 ]
 
 
+GroupingSet = set[int]
+
+
 class SelectNode(QueryNode):
     type: Literal["SELECT_NODE"]
     select_list: list[Select]
@@ -244,8 +247,8 @@ class SelectNode(QueryNode):
     sample: Optional[int]
     qualify: Optional[Select]
     having: Optional[Select]
-    group_sets: Optional[list[object]]
-    group_expressions: Optional[list[object]]
+    group_sets: Optional[list[GroupingSet]]
+    group_expressions: Optional[list[Select]]
     aggregate_handling: Optional[AggregrateHandling]
     from_table: TableRefSubclasses
 
