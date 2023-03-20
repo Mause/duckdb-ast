@@ -10,8 +10,8 @@ snapshots = Snapshot()
 snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(chr(0), chr(10)) AS whatever) FROM test_all_types() ] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[
@@ -68,8 +68,8 @@ snapshots['test_sql[create table dummy as select 1] 1'] = '''ErrorResponse(
 snapshots['test_sql[select * from duckdb_tables] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[
@@ -108,8 +108,8 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''SuccessResponse(
 snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[
@@ -180,8 +180,8 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
 snapshots['test_sql[select 1 * 1] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[
@@ -237,8 +237,8 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SuccessResponse(
 snapshots['test_sql[select 1] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[
@@ -269,8 +269,8 @@ snapshots['test_sql[select 1] 1'] = '''SuccessResponse(
 snapshots['test_sql[select []::boolean[]] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[
@@ -319,8 +319,8 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SuccessResponse(
 snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
@@ -403,8 +403,8 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
 snapshots['test_sql[select frog from frogs] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
@@ -432,8 +432,8 @@ snapshots['test_sql[select frog from frogs] 1'] = '''SuccessResponse(
 snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[
@@ -472,8 +472,8 @@ snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SuccessRespon
 snapshots['test_sql[select frog.age from frogs] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[
@@ -503,8 +503,8 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''SuccessResponse(
 snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessResponse(
     error=False,
     statements=[
-        Statement(
-            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+        SelectNode(
+            type='SELECT_NODE',
             modifiers=[],
             cte_map={'map': []},
             select_list=[

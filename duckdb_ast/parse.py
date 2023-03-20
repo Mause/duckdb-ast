@@ -26,10 +26,6 @@ class ParsedExpression(BaseExpression):
     pass
 
 
-class StatementType(Enum):
-    SELECT_NODE = "SELECT_NODE"
-
-
 class LogicalTypeId(Enum):
     INTEGER = "INTEGER"
     BOOLEAN = "BOOLEAN"
@@ -179,10 +175,15 @@ class AggregrateHandling(Enum):
     STANDARD_HANDLING = "STANDARD_HANDLING"
 
 
-class Statement(Base):
-    type: StatementType
+class QueryNode(Base):
+    type: str
     modifiers: list[object]
+
     cte_map: dict
+
+
+class SelectNode(QueryNode):
+    type: Literal["SELECT_NODE"]
     select_list: list[Select]
     where_clause: Optional[Clause]
     sample: Optional[int]
@@ -204,7 +205,7 @@ class ErrorResponse(Base):
 
 class SuccessResponse(Base):
     error: Literal[False]
-    statements: list[Statement]
+    statements: list[SelectNode]
 
 
 def escape_sql(sql):
