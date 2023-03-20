@@ -35,6 +35,7 @@ class LogicalTypeId(Enum):
     DECIMAL = "DECIMAL"
     USER = "USER"
     DOUBLE = "DOUBLE"
+    BIT = "BIT"
 
 
 class CatalogEntry(Base):
@@ -280,7 +281,7 @@ class SuccessResponse(Base):
 
 
 def escape_sql(sql):
-    return sql.replace('"', '""')
+    return sql.replace('"', '""').replace("'", "''")
 
 
 def parse_sql(sql: str) -> "Root":

@@ -41,6 +41,7 @@ FROM test_all_types()
         GROUP BY city
         HAVING COUNT(*) >= 50;
         """,
+        "SELECT '101010'::BIT",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

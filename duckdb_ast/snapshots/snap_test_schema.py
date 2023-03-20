@@ -501,7 +501,8 @@ snapshots['test_schema_generation 1'] = {
                 'STRUCT',
                 'DECIMAL',
                 'USER',
-                'DOUBLE'
+                'DOUBLE',
+                'BIT'
             ],
             'title': 'LogicalTypeId'
         },

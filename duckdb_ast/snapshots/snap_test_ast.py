@@ -231,6 +231,51 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''Root(
 )
 '''
 
+snapshots["test_sql[SELECT '101010'::BIT] 1"] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=CastExpression(
+                            type='CAST',
+                            clazz='CAST',
+                            alias='',
+                            child=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                        value='101010',
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            cast_type=LogicalType(id=<LogicalTypeId.BIT: 'BIT'>, type_info=None),
+                            try_cast=False
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
