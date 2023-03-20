@@ -513,7 +513,9 @@ snapshots['test_schema_generation 1'] = {
                 'UTINYINT',
                 'USMALLINT',
                 'UINTEGER',
-                'UBIGINT'
+                'UBIGINT',
+                'DATE',
+                'TIMESTAMP'
             ],
             'title': 'LogicalTypeId'
         },

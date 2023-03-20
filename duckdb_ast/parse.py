@@ -47,6 +47,8 @@ class LogicalTypeId(Enum):
     USMALLINT = "USMALLINT"
     UINTEGER = "UINTEGER"
     UBIGINT = "UBIGINT"
+    DATE = "DATE"
+    TIMESTAMP = "TIMESTAMP"
 
 
 class CatalogEntry(Base):

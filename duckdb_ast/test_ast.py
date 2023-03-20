@@ -47,6 +47,8 @@ FROM test_all_types()
         # r"SELECT '\xAA'::BLOB",
         "SELECT INTERVAL 1 YEAR",
         "SELECT NULL IS NULL",
+        "SELECT DATE '1992-09-20'",
+        "SELECT TIMESTAMP '1992-09-20 11:30:00'",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):
