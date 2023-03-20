@@ -181,9 +181,18 @@ class SubqueryExpression(ParsedExpression):
     subquery: "SelectNode"
     subquery_type: Literal["SCALAR"]
 
+
 class CaseCheck(Base):
     when_expr: "ParsedExpressionSubclasses"
     then_expr: "ParsedExpressionSubclasses"
+
+
+class CollateExpression(ParsedExpression):
+    type: Literal["COLLATE"]
+    clazz: Literal["COLLATE"] = Field(alias="class")
+
+    child: "ParsedExpressionSubclasses"
+    collation: str
 
 
 class CaseExpression(ParsedExpression):
@@ -191,7 +200,8 @@ class CaseExpression(ParsedExpression):
     clazz: Literal["CASE"] = Field(alias="class")
 
     case_checks: list[CaseCheck]
-    else_expr: 'ParsedExpressionSubclasses'
+    else_expr: "ParsedExpressionSubclasses"
+
 
 class ParsedExpressionSubclasses(Base):
     __root__: Union[
@@ -205,6 +215,7 @@ class ParsedExpressionSubclasses(Base):
         SubqueryExpression,
         OperatorExpression,
         CaseExpression,
+        CollateExpression,
     ] = Field(discriminator="type")
 
 
@@ -342,6 +353,7 @@ SubqueryExpression.update_forward_refs()
 OperatorExpression.update_forward_refs()
 CaseExpression.update_forward_refs()
 CaseCheck.update_forward_refs()
+CollateExpression.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
 
 

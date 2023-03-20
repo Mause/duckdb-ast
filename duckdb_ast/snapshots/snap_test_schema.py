@@ -168,6 +168,45 @@ snapshots['test_schema_generation 1'] = {
             'title': 'CastExpression',
             'type': 'object'
         },
+        'CollateExpression': {
+            'additionalProperties': False,
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'child': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'class': {
+                    'enum': [
+                        'COLLATE'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'collation': {
+                    'title': 'Collation',
+                    'type': 'string'
+                },
+                'type': {
+                    'enum': [
+                        'COLLATE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'child',
+                'collation'
+            ],
+            'title': 'CollateExpression',
+            'type': 'object'
+        },
         'ColumnRefExpression': {
             'additionalProperties': False,
             'description': 'https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/columnref_expression.hpp#L28',
@@ -648,6 +687,7 @@ snapshots['test_schema_generation 1'] = {
                     'AND': '#/definitions/ConjunctionExpression',
                     'CASE': '#/definitions/CaseExpression',
                     'CAST': '#/definitions/CastExpression',
+                    'COLLATE': '#/definitions/CollateExpression',
                     'COLUMN_REF': '#/definitions/ColumnRefExpression',
                     'CONSTANT': '#/definitions/ConstantExpression',
                     'EQUAL': '#/definitions/ComparisonExpression',
@@ -691,6 +731,9 @@ snapshots['test_schema_generation 1'] = {
                 },
                 {
                     '$ref': '#/definitions/CaseExpression'
+                },
+                {
+                    '$ref': '#/definitions/CollateExpression'
                 }
             ],
             'title': 'ParsedExpressionSubclasses'

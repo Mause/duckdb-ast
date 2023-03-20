@@ -276,6 +276,50 @@ snapshots["test_sql[SELECT '101010'::BIT] 1"] = '''Root(
 )
 '''
 
+snapshots["test_sql[SELECT 'hello' COLLATE NOCASE] 1"] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=CollateExpression(
+                            type='COLLATE',
+                            clazz='COLLATE',
+                            alias='',
+                            child=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                        value='hello',
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            collation='NOCASE'
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
