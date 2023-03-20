@@ -31,6 +31,7 @@ FROM test_all_types()
         "select 0::USER_TYPE",
         "select 0::STRUCT(a INT)",
         "select name from frogs GROUP BY age",
+        "SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

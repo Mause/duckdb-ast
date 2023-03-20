@@ -58,6 +58,55 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
 )
 '''
 
+snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        SelectNode(
+            type='SELECT_NODE',
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                StarExpression(
+                    type='STAR',
+                    clazz='STAR',
+                    alias='',
+                    columns=False,
+                    replace_list={},
+                    relation_name='',
+                    exclude_list=[],
+                    expr=None
+                )
+            ],
+            where_clause=None,
+            sample=SampleOptions(
+                sample_size=Value(
+                    type=LogicalType(id=<LogicalTypeId.DOUBLE: 'DOUBLE'>, type_info=None),
+                    value=1.0,
+                    is_null=False
+                ),
+                is_percentage=True,
+                method=<SampleMethod.BERNOULLI_SAMPLE: 'Bernoulli'>,
+                seed=-1
+            ),
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=BaseTableRef(
+                alias='',
+                sample=None,
+                type='BASE_TABLE',
+                schema_name='',
+                table_name='frogs',
+                catalog_name='',
+                column_name_alias=[]
+            )
+        )
+    ]
+)
+'''
+
 snapshots['test_sql[create table dummy as select 1] 1'] = '''ErrorResponse(
     error=True,
     error_message='Only SELECT statements can be serialized to json!',

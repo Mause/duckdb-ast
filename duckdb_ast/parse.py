@@ -34,6 +34,7 @@ class LogicalTypeId(Enum):
     STRUCT = "STRUCT"
     DECIMAL = "DECIMAL"
     USER = "USER"
+    DOUBLE = "DOUBLE"
 
 
 class ExtraTypeInfo(Base):
@@ -161,9 +162,9 @@ Conjunction.update_forward_refs()
 
 
 class SampleMethod(Enum):
-    SYSTEM_SAMPLE = "SYSTEM_SAMPLE"
-    BERNOULLI_SAMPLE = "BERNOULLI_SAMPLE"
-    RESERVOIR_SAMPLE = "RESERVOIR_SAMPLE"
+    SYSTEM_SAMPLE = "System"
+    BERNOULLI_SAMPLE = "Bernoulli"
+    RESERVOIR_SAMPLE = "Reservoir"
 
 
 class SampleOptions(Base):
@@ -244,7 +245,7 @@ class SelectNode(QueryNode):
     type: Literal["SELECT_NODE"]
     select_list: list[Select]
     where_clause: Optional[Clause]
-    sample: Optional[int]
+    sample: Optional[SampleOptions]
     qualify: Optional[Select]
     having: Optional[Select]
     group_sets: Optional[list[GroupingSet]]
