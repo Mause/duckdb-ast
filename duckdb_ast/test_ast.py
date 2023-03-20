@@ -29,6 +29,7 @@ FROM test_all_types()
         "select list_apply([1, 2, 3], x => x * 2)",
         "select 0::DECIMAL(15, 6)",
         "select 0::USER_TYPE",
+        "select 0::STRUCT(a INT)",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

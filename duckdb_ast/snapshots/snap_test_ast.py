@@ -219,6 +219,52 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SuccessResponse(
 )
 '''
 
+snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        SelectNode(
+            type='SELECT_NODE',
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                CastExpression(
+                    type='CAST',
+                    clazz='CAST',
+                    alias='',
+                    child=ConstantExpression(
+                        type='CONSTANT',
+                        clazz='CONSTANT',
+                        alias='',
+                        value=Value(
+                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            value=0,
+                            is_null=False
+                        )
+                    ),
+                    cast_type=LogicalType(
+                        id=<LogicalTypeId.STRUCT: 'STRUCT'>,
+                        type_info=StructTypeInfo(
+                            type='STRUCT_TYPE_INFO',
+                            alias='',
+                            child_types=['a', LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)]
+                        )
+                    ),
+                    try_cast=False
+                )
+            ],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=EmptyTableRef(alias='', sample=None, type='EMPTY')
+        )
+    ]
+)
+'''
+
 snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SuccessResponse(
     error=False,
     statements=[

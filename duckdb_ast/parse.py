@@ -31,6 +31,7 @@ class LogicalTypeId(Enum):
     BOOLEAN = "BOOLEAN"
     VARCHAR = "VARCHAR"
     LIST = "LIST"
+    STRUCT = "STRUCT"
     DECIMAL = "DECIMAL"
     USER = "USER"
 
@@ -51,6 +52,11 @@ class DecimalTypeInfo(ExtraTypeInfo):
     scale: int
 
 
+class StructTypeInfo(ExtraTypeInfo):
+    type: Literal["STRUCT_TYPE_INFO"]
+    child_types: list[Union[str, "LogicalType"]]
+
+
 class UserTypeInfo(ExtraTypeInfo):
     type: Literal["USER_TYPE_INFO"]
     user_type_name: str
@@ -60,10 +66,13 @@ class LogicalType(Base):
     id: LogicalTypeId
     type_info: Optional[
         Annotated[
-            Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo],
+            Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo, StructTypeInfo],
             Field(discriminator="type"),
         ]
     ]
+
+
+StructTypeInfo.update_forward_refs()
 
 
 class Value(Base, Generic[T]):
