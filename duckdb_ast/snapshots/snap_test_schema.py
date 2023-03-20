@@ -499,11 +499,13 @@ snapshots['test_schema_generation 1'] = {
                 'VARCHAR',
                 'LIST',
                 'STRUCT',
+                'UNION',
                 'DECIMAL',
                 'USER',
                 'DOUBLE',
                 'BIT',
-                'HUGEINT'
+                'HUGEINT',
+                'TINYINT'
             ],
             'title': 'LogicalTypeId'
         },

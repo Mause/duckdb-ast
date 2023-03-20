@@ -32,11 +32,13 @@ class LogicalTypeId(Enum):
     VARCHAR = "VARCHAR"
     LIST = "LIST"
     STRUCT = "STRUCT"
+    UNION = "UNION"
     DECIMAL = "DECIMAL"
     USER = "USER"
     DOUBLE = "DOUBLE"
     BIT = "BIT"
     HUGEINT = "HUGEINT"
+    TINYINT = "TINYINT"
 
 
 class CatalogEntry(Base):

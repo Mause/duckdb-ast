@@ -376,6 +376,66 @@ snapshots['test_sql[SELECT 0::HUGEINT] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=CastExpression(
+                            type='CAST',
+                            clazz='CAST',
+                            alias='',
+                            child=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=0,
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            cast_type=LogicalType(
+                                id=<LogicalTypeId.UNION: 'UNION'>,
+                                type_info=StructTypeInfo(
+                                    type='STRUCT_TYPE_INFO',
+                                    alias='',
+                                    catalog_entry=None,
+                                    child_types=[
+                                        '',
+                                        LogicalType(id=<LogicalTypeId.TINYINT: 'TINYINT'>, type_info=None),
+                                        'num',
+                                        LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        'str',
+                                        LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None)
+                                    ]
+                                )
+                            ),
+                            try_cast=False
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[create table dummy as select 1] 1'] = '''Root(
     __root__=ErrorResponse(
         error=True,

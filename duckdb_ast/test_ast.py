@@ -43,6 +43,7 @@ FROM test_all_types()
         """,
         "SELECT '101010'::BIT",
         "SELECT 0::HUGEINT",
+        "SELECT 0::UNION(num INT, str VARCHAR)",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):
