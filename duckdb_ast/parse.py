@@ -32,6 +32,7 @@ class LogicalTypeId(Enum):
     VARCHAR = "VARCHAR"
     LIST = "LIST"
     DECIMAL = "DECIMAL"
+    USER = "USER"
 
 
 class ExtraTypeInfo(Base):
@@ -50,10 +51,18 @@ class DecimalTypeInfo(ExtraTypeInfo):
     scale: int
 
 
+class UserTypeInfo(ExtraTypeInfo):
+    type: Literal["USER_TYPE_INFO"]
+    user_type_name: str
+
+
 class LogicalType(Base):
     id: LogicalTypeId
     type_info: Optional[
-        Annotated[Union[ListTypeInfo, DecimalTypeInfo], Field(discriminator="type")]
+        Annotated[
+            Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo],
+            Field(discriminator="type"),
+        ]
     ]
 
 

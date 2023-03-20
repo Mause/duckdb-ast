@@ -201,12 +201,49 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SuccessResponse(
                     ),
                     cast_type=LogicalType(
                         id=<LogicalTypeId.DECIMAL: 'DECIMAL'>,
-                        type_info=DecimalTypeInfo(
-                            type='DECIMAL_TYPE_INFO',
-                            alias='',
-                            width=15,
-                            scale=6
+                        type_info=DecimalTypeInfo(type='DECIMAL_TYPE_INFO', alias='', width=15, scale=6)
+                    ),
+                    try_cast=False
+                )
+            ],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=EmptyTableRef(alias='', sample=None, type='EMPTY')
+        )
+    ]
+)
+'''
+
+snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        SelectNode(
+            type='SELECT_NODE',
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                CastExpression(
+                    type='CAST',
+                    clazz='CAST',
+                    alias='',
+                    child=ConstantExpression(
+                        type='CONSTANT',
+                        clazz='CONSTANT',
+                        alias='',
+                        value=Value(
+                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            value=0,
+                            is_null=False
                         )
+                    ),
+                    cast_type=LogicalType(
+                        id=<LogicalTypeId.USER: 'USER'>,
+                        type_info=UserTypeInfo(type='USER_TYPE_INFO', alias='', user_type_name='USER_TYPE')
                     ),
                     try_cast=False
                 )
