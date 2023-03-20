@@ -458,7 +458,16 @@ snapshots['test_schema_generation 1'] = {
                     '$ref': '#/definitions/LogicalTypeId'
                 },
                 'type_info': {
-                    'anyOf': [
+                    'discriminator': {
+                        'mapping': {
+                            'DECIMAL_TYPE_INFO': '#/definitions/DecimalTypeInfo',
+                            'LIST_TYPE_INFO': '#/definitions/ListTypeInfo',
+                            'STRUCT_TYPE_INFO': '#/definitions/StructTypeInfo',
+                            'USER_TYPE_INFO': '#/definitions/UserTypeInfo'
+                        },
+                        'propertyName': 'type'
+                    },
+                    'oneOf': [
                         {
                             '$ref': '#/definitions/ListTypeInfo'
                         },

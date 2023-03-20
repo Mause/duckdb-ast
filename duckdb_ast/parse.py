@@ -1,6 +1,6 @@
 import json
 from enum import Enum
-from typing import Annotated, Generic, Literal, Optional, TypeVar, Union
+from typing import Generic, Literal, Optional, TypeVar, Union
 
 import duckdb
 from pydantic import BaseModel, Extra, Field, parse_raw_as, schema_of
@@ -79,11 +79,8 @@ class UserTypeInfo(ExtraTypeInfo):
 class LogicalType(Base):
     id: LogicalTypeId
     type_info: Optional[
-        Annotated[
-            Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo, StructTypeInfo],
-            Field(discriminator="type"),
-        ]
-    ]
+        Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo, StructTypeInfo]
+    ] = Field(discriminator="type")
 
 
 StructTypeInfo.update_forward_refs()
@@ -165,19 +162,16 @@ class SubqueryExpression(ParsedExpression):
 
 
 class ParsedExpressionSubclasses(Base):
-    __root__: Annotated[
-        Union[
-            "FunctionExpression",
-            ColumnRefExpression,
-            StarExpression,
-            ConstantExpression,
-            CastExpression,
-            ComparisonExpression,
-            ConjunctionExpression,
-            SubqueryExpression,
-        ],
-        Field(discriminator="type"),
-    ]
+    __root__: Union[
+        "FunctionExpression",
+        ColumnRefExpression,
+        StarExpression,
+        ConstantExpression,
+        CastExpression,
+        ComparisonExpression,
+        ConjunctionExpression,
+        SubqueryExpression,
+    ] = Field(discriminator="type")
 
 
 class SampleMethod(Enum):
@@ -253,10 +247,9 @@ class QueryNode(Base):
 
 
 class TableRefSubclasses(Base):
-    __root__: Annotated[
-        Union[BaseTableRef, EmptyTableRef, TableFunctionRef],
-        Field(discriminator="type"),
-    ]
+    __root__: Union[BaseTableRef, EmptyTableRef, TableFunctionRef] = Field(
+        discriminator="type"
+    )
 
 
 GroupingSet = set[int]
@@ -302,9 +295,7 @@ def parse_sql(sql: str) -> "Root":
 
 
 class Root(Base):
-    __root__: Annotated[
-        Union[ErrorResponse, SuccessResponse], Field(discriminator="error")
-    ]
+    __root__: Union[ErrorResponse, SuccessResponse] = Field(discriminator="error")
 
 
 CastExpression.update_forward_refs()
