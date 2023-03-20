@@ -116,10 +116,10 @@ class StarExpression(ParsedExpression):
 
     columns: bool
 
-    replace_list: dict[str, "Select"]
+    replace_list: dict[str, "ParsedExpressionSubclasses"]
     relation_name: str
     exclude_list: list[str]
-    expr: Optional["Select"]
+    expr: Optional["ParsedExpressionSubclasses"]
 
 
 class ConstantExpression(ParsedExpression):
@@ -136,7 +136,7 @@ class CastExpression(ParsedExpression):
 
     type: Literal["CAST"]
     clazz: Literal["CAST"] = Field(alias="class")
-    child: "Select"
+    child: "ParsedExpressionSubclasses"
     cast_type: LogicalType
     try_cast: bool
 
@@ -144,14 +144,14 @@ class CastExpression(ParsedExpression):
 class ComparisonExpression(ParsedExpression):
     clazz: Literal["COMPARISON"] = Field(alias="class")
     type: Literal["GREATERTHAN", "EQUAL"]
-    left: "Select"
-    right: "Select"
+    left: "ParsedExpressionSubclasses"
+    right: "ParsedExpressionSubclasses"
 
 
 class ConjunctionExpression(ParsedExpression):
     clazz: Literal["CONJUNCTION"] = Field(alias="class")
     type: Literal["AND", "OR"]
-    children: list["Select"]
+    children: list["ParsedExpressionSubclasses"]
 
 
 class SubqueryExpression(ParsedExpression):
@@ -164,19 +164,20 @@ class SubqueryExpression(ParsedExpression):
     subquery_type: Literal["SCALAR"]
 
 
-Select = Annotated[
-    Union[
-        "FunctionExpression",
-        ColumnRefExpression,
-        StarExpression,
-        ConstantExpression,
-        CastExpression,
-        ComparisonExpression,
-        ConjunctionExpression,
-        SubqueryExpression,
-    ],
-    Field(discriminator="type"),
-]
+class ParsedExpressionSubclasses(Base):
+    __root__: Annotated[
+        Union[
+            "FunctionExpression",
+            ColumnRefExpression,
+            StarExpression,
+            ConstantExpression,
+            CastExpression,
+            ComparisonExpression,
+            ConjunctionExpression,
+            SubqueryExpression,
+        ],
+        Field(discriminator="type"),
+    ]
 
 
 class SampleMethod(Enum):
@@ -226,11 +227,11 @@ class FunctionExpression(ParsedExpression):
     function_name: str
     catalog: str
     is_operator: bool
-    children: list[Select]
+    children: list[ParsedExpressionSubclasses]
     distinct: bool
     order_bys: OrderModifier
     export_state: bool
-    filter: Optional[Select]
+    filter: Optional[ParsedExpressionSubclasses]
 
 
 class TableFunctionRef(TableRef):
@@ -251,9 +252,11 @@ class QueryNode(Base):
     cte_map: dict
 
 
-TableRefSubclasses = Annotated[
-    Union[BaseTableRef, EmptyTableRef, TableFunctionRef], Field(discriminator="type")
-]
+class TableRefSubclasses(Base):
+    __root__: Annotated[
+        Union[BaseTableRef, EmptyTableRef, TableFunctionRef],
+        Field(discriminator="type"),
+    ]
 
 
 GroupingSet = set[int]
@@ -261,13 +264,13 @@ GroupingSet = set[int]
 
 class SelectNode(QueryNode):
     type: Literal["SELECT_NODE"]
-    select_list: list[Select]
-    where_clause: Optional[Select]
+    select_list: list[ParsedExpressionSubclasses]
+    where_clause: Optional[ParsedExpressionSubclasses]
     sample: Optional[SampleOptions]
-    qualify: Optional[Select]
-    having: Optional[Select]
+    qualify: Optional[ParsedExpressionSubclasses]
+    having: Optional[ParsedExpressionSubclasses]
     group_sets: Optional[list[GroupingSet]]
-    group_expressions: Optional[list[Select]]
+    group_expressions: Optional[list[ParsedExpressionSubclasses]]
     aggregate_handling: Optional[AggregrateHandling]
     from_table: TableRefSubclasses
 
@@ -298,7 +301,10 @@ def parse_sql(sql: str) -> "Root":
     return parse_raw_as(Root, ast)
 
 
-Root = Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="error")]
+class Root(Base):
+    __root__: Annotated[
+        Union[ErrorResponse, SuccessResponse], Field(discriminator="error")
+    ]
 
 
 CastExpression.update_forward_refs()
@@ -308,6 +314,7 @@ StarExpression.update_forward_refs()
 ConjunctionExpression.update_forward_refs()
 TypeCatalogEntry.update_forward_refs()
 SubqueryExpression.update_forward_refs()
+ParsedExpressionSubclasses.update_forward_refs()
 
 
 def get_schema():

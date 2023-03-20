@@ -8,6 +8,7 @@ from snapshottest import Snapshot
 snapshots = Snapshot()
 
 snapshots['test_schema_generation 1'] = {
+    '$ref': '#/definitions/Root',
     'definitions': {
         'AggregrateHandling': {
             'description': 'An enumeration.',
@@ -76,33 +77,7 @@ snapshots['test_schema_generation 1'] = {
                     '$ref': '#/definitions/LogicalType'
                 },
                 'child': {
-                    'anyOf': [
-                        {
-                            '$ref': '#/definitions/FunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ColumnRefExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/StarExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConstantExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/CastExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ComparisonExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConjunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/SubqueryExpression'
-                        }
-                    ],
-                    'title': 'Child'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
                 'class': {
                     'enum': [
@@ -188,62 +163,10 @@ snapshots['test_schema_generation 1'] = {
                     'type': 'string'
                 },
                 'left': {
-                    'anyOf': [
-                        {
-                            '$ref': '#/definitions/FunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ColumnRefExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/StarExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConstantExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/CastExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ComparisonExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConjunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/SubqueryExpression'
-                        }
-                    ],
-                    'title': 'Left'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
                 'right': {
-                    'anyOf': [
-                        {
-                            '$ref': '#/definitions/FunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ColumnRefExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/StarExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConstantExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/CastExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ComparisonExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConjunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/SubqueryExpression'
-                        }
-                    ],
-                    'title': 'Right'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
                 'type': {
                     'enum': [
@@ -273,32 +196,7 @@ snapshots['test_schema_generation 1'] = {
                 },
                 'children': {
                     'items': {
-                        'anyOf': [
-                            {
-                                '$ref': '#/definitions/FunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ColumnRefExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/StarExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConstantExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/CastExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ComparisonExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConjunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/SubqueryExpression'
-                            }
-                        ]
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
                     },
                     'title': 'Children',
                     'type': 'array'
@@ -462,47 +360,7 @@ snapshots['test_schema_generation 1'] = {
                 },
                 'children': {
                     'items': {
-                        'discriminator': {
-                            'mapping': {
-                                'AND': '#/definitions/ConjunctionExpression',
-                                'CAST': '#/definitions/CastExpression',
-                                'COLUMN_REF': '#/definitions/ColumnRefExpression',
-                                'CONSTANT': '#/definitions/ConstantExpression',
-                                'EQUAL': '#/definitions/ComparisonExpression',
-                                'FUNCTION': '#/definitions/FunctionExpression',
-                                'GREATERTHAN': '#/definitions/ComparisonExpression',
-                                'OR': '#/definitions/ConjunctionExpression',
-                                'STAR': '#/definitions/StarExpression',
-                                'SUBQUERY': '#/definitions/SubqueryExpression'
-                            },
-                            'propertyName': 'type'
-                        },
-                        'oneOf': [
-                            {
-                                '$ref': '#/definitions/FunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ColumnRefExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/StarExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConstantExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/CastExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ComparisonExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConjunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/SubqueryExpression'
-                            }
-                        ]
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
                     },
                     'title': 'Children',
                     'type': 'array'
@@ -523,33 +381,7 @@ snapshots['test_schema_generation 1'] = {
                     'type': 'boolean'
                 },
                 'filter': {
-                    'anyOf': [
-                        {
-                            '$ref': '#/definitions/FunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ColumnRefExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/StarExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConstantExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/CastExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ComparisonExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConjunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/SubqueryExpression'
-                        }
-                    ],
-                    'title': 'Filter'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
                 'function_name': {
                     'title': 'Function Name',
@@ -687,6 +519,70 @@ snapshots['test_schema_generation 1'] = {
             'title': 'OrderModifier',
             'type': 'object'
         },
+        'ParsedExpressionSubclasses': {
+            'additionalProperties': False,
+            'discriminator': {
+                'mapping': {
+                    'AND': '#/definitions/ConjunctionExpression',
+                    'CAST': '#/definitions/CastExpression',
+                    'COLUMN_REF': '#/definitions/ColumnRefExpression',
+                    'CONSTANT': '#/definitions/ConstantExpression',
+                    'EQUAL': '#/definitions/ComparisonExpression',
+                    'FUNCTION': '#/definitions/FunctionExpression',
+                    'GREATERTHAN': '#/definitions/ComparisonExpression',
+                    'OR': '#/definitions/ConjunctionExpression',
+                    'STAR': '#/definitions/StarExpression',
+                    'SUBQUERY': '#/definitions/SubqueryExpression'
+                },
+                'propertyName': 'type'
+            },
+            'oneOf': [
+                {
+                    '$ref': '#/definitions/FunctionExpression'
+                },
+                {
+                    '$ref': '#/definitions/ColumnRefExpression'
+                },
+                {
+                    '$ref': '#/definitions/StarExpression'
+                },
+                {
+                    '$ref': '#/definitions/ConstantExpression'
+                },
+                {
+                    '$ref': '#/definitions/CastExpression'
+                },
+                {
+                    '$ref': '#/definitions/ComparisonExpression'
+                },
+                {
+                    '$ref': '#/definitions/ConjunctionExpression'
+                },
+                {
+                    '$ref': '#/definitions/SubqueryExpression'
+                }
+            ],
+            'title': 'ParsedExpressionSubclasses'
+        },
+        'Root': {
+            'additionalProperties': False,
+            'discriminator': {
+                'mapping': {
+                    False: '#/definitions/SuccessResponse',
+                    True: '#/definitions/ErrorResponse'
+                },
+                'propertyName': 'error'
+            },
+            'oneOf': [
+                {
+                    '$ref': '#/definitions/ErrorResponse'
+                },
+                {
+                    '$ref': '#/definitions/SuccessResponse'
+                }
+            ],
+            'title': 'Root'
+        },
         'SampleMethod': {
             'description': 'An enumeration.',
             'enum': [
@@ -734,70 +630,11 @@ snapshots['test_schema_generation 1'] = {
                     'type': 'object'
                 },
                 'from_table': {
-                    'discriminator': {
-                        'mapping': {
-                            'BASE_TABLE': '#/definitions/BaseTableRef',
-                            'EMPTY': '#/definitions/EmptyTableRef',
-                            'TABLE_FUNCTION': '#/definitions/TableFunctionRef'
-                        },
-                        'propertyName': 'type'
-                    },
-                    'oneOf': [
-                        {
-                            '$ref': '#/definitions/BaseTableRef'
-                        },
-                        {
-                            '$ref': '#/definitions/EmptyTableRef'
-                        },
-                        {
-                            '$ref': '#/definitions/TableFunctionRef'
-                        }
-                    ],
-                    'title': 'From Table'
+                    '$ref': '#/definitions/TableRefSubclasses'
                 },
                 'group_expressions': {
                     'items': {
-                        'discriminator': {
-                            'mapping': {
-                                'AND': '#/definitions/ConjunctionExpression',
-                                'CAST': '#/definitions/CastExpression',
-                                'COLUMN_REF': '#/definitions/ColumnRefExpression',
-                                'CONSTANT': '#/definitions/ConstantExpression',
-                                'EQUAL': '#/definitions/ComparisonExpression',
-                                'FUNCTION': '#/definitions/FunctionExpression',
-                                'GREATERTHAN': '#/definitions/ComparisonExpression',
-                                'OR': '#/definitions/ConjunctionExpression',
-                                'STAR': '#/definitions/StarExpression',
-                                'SUBQUERY': '#/definitions/SubqueryExpression'
-                            },
-                            'propertyName': 'type'
-                        },
-                        'oneOf': [
-                            {
-                                '$ref': '#/definitions/FunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ColumnRefExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/StarExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConstantExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/CastExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ComparisonExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConjunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/SubqueryExpression'
-                            }
-                        ]
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
                     },
                     'title': 'Group Expressions',
                     'type': 'array'
@@ -814,33 +651,7 @@ snapshots['test_schema_generation 1'] = {
                     'type': 'array'
                 },
                 'having': {
-                    'anyOf': [
-                        {
-                            '$ref': '#/definitions/FunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ColumnRefExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/StarExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConstantExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/CastExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ComparisonExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConjunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/SubqueryExpression'
-                        }
-                    ],
-                    'title': 'Having'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
                 'modifiers': {
                     'items': {
@@ -849,80 +660,14 @@ snapshots['test_schema_generation 1'] = {
                     'type': 'array'
                 },
                 'qualify': {
-                    'anyOf': [
-                        {
-                            '$ref': '#/definitions/FunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ColumnRefExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/StarExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConstantExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/CastExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ComparisonExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConjunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/SubqueryExpression'
-                        }
-                    ],
-                    'title': 'Qualify'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
                 'sample': {
                     '$ref': '#/definitions/SampleOptions'
                 },
                 'select_list': {
                     'items': {
-                        'discriminator': {
-                            'mapping': {
-                                'AND': '#/definitions/ConjunctionExpression',
-                                'CAST': '#/definitions/CastExpression',
-                                'COLUMN_REF': '#/definitions/ColumnRefExpression',
-                                'CONSTANT': '#/definitions/ConstantExpression',
-                                'EQUAL': '#/definitions/ComparisonExpression',
-                                'FUNCTION': '#/definitions/FunctionExpression',
-                                'GREATERTHAN': '#/definitions/ComparisonExpression',
-                                'OR': '#/definitions/ConjunctionExpression',
-                                'STAR': '#/definitions/StarExpression',
-                                'SUBQUERY': '#/definitions/SubqueryExpression'
-                            },
-                            'propertyName': 'type'
-                        },
-                        'oneOf': [
-                            {
-                                '$ref': '#/definitions/FunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ColumnRefExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/StarExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConstantExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/CastExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ComparisonExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConjunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/SubqueryExpression'
-                            }
-                        ]
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
                     },
                     'title': 'Select List',
                     'type': 'array'
@@ -935,33 +680,7 @@ snapshots['test_schema_generation 1'] = {
                     'type': 'string'
                 },
                 'where_clause': {
-                    'anyOf': [
-                        {
-                            '$ref': '#/definitions/FunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ColumnRefExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/StarExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConstantExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/CastExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ComparisonExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConjunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/SubqueryExpression'
-                        }
-                    ],
-                    'title': 'Where Clause'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 }
             },
             'required': [
@@ -1001,33 +720,7 @@ snapshots['test_schema_generation 1'] = {
                     'type': 'array'
                 },
                 'expr': {
-                    'anyOf': [
-                        {
-                            '$ref': '#/definitions/FunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ColumnRefExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/StarExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConstantExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/CastExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ComparisonExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/ConjunctionExpression'
-                        },
-                        {
-                            '$ref': '#/definitions/SubqueryExpression'
-                        }
-                    ],
-                    'title': 'Expr'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
                 'relation_name': {
                     'title': 'Relation Name',
@@ -1035,32 +728,7 @@ snapshots['test_schema_generation 1'] = {
                 },
                 'replace_list': {
                     'additionalProperties': {
-                        'anyOf': [
-                            {
-                                '$ref': '#/definitions/FunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ColumnRefExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/StarExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConstantExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/CastExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ComparisonExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/ConjunctionExpression'
-                            },
-                            {
-                                '$ref': '#/definitions/SubqueryExpression'
-                            }
-                        ]
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
                     },
                     'title': 'Replace List',
                     'type': 'object'
@@ -1240,6 +908,29 @@ snapshots['test_schema_generation 1'] = {
             'title': 'TableFunctionRef',
             'type': 'object'
         },
+        'TableRefSubclasses': {
+            'additionalProperties': False,
+            'discriminator': {
+                'mapping': {
+                    'BASE_TABLE': '#/definitions/BaseTableRef',
+                    'EMPTY': '#/definitions/EmptyTableRef',
+                    'TABLE_FUNCTION': '#/definitions/TableFunctionRef'
+                },
+                'propertyName': 'type'
+            },
+            'oneOf': [
+                {
+                    '$ref': '#/definitions/BaseTableRef'
+                },
+                {
+                    '$ref': '#/definitions/EmptyTableRef'
+                },
+                {
+                    '$ref': '#/definitions/TableFunctionRef'
+                }
+            ],
+            'title': 'TableRefSubclasses'
+        },
         'TypeCatalogEntry': {
             'additionalProperties': False,
             'properties': {
@@ -1305,20 +996,5 @@ snapshots['test_schema_generation 1'] = {
             'type': 'object'
         }
     },
-    'discriminator': {
-        'mapping': {
-            False: '#/definitions/SuccessResponse',
-            True: '#/definitions/ErrorResponse'
-        },
-        'propertyName': 'error'
-    },
-    'oneOf': [
-        {
-            '$ref': '#/definitions/ErrorResponse'
-        },
-        {
-            '$ref': '#/definitions/SuccessResponse'
-        }
-    ],
-    'title': "ParsingModel[Annotated[Union[duckdb_ast.parse.ErrorResponse, duckdb_ast.parse.SuccessResponse], FieldInfo(default=PydanticUndefined, discriminator='error', extra={})]]"
+    'title': 'ParsingModel[Root]'
 }
