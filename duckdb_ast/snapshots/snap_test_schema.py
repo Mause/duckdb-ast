@@ -171,7 +171,8 @@ snapshots['test_schema_generation 1'] = {
                 'type': {
                     'enum': [
                         'GREATERTHAN',
-                        'EQUAL'
+                        'EQUAL',
+                        'GREATERTHANOREQUALTO'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -539,6 +540,7 @@ snapshots['test_schema_generation 1'] = {
                     'EQUAL': '#/definitions/ComparisonExpression',
                     'FUNCTION': '#/definitions/FunctionExpression',
                     'GREATERTHAN': '#/definitions/ComparisonExpression',
+                    'GREATERTHANOREQUALTO': '#/definitions/ComparisonExpression',
                     'OR': '#/definitions/ConjunctionExpression',
                     'STAR': '#/definitions/StarExpression',
                     'SUBQUERY': '#/definitions/SubqueryExpression'

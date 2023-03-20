@@ -35,6 +35,12 @@ FROM test_all_types()
         """
         select (select 1) as one
         """,
+        """
+        SELECT city, COUNT(*)
+        FROM addresses
+        GROUP BY city
+        HAVING COUNT(*) >= 50;
+        """,
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

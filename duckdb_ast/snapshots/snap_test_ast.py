@@ -64,6 +64,107 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
 )
 '''
 
+snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING COUNT(*) >= 50; ] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['city']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=FunctionExpression(
+                            type='FUNCTION',
+                            clazz='FUNCTION',
+                            alias='',
+                            schema_name='',
+                            function_name='count_star',
+                            catalog='',
+                            is_operator=False,
+                            children=[],
+                            distinct=False,
+                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            export_state=False,
+                            filter=None
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=ParsedExpressionSubclasses(
+                    __root__=ComparisonExpression(
+                        type='GREATERTHANOREQUALTO',
+                        clazz='COMPARISON',
+                        alias='',
+                        left=ParsedExpressionSubclasses(
+                            __root__=FunctionExpression(
+                                type='FUNCTION',
+                                clazz='FUNCTION',
+                                alias='',
+                                schema_name='',
+                                function_name='count_star',
+                                catalog='',
+                                is_operator=False,
+                                children=[],
+                                distinct=False,
+                                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                export_state=False,
+                                filter=None
+                            )
+                        ),
+                        right=ParsedExpressionSubclasses(
+                            __root__=ConstantExpression(
+                                type='CONSTANT',
+                                clazz='CONSTANT',
+                                alias='',
+                                value=Value(
+                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    value=50,
+                                    is_null=False
+                                )
+                            )
+                        )
+                    )
+                ),
+                group_sets=[{0}],
+                group_expressions=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['city']
+                        )
+                    )
+                ],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(
+                    __root__=BaseTableRef(
+                        alias='',
+                        sample=None,
+                        type='BASE_TABLE',
+                        schema_name='',
+                        table_name='addresses',
+                        catalog_name='',
+                        column_name_alias=[]
+                    )
+                )
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[ select (select 1) as one ] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
