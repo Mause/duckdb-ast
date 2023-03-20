@@ -14,7 +14,10 @@ from io import StringIO
         "select frog from frogs",
         "select frog from frogs where height > 5 and leader = true",
         "create table dummy as select 1",
-    ])
+        "select 1 * 1",
+        "select frog.age from frogs",
+    ],
+)
 def test_sql(sql, snapshot: Snapshot):
     parsed = duckdb_ast.parse.parse_sql(sql)
     file = StringIO()
