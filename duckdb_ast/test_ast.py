@@ -49,6 +49,7 @@ FROM test_all_types()
         "SELECT NULL IS NULL",
         "SELECT DATE '1992-09-20'",
         "SELECT TIMESTAMP '1992-09-20 11:30:00'",
+        "SELECT TIMESTAMPTZ '1992-09-20 11:30:00'",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

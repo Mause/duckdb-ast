@@ -515,7 +515,8 @@ snapshots['test_schema_generation 1'] = {
                 'UINTEGER',
                 'UBIGINT',
                 'DATE',
-                'TIMESTAMP'
+                'TIMESTAMP',
+                'TIMESTAMP WITH TIME ZONE'
             ],
             'title': 'LogicalTypeId'
         },

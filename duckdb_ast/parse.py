@@ -49,6 +49,7 @@ class LogicalTypeId(Enum):
     UBIGINT = "UBIGINT"
     DATE = "DATE"
     TIMESTAMP = "TIMESTAMP"
+    TIMESTAMPTZ = "TIMESTAMP WITH TIME ZONE"
 
 
 class CatalogEntry(Base):
