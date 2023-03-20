@@ -22,7 +22,7 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''SuccessResponse(
             modifiers=[],
             cte_map={'map': []},
             select_list=[
-                Star(
+                StarExpression(
                     type='STAR',
                     clazz='STAR',
                     alias='',
@@ -61,7 +61,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
             modifiers=[],
             cte_map={'map': []},
             select_list=[
-                Star(
+                StarExpression(
                     type='STAR',
                     clazz='STAR',
                     alias='',

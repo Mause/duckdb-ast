@@ -58,7 +58,7 @@ class ColumnRefExpression(ParsedExpression):
     column_names: list[str]
 
 
-class Star(Base):
+class StarExpression(ParsedExpression):
     type: Literal["STAR"]
     clazz: Literal["STAR"] = Field(alias="class")
 
@@ -91,7 +91,7 @@ class CastExpression(ParsedExpression):
 
 
 Select = Annotated[
-    Union["Function", ColumnRefExpression, Star, Constant, CastExpression],
+    Union["Function", ColumnRefExpression, StarExpression, Constant, CastExpression],
     Field(discriminator="type"),
 ]
 
