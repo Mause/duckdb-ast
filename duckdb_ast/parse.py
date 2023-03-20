@@ -273,9 +273,29 @@ class EmptyTableRef(TableRef):
     type: Literal["EMPTY"]
 
 
+class OrderType(Enum):
+    INVALID = "INVALID"
+    ORDER_DEFAULT = "ORDER_DEFAULT"
+    ASCENDING = "ASCENDING"
+    DESCENDING = "DESCENDING"
+
+
+class OrderByNullType(Enum):
+    INVALID = "INVALID"
+    ORDER_DEFAULT = "ORDER_DEFAULT"
+    NULLS_FIRST = "NULLS_FIRST"
+    NULLS_LAST = "NULLS_LAST"
+
+
+class OrderByNode(Base):
+    type: OrderType
+    null_order: OrderByNullType
+    expression: "ParsedExpressionSubclasses"
+
+
 class OrderModifier(Base):
     type: Literal["ORDER_MODIFIER"]
-    orders: list[object]
+    orders: list[OrderByNode]
 
 
 class FunctionExpression(ParsedExpression):
@@ -303,9 +323,20 @@ class AggregrateHandling(Enum):
     STANDARD_HANDLING = "STANDARD_HANDLING"
 
 
+class ResultModifierType(Enum):
+    LIMIT_MODIFIER = "LIMIT_MODIFIER"
+    ORDER_MODIFIER = "ORDER_MODIFIER"
+    DISTINCT_MODIFIER = "DISTINCT_MODIFIER"
+    LIMIT_PERCENT_MODIFIER = "LIMIT_PERCENT_MODIFIER"
+
+
+class ResultModifier(Base):
+    type: ResultModifierType
+
+
 class QueryNode(Base):
     type: str
-    modifiers: list[object]
+    modifiers: list[ResultModifier]
 
     cte_map: dict
 

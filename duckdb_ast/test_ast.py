@@ -70,6 +70,20 @@ FROM test_all_types()
         """,
         "SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;",
         "SELECT a.* FROM (SELECT {'x':1, 'y':2, 'z':3} as a);",
+        """
+        WITH ranked_functions as (
+            SELECT
+                schema_name,
+                function_name,
+                row_number() over (partition by schema_name order by function_name) as function_rank
+            FROM duckdb_functions()
+        )
+        SELECT
+            *
+        FROM ranked_functions
+        WHERE
+            function_rank < 3;
+        """,
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):

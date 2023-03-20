@@ -707,11 +707,43 @@ snapshots['test_schema_generation 1'] = {
             'title': 'OperatorExpression',
             'type': 'object'
         },
+        'OrderByNode': {
+            'additionalProperties': False,
+            'properties': {
+                'expression': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'null_order': {
+                    '$ref': '#/definitions/OrderByNullType'
+                },
+                'type': {
+                    '$ref': '#/definitions/OrderType'
+                }
+            },
+            'required': [
+                'type',
+                'null_order',
+                'expression'
+            ],
+            'title': 'OrderByNode',
+            'type': 'object'
+        },
+        'OrderByNullType': {
+            'description': 'An enumeration.',
+            'enum': [
+                'INVALID',
+                'ORDER_DEFAULT',
+                'NULLS_FIRST',
+                'NULLS_LAST'
+            ],
+            'title': 'OrderByNullType'
+        },
         'OrderModifier': {
             'additionalProperties': False,
             'properties': {
                 'orders': {
                     'items': {
+                        '$ref': '#/definitions/OrderByNode'
                     },
                     'title': 'Orders',
                     'type': 'array'
@@ -730,6 +762,16 @@ snapshots['test_schema_generation 1'] = {
             ],
             'title': 'OrderModifier',
             'type': 'object'
+        },
+        'OrderType': {
+            'description': 'An enumeration.',
+            'enum': [
+                'INVALID',
+                'ORDER_DEFAULT',
+                'ASCENDING',
+                'DESCENDING'
+            ],
+            'title': 'OrderType'
         },
         'ParsedExpressionSubclasses': {
             'additionalProperties': False,
@@ -801,6 +843,29 @@ snapshots['test_schema_generation 1'] = {
                 }
             ],
             'title': 'ParsedExpressionSubclasses'
+        },
+        'ResultModifier': {
+            'additionalProperties': False,
+            'properties': {
+                'type': {
+                    '$ref': '#/definitions/ResultModifierType'
+                }
+            },
+            'required': [
+                'type'
+            ],
+            'title': 'ResultModifier',
+            'type': 'object'
+        },
+        'ResultModifierType': {
+            'description': 'An enumeration.',
+            'enum': [
+                'LIMIT_MODIFIER',
+                'ORDER_MODIFIER',
+                'DISTINCT_MODIFIER',
+                'LIMIT_PERCENT_MODIFIER'
+            ],
+            'title': 'ResultModifierType'
         },
         'Root': {
             'additionalProperties': False,
@@ -893,6 +958,7 @@ snapshots['test_schema_generation 1'] = {
                 },
                 'modifiers': {
                     'items': {
+                        '$ref': '#/definitions/ResultModifier'
                     },
                     'title': 'Modifiers',
                     'type': 'array'

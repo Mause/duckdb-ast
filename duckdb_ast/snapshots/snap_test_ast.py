@@ -307,6 +307,78 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
 )
 '''
 
+snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_name, row_number() over (partition by schema_name order by function_name) as function_rank FROM duckdb_functions() ) SELECT * FROM ranked_functions WHERE function_rank < 3; ] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=StarExpression(
+                            type='STAR',
+                            clazz='STAR',
+                            alias='',
+                            columns=False,
+                            replace_list={},
+                            relation_name='',
+                            exclude_list=[],
+                            expr=None
+                        )
+                    )
+                ],
+                where_clause=ParsedExpressionSubclasses(
+                    __root__=ComparisonExpression(
+                        type='LESSTHAN',
+                        clazz='COMPARISON',
+                        alias='',
+                        left=ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['function_rank']
+                            )
+                        ),
+                        right=ParsedExpressionSubclasses(
+                            __root__=ConstantExpression(
+                                type='CONSTANT',
+                                clazz='CONSTANT',
+                                alias='',
+                                value=Value(
+                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    value=3,
+                                    is_null=False
+                                )
+                            )
+                        )
+                    )
+                ),
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(
+                    __root__=BaseTableRef(
+                        alias='',
+                        sample=None,
+                        type='BASE_TABLE',
+                        schema_name='',
+                        table_name='ranked_functions',
+                        catalog_name='',
+                        column_name_alias=[]
+                    )
+                )
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[ select (select 1) as one ] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
