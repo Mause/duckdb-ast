@@ -154,6 +154,16 @@ class ConjunctionExpression(ParsedExpression):
     children: list["Select"]
 
 
+class SubqueryExpression(ParsedExpression):
+    type: Literal["SUBQUERY"]
+    clazz: Literal["SUBQUERY"] = Field(alias="class")
+
+    child: Optional[bool]
+    comparison_type: Literal["INVALID"]
+    subquery: "SelectNode"
+    subquery_type: Literal["SCALAR"]
+
+
 Select = Annotated[
     Union[
         "FunctionExpression",
@@ -163,6 +173,7 @@ Select = Annotated[
         CastExpression,
         ComparisonExpression,
         ConjunctionExpression,
+        SubqueryExpression,
     ],
     Field(discriminator="type"),
 ]
@@ -296,6 +307,7 @@ ListTypeInfo.update_forward_refs()
 StarExpression.update_forward_refs()
 ConjunctionExpression.update_forward_refs()
 TypeCatalogEntry.update_forward_refs()
+SubqueryExpression.update_forward_refs()
 
 
 def get_schema():

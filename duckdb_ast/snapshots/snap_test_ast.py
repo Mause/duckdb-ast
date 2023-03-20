@@ -58,6 +58,61 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
 )
 '''
 
+snapshots['test_sql[ select (select 1) as one ] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        SelectNode(
+            type='SELECT_NODE',
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                SubqueryExpression(
+                    type='SUBQUERY',
+                    clazz='SUBQUERY',
+                    alias='one',
+                    child=None,
+                    comparison_type='INVALID',
+                    subquery=SelectNode(
+                        type='SELECT_NODE',
+                        modifiers=[],
+                        cte_map={'map': []},
+                        select_list=[
+                            ConstantExpression(
+                                type='CONSTANT',
+                                clazz='CONSTANT',
+                                alias='',
+                                value=Value(
+                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    value=1,
+                                    is_null=False
+                                )
+                            )
+                        ],
+                        where_clause=None,
+                        sample=None,
+                        qualify=None,
+                        having=None,
+                        group_sets=[],
+                        group_expressions=[],
+                        aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                        from_table=EmptyTableRef(alias='', sample=None, type='EMPTY')
+                    ),
+                    subquery_type='SCALAR'
+                )
+            ],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=EmptyTableRef(alias='', sample=None, type='EMPTY')
+        )
+    ]
+)
+'''
+
 snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''SuccessResponse(
     error=False,
     statements=[

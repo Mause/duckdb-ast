@@ -97,6 +97,9 @@ snapshots['test_schema_generation 1'] = {
                         },
                         {
                             '$ref': '#/definitions/ConjunctionExpression'
+                        },
+                        {
+                            '$ref': '#/definitions/SubqueryExpression'
                         }
                     ],
                     'title': 'Child'
@@ -206,6 +209,9 @@ snapshots['test_schema_generation 1'] = {
                         },
                         {
                             '$ref': '#/definitions/ConjunctionExpression'
+                        },
+                        {
+                            '$ref': '#/definitions/SubqueryExpression'
                         }
                     ],
                     'title': 'Left'
@@ -232,6 +238,9 @@ snapshots['test_schema_generation 1'] = {
                         },
                         {
                             '$ref': '#/definitions/ConjunctionExpression'
+                        },
+                        {
+                            '$ref': '#/definitions/SubqueryExpression'
                         }
                     ],
                     'title': 'Right'
@@ -285,6 +294,9 @@ snapshots['test_schema_generation 1'] = {
                             },
                             {
                                 '$ref': '#/definitions/ConjunctionExpression'
+                            },
+                            {
+                                '$ref': '#/definitions/SubqueryExpression'
                             }
                         ]
                     },
@@ -460,7 +472,8 @@ snapshots['test_schema_generation 1'] = {
                                 'FUNCTION': '#/definitions/FunctionExpression',
                                 'GREATERTHAN': '#/definitions/ComparisonExpression',
                                 'OR': '#/definitions/ConjunctionExpression',
-                                'STAR': '#/definitions/StarExpression'
+                                'STAR': '#/definitions/StarExpression',
+                                'SUBQUERY': '#/definitions/SubqueryExpression'
                             },
                             'propertyName': 'type'
                         },
@@ -485,6 +498,9 @@ snapshots['test_schema_generation 1'] = {
                             },
                             {
                                 '$ref': '#/definitions/ConjunctionExpression'
+                            },
+                            {
+                                '$ref': '#/definitions/SubqueryExpression'
                             }
                         ]
                     },
@@ -528,6 +544,9 @@ snapshots['test_schema_generation 1'] = {
                         },
                         {
                             '$ref': '#/definitions/ConjunctionExpression'
+                        },
+                        {
+                            '$ref': '#/definitions/SubqueryExpression'
                         }
                     ],
                     'title': 'Filter'
@@ -748,7 +767,8 @@ snapshots['test_schema_generation 1'] = {
                                 'FUNCTION': '#/definitions/FunctionExpression',
                                 'GREATERTHAN': '#/definitions/ComparisonExpression',
                                 'OR': '#/definitions/ConjunctionExpression',
-                                'STAR': '#/definitions/StarExpression'
+                                'STAR': '#/definitions/StarExpression',
+                                'SUBQUERY': '#/definitions/SubqueryExpression'
                             },
                             'propertyName': 'type'
                         },
@@ -773,6 +793,9 @@ snapshots['test_schema_generation 1'] = {
                             },
                             {
                                 '$ref': '#/definitions/ConjunctionExpression'
+                            },
+                            {
+                                '$ref': '#/definitions/SubqueryExpression'
                             }
                         ]
                     },
@@ -812,6 +835,9 @@ snapshots['test_schema_generation 1'] = {
                         },
                         {
                             '$ref': '#/definitions/ConjunctionExpression'
+                        },
+                        {
+                            '$ref': '#/definitions/SubqueryExpression'
                         }
                     ],
                     'title': 'Having'
@@ -844,6 +870,9 @@ snapshots['test_schema_generation 1'] = {
                         },
                         {
                             '$ref': '#/definitions/ConjunctionExpression'
+                        },
+                        {
+                            '$ref': '#/definitions/SubqueryExpression'
                         }
                     ],
                     'title': 'Qualify'
@@ -863,7 +892,8 @@ snapshots['test_schema_generation 1'] = {
                                 'FUNCTION': '#/definitions/FunctionExpression',
                                 'GREATERTHAN': '#/definitions/ComparisonExpression',
                                 'OR': '#/definitions/ConjunctionExpression',
-                                'STAR': '#/definitions/StarExpression'
+                                'STAR': '#/definitions/StarExpression',
+                                'SUBQUERY': '#/definitions/SubqueryExpression'
                             },
                             'propertyName': 'type'
                         },
@@ -888,6 +918,9 @@ snapshots['test_schema_generation 1'] = {
                             },
                             {
                                 '$ref': '#/definitions/ConjunctionExpression'
+                            },
+                            {
+                                '$ref': '#/definitions/SubqueryExpression'
                             }
                         ]
                     },
@@ -923,6 +956,9 @@ snapshots['test_schema_generation 1'] = {
                         },
                         {
                             '$ref': '#/definitions/ConjunctionExpression'
+                        },
+                        {
+                            '$ref': '#/definitions/SubqueryExpression'
                         }
                     ],
                     'title': 'Where Clause'
@@ -986,6 +1022,9 @@ snapshots['test_schema_generation 1'] = {
                         },
                         {
                             '$ref': '#/definitions/ConjunctionExpression'
+                        },
+                        {
+                            '$ref': '#/definitions/SubqueryExpression'
                         }
                     ],
                     'title': 'Expr'
@@ -1017,6 +1056,9 @@ snapshots['test_schema_generation 1'] = {
                             },
                             {
                                 '$ref': '#/definitions/ConjunctionExpression'
+                            },
+                            {
+                                '$ref': '#/definitions/SubqueryExpression'
                             }
                         ]
                     },
@@ -1081,6 +1123,60 @@ snapshots['test_schema_generation 1'] = {
                 'child_types'
             ],
             'title': 'StructTypeInfo',
+            'type': 'object'
+        },
+        'SubqueryExpression': {
+            'additionalProperties': False,
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'child': {
+                    'title': 'Child',
+                    'type': 'boolean'
+                },
+                'class': {
+                    'enum': [
+                        'SUBQUERY'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'comparison_type': {
+                    'enum': [
+                        'INVALID'
+                    ],
+                    'title': 'Comparison Type',
+                    'type': 'string'
+                },
+                'subquery': {
+                    '$ref': '#/definitions/SelectNode'
+                },
+                'subquery_type': {
+                    'enum': [
+                        'SCALAR'
+                    ],
+                    'title': 'Subquery Type',
+                    'type': 'string'
+                },
+                'type': {
+                    'enum': [
+                        'SUBQUERY'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'comparison_type',
+                'subquery',
+                'subquery_type'
+            ],
+            'title': 'SubqueryExpression',
             'type': 'object'
         },
         'SuccessResponse': {
