@@ -27,9 +27,10 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''SuccessResponse(
                     clazz='STAR',
                     alias='',
                     columns=False,
-                    replace_list=[],
+                    replace_list={},
                     relation_name='',
-                    exclude_list=[]
+                    exclude_list=[],
+                    expr=None
                 )
             ],
             where_clause=None,
@@ -66,9 +67,10 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SuccessResponse(
                     clazz='STAR',
                     alias='',
                     columns=False,
-                    replace_list=[],
+                    replace_list={},
                     relation_name='',
-                    exclude_list=[]
+                    exclude_list=[],
+                    expr=None
                 )
             ],
             where_clause=None,
@@ -355,6 +357,46 @@ snapshots['test_sql[select frog from frogs] 1'] = '''SuccessResponse(
             modifiers=[],
             cte_map={'map': []},
             select_list=[ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=BaseTable(
+                type='BASE_TABLE',
+                alias='',
+                sample=None,
+                schema_name='',
+                table_name='frogs',
+                catalog_name='',
+                column_name_alias=[]
+            )
+        )
+    ]
+)
+'''
+
+snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        Statement(
+            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                StarExpression(
+                    type='STAR',
+                    clazz='STAR',
+                    alias='',
+                    columns=False,
+                    replace_list={},
+                    relation_name='frog',
+                    exclude_list=['age'],
+                    expr=None
+                )
+            ],
             where_clause=None,
             sample=None,
             qualify=None,

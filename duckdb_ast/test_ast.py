@@ -19,6 +19,7 @@ import duckdb_ast.parse
         "select 1 * 1",
         "select frog.age from frogs",
         "select []::boolean[]",
+        "select frog.* EXCLUDE age from frogs",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

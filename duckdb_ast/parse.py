@@ -66,15 +66,19 @@ class ColumnRefExpression(ParsedExpression):
 
 
 class StarExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/star_expression.hpp
+    """
+
     type: Literal["STAR"]
     clazz: Literal["STAR"] = Field(alias="class")
 
-    alias: str
-    columns: object
+    columns: bool
 
-    replace_list: list[object]
+    replace_list: dict[str, "Select"]
     relation_name: str
-    exclude_list: list[object]
+    exclude_list: list[str]
+    expr: Optional["Select"]
 
 
 class Constant(Base):
@@ -220,4 +224,5 @@ Root = Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="err
 CastExpression.update_forward_refs()
 Comparison.update_forward_refs()
 ListTypeInfo.update_forward_refs()
+StarExpression.update_forward_refs()
 # print(schema_json_of(Root))
