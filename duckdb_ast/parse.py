@@ -40,6 +40,7 @@ class LogicalTypeId(Enum):
     HUGEINT = "HUGEINT"
     TINYINT = "TINYINT"
     BLOB = "BLOB"
+    NULL = "NULL"
 
 
 class CatalogEntry(Base):
@@ -156,6 +157,12 @@ class ConjunctionExpression(ParsedExpression):
     children: list["ParsedExpressionSubclasses"]
 
 
+class OperatorExpression(ParsedExpression):
+    clazz: Literal["OPERATOR"] = Field(alias="class")
+    type: Literal["IS_NULL"]
+    children: list["ParsedExpressionSubclasses"]
+
+
 class SubqueryExpression(ParsedExpression):
     type: Literal["SUBQUERY"]
     clazz: Literal["SUBQUERY"] = Field(alias="class")
@@ -176,6 +183,7 @@ class ParsedExpressionSubclasses(Base):
         ComparisonExpression,
         ConjunctionExpression,
         SubqueryExpression,
+        OperatorExpression,
     ] = Field(discriminator="type")
 
 
@@ -310,6 +318,7 @@ StarExpression.update_forward_refs()
 ConjunctionExpression.update_forward_refs()
 TypeCatalogEntry.update_forward_refs()
 SubqueryExpression.update_forward_refs()
+OperatorExpression.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
 
 

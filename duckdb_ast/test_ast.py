@@ -46,6 +46,7 @@ FROM test_all_types()
         "SELECT 0::UNION(num INT, str VARCHAR)",
         # r"SELECT '\xAA'::BLOB",
         "SELECT INTERVAL 1 YEAR",
+        "SELECT NULL IS NULL",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

@@ -506,9 +506,48 @@ snapshots['test_schema_generation 1'] = {
                 'BIT',
                 'HUGEINT',
                 'TINYINT',
-                'BLOB'
+                'BLOB',
+                'NULL'
             ],
             'title': 'LogicalTypeId'
+        },
+        'OperatorExpression': {
+            'additionalProperties': False,
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'children': {
+                    'items': {
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    },
+                    'title': 'Children',
+                    'type': 'array'
+                },
+                'class': {
+                    'enum': [
+                        'OPERATOR'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'type': {
+                    'enum': [
+                        'IS_NULL'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'children'
+            ],
+            'title': 'OperatorExpression',
+            'type': 'object'
         },
         'OrderModifier': {
             'additionalProperties': False,
@@ -546,6 +585,7 @@ snapshots['test_schema_generation 1'] = {
                     'FUNCTION': '#/definitions/FunctionExpression',
                     'GREATERTHAN': '#/definitions/ComparisonExpression',
                     'GREATERTHANOREQUALTO': '#/definitions/ComparisonExpression',
+                    'IS_NULL': '#/definitions/OperatorExpression',
                     'OR': '#/definitions/ConjunctionExpression',
                     'STAR': '#/definitions/StarExpression',
                     'SUBQUERY': '#/definitions/SubqueryExpression'
@@ -576,6 +616,9 @@ snapshots['test_schema_generation 1'] = {
                 },
                 {
                     '$ref': '#/definitions/SubqueryExpression'
+                },
+                {
+                    '$ref': '#/definitions/OperatorExpression'
                 }
             ],
             'title': 'ParsedExpressionSubclasses'

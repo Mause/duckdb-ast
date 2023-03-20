@@ -501,6 +501,51 @@ snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT NULL IS NULL] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=OperatorExpression(
+                            type='IS_NULL',
+                            clazz='OPERATOR',
+                            alias='',
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=ConstantExpression(
+                                        type='CONSTANT',
+                                        clazz='CONSTANT',
+                                        alias='',
+                                        value=Value(
+                                            type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                                            value=None,
+                                            is_null=True
+                                        )
+                                    )
+                                )
+                            ]
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[create table dummy as select 1] 1'] = '''Root(
     __root__=ErrorResponse(
         error=True,
