@@ -59,6 +59,16 @@ FROM test_all_types()
         "SELECT expression IS NOT NULL",
         "SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NULL",
         "SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2",
+        "SELECT EXISTS(SELECT * FROM grades WHERE course='Math');",
+        "SELECT 'Math' IN (SELECT course FROM grades);",
+        """
+        SELECT *
+        FROM grades grades_parent
+        WHERE grade=
+            (SELECT MIN(grade)
+             FROM grades
+             WHERE grades.course=grades_parent.course);
+        """,
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):

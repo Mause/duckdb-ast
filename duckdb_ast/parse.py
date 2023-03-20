@@ -185,10 +185,10 @@ class SubqueryExpression(ParsedExpression):
     type: Literal["SUBQUERY"]
     clazz: Literal["SUBQUERY"] = Field(alias="class")
 
-    child: Optional[bool]
-    comparison_type: Literal["INVALID"]
+    child: Optional["ParsedExpressionSubclasses"]
+    comparison_type: Literal["INVALID", "EQUAL"]
     subquery: "SelectNode"
-    subquery_type: Literal["SCALAR"]
+    subquery_type: Literal["SCALAR", "ANY", "EXISTS"]
 
 
 class CaseCheck(Base):

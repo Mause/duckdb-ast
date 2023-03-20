@@ -64,6 +64,148 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
 )
 '''
 
+snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN(grade) FROM grades WHERE grades.course=grades_parent.course); ] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=StarExpression(
+                            type='STAR',
+                            clazz='STAR',
+                            alias='',
+                            columns=False,
+                            replace_list={},
+                            relation_name='',
+                            exclude_list=[],
+                            expr=None
+                        )
+                    )
+                ],
+                where_clause=ParsedExpressionSubclasses(
+                    __root__=ComparisonExpression(
+                        type='EQUAL',
+                        clazz='COMPARISON',
+                        alias='',
+                        left=ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['grade']
+                            )
+                        ),
+                        right=ParsedExpressionSubclasses(
+                            __root__=SubqueryExpression(
+                                type='SUBQUERY',
+                                clazz='SUBQUERY',
+                                alias='',
+                                child=None,
+                                comparison_type='INVALID',
+                                subquery=SelectNode(
+                                    type='SELECT_NODE',
+                                    modifiers=[],
+                                    cte_map={'map': []},
+                                    select_list=[
+                                        ParsedExpressionSubclasses(
+                                            __root__=FunctionExpression(
+                                                type='FUNCTION',
+                                                clazz='FUNCTION',
+                                                alias='',
+                                                schema_name='',
+                                                function_name='min',
+                                                catalog='',
+                                                is_operator=False,
+                                                children=[
+                                                    ParsedExpressionSubclasses(
+                                                        __root__=ColumnRefExpression(
+                                                            type='COLUMN_REF',
+                                                            clazz='COLUMN_REF',
+                                                            alias='',
+                                                            column_names=['grade']
+                                                        )
+                                                    )
+                                                ],
+                                                distinct=False,
+                                                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                export_state=False,
+                                                filter=None
+                                            )
+                                        )
+                                    ],
+                                    where_clause=ParsedExpressionSubclasses(
+                                        __root__=ComparisonExpression(
+                                            type='EQUAL',
+                                            clazz='COMPARISON',
+                                            alias='',
+                                            left=ParsedExpressionSubclasses(
+                                                __root__=ColumnRefExpression(
+                                                    type='COLUMN_REF',
+                                                    clazz='COLUMN_REF',
+                                                    alias='',
+                                                    column_names=['grades', 'course']
+                                                )
+                                            ),
+                                            right=ParsedExpressionSubclasses(
+                                                __root__=ColumnRefExpression(
+                                                    type='COLUMN_REF',
+                                                    clazz='COLUMN_REF',
+                                                    alias='',
+                                                    column_names=['grades_parent', 'course']
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    sample=None,
+                                    qualify=None,
+                                    having=None,
+                                    group_sets=[],
+                                    group_expressions=[],
+                                    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                                    from_table=TableRefSubclasses(
+                                        __root__=BaseTableRef(
+                                            alias='',
+                                            sample=None,
+                                            type='BASE_TABLE',
+                                            schema_name='',
+                                            table_name='grades',
+                                            catalog_name='',
+                                            column_name_alias=[]
+                                        )
+                                    )
+                                ),
+                                subquery_type='SCALAR'
+                            )
+                        )
+                    )
+                ),
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(
+                    __root__=BaseTableRef(
+                        alias='grades_parent',
+                        sample=None,
+                        type='BASE_TABLE',
+                        schema_name='',
+                        table_name='grades',
+                        catalog_name='',
+                        column_name_alias=[]
+                    )
+                )
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING COUNT(*) >= 50; ] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
@@ -818,6 +960,106 @@ snapshots['test_sql[SELECT DATE \'1992-09-20\'] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=SubqueryExpression(
+                            type='SUBQUERY',
+                            clazz='SUBQUERY',
+                            alias='',
+                            child=None,
+                            comparison_type='INVALID',
+                            subquery=SelectNode(
+                                type='SELECT_NODE',
+                                modifiers=[],
+                                cte_map={'map': []},
+                                select_list=[
+                                    ParsedExpressionSubclasses(
+                                        __root__=StarExpression(
+                                            type='STAR',
+                                            clazz='STAR',
+                                            alias='',
+                                            columns=False,
+                                            replace_list={},
+                                            relation_name='',
+                                            exclude_list=[],
+                                            expr=None
+                                        )
+                                    )
+                                ],
+                                where_clause=ParsedExpressionSubclasses(
+                                    __root__=ComparisonExpression(
+                                        type='EQUAL',
+                                        clazz='COMPARISON',
+                                        alias='',
+                                        left=ParsedExpressionSubclasses(
+                                            __root__=ColumnRefExpression(
+                                                type='COLUMN_REF',
+                                                clazz='COLUMN_REF',
+                                                alias='',
+                                                column_names=['course']
+                                            )
+                                        ),
+                                        right=ParsedExpressionSubclasses(
+                                            __root__=ConstantExpression(
+                                                type='CONSTANT',
+                                                clazz='CONSTANT',
+                                                alias='',
+                                                value=Value(
+                                                    type=LogicalType(
+                                                        id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                                        type_info=None
+                                                    ),
+                                                    value='Math',
+                                                    is_null=False
+                                                )
+                                            )
+                                        )
+                                    )
+                                ),
+                                sample=None,
+                                qualify=None,
+                                having=None,
+                                group_sets=[],
+                                group_expressions=[],
+                                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                                from_table=TableRefSubclasses(
+                                    __root__=BaseTableRef(
+                                        alias='',
+                                        sample=None,
+                                        type='BASE_TABLE',
+                                        schema_name='',
+                                        table_name='grades',
+                                        catalog_name='',
+                                        column_name_alias=[]
+                                    )
+                                )
+                            ),
+                            subquery_type='EXISTS'
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,
@@ -1049,6 +1291,84 @@ snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''Root(
                             ),
                             cast_type=LogicalType(id=<LogicalTypeId.BIT: 'BIT'>, type_info=None),
                             try_cast=False
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
+snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=SubqueryExpression(
+                            type='SUBQUERY',
+                            clazz='SUBQUERY',
+                            alias='',
+                            child=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                        value='Math',
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            comparison_type='EQUAL',
+                            subquery=SelectNode(
+                                type='SELECT_NODE',
+                                modifiers=[],
+                                cte_map={'map': []},
+                                select_list=[
+                                    ParsedExpressionSubclasses(
+                                        __root__=ColumnRefExpression(
+                                            type='COLUMN_REF',
+                                            clazz='COLUMN_REF',
+                                            alias='',
+                                            column_names=['course']
+                                        )
+                                    )
+                                ],
+                                where_clause=None,
+                                sample=None,
+                                qualify=None,
+                                having=None,
+                                group_sets=[],
+                                group_expressions=[],
+                                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                                from_table=TableRefSubclasses(
+                                    __root__=BaseTableRef(
+                                        alias='',
+                                        sample=None,
+                                        type='BASE_TABLE',
+                                        schema_name='',
+                                        table_name='grades',
+                                        catalog_name='',
+                                        column_name_alias=[]
+                                    )
+                                )
+                            ),
+                            subquery_type='ANY'
                         )
                     )
                 ],

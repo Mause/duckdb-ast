@@ -1037,8 +1037,7 @@ snapshots['test_schema_generation 1'] = {
                     'type': 'string'
                 },
                 'child': {
-                    'title': 'Child',
-                    'type': 'boolean'
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
                 'class': {
                     'enum': [
@@ -1049,7 +1048,8 @@ snapshots['test_schema_generation 1'] = {
                 },
                 'comparison_type': {
                     'enum': [
-                        'INVALID'
+                        'INVALID',
+                        'EQUAL'
                     ],
                     'title': 'Comparison Type',
                     'type': 'string'
@@ -1059,7 +1059,9 @@ snapshots['test_schema_generation 1'] = {
                 },
                 'subquery_type': {
                     'enum': [
-                        'SCALAR'
+                        'SCALAR',
+                        'ANY',
+                        'EXISTS'
                     ],
                     'title': 'Subquery Type',
                     'type': 'string'
