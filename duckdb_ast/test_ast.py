@@ -1,12 +1,14 @@
-from pytest import mark
-from snapshottest.snapshot import Snapshot
-from rich.console import Console
-from rich import print
-import duckdb_ast.parse
 from io import StringIO
 
+from pytest import mark
+from rich.console import Console
+from snapshottest.snapshot import Snapshot
+
+import duckdb_ast.parse
+
+
 @mark.parametrize(
-    'sql',
+    "sql",
     [
         "select 1",
         "select * from range(0, 10)",

@@ -1,12 +1,12 @@
 import json
-from typing import TypeVar, Generic, Optional, Literal, Annotated, Union
 from enum import Enum
+from typing import Annotated, Generic, Literal, Optional, TypeVar, Union
 
 import duckdb
-from pydantic import BaseModel, Field, Extra, schema_json_of, parse_raw_as
+from pydantic import BaseModel, Extra, Field, parse_raw_as
 from rich import print
 
-__all__ = ['parse_ast']
+__all__ = ["parse_sql"]
 
 T = TypeVar("T")
 
@@ -54,7 +54,6 @@ class Star(Base):
 
     replace_list: list[object]
     relation_name: str
-    columns: object
     exclude_list: list[object]
 
 
@@ -65,16 +64,19 @@ class Constant(Base):
     alias: str
     value: Value
 
+
 class Cast(Base):
     type: Literal["CAST"]
     clazz: Literal["CAST"] = Field(alias="class")
     alias: str
-    child: 'Select'
+    child: "Select"
     cast_type: ValueType
     try_cast: bool
 
 
-Select = Annotated[Union['Function', ColumnRef, Star, Constant, Cast], Field(discriminator="type")]
+Select = Annotated[
+    Union["Function", ColumnRef, Star, Constant, Cast], Field(discriminator="type")
+]
 
 
 class Comparison(Base):
@@ -89,10 +91,10 @@ class Conjunction(Base):
     clazz: Literal["CONJUNCTION"] = Field(alias="class")
     type: Literal["AND"]
     alias: str
-    children: list['Clause']
+    children: list["Clause"]
 
 
-Clause = Annotated[Union[Comparison,Conjunction], Field(discriminator='class')]
+Clause = Annotated[Union[Comparison, Conjunction], Field(discriminator="class")]
 
 Conjunction.update_forward_refs()
 
@@ -173,12 +175,11 @@ class SuccessResponse(Base):
     statements: list[Statement]
 
 
-
 def escape_sql(sql):
     return sql.replace('"', '""')
 
 
-def parse_sql(sql: str) -> 'Root':
+def parse_sql(sql: str) -> "Root":
     duckdb.install_extension("json")
     duckdb.load_extension("json")
 
