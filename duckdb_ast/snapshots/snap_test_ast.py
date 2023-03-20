@@ -7,6 +7,57 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
+snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(chr(0), chr(10)) AS whatever) FROM test_all_types() ] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        Statement(
+            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                StarExpression(
+                    type='STAR',
+                    clazz='STAR',
+                    alias='',
+                    columns=False,
+                    replace_list={},
+                    relation_name='',
+                    exclude_list=['timestamp_tz'],
+                    expr=None
+                )
+            ],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=TableFunction(
+                type='TABLE_FUNCTION',
+                alias='',
+                function=Function(
+                    clazz='FUNCTION',
+                    type='FUNCTION',
+                    schema_name='',
+                    function_name='test_all_types',
+                    catalog='',
+                    alias='',
+                    is_operator=False,
+                    children=[],
+                    distinct=False,
+                    order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                    export_state=False,
+                    filter=None
+                ),
+                sample=None,
+                column_name_alias=[]
+            )
+        )
+    ]
+)
+'''
+
 snapshots['test_sql[create table dummy as select 1] 1'] = '''ErrorResponse(
     error=True,
     error_message='Only SELECT statements can be serialized to json!',

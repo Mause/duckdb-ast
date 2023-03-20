@@ -20,6 +20,12 @@ import duckdb_ast.parse
         "select frog.age from frogs",
         "select []::boolean[]",
         "select frog.* EXCLUDE age from frogs",
+        """
+SELECT *
+EXCLUDE (timestamp_tz)
+REPLACE (varchar.replace(chr(0), chr(10)) AS whatever)
+FROM test_all_types()
+        """,
     ],
 )
 def test_sql(sql, snapshot: Snapshot):
