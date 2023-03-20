@@ -26,6 +26,7 @@ EXCLUDE (timestamp_tz)
 REPLACE (varchar.replace(chr(0), chr(10)) AS whatever)
 FROM test_all_types()
         """,
+        "select list_apply([1, 2, 3], x => x * 2)",
     ],
 )
 def test_sql(sql, snapshot: Snapshot):

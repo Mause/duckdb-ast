@@ -499,3 +499,116 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''SuccessResponse(
     ]
 )
 '''
+
+snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SuccessResponse(
+    error=False,
+    statements=[
+        Statement(
+            type=<StatementType.SELECT_NODE: 'SELECT_NODE'>,
+            modifiers=[],
+            cte_map={'map': []},
+            select_list=[
+                Function(
+                    clazz='FUNCTION',
+                    type='FUNCTION',
+                    schema_name='',
+                    function_name='list_apply',
+                    catalog='',
+                    alias='',
+                    is_operator=False,
+                    children=[
+                        Function(
+                            clazz='FUNCTION',
+                            type='FUNCTION',
+                            schema_name='main',
+                            function_name='list_value',
+                            catalog='',
+                            alias='',
+                            is_operator=False,
+                            children=[
+                                Constant(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=1,
+                                        is_null=False
+                                    )
+                                ),
+                                Constant(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=2,
+                                        is_null=False
+                                    )
+                                ),
+                                Constant(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=3,
+                                        is_null=False
+                                    )
+                                )
+                            ],
+                            distinct=False,
+                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            export_state=False,
+                            filter=None
+                        ),
+                        Function(
+                            clazz='FUNCTION',
+                            type='FUNCTION',
+                            schema_name='',
+                            function_name='*',
+                            catalog='',
+                            alias='x',
+                            is_operator=True,
+                            children=[
+                                ColumnRefExpression(
+                                    type='COLUMN_REF',
+                                    clazz='COLUMN_REF',
+                                    alias='',
+                                    column_names=['x']
+                                ),
+                                Constant(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=ValueType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=2,
+                                        is_null=False
+                                    )
+                                )
+                            ],
+                            distinct=False,
+                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            export_state=False,
+                            filter=None
+                        )
+                    ],
+                    distinct=False,
+                    order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                    export_state=False,
+                    filter=None
+                )
+            ],
+            where_clause=None,
+            sample=None,
+            qualify=None,
+            having=None,
+            group_sets=[],
+            group_expressions=[],
+            aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+            from_table=EmptyTable(type='EMPTY', alias='', sample=None)
+        )
+    ]
+)
+'''
