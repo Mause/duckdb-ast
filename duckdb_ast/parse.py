@@ -158,6 +158,7 @@ class ComparisonExpression(ParsedExpression):
     type: Literal[
         "GREATERTHAN",
         "EQUAL",
+        "NOTEQUAL",
         "GREATERTHANOREQUALTO",
         "NOT_DISTINCT_FROM",
         "DISTINCT_FROM",

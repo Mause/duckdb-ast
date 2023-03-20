@@ -58,6 +58,7 @@ FROM test_all_types()
         "SELECT a NOT BETWEEN x AND y",
         "SELECT expression IS NOT NULL",
         "SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NULL",
+        "SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2",
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):

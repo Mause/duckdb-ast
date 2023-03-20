@@ -477,6 +477,216 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''Root(
 )
 '''
 
+snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2] 1'] = '''Root(
+    __root__=SuccessResponse(
+        error=False,
+        statements=[
+            SelectNode(
+                type='SELECT_NODE',
+                modifiers=[],
+                cte_map={'map': []},
+                select_list=[
+                    ParsedExpressionSubclasses(
+                        __root__=ComparisonExpression(
+                            type='LESSTHAN',
+                            clazz='COMPARISON',
+                            alias='',
+                            left=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=2,
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            right=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=3,
+                                        is_null=False
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ComparisonExpression(
+                            type='GREATERTHAN',
+                            clazz='COMPARISON',
+                            alias='',
+                            left=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=2,
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            right=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=3,
+                                        is_null=False
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ComparisonExpression(
+                            type='LESSTHANOREQUALTO',
+                            clazz='COMPARISON',
+                            alias='',
+                            left=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=2,
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            right=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=3,
+                                        is_null=False
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ComparisonExpression(
+                            type='GREATERTHANOREQUALTO',
+                            clazz='COMPARISON',
+                            alias='',
+                            left=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=4,
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            right=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                                        value=None,
+                                        is_null=True
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ComparisonExpression(
+                            type='EQUAL',
+                            clazz='COMPARISON',
+                            alias='',
+                            left=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                                        value=None,
+                                        is_null=True
+                                    )
+                                )
+                            ),
+                            right=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                                        value=None,
+                                        is_null=True
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ComparisonExpression(
+                            type='NOTEQUAL',
+                            clazz='COMPARISON',
+                            alias='',
+                            left=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=2,
+                                        is_null=False
+                                    )
+                                )
+                            ),
+                            right=ParsedExpressionSubclasses(
+                                __root__=ConstantExpression(
+                                    type='CONSTANT',
+                                    clazz='CONSTANT',
+                                    alias='',
+                                    value=Value(
+                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        value=2,
+                                        is_null=False
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ],
+                where_clause=None,
+                sample=None,
+                qualify=None,
+                having=None,
+                group_sets=[],
+                group_expressions=[],
+                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+            )
+        ]
+    )
+)
+'''
+
 snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NULL] 1'] = '''Root(
     __root__=SuccessResponse(
         error=False,

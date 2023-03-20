@@ -312,6 +312,7 @@ snapshots['test_schema_generation 1'] = {
                     'enum': [
                         'GREATERTHAN',
                         'EQUAL',
+                        'NOTEQUAL',
                         'GREATERTHANOREQUALTO',
                         'NOT_DISTINCT_FROM',
                         'DISTINCT_FROM',
@@ -751,6 +752,7 @@ snapshots['test_schema_generation 1'] = {
                     'LESSTHAN': '#/definitions/ComparisonExpression',
                     'LESSTHANOREQUALTO': '#/definitions/ComparisonExpression',
                     'NOT': '#/definitions/OperatorExpression',
+                    'NOTEQUAL': '#/definitions/ComparisonExpression',
                     'NOT_DISTINCT_FROM': '#/definitions/ComparisonExpression',
                     'OR': '#/definitions/ConjunctionExpression',
                     'STAR': '#/definitions/StarExpression',
