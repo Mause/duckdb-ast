@@ -39,6 +39,7 @@ class LogicalTypeId(Enum):
 class ExtraTypeInfo(Base):
     type: str
     alias: str
+    catalog_entry: Optional[object]
 
 
 class ListTypeInfo(ExtraTypeInfo):

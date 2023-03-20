@@ -201,7 +201,13 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SuccessResponse(
                     ),
                     cast_type=LogicalType(
                         id=<LogicalTypeId.DECIMAL: 'DECIMAL'>,
-                        type_info=DecimalTypeInfo(type='DECIMAL_TYPE_INFO', alias='', width=15, scale=6)
+                        type_info=DecimalTypeInfo(
+                            type='DECIMAL_TYPE_INFO',
+                            alias='',
+                            catalog_entry=None,
+                            width=15,
+                            scale=6
+                        )
                     ),
                     try_cast=False
                 )
@@ -246,6 +252,7 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SuccessResponse(
                         type_info=StructTypeInfo(
                             type='STRUCT_TYPE_INFO',
                             alias='',
+                            catalog_entry=None,
                             child_types=['a', LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)]
                         )
                     ),
@@ -289,7 +296,12 @@ snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SuccessResponse(
                     ),
                     cast_type=LogicalType(
                         id=<LogicalTypeId.USER: 'USER'>,
-                        type_info=UserTypeInfo(type='USER_TYPE_INFO', alias='', user_type_name='USER_TYPE')
+                        type_info=UserTypeInfo(
+                            type='USER_TYPE_INFO',
+                            alias='',
+                            catalog_entry=None,
+                            user_type_name='USER_TYPE'
+                        )
                     ),
                     try_cast=False
                 )
@@ -427,6 +439,7 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SuccessResponse(
                         type_info=ListTypeInfo(
                             type='LIST_TYPE_INFO',
                             alias='',
+                            catalog_entry=None,
                             child_type=LogicalType(id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>, type_info=None)
                         )
                     ),
