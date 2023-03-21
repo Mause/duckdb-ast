@@ -19,6 +19,7 @@ __all__ = [
     "ColumnRefExpression",
     "CommonTableExpressionInfo",
     "CommonTableExpressionMap",
+    "parse_sql_to_json",
     "ComparisonExpression",
     "ConjunctionExpression",
     "ConstantExpression",
@@ -65,21 +66,35 @@ T = TypeVar("T")
 
 
 class Base(BaseModel):
+    """
+    Base model with config
+    """
+
     class Config:
         extra = Extra.forbid
 
 
 class BaseExpression(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/base_expression.hpp#L18
+    """
+
     type: str
     clazz: str = Field(alias="class")
     alias: str
 
 
 class ParsedExpression(BaseExpression):
-    pass
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/parsed_expression.hpp#L34
+    """
 
 
 class LogicalTypeId(Enum):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/types.hpp#L246
+    """
+
     INVALID = "INVALID"
     NULL = "NULL"
     UNKNOWN = "UNKNOWN"
@@ -127,45 +142,81 @@ class LogicalTypeId(Enum):
 
 
 class CatalogEntry(Base):
-    pass
+    """
+    Abstract base class of an entry in the catalog
+
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/catalog/catalog_entry.hpp#L25
+    """
 
 
 class StandardEntry(CatalogEntry):
-    pass
+    """
+    A StandardEntry is a catalog entry that is a member of a schema
+
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/catalog/standard_entry.hpp#L17
+    """
 
 
 class TypeCatalogEntry(StandardEntry):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20
+    """
+
     user_type: "LogicalType"
 
 
 class ExtraTypeInfo(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L766
+    """
+
     type: str
     alias: str
     catalog_entry: Optional[TypeCatalogEntry]
 
 
 class ListTypeInfo(ExtraTypeInfo):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L991
+    """
+
     type: Literal["LIST_TYPE_INFO"]
     child_type: "LogicalType"
 
 
 class DecimalTypeInfo(ExtraTypeInfo):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L868
+    """
+
     type: Literal["DECIMAL_TYPE_INFO"]
     width: int
     scale: int
 
 
 class StructTypeInfo(ExtraTypeInfo):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L1040
+    """
+
     type: Literal["STRUCT_TYPE_INFO"]
     child_types: list[Union[str, "LogicalType"]]
 
 
 class UserTypeInfo(ExtraTypeInfo):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L1263
+    """
+
     type: Literal["USER_TYPE_INFO"]
     user_type_name: str
 
 
 class LogicalType(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/types.hpp#L298
+    """
+
     id: LogicalTypeId
     type_info: Optional[
         Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo, StructTypeInfo]
@@ -176,6 +227,10 @@ StructTypeInfo.update_forward_refs()
 
 
 class Value(Base, Generic[T]):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/types/value.hpp#L30
+    """
+
     type: LogicalType
     value: T
     is_null: bool
@@ -209,6 +264,10 @@ class StarExpression(ParsedExpression):
 
 
 class ConstantExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/constant_expression.hpp#L17
+    """
+
     type: Literal["CONSTANT"]
     clazz: Literal["CONSTANT"] = Field(alias="class")
 
@@ -228,6 +287,10 @@ class CastExpression(ParsedExpression):
 
 
 class ComparisonExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/comparison_expression.hpp#L16
+    """
+
     clazz: Literal["COMPARISON"] = Field(alias="class")
     type: Literal[
         "GREATERTHAN",
@@ -244,18 +307,30 @@ class ComparisonExpression(ParsedExpression):
 
 
 class ConjunctionExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/conjunction_expression.hpp#L17
+    """
+
     clazz: Literal["CONJUNCTION"] = Field(alias="class")
     type: Literal["AND", "OR"]
     children: list["ParsedExpressionSubclasses"]
 
 
 class OperatorExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/operator_expression.hpp#L18
+    """
+
     clazz: Literal["OPERATOR"] = Field(alias="class")
     type: Literal["IS_NULL", "IN", "NOT", "IS_NOT_NULL", "COMPARE_NOT_IN"]
     children: list["ParsedExpressionSubclasses"]
 
 
 class SubqueryExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/subquery_expression.hpp#L18
+    """
+
     type: Literal["SUBQUERY"]
     clazz: Literal["SUBQUERY"] = Field(alias="class")
 
@@ -266,11 +341,19 @@ class SubqueryExpression(ParsedExpression):
 
 
 class CaseCheck(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/case_expression.hpp#L16
+    """
+
     when_expr: "ParsedExpressionSubclasses"
     then_expr: "ParsedExpressionSubclasses"
 
 
 class CollateExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/collate_expression.hpp#L16
+    """
+
     type: Literal["COLLATE"]
     clazz: Literal["COLLATE"] = Field(alias="class")
 
@@ -279,6 +362,10 @@ class CollateExpression(ParsedExpression):
 
 
 class CaseExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/case_expression.hpp#L25
+    """
+
     type: Literal["CASE"]
     clazz: Literal["CASE"] = Field(alias="class")
 
@@ -287,6 +374,10 @@ class CaseExpression(ParsedExpression):
 
 
 class BetweenExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/between_expression.hpp#L15
+    """
+
     clazz: Literal["BETWEEN"] = Field(alias="class")
     type: Literal["COMPARE_BETWEEN"]
 
@@ -296,6 +387,8 @@ class BetweenExpression(ParsedExpression):
 
 
 class ParsedExpressionSubclasses(Base):
+    """Union of ParsedExpression subclasses"""
+
     __root__: Union[
         "FunctionExpression",
         ColumnRefExpression,
@@ -313,12 +406,20 @@ class ParsedExpressionSubclasses(Base):
 
 
 class SampleMethod(Enum):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/parsed_data/sample_options.hpp#L18
+    """
+
     SYSTEM_SAMPLE = "System"
     BERNOULLI_SAMPLE = "Bernoulli"
     RESERVOIR_SAMPLE = "Reservoir"
 
 
 class SampleOptions(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/parsed_data/sample_options.hpp#L22
+    """
+
     sample_size: Value
     is_percentage: bool
     method: SampleMethod
@@ -326,6 +427,10 @@ class SampleOptions(Base):
 
 
 class TableRef(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/tableref.hpp#L20
+    """
+
     alias: str
     sample: Optional[SampleOptions]
 
@@ -344,10 +449,18 @@ class BaseTableRef(TableRef):
 
 
 class EmptyTableRef(TableRef):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/tableref/emptytableref.hpp#L15
+    """
+
     type: Literal["EMPTY"]
 
 
 class OrderType(Enum):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/enums/order_type.hpp#L16
+    """
+
     INVALID = "INVALID"
     ORDER_DEFAULT = "ORDER_DEFAULT"
     ASCENDING = "ASCENDING"
@@ -355,6 +468,10 @@ class OrderType(Enum):
 
 
 class OrderByNullType(Enum):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/enums/order_type.hpp#L18
+    """
+
     INVALID = "INVALID"
     ORDER_DEFAULT = "ORDER_DEFAULT"
     NULLS_FIRST = "NULLS_FIRST"
@@ -362,17 +479,29 @@ class OrderByNullType(Enum):
 
 
 class OrderByNode(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/result_modifier.hpp#L60
+    """
+
     type: OrderType
     null_order: OrderByNullType
     expression: "ParsedExpressionSubclasses"
 
 
 class OrderModifier(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/result_modifier.hpp#L101
+    """
+
     type: Literal["ORDER_MODIFIER"]
     orders: list[OrderByNode]
 
 
 class FunctionExpression(ParsedExpression):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/function_expression.hpp#L17
+    """
+
     clazz: Literal["FUNCTION"] = Field(alias="class")
     type: Literal["FUNCTION"]
     schema_name: str = Field(alias="schema")
@@ -387,6 +516,10 @@ class FunctionExpression(ParsedExpression):
 
 
 class TableFunctionRef(TableRef):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/tableref/table_function_ref.hpp#L19
+    """
+
     type: Literal["TABLE_FUNCTION"]
 
     function: FunctionExpression
@@ -394,6 +527,10 @@ class TableFunctionRef(TableRef):
 
 
 class AggregateHandling(Enum):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/enums/aggregate_handling.hpp#L16
+    """
+
     # standard handling as in the SELECT clause
     STANDARD_HANDLING = "STANDARD_HANDLING"
 
@@ -405,6 +542,10 @@ class AggregateHandling(Enum):
 
 
 class ResultModifierType(Enum):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/result_modifier.hpp#L22
+    """
+
     LIMIT_MODIFIER = "LIMIT_MODIFIER"
     ORDER_MODIFIER = "ORDER_MODIFIER"
     DISTINCT_MODIFIER = "DISTINCT_MODIFIER"
@@ -412,19 +553,35 @@ class ResultModifierType(Enum):
 
 
 class ResultModifier(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/result_modifier.hpp#L33
+    """
+
     type: ResultModifierType
 
 
 class CommonTableExpressionInfo(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/common_table_expression_info.hpp#L17
+    """
+
     aliases: list[str]
     query: "SelectNode"
 
 
 class CommonTableExpressionMap(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/query_node.hpp#L32
+    """
+
     map: dict[str, CommonTableExpressionInfo]
 
 
 class QueryNode(Base):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/query_node.hpp#L47
+    """
+
     type: str
     modifiers: list[ResultModifier]
 
@@ -432,6 +589,10 @@ class QueryNode(Base):
 
 
 class SubqueryRef(TableRef):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/tableref/subqueryref.hpp#L16
+    """
+
     type: Literal["SUBQUERY"]
 
     subquery: "SelectNode"
@@ -439,6 +600,7 @@ class SubqueryRef(TableRef):
 
 
 class TableRefSubclasses(Base):
+    "Union of TableRef subclasses"
     __root__: Union[BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef] = Field(
         discriminator="type"
     )
@@ -448,6 +610,10 @@ GroupingSet = set[int]
 
 
 class SelectNode(QueryNode):
+    """
+    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/query_node/select_node.hpp#L22
+    """
+
     type: Literal["SELECT_NODE"]
     select_list: list[ParsedExpressionSubclasses]
     where_clause: Optional[ParsedExpressionSubclasses]
@@ -461,32 +627,46 @@ class SelectNode(QueryNode):
 
 
 class ErrorResponse(Base):
+    "Error shape for when parsing fails"
     error: Literal[True]
     error_message: str
     error_type: str
 
 
 class SuccessResponse(Base):
+    "Returned when parsing succeeds"
     error: Literal[False]
     statements: list[SelectNode]
 
 
 def escape_sql(sql):
+    "Escapes quotes in an SQL string"
     return sql.replace('"', '""').replace("'", "''")
 
 
-def parse_sql(sql: str) -> ErrorResponse | SuccessResponse:
+def parse_sql_to_json(sql: str) -> str:
+    "Returns raw (unparsed) DuckDB AST JSON"
     duckdb.install_extension("json")
     duckdb.load_extension("json")
 
     inner = f"select json_serialize_sql('{escape_sql(sql)}')"
-    (ast,) = duckdb.execute(inner).fetchone()
+    res = duckdb.execute(inner)
+    assert res
+    (ast,) = res.fetchone()
+
+    return ast
+
+
+def parse_sql(sql: str) -> ErrorResponse | SuccessResponse:
+    "Parses DuckDB flavoured SQL"
+    ast = parse_sql_to_json(sql)
     print(json.loads(ast))
     print()
     return parse_raw_as(Root, ast).__root__
 
 
 class Root(Base):
+    "Union of possible responses"
     __root__: Union[ErrorResponse, SuccessResponse] = Field(discriminator="error")
 
 
@@ -508,4 +688,5 @@ ParsedExpressionSubclasses.update_forward_refs()
 
 
 def get_schema():
+    "Returns jsonschema of DuckDB AST"
     return schema_of(Root)
