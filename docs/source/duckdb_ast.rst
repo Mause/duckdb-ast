@@ -4,9 +4,6 @@ duckdb\_ast package
 Submodules
 ----------
 
-duckdb\_ast.models module
--------------------------
-
 .. toctree::
    :maxdepth: 1
 
