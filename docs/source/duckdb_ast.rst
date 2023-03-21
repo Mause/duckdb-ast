@@ -8,6 +8,7 @@ duckdb\_ast.models module
 -------------------------
 
 .. toctree::
+   :maxdepth: 1
 
    duckdb_ast.models
 
