@@ -10,8 +10,7 @@ Welcome to duckdb-ast's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   api
-   generated/duckdb_ast
+   duckdb_ast
 
 
 Indices and tables
