@@ -7,10 +7,9 @@ Submodules
 duckdb\_ast.models module
 -------------------------
 
-.. automodule:: duckdb_ast.models
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+
+   duckdb_ast.models
 
 Module contents
 ---------------

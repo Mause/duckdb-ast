@@ -5,3 +5,4 @@ duckdb_ast
    :maxdepth: 4
 
    duckdb_ast
+   duckdb_ast.models
