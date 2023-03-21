@@ -25,63 +25,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build job
-  build:
-    runs-on: ubuntu-latest
-    env:
-      MDBOOK_VERSION: 0.4.21
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install mdBook
-
-        uses: taiki-e/install-action@v2
-
-        with:
-
-          tool: mdbook
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
-      - name: Build with mdBook
-        run: mdbook build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./book
   build_sphinx:
-
     runs-on: ubuntu-latest
-
-    
-
     steps:
-
       - uses: actions/checkout@v3
       - name: Setup Poetry
-
         uses: Gr1N/setup-poetry@v8
-
       - run: poetry install
-
       - name: Setup Pages
-
         id: pages
-
         uses: actions/configure-pages@v3
-
       - name: Build with mdBook
         working-directory: docs
         run: |
           poetry run make html
-
-
       - name: Upload artifact
-
         uses: actions/upload-pages-artifact@v1
-
         with:
-
-          path: ./docs/_build/html
+          path: ./docs/build/html
   # Deployment job
   deploy:
     environment:
