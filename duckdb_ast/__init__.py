@@ -468,7 +468,7 @@ def escape_sql(sql):
     return sql.replace('"', '""').replace("'", "''")
 
 
-def parse_sql(sql: str) -> "Root":
+def parse_sql(sql: str) -> ErrorResponse | SuccessResponse:
     duckdb.install_extension("json")
     duckdb.load_extension("json")
 
@@ -476,7 +476,7 @@ def parse_sql(sql: str) -> "Root":
     (ast,) = duckdb.execute(inner).fetchone()
     print(json.loads(ast))
     print()
-    return parse_raw_as(Root, ast)
+    return parse_raw_as(Root, ast).__root__
 
 
 class Root(Base):

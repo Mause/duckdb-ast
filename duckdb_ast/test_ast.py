@@ -1,10 +1,11 @@
 from io import StringIO
+from typing import cast
 
 from pytest import mark
 from rich.console import Console
 from snapshottest.module import SnapshotTest
 
-from duckdb_ast import parse_sql
+from . import SuccessResponse, parse_sql
 
 
 @mark.parametrize(
@@ -87,9 +88,14 @@ FROM test_all_types()
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
-    parsed = parse_sql(sql)
-    root = parsed.__root__
+    root = parse_sql(sql)
     assert not root.error, root.error_message
     fh = StringIO()
-    Console(width=120, file=fh).print(parsed)
+
+    root = cast(SuccessResponse, root)
+
+    statements = root.statements
+    assert len(statements) == 1
+
+    Console(width=120, file=fh).print(statements[0])
     snapshot.assert_match(fh.getvalue())

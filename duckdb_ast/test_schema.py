@@ -1,6 +1,6 @@
 from snapshottest.module import SnapshotTest
 
-from duckdb_ast import get_schema
+from . import get_schema
 
 
 def test_schema_generation(snapshot: SnapshotTest):
