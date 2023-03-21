@@ -1,10 +1,8 @@
-import json
 from enum import Enum
 from typing import Generic, Literal, Optional, TypeVar, Union
 
 import duckdb
 from pydantic import BaseModel, Extra, Field, parse_raw_as, schema_of
-from rich import print
 
 __all__ = [
     "AggregateHandling",
@@ -660,8 +658,6 @@ def parse_sql_to_json(sql: str) -> str:
 def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
     "Parses DuckDB flavoured SQL"
     ast = parse_sql_to_json(sql)
-    print(json.loads(ast))
-    print()
     return parse_raw_as(Root, ast).__root__
 
 
