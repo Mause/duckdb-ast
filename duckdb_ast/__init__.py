@@ -657,7 +657,7 @@ def parse_sql_to_json(sql: str) -> str:
     return ast
 
 
-def parse_sql(sql: str) -> ErrorResponse | SuccessResponse:
+def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
     "Parses DuckDB flavoured SQL"
     ast = parse_sql_to_json(sql)
     print(json.loads(ast))
