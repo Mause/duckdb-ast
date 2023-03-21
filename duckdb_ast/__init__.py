@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Any, Union
 
 import duckdb
 from pydantic import parse_raw_as, schema_of
@@ -12,7 +12,7 @@ __all__ = [
 ]
 
 
-def escape_sql(sql):
+def escape_sql(sql: str) -> str:
     "Escapes quotes in an SQL string"
     return sql.replace('"', '""').replace("'", "''")
 
@@ -36,6 +36,6 @@ def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
     return parse_raw_as(Root, ast).__root__
 
 
-def get_schema():
+def get_schema() -> dict[str, Any]:
     "Returns jsonschema of DuckDB AST"
     return schema_of(Root)
