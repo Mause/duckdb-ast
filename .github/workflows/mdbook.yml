@@ -52,9 +52,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-
-      MDBOOK_VERSION: 0.4.21
+    
 
     steps:
 
@@ -69,7 +67,7 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Build with mdBook
-        working_directory: docs
+        working-directory: docs
         run: |
           poetry run make html
 
