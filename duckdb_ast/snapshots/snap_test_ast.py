@@ -1406,7 +1406,7 @@ snapshots['test_sql[SELECT TIMESTAMPTZ \'1992-09-20 11:30:00\'] 1'] = '''Root(
                                 )
                             ),
                             cast_type=LogicalType(
-                                id=<LogicalTypeId.TIMESTAMPTZ: 'TIMESTAMP WITH TIME ZONE'>,
+                                id=<LogicalTypeId.TIMESTAMP_TZ: 'TIMESTAMP WITH TIME ZONE'>,
                                 type_info=None
                             ),
                             try_cast=False

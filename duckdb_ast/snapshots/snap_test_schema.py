@@ -704,7 +704,7 @@ snapshots['test_schema_generation 1'] = {
                 'USMALLINT',
                 'UINTEGER',
                 'UBIGINT',
-                'TIMESTAMP_TZ',
+                'TIMESTAMP WITH TIME ZONE',
                 'TIME_TZ',
                 'BIT',
                 'HUGEINT',
