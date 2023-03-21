@@ -29,7 +29,10 @@ jobs:
       - name: Setup Poetry
         uses: Gr1N/setup-poetry@v8
       - run: poetry install
-      - run: poetry run python3 -m duckdb_ast --output docs/source/schema.json
+      - name: Generate schema for serving
+        run: |
+          mkdir -p docs/source/_static
+          poetry run python3 -m duckdb_ast --output docs/source/_static/schema.json
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
