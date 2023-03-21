@@ -1,9 +1,7 @@
 API
-
 ===
 
 .. autosummary::
-
    :toctree: generated
 
-   lumache
+   duckdb_ast
