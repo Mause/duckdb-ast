@@ -3,8 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to duckdb-ast's documentation!
-======================================
+Welcome!
+========
+
+This package contains some tools to help use DuckDB's AST manipualaion tooling.
+
+You can download the `schema directly <https://mause.me/duckdb-ast/_static/schema.json>`_ too if you wish
 
 .. toctree::
    :maxdepth: 2
