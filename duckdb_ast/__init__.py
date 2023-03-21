@@ -6,7 +6,7 @@ import duckdb
 from pydantic import BaseModel, Extra, Field, parse_raw_as, schema_of
 from rich import print
 
-__all__ = ["parse_sql", "get_schema"]
+__all__ = ["parse_sql", "get_schema", "Root"]
 
 T = TypeVar("T")
 

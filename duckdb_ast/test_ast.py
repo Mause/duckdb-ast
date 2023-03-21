@@ -4,7 +4,7 @@ from pytest import mark
 from rich.console import Console
 from snapshottest.module import SnapshotTest
 
-import duckdb_ast.parse
+from duckdb_ast import parse_sql
 
 
 @mark.parametrize(
@@ -87,7 +87,7 @@ FROM test_all_types()
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
-    parsed = duckdb_ast.parse.parse_sql(sql)
+    parsed = parse_sql(sql)
     root = parsed.__root__
     assert not root.error, root.error_message
     fh = StringIO()
