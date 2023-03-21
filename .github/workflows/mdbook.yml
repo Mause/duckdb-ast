@@ -81,7 +81,7 @@ jobs:
 
         with:
 
-          path: ./docs/_build
+          path: ./docs/_build/html
   # Deployment job
   deploy:
     environment:
