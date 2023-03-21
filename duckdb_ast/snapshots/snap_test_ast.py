@@ -31,7 +31,7 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=TableFunctionRef(
             alias='',
@@ -149,7 +149,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                         having=None,
                         group_sets=[],
                         group_expressions=[],
-                        aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                        aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                         from_table=TableRefSubclasses(
                             __root__=BaseTableRef(
                                 alias='',
@@ -172,7 +172,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='grades_parent',
@@ -256,7 +256,7 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
             __root__=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['city'])
         )
     ],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -321,7 +321,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -372,7 +372,7 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''SelectNode(
                     having=None,
                     group_sets=[],
                     group_expressions=[],
-                    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
                 ),
                 subquery_type='SCALAR'
@@ -385,7 +385,7 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -423,7 +423,7 @@ snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''S
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -471,7 +471,7 @@ snapshots['test_sql[SELECT 0::HUGEINT] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -524,7 +524,7 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -603,7 +603,7 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -806,7 +806,7 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -885,7 +885,7 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -923,7 +923,7 @@ snapshots['test_sql[SELECT DATE \'1992-09-20\'] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -990,7 +990,7 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
                     having=None,
                     group_sets=[],
                     group_expressions=[],
-                    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                     from_table=TableRefSubclasses(
                         __root__=BaseTableRef(
                             alias='',
@@ -1013,7 +1013,7 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1068,7 +1068,7 @@ snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1143,7 +1143,7 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -1191,7 +1191,7 @@ snapshots['test_sql[SELECT NULL IS NULL] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1229,7 +1229,7 @@ snapshots['test_sql[SELECT TIMESTAMP \'1992-09-20 11:30:00\'] 1'] = '''SelectNod
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1267,7 +1267,7 @@ snapshots['test_sql[SELECT TIMESTAMPTZ \'1992-09-20 11:30:00\'] 1'] = '''SelectN
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1305,7 +1305,7 @@ snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1353,7 +1353,7 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Se
                     having=None,
                     group_sets=[],
                     group_expressions=[],
-                    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                     from_table=TableRefSubclasses(
                         __root__=BaseTableRef(
                             alias='',
@@ -1376,7 +1376,7 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Se
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1479,7 +1479,7 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1516,7 +1516,7 @@ snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1549,7 +1549,7 @@ snapshots['test_sql[SELECT a BETWEEN x AND y] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1606,7 +1606,7 @@ snapshots['test_sql[SELECT a NOT BETWEEN x AND y] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1635,7 +1635,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=SubqueryRef(
             alias='',
@@ -1706,7 +1706,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                 having=None,
                 group_sets=[],
                 group_expressions=[],
-                aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                 from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
             ),
             column_name_alias=[]
@@ -1744,7 +1744,7 @@ snapshots['test_sql[SELECT expression IS NOT NULL] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -1826,7 +1826,7 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -1865,7 +1865,7 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -1904,7 +1904,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=TableFunctionRef(
             alias='',
@@ -1997,7 +1997,7 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -2043,7 +2043,7 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -2089,7 +2089,7 @@ snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -2147,7 +2147,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -2176,7 +2176,7 @@ snapshots['test_sql[select 1] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -2226,7 +2226,7 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -2317,7 +2317,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -2347,7 +2347,7 @@ snapshots['test_sql[select frog from frogs] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -2386,7 +2386,7 @@ snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -2421,7 +2421,7 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''SelectNode(
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',
@@ -2555,7 +2555,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
     having=None,
     group_sets=[],
     group_expressions=[],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
 )
 '''
@@ -2579,7 +2579,7 @@ snapshots['test_sql[select name from frogs GROUP BY age] 1'] = '''SelectNode(
             __root__=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['age'])
         )
     ],
-    aggregate_handling=<AggregrateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         __root__=BaseTableRef(
             alias='',

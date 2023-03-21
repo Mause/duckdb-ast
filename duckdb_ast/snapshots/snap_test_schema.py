@@ -10,12 +10,14 @@ snapshots = Snapshot()
 snapshots['test_schema_generation 1'] = {
     '$ref': '#/definitions/Root',
     'definitions': {
-        'AggregrateHandling': {
+        'AggregateHandling': {
             'description': 'An enumeration.',
             'enum': [
-                'STANDARD_HANDLING'
+                'STANDARD_HANDLING',
+                'NO_AGGREGATES_ALLOWED',
+                'FORCE_AGGREGATES'
             ],
-            'title': 'AggregrateHandling'
+            'title': 'AggregateHandling'
         },
         'BaseTableRef': {
             'additionalProperties': False,
@@ -983,7 +985,7 @@ snapshots['test_schema_generation 1'] = {
             'additionalProperties': False,
             'properties': {
                 'aggregate_handling': {
-                    '$ref': '#/definitions/AggregrateHandling'
+                    '$ref': '#/definitions/AggregateHandling'
                 },
                 'cte_map': {
                     '$ref': '#/definitions/CommonTableExpressionMap'

@@ -7,7 +7,7 @@ from pydantic import BaseModel, Extra, Field, parse_raw_as, schema_of
 from rich import print
 
 __all__ = [
-    "AggregrateHandling",
+    "AggregateHandling",
     "BaseExpression",
     "BaseTableRef",
     "BetweenExpression",
@@ -393,8 +393,15 @@ class TableFunctionRef(TableRef):
     column_name_alias: Optional[list[str]]
 
 
-class AggregrateHandling(Enum):
+class AggregateHandling(Enum):
+    # standard handling as in the SELECT clause
     STANDARD_HANDLING = "STANDARD_HANDLING"
+
+    # aggregates allowed: any aggregates in this node will result in an error
+    NO_AGGREGATES_ALLOWED = "NO_AGGREGATES_ALLOWED"
+
+    # force aggregates: any non-aggregate select list entry will become a GROUP
+    FORCE_AGGREGATES = "FORCE_AGGREGATES"
 
 
 class ResultModifierType(Enum):
@@ -449,7 +456,7 @@ class SelectNode(QueryNode):
     having: Optional[ParsedExpressionSubclasses]
     group_sets: Optional[list[GroupingSet]]
     group_expressions: Optional[list[ParsedExpressionSubclasses]]
-    aggregate_handling: Optional[AggregrateHandling]
+    aggregate_handling: Optional[AggregateHandling]
     from_table: TableRefSubclasses
 
 
