@@ -16,7 +16,6 @@ release = "0.1.0"
 
 extensions: list[str] = [
     "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
 ]
 
 templates_path = ["_templates"]

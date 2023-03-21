@@ -11,7 +11,7 @@ Welcome to duckdb-ast's documentation!
    :caption: Contents:
 
    api
-   duckdb_ast
+   generated/duckdb_ast
 
 
 Indices and tables
@@ -20,9 +20,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-.. autosummary::
-
-   :toctree: generated
-
-   duckdb_ast
