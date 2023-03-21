@@ -38,4 +38,6 @@ def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
 
 def get_schema() -> dict[str, Any]:
     "Returns jsonschema of DuckDB AST"
-    return schema_of(Root)
+    schema = schema_of(Root)
+    schema["version"] = duckdb.__version__
+    return schema

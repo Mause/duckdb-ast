@@ -4,4 +4,6 @@ from . import get_schema
 
 
 def test_schema_generation(snapshot: SnapshotTest):
-    snapshot.assert_match(get_schema())
+    schema = get_schema()
+    schema.pop("version")
+    snapshot.assert_match(schema)
