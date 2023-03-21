@@ -9,6 +9,7 @@ Welcome to duckdb-ast's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
    api
    duckdb_ast
 
