@@ -1,5 +1,6 @@
 import atexit
 import shelve
+from typing import Callable, TypeVar
 from urllib.request import urlopen
 
 from docutils import nodes
@@ -10,12 +11,14 @@ from sphinx.util.docutils import SphinxDirective
 gh_ref = "88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1"
 template = "https://github.com/duckdb/duckdb/blob/{}/{}".format
 
+T = TypeVar("T")
 
-def cached(func):
+
+def cached(func: Callable[[str], T]) -> Callable[[str], T]:
     cache = shelve.open("disk_cache.db")
     atexit.register(cache.close)
 
-    def wrapper(key):
+    def wrapper(key: str) -> T:
         if key not in cache:
             cache[key] = func(key)
         return cache[key]
@@ -24,7 +27,7 @@ def cached(func):
 
 
 @cached
-def get_file(filename):
+def get_file(filename: str) -> list[str]:
     return (
         urlopen(f"https://raw.githubusercontent.com/duckdb/duckdb/{gh_ref}/{filename}")
         .read()
@@ -33,7 +36,7 @@ def get_file(filename):
     )
 
 
-def get_doc(filename):
+def get_doc(filename: str) -> str:
     sep = "#L"
     prefix = "//! "
 
@@ -43,7 +46,7 @@ def get_doc(filename):
 
     start = int(lineno) - 1 - 1
 
-    extracted = []
+    extracted: list[str] = []
 
     while lines[start].startswith(prefix):
         extracted.insert(0, lines[start][len(prefix) :].strip())
@@ -58,14 +61,14 @@ class GitHubLinkDirective(SphinxDirective):
     has_content = True
     required_arguments = 1
 
-    def run(self):
+    def run(self) -> list[nodes.Node]:
         node = addnodes.desc()
 
         self.handle_signature(self.arguments[0], node)
 
         return [node]
 
-    def handle_signature(self, sig, signode):
+    def handle_signature(self, sig: str, signode: nodes.Node) -> str:
         doc = get_doc(sig)
         signode += nodes.paragraph(
             "",
@@ -75,7 +78,7 @@ class GitHubLinkDirective(SphinxDirective):
         return sig
 
 
-def setup(app: Sphinx):
+def setup(app: Sphinx) -> dict:
     app.add_directive("gh_link", GitHubLinkDirective)
 
     return {
