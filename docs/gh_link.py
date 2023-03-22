@@ -1,5 +1,6 @@
 import atexit
 import shelve
+from pathlib import Path
 from typing import Callable, TypeVar
 from urllib.request import urlopen
 
@@ -14,7 +15,7 @@ T = TypeVar("T")
 
 
 def cached(func: Callable[[str], T]) -> Callable[[str], T]:
-    cache = shelve.open("disk_cache.db")
+    cache = shelve.open(str(Path(__file__).parent / "disk_cache.db"))
     atexit.register(cache.close)
 
     def wrapper(key: str) -> T:
