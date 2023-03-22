@@ -271,6 +271,57 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
 )
 '''
 
+snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT id, name, [name] AS path FROM tag WHERE subclassof IS NULL UNION ALL SELECT tag.id, tag.name, list_prepend(tag.name, tag_hierarchy.path) FROM tag, tag_hierarchy WHERE tag.subclassof = tag_hierarchy.id ) SELECT path FROM tag_hierarchy WHERE source = \'Oasis\'; ] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['path'])
+        )
+    ],
+    where_clause=ParsedExpressionSubclasses(
+        __root__=ComparisonExpression(
+            type='EQUAL',
+            clazz='COMPARISON',
+            alias='',
+            left=ParsedExpressionSubclasses(
+                __root__=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['source'])
+            ),
+            right=ParsedExpressionSubclasses(
+                __root__=ConstantExpression(
+                    type='CONSTANT',
+                    clazz='CONSTANT',
+                    alias='',
+                    value=Value(
+                        type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                        value='Oasis',
+                        is_null=False
+                    )
+                )
+            )
+        )
+    ),
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(
+        __root__=BaseTableRef(
+            alias='',
+            sample=None,
+            type='BASE_TABLE',
+            schema_name='',
+            table_name='tag_hierarchy',
+            catalog_name='',
+            column_name_alias=[]
+        )
+    )
+)
+'''
+
 snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_name, row_number() over (partition by schema_name order by function_name) as function_rank FROM duckdb_functions() ) SELECT * FROM ranked_functions WHERE function_rank < 3; ] 1'] = '''SelectNode(
     type='SELECT_NODE',
     modifiers=[],
@@ -376,6 +427,255 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''SelectNode(
                     from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
                 ),
                 subquery_type='SCALAR'
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+)
+'''
+
+snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=CastExpression(
+                type='CAST',
+                clazz='CAST',
+                alias='',
+                child=ParsedExpressionSubclasses(
+                    __root__=ConstantExpression(
+                        type='CONSTANT',
+                        clazz='CONSTANT',
+                        alias='',
+                        value=Value(
+                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            value='101010',
+                            is_null=False
+                        )
+                    )
+                ),
+                cast_type=LogicalType(id=<LogicalTypeId.BIT: 'BIT'>, type_info=None),
+                try_cast=False
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+)
+'''
+
+snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'Math\')] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=OperatorExpression(
+                type='IN',
+                clazz='OPERATOR',
+                alias='',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                value='Math',
+                                is_null=False
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                value='CS',
+                                is_null=False
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                value='Math',
+                                is_null=False
+                            )
+                        )
+                    )
+                ]
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=OperatorExpression(
+                type='COMPARE_NOT_IN',
+                clazz='OPERATOR',
+                alias='',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['X']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                value='CS',
+                                is_null=False
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                value='Math',
+                                is_null=False
+                            )
+                        )
+                    )
+                ]
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+)
+'''
+
+snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=SubqueryExpression(
+                type='SUBQUERY',
+                clazz='SUBQUERY',
+                alias='',
+                child=ParsedExpressionSubclasses(
+                    __root__=ConstantExpression(
+                        type='CONSTANT',
+                        clazz='CONSTANT',
+                        alias='',
+                        value=Value(
+                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            value='Math',
+                            is_null=False
+                        )
+                    )
+                ),
+                comparison_type='EQUAL',
+                subquery=SelectNode(
+                    type='SELECT_NODE',
+                    modifiers=[],
+                    cte_map=CommonTableExpressionMap(map={}),
+                    select_list=[
+                        ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['course']
+                            )
+                        )
+                    ],
+                    where_clause=None,
+                    sample=None,
+                    qualify=None,
+                    having=None,
+                    group_sets=[],
+                    group_expressions=[],
+                    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+                    from_table=TableRefSubclasses(
+                        __root__=BaseTableRef(
+                            alias='',
+                            sample=None,
+                            type='BASE_TABLE',
+                            schema_name='',
+                            table_name='grades',
+                            catalog_name='',
+                            column_name_alias=[]
+                        )
+                    )
+                ),
+                subquery_type='ANY'
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+)
+'''
+
+snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=CollateExpression(
+                type='COLLATE',
+                clazz='COLLATE',
+                alias='',
+                child=ParsedExpressionSubclasses(
+                    __root__=ConstantExpression(
+                        type='CONSTANT',
+                        clazz='CONSTANT',
+                        alias='',
+                        value=Value(
+                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            value='hello',
+                            is_null=False
+                        )
+                    )
+                ),
+                collation='NOCASE'
             )
         )
     ],
@@ -1258,255 +1558,6 @@ snapshots['test_sql[SELECT TIMESTAMPTZ \'1992-09-20 11:30:00\'] 1'] = '''SelectN
                 ),
                 cast_type=LogicalType(id=<LogicalTypeId.TIMESTAMP_TZ: 'TIMESTAMP WITH TIME ZONE'>, type_info=None),
                 try_cast=False
-            )
-        )
-    ],
-    where_clause=None,
-    sample=None,
-    qualify=None,
-    having=None,
-    group_sets=[],
-    group_expressions=[],
-    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
-)
-'''
-
-snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''SelectNode(
-    type='SELECT_NODE',
-    modifiers=[],
-    cte_map=CommonTableExpressionMap(map={}),
-    select_list=[
-        ParsedExpressionSubclasses(
-            __root__=CastExpression(
-                type='CAST',
-                clazz='CAST',
-                alias='',
-                child=ParsedExpressionSubclasses(
-                    __root__=ConstantExpression(
-                        type='CONSTANT',
-                        clazz='CONSTANT',
-                        alias='',
-                        value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
-                            value='101010',
-                            is_null=False
-                        )
-                    )
-                ),
-                cast_type=LogicalType(id=<LogicalTypeId.BIT: 'BIT'>, type_info=None),
-                try_cast=False
-            )
-        )
-    ],
-    where_clause=None,
-    sample=None,
-    qualify=None,
-    having=None,
-    group_sets=[],
-    group_expressions=[],
-    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
-)
-'''
-
-snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''SelectNode(
-    type='SELECT_NODE',
-    modifiers=[],
-    cte_map=CommonTableExpressionMap(map={}),
-    select_list=[
-        ParsedExpressionSubclasses(
-            __root__=SubqueryExpression(
-                type='SUBQUERY',
-                clazz='SUBQUERY',
-                alias='',
-                child=ParsedExpressionSubclasses(
-                    __root__=ConstantExpression(
-                        type='CONSTANT',
-                        clazz='CONSTANT',
-                        alias='',
-                        value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
-                            value='Math',
-                            is_null=False
-                        )
-                    )
-                ),
-                comparison_type='EQUAL',
-                subquery=SelectNode(
-                    type='SELECT_NODE',
-                    modifiers=[],
-                    cte_map=CommonTableExpressionMap(map={}),
-                    select_list=[
-                        ParsedExpressionSubclasses(
-                            __root__=ColumnRefExpression(
-                                type='COLUMN_REF',
-                                clazz='COLUMN_REF',
-                                alias='',
-                                column_names=['course']
-                            )
-                        )
-                    ],
-                    where_clause=None,
-                    sample=None,
-                    qualify=None,
-                    having=None,
-                    group_sets=[],
-                    group_expressions=[],
-                    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-                    from_table=TableRefSubclasses(
-                        __root__=BaseTableRef(
-                            alias='',
-                            sample=None,
-                            type='BASE_TABLE',
-                            schema_name='',
-                            table_name='grades',
-                            catalog_name='',
-                            column_name_alias=[]
-                        )
-                    )
-                ),
-                subquery_type='ANY'
-            )
-        )
-    ],
-    where_clause=None,
-    sample=None,
-    qualify=None,
-    having=None,
-    group_sets=[],
-    group_expressions=[],
-    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
-)
-'''
-
-snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'Math\')] 1'] = '''SelectNode(
-    type='SELECT_NODE',
-    modifiers=[],
-    cte_map=CommonTableExpressionMap(map={}),
-    select_list=[
-        ParsedExpressionSubclasses(
-            __root__=OperatorExpression(
-                type='IN',
-                clazz='OPERATOR',
-                alias='',
-                children=[
-                    ParsedExpressionSubclasses(
-                        __root__=ConstantExpression(
-                            type='CONSTANT',
-                            clazz='CONSTANT',
-                            alias='',
-                            value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
-                                value='Math',
-                                is_null=False
-                            )
-                        )
-                    ),
-                    ParsedExpressionSubclasses(
-                        __root__=ConstantExpression(
-                            type='CONSTANT',
-                            clazz='CONSTANT',
-                            alias='',
-                            value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
-                                value='CS',
-                                is_null=False
-                            )
-                        )
-                    ),
-                    ParsedExpressionSubclasses(
-                        __root__=ConstantExpression(
-                            type='CONSTANT',
-                            clazz='CONSTANT',
-                            alias='',
-                            value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
-                                value='Math',
-                                is_null=False
-                            )
-                        )
-                    )
-                ]
-            )
-        ),
-        ParsedExpressionSubclasses(
-            __root__=OperatorExpression(
-                type='COMPARE_NOT_IN',
-                clazz='OPERATOR',
-                alias='',
-                children=[
-                    ParsedExpressionSubclasses(
-                        __root__=ColumnRefExpression(
-                            type='COLUMN_REF',
-                            clazz='COLUMN_REF',
-                            alias='',
-                            column_names=['X']
-                        )
-                    ),
-                    ParsedExpressionSubclasses(
-                        __root__=ConstantExpression(
-                            type='CONSTANT',
-                            clazz='CONSTANT',
-                            alias='',
-                            value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
-                                value='CS',
-                                is_null=False
-                            )
-                        )
-                    ),
-                    ParsedExpressionSubclasses(
-                        __root__=ConstantExpression(
-                            type='CONSTANT',
-                            clazz='CONSTANT',
-                            alias='',
-                            value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
-                                value='Math',
-                                is_null=False
-                            )
-                        )
-                    )
-                ]
-            )
-        )
-    ],
-    where_clause=None,
-    sample=None,
-    qualify=None,
-    having=None,
-    group_sets=[],
-    group_expressions=[],
-    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
-)
-'''
-
-snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''SelectNode(
-    type='SELECT_NODE',
-    modifiers=[],
-    cte_map=CommonTableExpressionMap(map={}),
-    select_list=[
-        ParsedExpressionSubclasses(
-            __root__=CollateExpression(
-                type='COLLATE',
-                clazz='COLLATE',
-                alias='',
-                child=ParsedExpressionSubclasses(
-                    __root__=ConstantExpression(
-                        type='CONSTANT',
-                        clazz='CONSTANT',
-                        alias='',
-                        value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
-                            value='hello',
-                            is_null=False
-                        )
-                    )
-                ),
-                collation='NOCASE'
             )
         )
     ],
