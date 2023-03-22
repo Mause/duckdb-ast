@@ -11,7 +11,7 @@ snapshots['test_schema_generation 1'] = {
     '$ref': '#/definitions/Root',
     'definitions': {
         'AggregateHandling': {
-            'description': '.. gh_link:: src/include/duckdb/common/enums/aggregate_handling.hpp#L16',
+            'description': 'src/include/duckdb/common/enums/aggregate_handling.hpp#L16',
             'enum': [
                 'STANDARD_HANDLING',
                 'NO_AGGREGATES_ALLOWED',
@@ -21,7 +21,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'BaseTableRef': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/tableref/basetableref.hpp#L16',
+            'description': '''Represents a TableReference to a base table in the schema
+ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -69,7 +70,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'BetweenExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/between_expression.hpp#L15',
+            'description': 'src/include/duckdb/parser/expression/between_expression.hpp#L15',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -112,7 +113,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'CaseCheck': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/case_expression.hpp#L16',
+            'description': 'src/include/duckdb/parser/expression/case_expression.hpp#L16',
             'properties': {
                 'then_expr': {
                     '$ref': '#/definitions/ParsedExpressionSubclasses'
@@ -130,7 +131,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'CaseExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/case_expression.hpp#L25',
+            'description': '''The CaseExpression represents a CASE expression in the query
+ src/include/duckdb/parser/expression/case_expression.hpp#L25''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -173,7 +175,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'CastExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/cast_expression.hpp#L17',
+            'description': '''CastExpression represents a type cast from one SQL type to another SQL type
+ src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -217,7 +220,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'CollateExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/collate_expression.hpp#L16',
+            'description': '''CollateExpression represents a COLLATE statement
+ src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -257,7 +261,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'ColumnRefExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/columnref_expression.hpp#L28',
+            'description': 'src/include/duckdb/parser/expression/columnref_expression.hpp#L28',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -296,7 +300,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'CommonTableExpressionInfo': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/common_table_expression_info.hpp#L17',
+            'description': 'src/include/duckdb/parser/common_table_expression_info.hpp#L17',
             'properties': {
                 'aliases': {
                     'items': {
@@ -318,7 +322,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'CommonTableExpressionMap': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/query_node.hpp#L32',
+            'description': 'src/include/duckdb/parser/query_node.hpp#L32',
             'properties': {
                 'map': {
                     'additionalProperties': {
@@ -336,7 +340,9 @@ snapshots['test_schema_generation 1'] = {
         },
         'ComparisonExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/comparison_expression.hpp#L16',
+            'description': '''ComparisonExpression represents a boolean comparison (e.g. =, >=, <>). Always returns a boolean
+and has two children.
+ src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -382,7 +388,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'ConjunctionExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/conjunction_expression.hpp#L17',
+            'description': '''Represents a conjunction (AND/OR)
+ src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -422,7 +429,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'ConstantExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/constant_expression.hpp#L17',
+            'description': '''ConstantExpression represents a constant value in the query
+ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -457,7 +465,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'DecimalTypeInfo': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/common/types.cpp#L868',
+            'description': 'src/common/types.cpp#L868',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -493,7 +501,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'EmptyTableRef': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/tableref/emptytableref.hpp#L15',
+            'description': '''Represents a cross product
+ src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -547,7 +556,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'FunctionExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/function_expression.hpp#L17',
+            'description': '''Represents a function call
+ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -623,7 +633,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'ListTypeInfo': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/common/types.cpp#L991',
+            'description': 'src/common/types.cpp#L991',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -653,7 +663,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'LogicalType': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/common/types.hpp#L298',
+            'description': 'src/include/duckdb/common/types.hpp#L298',
             'properties': {
                 'id': {
                     '$ref': '#/definitions/LogicalTypeId'
@@ -692,7 +702,7 @@ snapshots['test_schema_generation 1'] = {
             'type': 'object'
         },
         'LogicalTypeId': {
-            'description': '.. gh_link:: src/include/duckdb/common/types.hpp#L246',
+            'description': 'src/include/duckdb/common/types.hpp#L246',
             'enum': [
                 'INVALID',
                 'NULL',
@@ -741,7 +751,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'OperatorExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/operator_expression.hpp#L18',
+            'description': '''Represents a built-in operator expression
+ src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -784,7 +795,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'OrderByNode': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L60',
+            'description': '''Single node in ORDER BY statement
+ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'properties': {
                 'expression': {
                     '$ref': '#/definitions/ParsedExpressionSubclasses'
@@ -805,7 +817,7 @@ snapshots['test_schema_generation 1'] = {
             'type': 'object'
         },
         'OrderByNullType': {
-            'description': '.. gh_link:: src/include/duckdb/common/enums/order_type.hpp#L18',
+            'description': 'src/include/duckdb/common/enums/order_type.hpp#L18',
             'enum': [
                 'INVALID',
                 'ORDER_DEFAULT',
@@ -816,7 +828,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'OrderModifier': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L101',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L101',
             'properties': {
                 'orders': {
                     'items': {
@@ -841,7 +853,7 @@ snapshots['test_schema_generation 1'] = {
             'type': 'object'
         },
         'OrderType': {
-            'description': '.. gh_link:: src/include/duckdb/common/enums/order_type.hpp#L16',
+            'description': 'src/include/duckdb/common/enums/order_type.hpp#L16',
             'enum': [
                 'INVALID',
                 'ORDER_DEFAULT',
@@ -924,7 +936,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'ResultModifier': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L33',
+            'description': '''A ResultModifier
+ src/include/duckdb/parser/result_modifier.hpp#L33''',
             'properties': {
                 'type': {
                     '$ref': '#/definitions/ResultModifierType'
@@ -937,7 +950,7 @@ snapshots['test_schema_generation 1'] = {
             'type': 'object'
         },
         'ResultModifierType': {
-            'description': '.. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L22',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L22',
             'enum': [
                 'LIMIT_MODIFIER',
                 'ORDER_MODIFIER',
@@ -967,7 +980,7 @@ snapshots['test_schema_generation 1'] = {
             'title': 'Root'
         },
         'SampleMethod': {
-            'description': '.. gh_link:: src/include/duckdb/parser/parsed_data/sample_options.hpp#L18',
+            'description': 'src/include/duckdb/parser/parsed_data/sample_options.hpp#L18',
             'enum': [
                 'System',
                 'Bernoulli',
@@ -977,7 +990,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'SampleOptions': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/parsed_data/sample_options.hpp#L22',
+            'description': 'src/include/duckdb/parser/parsed_data/sample_options.hpp#L22',
             'properties': {
                 'is_percentage': {
                     'title': 'Is Percentage',
@@ -1005,7 +1018,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'SelectNode': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/query_node/select_node.hpp#L22',
+            'description': '''SelectNode represents a standard SELECT statement
+ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
             'properties': {
                 'aggregate_handling': {
                     '$ref': '#/definitions/AggregateHandling'
@@ -1080,7 +1094,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'StarExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/star_expression.hpp#L17',
+            'description': '''Represents a * expression in the SELECT clause
+ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1140,7 +1155,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'StructTypeInfo': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/common/types.cpp#L1040',
+            'description': 'src/common/types.cpp#L1040',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1181,7 +1196,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'SubqueryExpression': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/expression/subquery_expression.hpp#L18',
+            'description': '''Represents a subquery
+ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1238,7 +1254,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'SubqueryRef': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/tableref/subqueryref.hpp#L16',
+            'description': '''Represents a subquery
+ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1302,7 +1319,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'TableFunctionRef': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/parser/tableref/table_function_ref.hpp#L19',
+            'description': '''Represents a Table producing function
+ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1367,7 +1385,8 @@ snapshots['test_schema_generation 1'] = {
         },
         'TypeCatalogEntry': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20',
+            'description': '''A type catalog entry
+ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
             'properties': {
                 'user_type': {
                     '$ref': '#/definitions/LogicalType'
@@ -1381,7 +1400,7 @@ snapshots['test_schema_generation 1'] = {
         },
         'UserTypeInfo': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/common/types.cpp#L1263',
+            'description': 'src/common/types.cpp#L1263',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1412,7 +1431,9 @@ snapshots['test_schema_generation 1'] = {
         },
         'Value': {
             'additionalProperties': False,
-            'description': '.. gh_link:: src/include/duckdb/common/types/value.hpp#L30',
+            'description': '''The Value object holds a single arbitrary value of any type that can be
+stored in the database.
+ src/include/duckdb/common/types/value.hpp#L30''',
             'properties': {
                 'is_null': {
                     'title': 'Is Null',

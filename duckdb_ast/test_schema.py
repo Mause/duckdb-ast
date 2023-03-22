@@ -1,6 +1,6 @@
 from snapshottest.module import SnapshotTest
 
-from . import get_schema
+from .generate_schema import get_schema
 
 
 def test_schema_generation(snapshot: SnapshotTest):
