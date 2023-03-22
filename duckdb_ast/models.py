@@ -70,7 +70,7 @@ class Base(BaseModel):
 
 class BaseExpression(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/base_expression.hpp#L18
+    .. gh_link:: src/include/duckdb/parser/base_expression.hpp#L18
     """
 
     type: str
@@ -80,13 +80,13 @@ class BaseExpression(Base):
 
 class ParsedExpression(BaseExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/parsed_expression.hpp#L34
+    .. gh_link:: src/include/duckdb/parser/parsed_expression.hpp#L34
     """
 
 
 class LogicalTypeId(Enum):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/types.hpp#L246
+    .. gh_link:: src/include/duckdb/common/types.hpp#L246
     """
 
     INVALID = "INVALID"
@@ -137,23 +137,19 @@ class LogicalTypeId(Enum):
 
 class CatalogEntry(Base):
     """
-    Abstract base class of an entry in the catalog
-
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/catalog/catalog_entry.hpp#L25
+    .. gh_link:: src/include/duckdb/catalog/catalog_entry.hpp#L25
     """
 
 
 class StandardEntry(CatalogEntry):
     """
-    A StandardEntry is a catalog entry that is a member of a schema
-
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/catalog/standard_entry.hpp#L17
+    .. gh_link:: src/include/duckdb/catalog/standard_entry.hpp#L17
     """
 
 
 class TypeCatalogEntry(StandardEntry):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20
+    .. gh_link:: src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20
     """
 
     user_type: "LogicalType"
@@ -161,7 +157,7 @@ class TypeCatalogEntry(StandardEntry):
 
 class ExtraTypeInfo(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L766
+    .. gh_link:: src/common/types.cpp#L766
     """
 
     type: str
@@ -171,7 +167,7 @@ class ExtraTypeInfo(Base):
 
 class ListTypeInfo(ExtraTypeInfo):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L991
+    .. gh_link:: src/common/types.cpp#L991
     """
 
     type: Literal["LIST_TYPE_INFO"]
@@ -180,7 +176,7 @@ class ListTypeInfo(ExtraTypeInfo):
 
 class DecimalTypeInfo(ExtraTypeInfo):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L868
+    .. gh_link:: src/common/types.cpp#L868
     """
 
     type: Literal["DECIMAL_TYPE_INFO"]
@@ -190,7 +186,7 @@ class DecimalTypeInfo(ExtraTypeInfo):
 
 class StructTypeInfo(ExtraTypeInfo):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L1040
+    .. gh_link:: src/common/types.cpp#L1040
     """
 
     type: Literal["STRUCT_TYPE_INFO"]
@@ -199,7 +195,7 @@ class StructTypeInfo(ExtraTypeInfo):
 
 class UserTypeInfo(ExtraTypeInfo):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/common/types.cpp#L1263
+    .. gh_link:: src/common/types.cpp#L1263
     """
 
     type: Literal["USER_TYPE_INFO"]
@@ -208,7 +204,7 @@ class UserTypeInfo(ExtraTypeInfo):
 
 class LogicalType(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/types.hpp#L298
+    .. gh_link:: src/include/duckdb/common/types.hpp#L298
     """
 
     id: LogicalTypeId
@@ -222,7 +218,7 @@ StructTypeInfo.update_forward_refs()
 
 class Value(Base, Generic[T]):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/types/value.hpp#L30
+    .. gh_link:: src/include/duckdb/common/types/value.hpp#L30
     """
 
     type: LogicalType
@@ -232,7 +228,7 @@ class Value(Base, Generic[T]):
 
 class ColumnRefExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/columnref_expression.hpp#L28
+    .. gh_link:: src/include/duckdb/parser/expression/columnref_expression.hpp#L28
     """
 
     type: Literal["COLUMN_REF"]
@@ -243,7 +239,7 @@ class ColumnRefExpression(ParsedExpression):
 
 class StarExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/star_expression.hpp
+    .. gh_link:: src/include/duckdb/parser/expression/star_expression.hpp#L17
     """
 
     type: Literal["STAR"]
@@ -259,7 +255,7 @@ class StarExpression(ParsedExpression):
 
 class ConstantExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/constant_expression.hpp#L17
+    .. gh_link:: src/include/duckdb/parser/expression/constant_expression.hpp#L17
     """
 
     type: Literal["CONSTANT"]
@@ -270,7 +266,7 @@ class ConstantExpression(ParsedExpression):
 
 class CastExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/expression/cast_expression.hpp#L22-L26
+    .. gh_link:: src/include/duckdb/parser/expression/cast_expression.hpp#L17
     """
 
     type: Literal["CAST"]
@@ -282,7 +278,7 @@ class CastExpression(ParsedExpression):
 
 class ComparisonExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/comparison_expression.hpp#L16
+    .. gh_link:: src/include/duckdb/parser/expression/comparison_expression.hpp#L16
     """
 
     clazz: Literal["COMPARISON"] = Field(alias="class")
@@ -302,7 +298,7 @@ class ComparisonExpression(ParsedExpression):
 
 class ConjunctionExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/conjunction_expression.hpp#L17
+    .. gh_link:: src/include/duckdb/parser/expression/conjunction_expression.hpp#L17
     """
 
     clazz: Literal["CONJUNCTION"] = Field(alias="class")
@@ -312,7 +308,7 @@ class ConjunctionExpression(ParsedExpression):
 
 class OperatorExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/operator_expression.hpp#L18
+    .. gh_link:: src/include/duckdb/parser/expression/operator_expression.hpp#L18
     """
 
     clazz: Literal["OPERATOR"] = Field(alias="class")
@@ -322,7 +318,7 @@ class OperatorExpression(ParsedExpression):
 
 class SubqueryExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/subquery_expression.hpp#L18
+    .. gh_link:: src/include/duckdb/parser/expression/subquery_expression.hpp#L18
     """
 
     type: Literal["SUBQUERY"]
@@ -336,7 +332,7 @@ class SubqueryExpression(ParsedExpression):
 
 class CaseCheck(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/case_expression.hpp#L16
+    .. gh_link:: src/include/duckdb/parser/expression/case_expression.hpp#L16
     """
 
     when_expr: "ParsedExpressionSubclasses"
@@ -345,7 +341,7 @@ class CaseCheck(Base):
 
 class CollateExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/collate_expression.hpp#L16
+    .. gh_link:: src/include/duckdb/parser/expression/collate_expression.hpp#L16
     """
 
     type: Literal["COLLATE"]
@@ -357,7 +353,7 @@ class CollateExpression(ParsedExpression):
 
 class CaseExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/case_expression.hpp#L25
+    .. gh_link:: src/include/duckdb/parser/expression/case_expression.hpp#L25
     """
 
     type: Literal["CASE"]
@@ -369,7 +365,7 @@ class CaseExpression(ParsedExpression):
 
 class BetweenExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/between_expression.hpp#L15
+    .. gh_link:: src/include/duckdb/parser/expression/between_expression.hpp#L15
     """
 
     clazz: Literal["BETWEEN"] = Field(alias="class")
@@ -401,7 +397,7 @@ class ParsedExpressionSubclasses(Base):
 
 class SampleMethod(Enum):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/parsed_data/sample_options.hpp#L18
+    .. gh_link:: src/include/duckdb/parser/parsed_data/sample_options.hpp#L18
     """
 
     SYSTEM_SAMPLE = "System"
@@ -411,7 +407,7 @@ class SampleMethod(Enum):
 
 class SampleOptions(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/parsed_data/sample_options.hpp#L22
+    .. gh_link:: src/include/duckdb/parser/parsed_data/sample_options.hpp#L22
     """
 
     sample_size: Value
@@ -422,7 +418,7 @@ class SampleOptions(Base):
 
 class TableRef(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/tableref.hpp#L20
+    .. gh_link:: src/include/duckdb/parser/tableref.hpp#L20
     """
 
     alias: str
@@ -431,7 +427,7 @@ class TableRef(Base):
 
 class BaseTableRef(TableRef):
     """
-    https://github.com/duckdb/duckdb/blob/88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1/src/include/duckdb/parser/tableref/basetableref.hpp
+    .. gh_link:: src/include/duckdb/parser/tableref/basetableref.hpp#L16
     """
 
     type: Literal["BASE_TABLE"]
@@ -444,7 +440,7 @@ class BaseTableRef(TableRef):
 
 class EmptyTableRef(TableRef):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/tableref/emptytableref.hpp#L15
+    .. gh_link:: src/include/duckdb/parser/tableref/emptytableref.hpp#L15
     """
 
     type: Literal["EMPTY"]
@@ -452,7 +448,7 @@ class EmptyTableRef(TableRef):
 
 class OrderType(Enum):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/enums/order_type.hpp#L16
+    .. gh_link:: src/include/duckdb/common/enums/order_type.hpp#L16
     """
 
     INVALID = "INVALID"
@@ -463,7 +459,7 @@ class OrderType(Enum):
 
 class OrderByNullType(Enum):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/enums/order_type.hpp#L18
+    .. gh_link:: src/include/duckdb/common/enums/order_type.hpp#L18
     """
 
     INVALID = "INVALID"
@@ -474,7 +470,7 @@ class OrderByNullType(Enum):
 
 class OrderByNode(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/result_modifier.hpp#L60
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L60
     """
 
     type: OrderType
@@ -484,7 +480,7 @@ class OrderByNode(Base):
 
 class OrderModifier(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/result_modifier.hpp#L101
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L101
     """
 
     type: Literal["ORDER_MODIFIER"]
@@ -493,7 +489,7 @@ class OrderModifier(Base):
 
 class FunctionExpression(ParsedExpression):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/expression/function_expression.hpp#L17
+    .. gh_link:: src/include/duckdb/parser/expression/function_expression.hpp#L17
     """
 
     clazz: Literal["FUNCTION"] = Field(alias="class")
@@ -511,7 +507,7 @@ class FunctionExpression(ParsedExpression):
 
 class TableFunctionRef(TableRef):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/tableref/table_function_ref.hpp#L19
+    .. gh_link:: src/include/duckdb/parser/tableref/table_function_ref.hpp#L19
     """
 
     type: Literal["TABLE_FUNCTION"]
@@ -522,7 +518,7 @@ class TableFunctionRef(TableRef):
 
 class AggregateHandling(Enum):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/common/enums/aggregate_handling.hpp#L16
+    .. gh_link:: src/include/duckdb/common/enums/aggregate_handling.hpp#L16
     """
 
     # standard handling as in the SELECT clause
@@ -537,7 +533,7 @@ class AggregateHandling(Enum):
 
 class ResultModifierType(Enum):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/result_modifier.hpp#L22
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L22
     """
 
     LIMIT_MODIFIER = "LIMIT_MODIFIER"
@@ -548,7 +544,7 @@ class ResultModifierType(Enum):
 
 class ResultModifier(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/result_modifier.hpp#L33
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L33
     """
 
     type: ResultModifierType
@@ -556,7 +552,7 @@ class ResultModifier(Base):
 
 class CommonTableExpressionInfo(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/common_table_expression_info.hpp#L17
+    .. gh_link:: src/include/duckdb/parser/common_table_expression_info.hpp#L17
     """
 
     aliases: list[str]
@@ -565,7 +561,7 @@ class CommonTableExpressionInfo(Base):
 
 class CommonTableExpressionMap(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/query_node.hpp#L32
+    .. gh_link:: src/include/duckdb/parser/query_node.hpp#L32
     """
 
     map: dict[str, CommonTableExpressionInfo]
@@ -573,7 +569,7 @@ class CommonTableExpressionMap(Base):
 
 class QueryNode(Base):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/query_node.hpp#L47
+    .. gh_link:: src/include/duckdb/parser/query_node.hpp#L47
     """
 
     type: str
@@ -584,7 +580,7 @@ class QueryNode(Base):
 
 class SubqueryRef(TableRef):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/tableref/subqueryref.hpp#L16
+    .. gh_link:: src/include/duckdb/parser/tableref/subqueryref.hpp#L16
     """
 
     type: Literal["SUBQUERY"]
@@ -605,7 +601,7 @@ GroupingSet = set[int]
 
 class SelectNode(QueryNode):
     """
-    https://github.com/duckdb/duckdb/blob/56a94e3a49128b4471dce0d58d2b78cd93a39483/src/include/duckdb/parser/query_node/select_node.hpp#L22
+    .. gh_link:: src/include/duckdb/parser/query_node/select_node.hpp#L22
     """
 
     type: Literal["SELECT_NODE"]

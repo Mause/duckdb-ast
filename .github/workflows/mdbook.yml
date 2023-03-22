@@ -32,7 +32,8 @@ jobs:
       - name: Generate schema for serving
         run: |
           mkdir -p docs/source/_static
-          poetry run python3 -m duckdb_ast --output docs/source/_static/schema.json
+          poetry run python3 -m duckdb_ast.generate_schema
+          cp duckdb_ast/schema.json docs/source/_static/
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3

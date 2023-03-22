@@ -1,7 +1,9 @@
-from typing import Any, Union
+import json
+from importlib.resources import open_text
+from typing import Union
 
 import duckdb
-from pydantic import parse_raw_as, schema_of
+from pydantic import parse_raw_as
 
 from .models import ErrorResponse, Root, SuccessResponse
 
@@ -36,8 +38,6 @@ def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
     return parse_raw_as(Root, ast).__root__
 
 
-def get_schema() -> dict[str, Any]:
-    "Returns jsonschema of DuckDB AST"
-    schema = schema_of(Root)
-    schema["version"] = duckdb.__version__
-    return schema
+def get_schema():
+    with open_text(__package__, "schema.json") as fh:
+        return json.load(fh)

@@ -40,6 +40,7 @@ repos:
      - id: mypy
        additional_dependencies:
           - "pytest==6.2.4"
+          - "types-docutils"
 
   - repo: https://github.com/PyCQA/flake8
     rev: '6.0.0'  # pick a git hash / tag to point to
