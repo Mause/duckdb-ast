@@ -38,7 +38,11 @@ def update_docs(root):
 
 
 def generate_schema() -> dict[str, Any]:
-    "Returns jsonschema of DuckDB AST"
+    """
+    Generate jsonschema for DuckDB AST
+
+    Fetches docstrings from github, and inserts current DuckDB version
+    """
 
     docs = Path(__file__).parent.parent / "docs"
 
