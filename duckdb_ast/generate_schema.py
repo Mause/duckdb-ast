@@ -10,6 +10,8 @@ from sphinx.application import Sphinx
 
 from .models import Root
 
+__all__ = ["generate_schema"]
+
 
 def render_node(node):
     if isinstance(node, nodes.Text):
@@ -35,7 +37,7 @@ def update_docs(root):
             update_docs(item)
 
 
-def get_schema() -> dict[str, Any]:
+def generate_schema() -> dict[str, Any]:
     "Returns jsonschema of DuckDB AST"
 
     docs = Path(__file__).parent.parent / "docs"
@@ -59,7 +61,7 @@ def get_schema() -> dict[str, Any]:
 
 
 if __name__ == "__main__":
-    schema = get_schema()
+    schema = generate_schema()
 
     with open(Path(__file__).parent / "schema.json", "w") as fh:
         json.dump(schema, fh, indent=2)
