@@ -22,7 +22,7 @@ snapshots['test_schema_generation 1'] = {
         'BaseTableRef': {
             'additionalProperties': False,
             'description': '''Represents a TableReference to a base table in the schema
- src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
+src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -132,7 +132,7 @@ snapshots['test_schema_generation 1'] = {
         'CaseExpression': {
             'additionalProperties': False,
             'description': '''The CaseExpression represents a CASE expression in the query
- src/include/duckdb/parser/expression/case_expression.hpp#L25''',
+src/include/duckdb/parser/expression/case_expression.hpp#L25''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -176,7 +176,7 @@ snapshots['test_schema_generation 1'] = {
         'CastExpression': {
             'additionalProperties': False,
             'description': '''CastExpression represents a type cast from one SQL type to another SQL type
- src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
+src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -221,7 +221,7 @@ snapshots['test_schema_generation 1'] = {
         'CollateExpression': {
             'additionalProperties': False,
             'description': '''CollateExpression represents a COLLATE statement
- src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
+src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -342,7 +342,7 @@ snapshots['test_schema_generation 1'] = {
             'additionalProperties': False,
             'description': '''ComparisonExpression represents a boolean comparison (e.g. =, >=, <>). Always returns a boolean
 and has two children.
- src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
+src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -389,7 +389,7 @@ and has two children.
         'ConjunctionExpression': {
             'additionalProperties': False,
             'description': '''Represents a conjunction (AND/OR)
- src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
+src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -430,7 +430,7 @@ and has two children.
         'ConstantExpression': {
             'additionalProperties': False,
             'description': '''ConstantExpression represents a constant value in the query
- src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
+src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -502,7 +502,7 @@ and has two children.
         'EmptyTableRef': {
             'additionalProperties': False,
             'description': '''Represents a cross product
- src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
+src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -557,7 +557,7 @@ and has two children.
         'FunctionExpression': {
             'additionalProperties': False,
             'description': '''Represents a function call
- src/include/duckdb/parser/expression/function_expression.hpp#L17''',
+src/include/duckdb/parser/expression/function_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -752,7 +752,7 @@ and has two children.
         'OperatorExpression': {
             'additionalProperties': False,
             'description': '''Represents a built-in operator expression
- src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
+src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -796,7 +796,7 @@ and has two children.
         'OrderByNode': {
             'additionalProperties': False,
             'description': '''Single node in ORDER BY statement
- src/include/duckdb/parser/result_modifier.hpp#L60''',
+src/include/duckdb/parser/result_modifier.hpp#L60''',
             'properties': {
                 'expression': {
                     '$ref': '#/definitions/ParsedExpressionSubclasses'
@@ -937,7 +937,7 @@ and has two children.
         'ResultModifier': {
             'additionalProperties': False,
             'description': '''A ResultModifier
- src/include/duckdb/parser/result_modifier.hpp#L33''',
+src/include/duckdb/parser/result_modifier.hpp#L33''',
             'properties': {
                 'type': {
                     '$ref': '#/definitions/ResultModifierType'
@@ -1019,7 +1019,7 @@ and has two children.
         'SelectNode': {
             'additionalProperties': False,
             'description': '''SelectNode represents a standard SELECT statement
- src/include/duckdb/parser/query_node/select_node.hpp#L22''',
+src/include/duckdb/parser/query_node/select_node.hpp#L22''',
             'properties': {
                 'aggregate_handling': {
                     '$ref': '#/definitions/AggregateHandling'
@@ -1095,7 +1095,7 @@ and has two children.
         'StarExpression': {
             'additionalProperties': False,
             'description': '''Represents a * expression in the SELECT clause
- src/include/duckdb/parser/expression/star_expression.hpp#L17''',
+src/include/duckdb/parser/expression/star_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1197,7 +1197,7 @@ and has two children.
         'SubqueryExpression': {
             'additionalProperties': False,
             'description': '''Represents a subquery
- src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
+src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1255,7 +1255,7 @@ and has two children.
         'SubqueryRef': {
             'additionalProperties': False,
             'description': '''Represents a subquery
- src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
+src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1320,7 +1320,7 @@ and has two children.
         'TableFunctionRef': {
             'additionalProperties': False,
             'description': '''Represents a Table producing function
- src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
+src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1386,7 +1386,7 @@ and has two children.
         'TypeCatalogEntry': {
             'additionalProperties': False,
             'description': '''A type catalog entry
- src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
+src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
             'properties': {
                 'user_type': {
                     '$ref': '#/definitions/LogicalType'
@@ -1433,7 +1433,7 @@ and has two children.
             'additionalProperties': False,
             'description': '''The Value object holds a single arbitrary value of any type that can be
 stored in the database.
- src/include/duckdb/common/types/value.hpp#L30''',
+src/include/duckdb/common/types/value.hpp#L30''',
             'properties': {
                 'is_null': {
                     'title': 'Is Null',
