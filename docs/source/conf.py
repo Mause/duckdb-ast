@@ -14,9 +14,7 @@ release = "0.1.0"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions: list[str] = [
-    "sphinx.ext.autodoc",
-]
+extensions: list[str] = ["autoapi.extension"]
 
 templates_path = ["_templates"]
 exclude_patterns: list[str] = []
@@ -27,5 +25,8 @@ exclude_patterns: list[str] = []
 
 html_theme = "alabaster"
 html_static_path = ["_static"]
+
+autoapi_dirs = ["../../duckdb_ast"]
+autoapi_ignore: list[str] = ["*snapshots*", "*__main__*", "*test_*"]
 
 add_module_names = False

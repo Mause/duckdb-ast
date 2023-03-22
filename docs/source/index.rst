@@ -11,11 +11,7 @@ This package contains some tools to help use DuckDB's AST manipulation tooling.
 You can download the `schema directly <https://mause.me/duckdb-ast/_static/schema.json>`_ too if you wish
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Contents:
-
-   duckdb_ast
-
+   :maxdepth: 4
 
 Indices and tables
 ==================
