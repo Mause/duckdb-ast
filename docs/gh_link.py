@@ -4,7 +4,6 @@ from typing import Callable, TypeVar
 from urllib.request import urlopen
 
 from docutils import nodes
-from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
@@ -62,20 +61,12 @@ class GitHubLinkDirective(SphinxDirective):
     required_arguments = 1
 
     def run(self) -> list[nodes.Node]:
-        node = addnodes.desc()
+        sig = self.arguments[0]
 
-        self.handle_signature(self.arguments[0], node)
-
-        return [node]
-
-    def handle_signature(self, sig: str, signode: nodes.Node) -> str:
         doc = get_doc(sig)
-        signode += nodes.paragraph(
-            "",
-            doc + "\n",
-            nodes.reference("", nodes.Text(sig), refuri=template(gh_ref, sig)),
-        )
-        return sig
+        ref = nodes.reference("", sig, refuri=template(gh_ref, sig))
+
+        return [nodes.Text(doc), nodes.paragraph("", "", ref)]
 
 
 def setup(app: Sphinx) -> dict:
