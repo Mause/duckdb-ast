@@ -104,12 +104,23 @@ WHERE source = 'Oasis';
 def test_sql(sql, snapshot: SnapshotTest):
     root = parse_sql(sql)
     assert not root.error, root.error_message
-    fh = StringIO()
 
     root = cast(SuccessResponse, root)
 
     statements = root.statements
     assert len(statements) == 1
 
-    Console(width=120, file=fh).print(statements[0])
-    snapshot.assert_match(fh.getvalue())
+    snapshot.assert_match(render(statements[0]))
+
+
+def render(node: object) -> str:
+    fh = StringIO()
+    Console(width=120, file=fh).print(node)
+    return fh.getvalue()
+
+
+@mark.parametrize("sql", ["set threads = 5", "select"])
+def test_sql_errors(sql, snapshot: SnapshotTest):
+    root = parse_sql(sql)
+
+    snapshot.assert_match(render(root))

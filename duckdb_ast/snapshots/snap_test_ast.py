@@ -2644,3 +2644,13 @@ snapshots['test_sql[select name from frogs GROUP BY age] 1'] = '''SelectNode(
     )
 )
 '''
+
+snapshots['test_sql_errors[select] 1'] = '''ErrorResponse(error=True, error_message='SELECT clause without selection list', error_type='parser')
+'''
+
+snapshots['test_sql_errors[set threads = 5] 1'] = '''ErrorResponse(
+    error=True,
+    error_message='Only SELECT statements can be serialized to json!',
+    error_type='not implemented'
+)
+'''
