@@ -6,7 +6,7 @@
 Welcome!
 ========
 
-This package contains some tools to help use DuckDB's AST manipualaion tooling.
+This package contains some tools to help use DuckDB's AST manipulation tooling.
 
 You can download the `schema directly <https://mause.me/duckdb-ast/_static/schema.json>`_ too if you wish
 
