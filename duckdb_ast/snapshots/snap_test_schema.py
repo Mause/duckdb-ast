@@ -261,7 +261,9 @@ src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
         },
         'ColumnRefExpression': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/expression/columnref_expression.hpp#L28',
+            'description': '''Represents a reference to a column from either the FROM clause or from an
+alias
+src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',

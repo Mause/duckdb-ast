@@ -229,7 +229,7 @@ class Value(Base, Generic[T]):
 
 class ColumnRefExpression(ParsedExpression):
     """
-    .. gh_link:: src/include/duckdb/parser/expression/columnref_expression.hpp#L28
+    .. gh_link:: src/include/duckdb/parser/expression/columnref_expression.hpp#L18
     """
 
     type: Literal["COLUMN_REF"]
