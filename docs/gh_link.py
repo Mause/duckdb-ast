@@ -63,9 +63,7 @@ class GitHubLinkDirective(SphinxDirective):
 
         self.handle_signature(self.arguments[0], node)
 
-        indexnode = addnodes.index(entries=[])
-
-        return [indexnode, node]
+        return [node]
 
     def handle_signature(self, sig, signode):
         doc = get_doc(sig)
