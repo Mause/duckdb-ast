@@ -15,7 +15,7 @@ def render_node(node):
     if isinstance(node, nodes.Text):
         return str(node)
     elif hasattr(node, "children"):
-        return " ".join(render_node(child) for child in node.children)
+        return "\n".join(render_node(child) for child in node.children)
 
 
 def render_field(has_description):

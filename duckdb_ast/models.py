@@ -5,6 +5,7 @@ from pydantic import BaseModel, Extra, Field
 
 __all__ = [
     "AggregateHandling",
+    "Base",
     "BaseExpression",
     "BaseTableRef",
     "BetweenExpression",
