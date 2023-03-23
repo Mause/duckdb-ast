@@ -531,7 +531,7 @@ class BetweenExpression(ParsedExpression):
 
 
 class ParsedExpressionSubclasses(Base):
-    """Union of ParsedExpression subclasses"""
+    """Union of :class:`ParsedExpression` subclasses"""
 
     __root__: Union[
         "FunctionExpression",
@@ -694,6 +694,10 @@ class ResultModifier(Base):
 
 
 class LimitModifier(ResultModifier):
+    """
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L137
+    """
+
     type: Literal["LIMIT_MODIFIER"]
 
     limit: "ParsedExpressionSubclasses"
@@ -701,6 +705,10 @@ class LimitModifier(ResultModifier):
 
 
 class DistinctModifier(ResultModifier):
+    """
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L119
+    """
+
     type: Literal["DISTINCT_MODIFIER"]
 
     distinct_on_targets: list["ParsedExpressionSubclasses"]
@@ -714,6 +722,7 @@ class LimitPercentModifier(ResultModifier):
 
 
 class ResultModifierSubclasses(Base):
+    "Union of :class:`ResultModifier` subclasses"
     __root__: Union[
         LimitPercentModifier, DistinctModifier, LimitModifier, OrderModifier
     ] = Field(discriminator="type")
@@ -759,7 +768,7 @@ class SubqueryRef(TableRef):
 
 
 class TableRefSubclasses(Base):
-    "Union of TableRef subclasses"
+    "Union of :class:`TableRef` subclasses"
     __root__: Union[BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef] = Field(
         discriminator="type"
     )
@@ -815,6 +824,7 @@ class RecursiveCTENode(QueryNode):
 
 
 class QueryNodeSubclasses(Base):
+    "Union of :class:`QueryNode` subclasses"
     __root__: Union[SelectNode, SetOperationNode, RecursiveCTENode] = Field(
         discriminator="type"
     )
