@@ -307,13 +307,158 @@ class ConjunctionExpression(ParsedExpression):
     children: list["ParsedExpressionSubclasses"]
 
 
+class ExpressionType(Enum):
+    """
+    .. gh_link:: src/include/duckdb/common/enums/expression_type.hpp#L18
+    """
+
+    INVALID = "INVALID"
+
+    # explicitly cast left as right (right is integer in ValueType enum)
+    OPERATOR_CAST = "OPERATOR_CAST"
+    # logical not operator
+    OPERATOR_NOT = "OPERATOR_NOT"
+    # is null operator
+    OPERATOR_IS_NULL = "OPERATOR_IS_NULL"
+    # is not null operator
+    OPERATOR_IS_NOT_NULL = "OPERATOR_IS_NOT_NULL"
+
+    # -----------------------------
+    # Comparison Operators
+    # -----------------------------
+    # equal operator between left and right
+    COMPARE_EQUAL = "COMPARE_EQUAL"
+    # compare initial boundary
+    COMPARE_BOUNDARY_START = "COMPARE_BOUNDARY_START"
+    # inequal operator between left and right
+    COMPARE_NOTEQUAL = "COMPARE_NOTEQUAL"
+    # less than operator between left and right
+    COMPARE_LESSTHAN = "COMPARE_LESSTHAN"
+    # greater than operator between left and right
+    COMPARE_GREATERTHAN = "COMPARE_GREATERTHAN"
+    # less than equal operator between left and right
+    COMPARE_LESSTHANOREQUALTO = "COMPARE_LESSTHANOREQUALTO"
+    # greater than equal operator between left and right
+    COMPARE_GREATERTHANOREQUALTO = "COMPARE_GREATERTHANOREQUALTO"
+    # IN operator [left IN (right1, right2, ...)]
+    COMPARE_IN = "COMPARE_IN"
+    # NOT IN operator [left NOT IN (right1, right2, ...)]
+    COMPARE_NOT_IN = "COMPARE_NOT_IN"
+    # IS DISTINCT FROM operator
+    COMPARE_DISTINCT_FROM = "COMPARE_DISTINCT_FROM"
+
+    COMPARE_BETWEEN = "COMPARE_BETWEEN"
+    COMPARE_NOT_BETWEEN = "COMPARE_NOT_BETWEEN"
+    # IS NOT DISTINCT FROM operator
+    COMPARE_NOT_DISTINCT_FROM = "COMPARE_NOT_DISTINCT_FROM"
+    # compare final boundary
+    COMPARE_BOUNDARY_END = "COMPARE_BOUNDARY_END"
+
+    # -----------------------------
+    # Conjunction Operators
+    # -----------------------------
+    CONJUNCTION_AND = "CONJUNCTION_AND"
+    CONJUNCTION_OR = "CONJUNCTION_OR"
+
+    # -----------------------------
+    # Values
+    # -----------------------------
+    VALUE_CONSTANT = "VALUE_CONSTANT"
+    VALUE_PARAMETER = "VALUE_PARAMETER"
+    VALUE_TUPLE = "VALUE_TUPLE"
+    VALUE_TUPLE_ADDRESS = "VALUE_TUPLE_ADDRESS"
+    VALUE_NULL = "VALUE_NULL"
+    VALUE_VECTOR = "VALUE_VECTOR"
+    VALUE_SCALAR = "VALUE_SCALAR"
+    VALUE_DEFAULT = "VALUE_DEFAULT"
+
+    # -----------------------------
+    # Aggregates
+    # -----------------------------
+    AGGREGATE = "AGGREGATE"
+    BOUND_AGGREGATE = "BOUND_AGGREGATE"
+    GROUPING_FUNCTION = "GROUPING_FUNCTION"
+
+    # -----------------------------
+    # Window Functions
+    # -----------------------------
+    WINDOW_AGGREGATE = "WINDOW_AGGREGATE"
+
+    WINDOW_RANK = "WINDOW_RANK"
+    WINDOW_RANK_DENSE = "WINDOW_RANK_DENSE"
+    WINDOW_NTILE = "WINDOW_NTILE"
+    WINDOW_PERCENT_RANK = "WINDOW_PERCENT_RANK"
+    WINDOW_CUME_DIST = "WINDOW_CUME_DIST"
+    WINDOW_ROW_NUMBER = "WINDOW_ROW_NUMBER"
+
+    WINDOW_FIRST_VALUE = "WINDOW_FIRST_VALUE"
+    WINDOW_LAST_VALUE = "WINDOW_LAST_VALUE"
+    WINDOW_LEAD = "WINDOW_LEAD"
+    WINDOW_LAG = "WINDOW_LAG"
+    WINDOW_NTH_VALUE = "WINDOW_NTH_VALUE"
+
+    # -----------------------------
+    # Functions
+    # -----------------------------
+    FUNCTION = "FUNCTION"
+    BOUND_FUNCTION = "BOUND_FUNCTION"
+
+    # -----------------------------
+    # Operators
+    # -----------------------------
+    CASE_EXPR = "CASE_EXPR"
+    OPERATOR_NULLIF = "OPERATOR_NULLIF"
+    OPERATOR_COALESCE = "OPERATOR_COALESCE"
+    ARRAY_EXTRACT = "ARRAY_EXTRACT"
+    ARRAY_SLICE = "ARRAY_SLICE"
+    STRUCT_EXTRACT = "STRUCT_EXTRACT"
+    ARRAY_CONSTRUCTOR = "ARRAY_CONSTRUCTOR"
+    ARROW = "ARROW"
+
+    # -----------------------------
+    # Subquery IN/EXISTS
+    # -----------------------------
+    SUBQUERY = "SUBQUERY"
+
+    # -----------------------------
+    # Parser
+    # -----------------------------
+    STAR = "STAR"
+    TABLE_STAR = "TABLE_STAR"
+    PLACEHOLDER = "PLACEHOLDER"
+    COLUMN_REF = "COLUMN_REF"
+    FUNCTION_REF = "FUNCTION_REF"
+    TABLE_REF = "TABLE_REF"
+
+    # -----------------------------
+    # Miscellaneous
+    # -----------------------------
+    CAST = "CAST"
+    BOUND_REF = "BOUND_REF"
+    BOUND_COLUMN_REF = "BOUND_COLUMN_REF"
+    BOUND_UNNEST = "BOUND_UNNEST"
+    COLLATE = "COLLATE"
+    LAMBDA = "LAMBDA"
+    POSITIONAL_REFERENCE = "POSITIONAL_REFERENCE"
+    BOUND_LAMBDA_REF = "BOUND_LAMBDA_REF"
+
+
 class OperatorExpression(ParsedExpression):
     """
     .. gh_link:: src/include/duckdb/parser/expression/operator_expression.hpp#L18
     """
 
     clazz: Literal["OPERATOR"] = Field(alias="class")
-    type: Literal["IS_NULL", "IN", "NOT", "IS_NOT_NULL", "COMPARE_NOT_IN"]
+    type: Literal[
+        "IS_NULL",
+        "IN",
+        "NOT",
+        "IS_NOT_NULL",
+        "COMPARE_NOT_IN",
+        "ARRAY_EXTRACT",
+        "ARRAY_SLICE",
+        "STRUCT_EXTRACT",
+    ]
     children: list["ParsedExpressionSubclasses"]
 
 

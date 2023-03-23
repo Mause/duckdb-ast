@@ -99,6 +99,13 @@ SELECT path
 FROM tag_hierarchy
 WHERE source = 'Oasis';
         """,
+        """
+        select
+            thing[0],
+            thing['hello'],
+            thing[1:3],
+            struct_pack(hello := 'world').hello,
+        """,
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):

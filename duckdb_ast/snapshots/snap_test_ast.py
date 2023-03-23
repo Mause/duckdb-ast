@@ -441,6 +441,172 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''SelectNode(
 )
 '''
 
+snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(hello := \'world\').hello, ] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=OperatorExpression(
+                type='ARRAY_EXTRACT',
+                clazz='OPERATOR',
+                alias='',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['thing']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                value=0,
+                                is_null=False
+                            )
+                        )
+                    )
+                ]
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=OperatorExpression(
+                type='ARRAY_EXTRACT',
+                clazz='OPERATOR',
+                alias='',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['thing']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                value='hello',
+                                is_null=False
+                            )
+                        )
+                    )
+                ]
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=OperatorExpression(
+                type='ARRAY_SLICE',
+                clazz='OPERATOR',
+                alias='',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['thing']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                value=1,
+                                is_null=False
+                            )
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                value=3,
+                                is_null=False
+                            )
+                        )
+                    )
+                ]
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=OperatorExpression(
+                type='STRUCT_EXTRACT',
+                clazz='OPERATOR',
+                alias='',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=FunctionExpression(
+                            type='FUNCTION',
+                            clazz='FUNCTION',
+                            alias='',
+                            schema_name='',
+                            function_name='struct_pack',
+                            catalog='',
+                            is_operator=False,
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=ConstantExpression(
+                                        type='CONSTANT',
+                                        clazz='CONSTANT',
+                                        alias='hello',
+                                        value=Value(
+                                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                            value='world',
+                                            is_null=False
+                                        )
+                                    )
+                                )
+                            ],
+                            distinct=False,
+                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            export_state=False,
+                            filter=None
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                value='hello',
+                                is_null=False
+                            )
+                        )
+                    )
+                ]
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(__root__=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+)
+'''
+
 snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''SelectNode(
     type='SELECT_NODE',
     modifiers=[],

@@ -780,7 +780,10 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
                         'IN',
                         'NOT',
                         'IS_NOT_NULL',
-                        'COMPARE_NOT_IN'
+                        'COMPARE_NOT_IN',
+                        'ARRAY_EXTRACT',
+                        'ARRAY_SLICE',
+                        'STRUCT_EXTRACT'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -870,6 +873,8 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'discriminator': {
                 'mapping': {
                     'AND': '#/definitions/ConjunctionExpression',
+                    'ARRAY_EXTRACT': '#/definitions/OperatorExpression',
+                    'ARRAY_SLICE': '#/definitions/OperatorExpression',
                     'CASE': '#/definitions/CaseExpression',
                     'CAST': '#/definitions/CastExpression',
                     'COLLATE': '#/definitions/CollateExpression',
@@ -892,6 +897,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'NOT_DISTINCT_FROM': '#/definitions/ComparisonExpression',
                     'OR': '#/definitions/ConjunctionExpression',
                     'STAR': '#/definitions/StarExpression',
+                    'STRUCT_EXTRACT': '#/definitions/OperatorExpression',
                     'SUBQUERY': '#/definitions/SubqueryExpression'
                 },
                 'propertyName': 'type'
