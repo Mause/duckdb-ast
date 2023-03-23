@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import duckdb
 from docutils import nodes
@@ -19,7 +19,16 @@ def render_node(node: nodes.Node) -> str:
     if isinstance(node, nodes.Text):
         return str(node)
     else:
-        return "\n".join(render_node(child) for child in node.children)
+        sep = (
+            " "
+            if any(
+                cast(nodes.Element, child).tagname == "pending_xref"
+                for child in node.children
+            )
+            else "\n"
+        )
+
+        return sep.join(render_node(child).strip() for child in node.children)
 
 
 def render_field(has_description: dict[str, str], publisher: Publisher) -> None:

@@ -503,8 +503,7 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
         },
         'DistinctModifier': {
             'additionalProperties': False,
-            'description': '''A ResultModifier
-src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L119',
             'properties': {
                 'distinct_on_targets': {
                     'items': {
@@ -662,8 +661,7 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
         },
         'LimitModifier': {
             'additionalProperties': False,
-            'description': '''A ResultModifier
-src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L137',
             'properties': {
                 'limit': {
                     '$ref': '#/definitions/ParsedExpressionSubclasses'
@@ -1025,7 +1023,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
         },
         'QueryNodeSubclasses': {
             'additionalProperties': False,
-            'description': 'Base model with config',
+            'description': 'Union of QueryNode subclasses',
             'discriminator': {
                 'mapping': {
                     'RECURSIVE_CTE_NODE': '#/definitions/RecursiveCTENode',
@@ -1105,7 +1103,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
         },
         'ResultModifierSubclasses': {
             'additionalProperties': False,
-            'description': 'Base model with config',
+            'description': 'Union of ResultModifier subclasses',
             'discriminator': {
                 'mapping': {
                     'DISTINCT_MODIFIER': '#/definitions/DistinctModifier',
