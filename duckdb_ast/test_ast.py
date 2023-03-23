@@ -143,7 +143,9 @@ def test_sql(sql, snapshot: SnapshotTest):
     statements = root.statements
     assert len(statements) == 1
 
-    snapshot.assert_match(render(statements[0]))
+    statement = statements[0].__root__
+
+    snapshot.assert_match(render(statement))
 
 
 def render(node: object) -> str:
