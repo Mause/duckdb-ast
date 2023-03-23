@@ -420,6 +420,79 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
 )
 '''
 
+snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investors_number, 0.00 AS investment_amount, 0.00 AS individual_amount UNION SELECT investors_number + 1, i.investment_amount, i.investment_amount / (investors_number + 1) FROM investment i, per_investor_amount pia WHERE investors_number << 3 ) SELECT * FROM per_investor_amount ORDER BY investment_amount, investors_number; ] 1'] = '''QueryNodeSubclasses(
+    __root__=SelectNode(
+        type='SELECT_NODE',
+        modifiers=[
+            ResultModifierSubclasses(
+                __root__=OrderModifier(
+                    type='ORDER_MODIFIER',
+                    orders=[
+                        OrderByNode(
+                            type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                            null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                            expression=ParsedExpressionSubclasses(
+                                __root__=ColumnRefExpression(
+                                    type='COLUMN_REF',
+                                    clazz='COLUMN_REF',
+                                    alias='',
+                                    column_names=['investment_amount']
+                                )
+                            )
+                        ),
+                        OrderByNode(
+                            type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                            null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                            expression=ParsedExpressionSubclasses(
+                                __root__=ColumnRefExpression(
+                                    type='COLUMN_REF',
+                                    clazz='COLUMN_REF',
+                                    alias='',
+                                    column_names=['investors_number']
+                                )
+                            )
+                        )
+                    ]
+                )
+            )
+        ],
+        cte_map=CommonTableExpressionMap(map={}),
+        select_list=[
+            ParsedExpressionSubclasses(
+                __root__=StarExpression(
+                    type='STAR',
+                    clazz='STAR',
+                    alias='',
+                    columns=False,
+                    replace_list={},
+                    relation_name='',
+                    exclude_list=[],
+                    expr=None
+                )
+            )
+        ],
+        where_clause=None,
+        sample=None,
+        qualify=None,
+        having=None,
+        group_sets=[],
+        group_expressions=[],
+        aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+        from_table=TableRefSubclasses(
+            __root__=BaseTableRef(
+                alias='',
+                sample=None,
+                type='BASE_TABLE',
+                schema_name='',
+                table_name='per_investor_amount',
+                catalog_name='',
+                column_name_alias=[]
+            )
+        )
+    )
+)
+'''
+
 snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT id, name, [name] AS path FROM tag WHERE subclassof IS NULL UNION ALL SELECT tag.id, tag.name, list_prepend(tag.name, tag_hierarchy.path) FROM tag, tag_hierarchy WHERE tag.subclassof = tag_hierarchy.id ) SELECT path FROM tag_hierarchy WHERE source = \'Oasis\'; ] 1'] = '''QueryNodeSubclasses(
     __root__=SelectNode(
         type='SELECT_NODE',

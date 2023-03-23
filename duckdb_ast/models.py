@@ -21,11 +21,14 @@ __all__ = [
     "ConjunctionExpression",
     "ConstantExpression",
     "DecimalTypeInfo",
+    "DistinctModifier",
     "EmptyTableRef",
     "ErrorResponse",
     "ExpressionType",
     "ExtraTypeInfo",
     "FunctionExpression",
+    "LimitModifier",
+    "LimitPercentModifier",
     "ListTypeInfo",
     "LogicalType",
     "LogicalTypeId",
@@ -40,7 +43,7 @@ __all__ = [
     "QueryNodeSubclasses",
     "RecursiveCTENode",
     "ResultModifier",
-    "ResultModifierType",
+    "ResultModifierSubclasses",
     "Root",
     "SampleMethod",
     "SampleOptions",
@@ -682,23 +685,38 @@ class AggregateHandling(Enum):
     FORCE_AGGREGATES = "FORCE_AGGREGATES"
 
 
-class ResultModifierType(Enum):
-    """
-    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L22
-    """
-
-    LIMIT_MODIFIER = "LIMIT_MODIFIER"
-    ORDER_MODIFIER = "ORDER_MODIFIER"
-    DISTINCT_MODIFIER = "DISTINCT_MODIFIER"
-    LIMIT_PERCENT_MODIFIER = "LIMIT_PERCENT_MODIFIER"
-
-
 class ResultModifier(Base):
     """
     .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L33
     """
 
-    type: ResultModifierType
+    type: str
+
+
+class LimitModifier(ResultModifier):
+    type: Literal["LIMIT_MODIFIER"]
+
+    limit: "ParsedExpressionSubclasses"
+    offset: "ParsedExpressionSubclasses"
+
+
+class DistinctModifier(ResultModifier):
+    type: Literal["DISTINCT_MODIFIER"]
+
+    distinct_on_targets: list["ParsedExpressionSubclasses"]
+
+
+class LimitPercentModifier(ResultModifier):
+    type: Literal["LIMIT_PERCENT_MODIFIER"]
+
+    limit: "ParsedExpressionSubclasses"
+    offset: "ParsedExpressionSubclasses"
+
+
+class ResultModifierSubclasses(Base):
+    __root__: Union[
+        LimitPercentModifier, DistinctModifier, LimitModifier, OrderModifier
+    ] = Field(discriminator="type")
 
 
 class CommonTableExpressionInfo(Base):
@@ -724,7 +742,7 @@ class QueryNode(Base):
     """
 
     type: str
-    modifiers: list[ResultModifier]
+    modifiers: list[ResultModifierSubclasses]
 
     cte_map: CommonTableExpressionMap
 

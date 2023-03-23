@@ -501,6 +501,33 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
             'title': 'DecimalTypeInfo',
             'type': 'object'
         },
+        'DistinctModifier': {
+            'additionalProperties': False,
+            'description': '''A ResultModifier
+src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'properties': {
+                'distinct_on_targets': {
+                    'items': {
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    },
+                    'title': 'Distinct On Targets',
+                    'type': 'array'
+                },
+                'type': {
+                    'enum': [
+                        'DISTINCT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'distinct_on_targets'
+            ],
+            'title': 'DistinctModifier',
+            'type': 'object'
+        },
         'EmptyTableRef': {
             'additionalProperties': False,
             'description': '''Represents a cross product
@@ -631,6 +658,60 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
                 'export_state'
             ],
             'title': 'FunctionExpression',
+            'type': 'object'
+        },
+        'LimitModifier': {
+            'additionalProperties': False,
+            'description': '''A ResultModifier
+src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'properties': {
+                'limit': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'offset': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'LIMIT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'limit',
+                'offset'
+            ],
+            'title': 'LimitModifier',
+            'type': 'object'
+        },
+        'LimitPercentModifier': {
+            'additionalProperties': False,
+            'description': '''A ResultModifier
+src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'properties': {
+                'limit': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'offset': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'LIMIT_PERCENT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'limit',
+                'offset'
+            ],
+            'title': 'LimitPercentModifier',
             'type': 'object'
         },
         'ListTypeInfo': {
@@ -989,7 +1070,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 },
                 'modifiers': {
                     'items': {
-                        '$ref': '#/definitions/ResultModifier'
+                        '$ref': '#/definitions/ResultModifierSubclasses'
                     },
                     'title': 'Modifiers',
                     'type': 'array'
@@ -1022,30 +1103,33 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'title': 'RecursiveCTENode',
             'type': 'object'
         },
-        'ResultModifier': {
+        'ResultModifierSubclasses': {
             'additionalProperties': False,
-            'description': '''A ResultModifier
-src/include/duckdb/parser/result_modifier.hpp#L33''',
-            'properties': {
-                'type': {
-                    '$ref': '#/definitions/ResultModifierType'
-                }
+            'description': 'Base model with config',
+            'discriminator': {
+                'mapping': {
+                    'DISTINCT_MODIFIER': '#/definitions/DistinctModifier',
+                    'LIMIT_MODIFIER': '#/definitions/LimitModifier',
+                    'LIMIT_PERCENT_MODIFIER': '#/definitions/LimitPercentModifier',
+                    'ORDER_MODIFIER': '#/definitions/OrderModifier'
+                },
+                'propertyName': 'type'
             },
-            'required': [
-                'type'
+            'oneOf': [
+                {
+                    '$ref': '#/definitions/LimitPercentModifier'
+                },
+                {
+                    '$ref': '#/definitions/DistinctModifier'
+                },
+                {
+                    '$ref': '#/definitions/LimitModifier'
+                },
+                {
+                    '$ref': '#/definitions/OrderModifier'
+                }
             ],
-            'title': 'ResultModifier',
-            'type': 'object'
-        },
-        'ResultModifierType': {
-            'description': 'src/include/duckdb/parser/result_modifier.hpp#L22',
-            'enum': [
-                'LIMIT_MODIFIER',
-                'ORDER_MODIFIER',
-                'DISTINCT_MODIFIER',
-                'LIMIT_PERCENT_MODIFIER'
-            ],
-            'title': 'ResultModifierType'
+            'title': 'ResultModifierSubclasses'
         },
         'Root': {
             'additionalProperties': False,
@@ -1141,7 +1225,7 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
                 },
                 'modifiers': {
                     'items': {
-                        '$ref': '#/definitions/ResultModifier'
+                        '$ref': '#/definitions/ResultModifierSubclasses'
                     },
                     'title': 'Modifiers',
                     'type': 'array'
@@ -1199,7 +1283,7 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                 },
                 'modifiers': {
                     'items': {
-                        '$ref': '#/definitions/ResultModifier'
+                        '$ref': '#/definitions/ResultModifierSubclasses'
                     },
                     'title': 'Modifiers',
                     'type': 'array'
