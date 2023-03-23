@@ -5,7 +5,7 @@ from pytest import mark
 from rich.console import Console
 from snapshottest.module import SnapshotTest
 
-from . import SuccessResponse, parse_sql
+from . import SuccessResponse, parse_sql, parse_sql_to_json
 
 
 @mark.parametrize(
@@ -106,9 +106,17 @@ WHERE source = 'Oasis';
             thing[1:3],
             struct_pack(hello := 'world').hello,
         """,
+        """
+        SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5) t2;
+        """,
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
+    import json
+
+    from rich import print
+
+    print(json.loads(parse_sql_to_json(sql)))
     root = parse_sql(sql)
     assert not root.error, root.error_message
 

@@ -312,7 +312,7 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                     'type': 'array'
                 },
                 'query': {
-                    '$ref': '#/definitions/SelectNode'
+                    '$ref': '#/definitions/SelectStatement'
                 }
             },
             'required': [
@@ -942,6 +942,86 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             ],
             'title': 'ParsedExpressionSubclasses'
         },
+        'QueryNodeSubclasses': {
+            'additionalProperties': False,
+            'description': 'Base model with config',
+            'discriminator': {
+                'mapping': {
+                    'RECURSIVE_CTE_NODE': '#/definitions/RecursiveCTENode',
+                    'SELECT_NODE': '#/definitions/SelectNode',
+                    'SET_OPERATION_NODE': '#/definitions/SetOperationNode'
+                },
+                'propertyName': 'type'
+            },
+            'oneOf': [
+                {
+                    '$ref': '#/definitions/SelectNode'
+                },
+                {
+                    '$ref': '#/definitions/SetOperationNode'
+                },
+                {
+                    '$ref': '#/definitions/RecursiveCTENode'
+                }
+            ],
+            'title': 'QueryNodeSubclasses'
+        },
+        'RecursiveCTENode': {
+            'additionalProperties': False,
+            'description': 'src/include/duckdb/parser/query_node.hpp#L47',
+            'properties': {
+                'aliases': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Aliases',
+                    'type': 'array'
+                },
+                'cte_map': {
+                    '$ref': '#/definitions/CommonTableExpressionMap'
+                },
+                'ctename': {
+                    'title': 'Ctename',
+                    'type': 'string'
+                },
+                'left': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/definitions/ResultModifier'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
+                'right': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'RECURSIVE_CTE_NODE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                },
+                'union_all': {
+                    'title': 'Union All',
+                    'type': 'boolean'
+                }
+            },
+            'required': [
+                'type',
+                'modifiers',
+                'cte_map',
+                'ctename',
+                'union_all',
+                'left',
+                'right',
+                'aliases'
+            ],
+            'title': 'RecursiveCTENode',
+            'type': 'object'
+        },
         'ResultModifier': {
             'additionalProperties': False,
             'description': '''A ResultModifier
@@ -1100,6 +1180,63 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
             'title': 'SelectNode',
             'type': 'object'
         },
+        'SelectStatement': {
+            '$ref': '#/definitions/QueryNodeSubclasses',
+            'additionalProperties': False,
+            'description': '''SelectStatement is a typical SELECT clause
+src/include/duckdb/parser/statement/select_statement.hpp#L24''',
+            'title': 'SelectStatement'
+        },
+        'SetOperationNode': {
+            'additionalProperties': False,
+            'description': 'src/include/duckdb/parser/query_node/set_operation_node.hpp#L18',
+            'properties': {
+                'cte_map': {
+                    '$ref': '#/definitions/CommonTableExpressionMap'
+                },
+                'left': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/definitions/ResultModifier'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
+                'right': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                },
+                'set_op_type': {
+                    'enum': [
+                        'NONE',
+                        'UNION',
+                        'EXCEPT',
+                        'INTERSECT',
+                        'UNION_BY_NAME'
+                    ],
+                    'title': 'Set Op Type',
+                    'type': 'string'
+                },
+                'type': {
+                    'enum': [
+                        'SET_OPERATION_NODE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'modifiers',
+                'cte_map',
+                'set_op_type',
+                'left',
+                'right'
+            ],
+            'title': 'SetOperationNode',
+            'type': 'object'
+        },
         'StarExpression': {
             'additionalProperties': False,
             'description': '''Represents a * expression in the SELECT clause
@@ -1230,7 +1367,7 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     'type': 'string'
                 },
                 'subquery': {
-                    '$ref': '#/definitions/SelectNode'
+                    '$ref': '#/definitions/QueryNodeSubclasses'
                 },
                 'subquery_type': {
                     'enum': [
@@ -1282,7 +1419,7 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                     '$ref': '#/definitions/SampleOptions'
                 },
                 'subquery': {
-                    '$ref': '#/definitions/SelectNode'
+                    '$ref': '#/definitions/SelectStatement'
                 },
                 'type': {
                     'enum': [
@@ -1314,7 +1451,7 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                 },
                 'statements': {
                     'items': {
-                        '$ref': '#/definitions/SelectNode'
+                        '$ref': '#/definitions/QueryNodeSubclasses'
                     },
                     'title': 'Statements',
                     'type': 'array'
