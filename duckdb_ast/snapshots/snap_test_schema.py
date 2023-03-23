@@ -1230,7 +1230,9 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     'enum': [
                         'SCALAR',
                         'ANY',
-                        'EXISTS'
+                        'EXISTS',
+                        'INVALID',
+                        'NOT_EXISTS'
                     ],
                     'title': 'Subquery Type',
                     'type': 'string'
