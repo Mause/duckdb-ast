@@ -32,5 +32,6 @@ html_static_path = ["_static"]
 
 autoapi_dirs = ["../../duckdb_ast"]
 autoapi_ignore: list[str] = ["*snapshots*", "*__main__*", "*test_*"]
+autoapi_member_order = "groupwise"
 
 add_module_names = False
