@@ -312,7 +312,7 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                     'type': 'array'
                 },
                 'query': {
-                    '$ref': '#/definitions/SelectNode'
+                    '$ref': '#/definitions/SelectStatement'
                 }
             },
             'required': [
@@ -501,6 +501,33 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
             'title': 'DecimalTypeInfo',
             'type': 'object'
         },
+        'DistinctModifier': {
+            'additionalProperties': False,
+            'description': '''A ResultModifier
+src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'properties': {
+                'distinct_on_targets': {
+                    'items': {
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    },
+                    'title': 'Distinct On Targets',
+                    'type': 'array'
+                },
+                'type': {
+                    'enum': [
+                        'DISTINCT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'distinct_on_targets'
+            ],
+            'title': 'DistinctModifier',
+            'type': 'object'
+        },
         'EmptyTableRef': {
             'additionalProperties': False,
             'description': '''Represents a cross product
@@ -631,6 +658,60 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
                 'export_state'
             ],
             'title': 'FunctionExpression',
+            'type': 'object'
+        },
+        'LimitModifier': {
+            'additionalProperties': False,
+            'description': '''A ResultModifier
+src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'properties': {
+                'limit': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'offset': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'LIMIT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'limit',
+                'offset'
+            ],
+            'title': 'LimitModifier',
+            'type': 'object'
+        },
+        'LimitPercentModifier': {
+            'additionalProperties': False,
+            'description': '''A ResultModifier
+src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'properties': {
+                'limit': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'offset': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'LIMIT_PERCENT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'limit',
+                'offset'
+            ],
+            'title': 'LimitPercentModifier',
             'type': 'object'
         },
         'ListTypeInfo': {
@@ -942,30 +1023,113 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             ],
             'title': 'ParsedExpressionSubclasses'
         },
-        'ResultModifier': {
+        'QueryNodeSubclasses': {
             'additionalProperties': False,
-            'description': '''A ResultModifier
-src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'description': 'Base model with config',
+            'discriminator': {
+                'mapping': {
+                    'RECURSIVE_CTE_NODE': '#/definitions/RecursiveCTENode',
+                    'SELECT_NODE': '#/definitions/SelectNode',
+                    'SET_OPERATION_NODE': '#/definitions/SetOperationNode'
+                },
+                'propertyName': 'type'
+            },
+            'oneOf': [
+                {
+                    '$ref': '#/definitions/SelectNode'
+                },
+                {
+                    '$ref': '#/definitions/SetOperationNode'
+                },
+                {
+                    '$ref': '#/definitions/RecursiveCTENode'
+                }
+            ],
+            'title': 'QueryNodeSubclasses'
+        },
+        'RecursiveCTENode': {
+            'additionalProperties': False,
+            'description': 'src/include/duckdb/parser/query_node.hpp#L47',
             'properties': {
+                'aliases': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Aliases',
+                    'type': 'array'
+                },
+                'cte_map': {
+                    '$ref': '#/definitions/CommonTableExpressionMap'
+                },
+                'ctename': {
+                    'title': 'Ctename',
+                    'type': 'string'
+                },
+                'left': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/definitions/ResultModifierSubclasses'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
+                'right': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                },
                 'type': {
-                    '$ref': '#/definitions/ResultModifierType'
+                    'enum': [
+                        'RECURSIVE_CTE_NODE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                },
+                'union_all': {
+                    'title': 'Union All',
+                    'type': 'boolean'
                 }
             },
             'required': [
-                'type'
+                'type',
+                'modifiers',
+                'cte_map',
+                'ctename',
+                'union_all',
+                'left',
+                'right',
+                'aliases'
             ],
-            'title': 'ResultModifier',
+            'title': 'RecursiveCTENode',
             'type': 'object'
         },
-        'ResultModifierType': {
-            'description': 'src/include/duckdb/parser/result_modifier.hpp#L22',
-            'enum': [
-                'LIMIT_MODIFIER',
-                'ORDER_MODIFIER',
-                'DISTINCT_MODIFIER',
-                'LIMIT_PERCENT_MODIFIER'
+        'ResultModifierSubclasses': {
+            'additionalProperties': False,
+            'description': 'Base model with config',
+            'discriminator': {
+                'mapping': {
+                    'DISTINCT_MODIFIER': '#/definitions/DistinctModifier',
+                    'LIMIT_MODIFIER': '#/definitions/LimitModifier',
+                    'LIMIT_PERCENT_MODIFIER': '#/definitions/LimitPercentModifier',
+                    'ORDER_MODIFIER': '#/definitions/OrderModifier'
+                },
+                'propertyName': 'type'
+            },
+            'oneOf': [
+                {
+                    '$ref': '#/definitions/LimitPercentModifier'
+                },
+                {
+                    '$ref': '#/definitions/DistinctModifier'
+                },
+                {
+                    '$ref': '#/definitions/LimitModifier'
+                },
+                {
+                    '$ref': '#/definitions/OrderModifier'
+                }
             ],
-            'title': 'ResultModifierType'
+            'title': 'ResultModifierSubclasses'
         },
         'Root': {
             'additionalProperties': False,
@@ -1061,7 +1225,7 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
                 },
                 'modifiers': {
                     'items': {
-                        '$ref': '#/definitions/ResultModifier'
+                        '$ref': '#/definitions/ResultModifierSubclasses'
                     },
                     'title': 'Modifiers',
                     'type': 'array'
@@ -1098,6 +1262,63 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
                 'from_table'
             ],
             'title': 'SelectNode',
+            'type': 'object'
+        },
+        'SelectStatement': {
+            '$ref': '#/definitions/QueryNodeSubclasses',
+            'additionalProperties': False,
+            'description': '''SelectStatement is a typical SELECT clause
+src/include/duckdb/parser/statement/select_statement.hpp#L24''',
+            'title': 'SelectStatement'
+        },
+        'SetOperationNode': {
+            'additionalProperties': False,
+            'description': 'src/include/duckdb/parser/query_node/set_operation_node.hpp#L18',
+            'properties': {
+                'cte_map': {
+                    '$ref': '#/definitions/CommonTableExpressionMap'
+                },
+                'left': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/definitions/ResultModifierSubclasses'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
+                'right': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                },
+                'set_op_type': {
+                    'enum': [
+                        'NONE',
+                        'UNION',
+                        'EXCEPT',
+                        'INTERSECT',
+                        'UNION_BY_NAME'
+                    ],
+                    'title': 'Set Op Type',
+                    'type': 'string'
+                },
+                'type': {
+                    'enum': [
+                        'SET_OPERATION_NODE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'modifiers',
+                'cte_map',
+                'set_op_type',
+                'left',
+                'right'
+            ],
+            'title': 'SetOperationNode',
             'type': 'object'
         },
         'StarExpression': {
@@ -1230,7 +1451,7 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     'type': 'string'
                 },
                 'subquery': {
-                    '$ref': '#/definitions/SelectNode'
+                    '$ref': '#/definitions/QueryNodeSubclasses'
                 },
                 'subquery_type': {
                     'enum': [
@@ -1282,7 +1503,7 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                     '$ref': '#/definitions/SampleOptions'
                 },
                 'subquery': {
-                    '$ref': '#/definitions/SelectNode'
+                    '$ref': '#/definitions/SelectStatement'
                 },
                 'type': {
                     'enum': [
@@ -1314,7 +1535,7 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                 },
                 'statements': {
                     'items': {
-                        '$ref': '#/definitions/SelectNode'
+                        '$ref': '#/definitions/QueryNodeSubclasses'
                     },
                     'title': 'Statements',
                     'type': 'array'

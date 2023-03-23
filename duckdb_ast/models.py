@@ -21,10 +21,14 @@ __all__ = [
     "ConjunctionExpression",
     "ConstantExpression",
     "DecimalTypeInfo",
+    "DistinctModifier",
     "EmptyTableRef",
     "ErrorResponse",
+    "ExpressionType",
     "ExtraTypeInfo",
     "FunctionExpression",
+    "LimitModifier",
+    "LimitPercentModifier",
     "ListTypeInfo",
     "LogicalType",
     "LogicalTypeId",
@@ -36,15 +40,19 @@ __all__ = [
     "ParsedExpression",
     "ParsedExpressionSubclasses",
     "QueryNode",
+    "QueryNodeSubclasses",
+    "RecursiveCTENode",
     "ResultModifier",
-    "ResultModifierType",
+    "ResultModifierSubclasses",
     "Root",
     "SampleMethod",
     "SampleOptions",
     "SelectNode",
-    "SelectNode",
+    "SelectStatement",
+    "SetOperationNode",
     "StandardEntry",
     "StarExpression",
+    "StatementType",
     "StructTypeInfo",
     "SubqueryExpression",
     "SubqueryRef",
@@ -472,7 +480,7 @@ class SubqueryExpression(ParsedExpression):
 
     child: Optional["ParsedExpressionSubclasses"]
     comparison_type: Literal["INVALID", "EQUAL"]
-    subquery: "SelectNode"
+    subquery: "QueryNodeSubclasses"
     subquery_type: Literal["SCALAR", "ANY", "EXISTS", "INVALID", "NOT_EXISTS"]
 
 
@@ -677,23 +685,38 @@ class AggregateHandling(Enum):
     FORCE_AGGREGATES = "FORCE_AGGREGATES"
 
 
-class ResultModifierType(Enum):
-    """
-    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L22
-    """
-
-    LIMIT_MODIFIER = "LIMIT_MODIFIER"
-    ORDER_MODIFIER = "ORDER_MODIFIER"
-    DISTINCT_MODIFIER = "DISTINCT_MODIFIER"
-    LIMIT_PERCENT_MODIFIER = "LIMIT_PERCENT_MODIFIER"
-
-
 class ResultModifier(Base):
     """
     .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L33
     """
 
-    type: ResultModifierType
+    type: str
+
+
+class LimitModifier(ResultModifier):
+    type: Literal["LIMIT_MODIFIER"]
+
+    limit: "ParsedExpressionSubclasses"
+    offset: "ParsedExpressionSubclasses"
+
+
+class DistinctModifier(ResultModifier):
+    type: Literal["DISTINCT_MODIFIER"]
+
+    distinct_on_targets: list["ParsedExpressionSubclasses"]
+
+
+class LimitPercentModifier(ResultModifier):
+    type: Literal["LIMIT_PERCENT_MODIFIER"]
+
+    limit: "ParsedExpressionSubclasses"
+    offset: "ParsedExpressionSubclasses"
+
+
+class ResultModifierSubclasses(Base):
+    __root__: Union[
+        LimitPercentModifier, DistinctModifier, LimitModifier, OrderModifier
+    ] = Field(discriminator="type")
 
 
 class CommonTableExpressionInfo(Base):
@@ -702,7 +725,7 @@ class CommonTableExpressionInfo(Base):
     """
 
     aliases: list[str]
-    query: "SelectNode"
+    query: "SelectStatement"
 
 
 class CommonTableExpressionMap(Base):
@@ -719,7 +742,7 @@ class QueryNode(Base):
     """
 
     type: str
-    modifiers: list[ResultModifier]
+    modifiers: list[ResultModifierSubclasses]
 
     cte_map: CommonTableExpressionMap
 
@@ -731,7 +754,7 @@ class SubqueryRef(TableRef):
 
     type: Literal["SUBQUERY"]
 
-    subquery: "SelectNode"
+    subquery: "SelectStatement"
     column_name_alias: list[str]
 
 
@@ -769,10 +792,83 @@ class ErrorResponse(Base):
     error_type: str
 
 
+class SetOperationNode(QueryNode):
+    """
+    .. gh_link:: src/include/duckdb/parser/query_node/set_operation_node.hpp#L18
+    """
+
+    type: Literal["SET_OPERATION_NODE"]
+    set_op_type: Literal["NONE", "UNION", "EXCEPT", "INTERSECT", "UNION_BY_NAME"]
+
+    left: "QueryNodeSubclasses"
+    right: "QueryNodeSubclasses"
+
+
+class RecursiveCTENode(QueryNode):
+    type: Literal["RECURSIVE_CTE_NODE"]
+
+    ctename: str
+    union_all: bool
+    left: "QueryNodeSubclasses"
+    right: "QueryNodeSubclasses"
+    aliases: list[str]
+
+
+class QueryNodeSubclasses(Base):
+    __root__: Union[SelectNode, SetOperationNode, RecursiveCTENode] = Field(
+        discriminator="type"
+    )
+
+
+class StatementType(Enum):
+    """
+    .. gh_link:: src/include/duckdb/common/enums/statement_type.hpp#L19
+    """
+
+    SELECT = "SELECT"
+    INVALID_STATEMENT = "INVALID_STATEMENT"  # invalid statement type
+    SELECT_STATEMENT = "SELECT_STATEMENT"  # select statement type
+    INSERT_STATEMENT = "INSERT_STATEMENT"  # insert statement type
+    UPDATE_STATEMENT = "UPDATE_STATEMENT"  # update statement type
+    CREATE_STATEMENT = "CREATE_STATEMENT"  # create statement type
+    DELETE_STATEMENT = "DELETE_STATEMENT"  # delete statement type
+    PREPARE_STATEMENT = "PREPARE_STATEMENT"  # prepare statement type
+    EXECUTE_STATEMENT = "EXECUTE_STATEMENT"  # execute statement type
+    ALTER_STATEMENT = "ALTER_STATEMENT"  # alter statement type
+    TRANSACTION_STATEMENT = "TRANSACTION_STATEMENT"  # transaction statement type,
+    COPY_STATEMENT = "COPY_STATEMENT"  # copy type
+    ANALYZE_STATEMENT = "ANALYZE_STATEMENT"  # analyze type
+    VARIABLE_SET_STATEMENT = "VARIABLE_SET_STATEMENT"  # variable set statement type
+    CREATE_FUNC_STATEMENT = "CREATE_FUNC_STATEMENT"  # create func statement type
+    EXPLAIN_STATEMENT = "EXPLAIN_STATEMENT"  # explain statement type
+    DROP_STATEMENT = "DROP_STATEMENT"  # DROP statement type
+    EXPORT_STATEMENT = "EXPORT_STATEMENT"  # EXPORT statement type
+    PRAGMA_STATEMENT = "PRAGMA_STATEMENT"  # PRAGMA statement type
+    SHOW_STATEMENT = "SHOW_STATEMENT"  # SHOW statement type
+    VACUUM_STATEMENT = "VACUUM_STATEMENT"  # VACUUM statement type
+    CALL_STATEMENT = "CALL_STATEMENT"  # CALL statement type
+    SET_STATEMENT = "SET_STATEMENT"  # SET statement type
+    LOAD_STATEMENT = "LOAD_STATEMENT"  # LOAD statement type
+    RELATION_STATEMENT = "RELATION_STATEMENT"
+    EXTENSION_STATEMENT = "EXTENSION_STATEMENT"
+    LOGICAL_PLAN_STATEMENT = "LOGICAL_PLAN_STATEMENT"
+    ATTACH_STATEMENT = "ATTACH_STATEMENT"
+    DETACH_STATEMENT = "DETACH_STATEMENT"
+    MULTI_STATEMENT = "MULTI_STATEMENT"
+
+
+class SelectStatement(Base):
+    """
+    .. gh_link:: src/include/duckdb/parser/statement/select_statement.hpp#L24
+    """
+
+    __root__: "QueryNodeSubclasses"
+
+
 class SuccessResponse(Base):
     "Returned when parsing succeeds"
     error: Literal[False]
-    statements: list[SelectNode]
+    statements: list[QueryNodeSubclasses]
 
 
 class Root(Base):
@@ -794,4 +890,7 @@ SubqueryRef.update_forward_refs()
 CollateExpression.update_forward_refs()
 CommonTableExpressionInfo.update_forward_refs()
 BetweenExpression.update_forward_refs()
+SetOperationNode.update_forward_refs()
+SelectStatement.update_forward_refs()
+RecursiveCTENode.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
