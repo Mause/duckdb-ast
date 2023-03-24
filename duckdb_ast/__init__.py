@@ -1,6 +1,6 @@
 import json
 from importlib.resources import open_text
-from typing import Union
+from typing import Any, Union
 
 import duckdb
 from pydantic import parse_raw_as
@@ -38,6 +38,9 @@ def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
     return parse_raw_as(Root, ast).__root__
 
 
-def get_schema():
+def get_schema() -> dict[str, Any]:
+    """
+    Returns DuckDB AST jsonschema contained within package
+    """
     with open_text(__package__, "schema.json") as fh:
         return json.load(fh)
