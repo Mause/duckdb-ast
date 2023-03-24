@@ -63,6 +63,8 @@ __all__ = [
     "TypeCatalogEntry",
     "UserTypeInfo",
     "Value",
+    "WindowBoundary",
+    "WindowExpression",
 ]
 
 T = TypeVar("T")
