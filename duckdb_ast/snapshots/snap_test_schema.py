@@ -961,23 +961,35 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'COMPARE_BETWEEN': '#/definitions/BetweenExpression',
                     'COMPARE_NOT_IN': '#/definitions/OperatorExpression',
                     'CONSTANT': '#/definitions/ConstantExpression',
+                    'CUME_DIST': '#/definitions/WindowExpression',
                     'DISTINCT_FROM': '#/definitions/ComparisonExpression',
                     'EQUAL': '#/definitions/ComparisonExpression',
+                    'FIRST_VALUE': '#/definitions/WindowExpression',
                     'FUNCTION': '#/definitions/FunctionExpression',
                     'GREATERTHAN': '#/definitions/ComparisonExpression',
                     'GREATERTHANOREQUALTO': '#/definitions/ComparisonExpression',
                     'IN': '#/definitions/OperatorExpression',
                     'IS_NOT_NULL': '#/definitions/OperatorExpression',
                     'IS_NULL': '#/definitions/OperatorExpression',
+                    'LAG': '#/definitions/WindowExpression',
+                    'LAST_VALUE': '#/definitions/WindowExpression',
+                    'LEAD': '#/definitions/WindowExpression',
                     'LESSTHAN': '#/definitions/ComparisonExpression',
                     'LESSTHANOREQUALTO': '#/definitions/ComparisonExpression',
                     'NOT': '#/definitions/OperatorExpression',
                     'NOTEQUAL': '#/definitions/ComparisonExpression',
                     'NOT_DISTINCT_FROM': '#/definitions/ComparisonExpression',
+                    'NTH_VALUE': '#/definitions/WindowExpression',
+                    'NTILE': '#/definitions/WindowExpression',
                     'OR': '#/definitions/ConjunctionExpression',
+                    'PERCENT_RANK': '#/definitions/WindowExpression',
+                    'RANK': '#/definitions/WindowExpression',
+                    'RANK_DENSE': '#/definitions/WindowExpression',
+                    'ROW_NUMBER': '#/definitions/WindowExpression',
                     'STAR': '#/definitions/StarExpression',
                     'STRUCT_EXTRACT': '#/definitions/OperatorExpression',
-                    'SUBQUERY': '#/definitions/SubqueryExpression'
+                    'SUBQUERY': '#/definitions/SubqueryExpression',
+                    'WINDOW_AGGREGATE': '#/definitions/WindowExpression'
                 },
                 'propertyName': 'type'
             },
@@ -1017,6 +1029,9 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 },
                 {
                     '$ref': '#/definitions/BetweenExpression'
+                },
+                {
+                    '$ref': '#/definitions/WindowExpression'
                 }
             ],
             'title': 'ParsedExpressionSubclasses'
@@ -1680,6 +1695,140 @@ src/include/duckdb/common/types/value.hpp#L30''',
                 'is_null'
             ],
             'title': 'Value',
+            'type': 'object'
+        },
+        'WindowBoundary': {
+            'description': 'An enumeration.',
+            'enum': [
+                'INVALID',
+                'UNBOUNDED_PRECEDING',
+                'UNBOUNDED_FOLLOWING',
+                'CURRENT_ROW_RANGE',
+                'CURRENT_ROW_ROWS',
+                'EXPR_PRECEDING_ROWS',
+                'EXPR_FOLLOWING_ROWS',
+                'EXPR_PRECEDING_RANGE',
+                'EXPR_FOLLOWING_RANGE'
+            ],
+            'title': 'WindowBoundary'
+        },
+        'WindowExpression': {
+            'additionalProperties': False,
+            'description': '''The WindowExpression represents a window function in the query. They are a special case of aggregates which is why
+they inherit from them.
+src/include/duckdb/parser/expression/window_expression.hpp#L32''',
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'catalog': {
+                    'title': 'Catalog',
+                    'type': 'string'
+                },
+                'children': {
+                    'items': {
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    },
+                    'title': 'Children',
+                    'type': 'array'
+                },
+                'class': {
+                    'enum': [
+                        'WINDOW'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'default_expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'end': {
+                    'allOf': [
+                        {
+                            '$ref': '#/definitions/WindowBoundary'
+                        }
+                    ],
+                    'default': 'INVALID'
+                },
+                'end_expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'filter_expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'function_name': {
+                    'title': 'Function Name',
+                    'type': 'string'
+                },
+                'ignore_nulls': {
+                    'title': 'Ignore Nulls',
+                    'type': 'boolean'
+                },
+                'offset_expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'orders': {
+                    'items': {
+                        '$ref': '#/definitions/OrderByNode'
+                    },
+                    'title': 'Orders',
+                    'type': 'array'
+                },
+                'partitions': {
+                    'items': {
+                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    },
+                    'title': 'Partitions',
+                    'type': 'array'
+                },
+                'schema': {
+                    'title': 'Schema',
+                    'type': 'string'
+                },
+                'start': {
+                    'allOf': [
+                        {
+                            '$ref': '#/definitions/WindowBoundary'
+                        }
+                    ],
+                    'default': 'INVALID'
+                },
+                'start_expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'WINDOW_AGGREGATE',
+                        'ROW_NUMBER',
+                        'FIRST_VALUE',
+                        'LAST_VALUE',
+                        'NTH_VALUE',
+                        'RANK',
+                        'RANK_DENSE',
+                        'PERCENT_RANK',
+                        'CUME_DIST',
+                        'LEAD',
+                        'LAG',
+                        'NTILE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'catalog',
+                'schema',
+                'function_name',
+                'children',
+                'partitions',
+                'orders',
+                'ignore_nulls'
+            ],
+            'title': 'WindowExpression',
             'type': 'object'
         }
     },
