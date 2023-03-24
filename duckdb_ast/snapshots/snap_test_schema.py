@@ -1698,7 +1698,7 @@ src/include/duckdb/common/types/value.hpp#L30''',
             'type': 'object'
         },
         'WindowBoundary': {
-            'description': 'An enumeration.',
+            'description': 'src/include/duckdb/parser/expression/window_expression.hpp#L16',
             'enum': [
                 'INVALID',
                 'UNBOUNDED_PRECEDING',
