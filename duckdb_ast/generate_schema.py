@@ -1,12 +1,13 @@
 import json
 from pathlib import Path
-from typing import Any, cast
+from typing import Any
 
 import duckdb
 from docutils import nodes
 from docutils.core import Publisher
 from docutils.io import StringInput
 from pydantic import schema_of
+from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.util.docutils import sphinx_domains
 
@@ -21,10 +22,7 @@ def render_node(node: nodes.Node) -> str:
     else:
         sep = (
             " "
-            if any(
-                cast(nodes.Element, child).tagname == "pending_xref"
-                for child in node.children
-            )
+            if any(isinstance(child, addnodes.pending_xref) for child in node.children)
             else "\n"
         )
 
