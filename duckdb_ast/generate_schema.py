@@ -4,37 +4,47 @@ from typing import Any
 
 import duckdb
 from docutils import nodes
-from docutils.core import publish_doctree
+from docutils.core import Publisher
+from docutils.io import StringInput
 from pydantic import schema_of
+from sphinx import addnodes
 from sphinx.application import Sphinx
+from sphinx.util.docutils import sphinx_domains
 
 from .models import Root
 
 __all__ = ["generate_schema"]
 
 
-def render_node(node):
+def render_node(node: nodes.Node) -> str:
     if isinstance(node, nodes.Text):
         return str(node)
-    elif hasattr(node, "children"):
-        return "\n".join(render_node(child) for child in node.children)
+    else:
+        sep = (
+            " "
+            if any(isinstance(child, addnodes.pending_xref) for child in node.children)
+            else "\n"
+        )
+
+        return sep.join(render_node(child).strip() for child in node.children)
 
 
-def render_field(has_description):
-    res = publish_doctree(has_description["description"])
+def render_field(has_description: dict[str, str], publisher: Publisher) -> None:
+    publisher.set_source(has_description["description"])
+    publisher.publish()
 
-    has_description["description"] = render_node(res).strip()
+    has_description["description"] = render_node(publisher.document).strip()
 
 
-def update_docs(root):
+def update_docs(root: object, publisher: Publisher) -> None:
     if isinstance(root, dict):
         if "description" in root:
-            render_field(root)
+            render_field(root, publisher)
         for item in root.values():
-            update_docs(item)
+            update_docs(item, publisher)
     elif isinstance(root, list):
         for item in root:
-            update_docs(item)
+            update_docs(item, publisher)
 
 
 def generate_schema() -> dict[str, Any]:
@@ -49,17 +59,26 @@ def generate_schema() -> dict[str, Any]:
     srcdir = docs / "source"
     build = docs / "build"
     buildername = "html"
-    Sphinx(
+    app = Sphinx(
         srcdir=srcdir,
         confdir=srcdir,
         outdir=build / buildername,
         doctreedir=build / "doctrees",
         buildername=buildername,
+        confoverrides={"extensions": ["gh_link"]},
     )
+
+    env = app.env
+    env.prepare_settings("docname")
+    env.srcdir = "<string>"
+    publisher = app.registry.get_publisher(app, "restructuredtext")
+    publisher.source_class = StringInput
 
     schema = {"version": duckdb.__version__}
     schema.update(schema_of(Root))
-    update_docs(schema)
+
+    with sphinx_domains(app.env):
+        update_docs(schema, publisher)
 
     return schema
 
