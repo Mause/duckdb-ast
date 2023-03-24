@@ -782,6 +782,10 @@ class DistinctModifier(ResultModifier):
 
 
 class LimitPercentModifier(ResultModifier):
+    """
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L81
+    """
+
     type: Literal["LIMIT_PERCENT_MODIFIER"]
 
     limit: "ParsedExpressionSubclasses"
@@ -881,6 +885,10 @@ class SetOperationNode(QueryNode):
 
 
 class RecursiveCTENode(QueryNode):
+    """
+    .. gh_link:: src/include/duckdb/parser/query_node/recursive_cte_node.hpp#L17
+    """
+
     type: Literal["RECURSIVE_CTE_NODE"]
 
     ctename: str
