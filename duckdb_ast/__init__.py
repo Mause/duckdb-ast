@@ -1,6 +1,7 @@
 import json
+from functools import cache
 from importlib.resources import open_text
-from typing import Union
+from typing import Any, Union
 
 import duckdb
 from pydantic import parse_raw_as
@@ -16,13 +17,19 @@ __all__ = [
 
 def escape_sql(sql: str) -> str:
     "Escapes quotes in an SQL string"
+
     return sql.replace('"', '""').replace("'", "''")
+
+
+@cache
+def load_extension():
+    duckdb.install_extension("json")
+    duckdb.load_extension("json")
 
 
 def parse_sql_to_json(sql: str) -> str:
     "Returns raw (unparsed) DuckDB AST JSON"
-    duckdb.install_extension("json")
-    duckdb.load_extension("json")
+    load_extension()
 
     inner = f"select json_serialize_sql('{escape_sql(sql)}')"
     res = duckdb.execute(inner)
@@ -38,6 +45,9 @@ def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
     return parse_raw_as(Root, ast).__root__
 
 
-def get_schema():
+def get_schema() -> dict[str, Any]:
+    """
+    Returns DuckDB AST jsonschema contained within package
+    """
     with open_text(__package__, "schema.json") as fh:
         return json.load(fh)

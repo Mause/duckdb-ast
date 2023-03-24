@@ -323,6 +323,579 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
 )
 '''
 
+snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDER BY Date ASC RANGE BETWEEN INTERVAL 3 DAYS PRECEDING AND INTERVAL 3 DAYS FOLLOWING) AS \'MWh 7-day Moving Average\' FROM \'Generation History\' ORDER BY 1, 2 ] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[
+        ResultModifierSubclasses(
+            __root__=OrderModifier(
+                type='ORDER_MODIFIER',
+                orders=[
+                    OrderByNode(
+                        type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        expression=ParsedExpressionSubclasses(
+                            __root__=ConstantExpression(
+                                type='CONSTANT',
+                                clazz='CONSTANT',
+                                alias='',
+                                value=Value(
+                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    value=1,
+                                    is_null=False
+                                )
+                            )
+                        )
+                    ),
+                    OrderByNode(
+                        type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        expression=ParsedExpressionSubclasses(
+                            __root__=ConstantExpression(
+                                type='CONSTANT',
+                                clazz='CONSTANT',
+                                alias='',
+                                value=Value(
+                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    value=2,
+                                    is_null=False
+                                )
+                            )
+                        )
+                    )
+                ]
+            )
+        )
+    ],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['Plant'])
+        ),
+        ParsedExpressionSubclasses(
+            __root__=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['Date'])
+        ),
+        ParsedExpressionSubclasses(
+            __root__=WindowExpression(
+                type='WINDOW_AGGREGATE',
+                clazz='WINDOW',
+                alias='MWh 7-day Moving Average',
+                catalog='',
+                schema_name='',
+                function_name='avg',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['MWh']
+                        )
+                    )
+                ],
+                partitions=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['Plant']
+                        )
+                    )
+                ],
+                orders=[
+                    OrderByNode(
+                        type=<OrderType.ASCENDING: 'ASCENDING'>,
+                        null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        expression=ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['Date']
+                            )
+                        )
+                    )
+                ],
+                filter_expr=None,
+                ignore_nulls=False,
+                start=<WindowBoundary.EXPR_PRECEDING_RANGE: 'EXPR_PRECEDING_RANGE'>,
+                end=<WindowBoundary.EXPR_FOLLOWING_RANGE: 'EXPR_FOLLOWING_RANGE'>,
+                start_expr=ParsedExpressionSubclasses(
+                    __root__=FunctionExpression(
+                        type='FUNCTION',
+                        clazz='FUNCTION',
+                        alias='',
+                        schema_name='',
+                        function_name='to_days',
+                        catalog='',
+                        is_operator=False,
+                        children=[
+                            ParsedExpressionSubclasses(
+                                __root__=CastExpression(
+                                    type='CAST',
+                                    clazz='CAST',
+                                    alias='',
+                                    child=ParsedExpressionSubclasses(
+                                        __root__=ConstantExpression(
+                                            type='CONSTANT',
+                                            clazz='CONSTANT',
+                                            alias='',
+                                            value=Value(
+                                                type=LogicalType(
+                                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                    type_info=None
+                                                ),
+                                                value=3,
+                                                is_null=False
+                                            )
+                                        )
+                                    ),
+                                    cast_type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    try_cast=False
+                                )
+                            )
+                        ],
+                        distinct=False,
+                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                        export_state=False,
+                        filter=None
+                    )
+                ),
+                end_expr=ParsedExpressionSubclasses(
+                    __root__=FunctionExpression(
+                        type='FUNCTION',
+                        clazz='FUNCTION',
+                        alias='',
+                        schema_name='',
+                        function_name='to_days',
+                        catalog='',
+                        is_operator=False,
+                        children=[
+                            ParsedExpressionSubclasses(
+                                __root__=CastExpression(
+                                    type='CAST',
+                                    clazz='CAST',
+                                    alias='',
+                                    child=ParsedExpressionSubclasses(
+                                        __root__=ConstantExpression(
+                                            type='CONSTANT',
+                                            clazz='CONSTANT',
+                                            alias='',
+                                            value=Value(
+                                                type=LogicalType(
+                                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                    type_info=None
+                                                ),
+                                                value=3,
+                                                is_null=False
+                                            )
+                                        )
+                                    ),
+                                    cast_type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    try_cast=False
+                                )
+                            )
+                        ],
+                        distinct=False,
+                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                        export_state=False,
+                        filter=None
+                    )
+                ),
+                offset_expr=None,
+                default_expr=None
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(
+        __root__=BaseTableRef(
+            alias='',
+            sample=None,
+            type='BASE_TABLE',
+            schema_name='',
+            table_name='Generation History',
+            catalog_name='',
+            column_name_alias=[]
+        )
+    )
+)
+'''
+
+snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount - lag(amount) OVER (ORDER BY time), amount / SUM(amount) OVER (PARTITION BY region), FIRST(employee_name) OVER (ORDER BY salary DESC), LAST(employee_name) OVER (ORDER BY salary DESC), NTH_VALUE(employee_name, 2) OVER (ORDER BY salary DESC) FROM basic_pays ] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=FunctionExpression(
+                type='FUNCTION',
+                clazz='FUNCTION',
+                alias='',
+                schema_name='',
+                function_name='-',
+                catalog='',
+                is_operator=True,
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['amount']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=WindowExpression(
+                            type='LEAD',
+                            clazz='WINDOW',
+                            alias='',
+                            catalog='',
+                            schema_name='',
+                            function_name='lead',
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=ColumnRefExpression(
+                                        type='COLUMN_REF',
+                                        clazz='COLUMN_REF',
+                                        alias='',
+                                        column_names=['amount']
+                                    )
+                                )
+                            ],
+                            partitions=[],
+                            orders=[
+                                OrderByNode(
+                                    type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                                    null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                                    expression=ParsedExpressionSubclasses(
+                                        __root__=ColumnRefExpression(
+                                            type='COLUMN_REF',
+                                            clazz='COLUMN_REF',
+                                            alias='',
+                                            column_names=['time']
+                                        )
+                                    )
+                                )
+                            ],
+                            filter_expr=None,
+                            ignore_nulls=False,
+                            start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                            end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                            start_expr=None,
+                            end_expr=None,
+                            offset_expr=None,
+                            default_expr=None
+                        )
+                    )
+                ],
+                distinct=False,
+                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                export_state=False,
+                filter=None
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=FunctionExpression(
+                type='FUNCTION',
+                clazz='FUNCTION',
+                alias='',
+                schema_name='',
+                function_name='-',
+                catalog='',
+                is_operator=True,
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['amount']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=WindowExpression(
+                            type='LAG',
+                            clazz='WINDOW',
+                            alias='',
+                            catalog='',
+                            schema_name='',
+                            function_name='lag',
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=ColumnRefExpression(
+                                        type='COLUMN_REF',
+                                        clazz='COLUMN_REF',
+                                        alias='',
+                                        column_names=['amount']
+                                    )
+                                )
+                            ],
+                            partitions=[],
+                            orders=[
+                                OrderByNode(
+                                    type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                                    null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                                    expression=ParsedExpressionSubclasses(
+                                        __root__=ColumnRefExpression(
+                                            type='COLUMN_REF',
+                                            clazz='COLUMN_REF',
+                                            alias='',
+                                            column_names=['time']
+                                        )
+                                    )
+                                )
+                            ],
+                            filter_expr=None,
+                            ignore_nulls=False,
+                            start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                            end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                            start_expr=None,
+                            end_expr=None,
+                            offset_expr=None,
+                            default_expr=None
+                        )
+                    )
+                ],
+                distinct=False,
+                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                export_state=False,
+                filter=None
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=FunctionExpression(
+                type='FUNCTION',
+                clazz='FUNCTION',
+                alias='',
+                schema_name='',
+                function_name='/',
+                catalog='',
+                is_operator=True,
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['amount']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=WindowExpression(
+                            type='WINDOW_AGGREGATE',
+                            clazz='WINDOW',
+                            alias='',
+                            catalog='',
+                            schema_name='',
+                            function_name='sum',
+                            children=[
+                                ParsedExpressionSubclasses(
+                                    __root__=ColumnRefExpression(
+                                        type='COLUMN_REF',
+                                        clazz='COLUMN_REF',
+                                        alias='',
+                                        column_names=['amount']
+                                    )
+                                )
+                            ],
+                            partitions=[
+                                ParsedExpressionSubclasses(
+                                    __root__=ColumnRefExpression(
+                                        type='COLUMN_REF',
+                                        clazz='COLUMN_REF',
+                                        alias='',
+                                        column_names=['region']
+                                    )
+                                )
+                            ],
+                            orders=[],
+                            filter_expr=None,
+                            ignore_nulls=False,
+                            start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                            end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                            start_expr=None,
+                            end_expr=None,
+                            offset_expr=None,
+                            default_expr=None
+                        )
+                    )
+                ],
+                distinct=False,
+                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                export_state=False,
+                filter=None
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=WindowExpression(
+                type='FIRST_VALUE',
+                clazz='WINDOW',
+                alias='',
+                catalog='',
+                schema_name='',
+                function_name='first',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['employee_name']
+                        )
+                    )
+                ],
+                partitions=[],
+                orders=[
+                    OrderByNode(
+                        type=<OrderType.DESCENDING: 'DESCENDING'>,
+                        null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        expression=ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['salary']
+                            )
+                        )
+                    )
+                ],
+                filter_expr=None,
+                ignore_nulls=False,
+                start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                start_expr=None,
+                end_expr=None,
+                offset_expr=None,
+                default_expr=None
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=WindowExpression(
+                type='LAST_VALUE',
+                clazz='WINDOW',
+                alias='',
+                catalog='',
+                schema_name='',
+                function_name='last',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['employee_name']
+                        )
+                    )
+                ],
+                partitions=[],
+                orders=[
+                    OrderByNode(
+                        type=<OrderType.DESCENDING: 'DESCENDING'>,
+                        null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        expression=ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['salary']
+                            )
+                        )
+                    )
+                ],
+                filter_expr=None,
+                ignore_nulls=False,
+                start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                start_expr=None,
+                end_expr=None,
+                offset_expr=None,
+                default_expr=None
+            )
+        ),
+        ParsedExpressionSubclasses(
+            __root__=WindowExpression(
+                type='NTH_VALUE',
+                clazz='WINDOW',
+                alias='',
+                catalog='',
+                schema_name='',
+                function_name='nth_value',
+                children=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['employee_name']
+                        )
+                    ),
+                    ParsedExpressionSubclasses(
+                        __root__=ConstantExpression(
+                            type='CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                value=2,
+                                is_null=False
+                            )
+                        )
+                    )
+                ],
+                partitions=[],
+                orders=[
+                    OrderByNode(
+                        type=<OrderType.DESCENDING: 'DESCENDING'>,
+                        null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        expression=ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['salary']
+                            )
+                        )
+                    )
+                ],
+                filter_expr=None,
+                ignore_nulls=False,
+                start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                start_expr=None,
+                end_expr=None,
+                offset_expr=None,
+                default_expr=None
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(
+        __root__=BaseTableRef(
+            alias='',
+            sample=None,
+            type='BASE_TABLE',
+            schema_name='',
+            table_name='basic_pays',
+            catalog_name='',
+            column_name_alias=[]
+        )
+    )
+)
+'''
+
 snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING COUNT(*) >= 50; ] 1'] = '''SelectNode(
     type='SELECT_NODE',
     modifiers=[],
@@ -2277,6 +2850,185 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
             type='BASE_TABLE',
             schema_name='',
             table_name='integers',
+            catalog_name='',
+            column_name_alias=[]
+        )
+    )
+)
+'''
+
+snapshots['test_sql[SELECT row_number() OVER () FROM sales;] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=WindowExpression(
+                type='ROW_NUMBER',
+                clazz='WINDOW',
+                alias='',
+                catalog='',
+                schema_name='',
+                function_name='row_number',
+                children=[],
+                partitions=[],
+                orders=[],
+                filter_expr=None,
+                ignore_nulls=False,
+                start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                start_expr=None,
+                end_expr=None,
+                offset_expr=None,
+                default_expr=None
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(
+        __root__=BaseTableRef(
+            alias='',
+            sample=None,
+            type='BASE_TABLE',
+            schema_name='',
+            table_name='sales',
+            catalog_name='',
+            column_name_alias=[]
+        )
+    )
+)
+'''
+
+snapshots['test_sql[SELECT row_number() OVER (ORDER BY time) FROM sales;] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=WindowExpression(
+                type='ROW_NUMBER',
+                clazz='WINDOW',
+                alias='',
+                catalog='',
+                schema_name='',
+                function_name='row_number',
+                children=[],
+                partitions=[],
+                orders=[
+                    OrderByNode(
+                        type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        expression=ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['time']
+                            )
+                        )
+                    )
+                ],
+                filter_expr=None,
+                ignore_nulls=False,
+                start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                start_expr=None,
+                end_expr=None,
+                offset_expr=None,
+                default_expr=None
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(
+        __root__=BaseTableRef(
+            alias='',
+            sample=None,
+            type='BASE_TABLE',
+            schema_name='',
+            table_name='sales',
+            catalog_name='',
+            column_name_alias=[]
+        )
+    )
+)
+'''
+
+snapshots['test_sql[SELECT row_number() OVER (PARTITION BY region ORDER BY time) FROM sales;] 1'] = '''SelectNode(
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(map={}),
+    select_list=[
+        ParsedExpressionSubclasses(
+            __root__=WindowExpression(
+                type='ROW_NUMBER',
+                clazz='WINDOW',
+                alias='',
+                catalog='',
+                schema_name='',
+                function_name='row_number',
+                children=[],
+                partitions=[
+                    ParsedExpressionSubclasses(
+                        __root__=ColumnRefExpression(
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['region']
+                        )
+                    )
+                ],
+                orders=[
+                    OrderByNode(
+                        type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
+                        expression=ParsedExpressionSubclasses(
+                            __root__=ColumnRefExpression(
+                                type='COLUMN_REF',
+                                clazz='COLUMN_REF',
+                                alias='',
+                                column_names=['time']
+                            )
+                        )
+                    )
+                ],
+                filter_expr=None,
+                ignore_nulls=False,
+                start=<WindowBoundary.UNBOUNDED_PRECEDING: 'UNBOUNDED_PRECEDING'>,
+                end=<WindowBoundary.CURRENT_ROW_RANGE: 'CURRENT_ROW_RANGE'>,
+                start_expr=None,
+                end_expr=None,
+                offset_expr=None,
+                default_expr=None
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(
+        __root__=BaseTableRef(
+            alias='',
+            sample=None,
+            type='BASE_TABLE',
+            schema_name='',
+            table_name='sales',
             catalog_name='',
             column_name_alias=[]
         )

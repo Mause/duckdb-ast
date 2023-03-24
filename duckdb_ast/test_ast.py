@@ -1,7 +1,9 @@
+import json
 from io import StringIO
 from typing import cast
 
 from pytest import mark
+from rich import print
 from rich.console import Console
 from snapshottest.module import SnapshotTest
 
@@ -127,15 +129,38 @@ WHERE source = 'Oasis';
         FROM per_investor_amount
         ORDER BY  investment_amount, investors_number;
         """,
+        "SELECT row_number() OVER () FROM sales;",
+        "SELECT row_number() OVER (ORDER BY time) FROM sales;",
+        "SELECT row_number() OVER (PARTITION BY region ORDER BY time) FROM sales;",
+        """
+        SELECT amount - lead(amount) OVER (ORDER BY time),
+               amount - lag(amount) OVER (ORDER BY time),
+               amount / SUM(amount) OVER (PARTITION BY region),
+               FIRST(employee_name) OVER (ORDER BY salary DESC),
+               LAST(employee_name)  OVER (ORDER BY salary DESC),
+               NTH_VALUE(employee_name, 2) OVER (ORDER BY salary DESC)
+        FROM basic_pays
+        """,
+        """
+        SELECT Plant, Date,
+    AVG(MWh) OVER (
+        PARTITION BY Plant
+        ORDER BY Date ASC
+        RANGE BETWEEN INTERVAL 3 DAYS PRECEDING
+                  AND INTERVAL 3 DAYS FOLLOWING)
+        AS 'MWh 7-day Moving Average'
+FROM 'Generation History'
+ORDER BY 1, 2
+        """,
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
-    import json
-
-    from rich import print
-
     print(json.loads(parse_sql_to_json(sql)))
     root = parse_sql(sql)
+
+    if hasattr(root, "error_message"):
+        print(root.error_message)
+
     assert not root.error, root.error_message
 
     root = cast(SuccessResponse, root)

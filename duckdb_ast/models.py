@@ -470,6 +470,70 @@ class OperatorExpression(ParsedExpression):
     children: list["ParsedExpressionSubclasses"]
 
 
+class WindowBoundary(Enum):
+    """
+    .. gh_link:: src/include/duckdb/parser/expression/window_expression.hpp#L16
+    """
+
+    INVALID = "INVALID"
+    UNBOUNDED_PRECEDING = "UNBOUNDED_PRECEDING"
+    UNBOUNDED_FOLLOWING = "UNBOUNDED_FOLLOWING"
+    CURRENT_ROW_RANGE = "CURRENT_ROW_RANGE"
+    CURRENT_ROW_ROWS = "CURRENT_ROW_ROWS"
+    EXPR_PRECEDING_ROWS = "EXPR_PRECEDING_ROWS"
+    EXPR_FOLLOWING_ROWS = "EXPR_FOLLOWING_ROWS"
+    EXPR_PRECEDING_RANGE = "EXPR_PRECEDING_RANGE"
+    EXPR_FOLLOWING_RANGE = "EXPR_FOLLOWING_RANGE"
+
+
+class WindowExpression(ParsedExpression):
+    """
+    .. gh_link:: src/include/duckdb/parser/expression/window_expression.hpp#L32
+    """
+
+    clazz: Literal["WINDOW"] = Field(alias="class")
+    type: Literal[
+        "WINDOW_AGGREGATE",
+        "ROW_NUMBER",
+        "FIRST_VALUE",
+        "LAST_VALUE",
+        "NTH_VALUE",
+        "RANK",
+        "RANK_DENSE",
+        "PERCENT_RANK",
+        "CUME_DIST",
+        "LEAD",
+        "LAG",
+        "NTILE",
+    ]
+
+    # Catalog of the aggregate function
+    catalog: str
+    # Schema of the aggregate function
+    schema_name: str = Field(alias="schema")
+    # Name of the aggregate function
+    function_name: str
+    # The child expression of the main window function
+    children: list["ParsedExpressionSubclasses"]
+    # The set of expressions to partition by
+    partitions: list["ParsedExpressionSubclasses"]
+    # The set of ordering clauses
+    orders: list["OrderByNode"]
+    # Expression representing a filter, only used for aggregates
+    filter_expr: Optional["ParsedExpressionSubclasses"]
+    # True to ignore NULL values
+    ignore_nulls: bool
+    # The window boundaries
+    start: WindowBoundary = WindowBoundary.INVALID
+    end: WindowBoundary = WindowBoundary.INVALID
+
+    start_expr: Optional["ParsedExpressionSubclasses"]
+    end_expr: Optional["ParsedExpressionSubclasses"]
+    # Offset and default expressions for WINDOW_LEAD and WINDOW_LAG functions
+    offset_expr: Optional["ParsedExpressionSubclasses"]
+    default_expr: Optional["ParsedExpressionSubclasses"]
+
+
 class SubqueryExpression(ParsedExpression):
     """
     .. gh_link:: src/include/duckdb/parser/expression/subquery_expression.hpp#L18
@@ -546,6 +610,7 @@ class ParsedExpressionSubclasses(Base):
         CaseExpression,
         CollateExpression,
         BetweenExpression,
+        WindowExpression,
     ] = Field(discriminator="type")
 
 
@@ -903,4 +968,5 @@ BetweenExpression.update_forward_refs()
 SetOperationNode.update_forward_refs()
 SelectStatement.update_forward_refs()
 RecursiveCTENode.update_forward_refs()
+WindowExpression.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
