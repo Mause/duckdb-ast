@@ -687,8 +687,7 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
         },
         'LimitPercentModifier': {
             'additionalProperties': False,
-            'description': '''A ResultModifier
-src/include/duckdb/parser/result_modifier.hpp#L33''',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L81',
             'properties': {
                 'limit': {
                     '$ref': '#/definitions/ParsedExpressionSubclasses'
@@ -1062,7 +1061,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
         },
         'RecursiveCTENode': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/query_node.hpp#L47',
+            'description': 'src/include/duckdb/parser/query_node/recursive_cte_node.hpp#L17',
             'properties': {
                 'aliases': {
                     'items': {
