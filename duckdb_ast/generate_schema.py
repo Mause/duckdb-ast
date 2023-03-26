@@ -80,8 +80,6 @@ def generate_schema() -> dict[str, Any]:
     with sphinx_domains(app.env):
         update_docs(schema, publisher)
 
-    app.events.emit("build-finished")
-
     return schema
 
 

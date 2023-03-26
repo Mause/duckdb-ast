@@ -1,3 +1,4 @@
+import atexit
 import shelve
 from pathlib import Path
 from typing import Callable, TypeVar
@@ -11,10 +12,12 @@ gh_ref = "88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1"
 template = "https://github.com/duckdb/duckdb/blob/{}/{}".format
 
 T = TypeVar("T")
-cache = shelve.open(str(Path(__file__).parent / "disk_cache.db"))
 
 
 def cached(func: Callable[[str], T]) -> Callable[[str], T]:
+    cache = shelve.open(str(Path(__file__).parent / "disk_cache.db"))
+    atexit.register(cache.close)
+
     def wrapper(key: str) -> T:
         if key not in cache:
             cache[key] = func(key)
@@ -69,8 +72,6 @@ class GitHubLinkDirective(SphinxDirective):
 
 def setup(app: Sphinx) -> dict:
     app.add_directive("gh_link", GitHubLinkDirective)
-
-    app.connect("build-finished", lambda app: cache.close())
 
     return {
         "version": "0.1",
