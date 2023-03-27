@@ -5,6 +5,7 @@ from typing import Callable, TypeVar
 from urllib.request import urlopen
 
 from docutils import nodes
+from docutils.utils import Reporter
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
@@ -40,7 +41,7 @@ BOUNDARY = "//==="
 PREFIX = "//! "
 
 
-def get_doc(filename: str) -> str:
+def get_doc(reporter: Reporter, filename: str) -> str:
     sep = "#L"
 
     assert sep in filename, filename
@@ -51,12 +52,15 @@ def get_doc(filename: str) -> str:
 
     first = lines[start]
 
-    if first.startswith(PREFIX):
-        return prefixed(lines, start)
-    elif first.startswith(BOUNDARY):
-        return bounded(lines, start)
-    else:
-        return ""
+    try:
+        if first.startswith(PREFIX):
+            return prefixed(lines, start)
+        if first.startswith(BOUNDARY):
+            return bounded(lines, start)
+    except IndexError:
+        reporter.warning(f"failed to extract docs for {filename} on lineno {lineno}")
+
+    return ""
 
 
 def bounded(lines: list[str], start: int) -> str:
@@ -89,7 +93,7 @@ class GitHubLinkDirective(SphinxDirective):
     def run(self) -> list[nodes.Node]:
         sig = self.arguments[0]
 
-        doc = get_doc(sig)
+        doc = get_doc(self.reporter, sig)
         ref = nodes.reference("", sig, refuri=template(gh_ref, sig))
 
         return [nodes.Text(doc), nodes.paragraph("", "", ref)]

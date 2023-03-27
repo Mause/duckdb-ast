@@ -1,7 +1,9 @@
 import importlib
 from pathlib import Path
 from textwrap import dedent
+from unittest.mock import MagicMock
 
+from docutils.utils import Reporter
 from pytest import MonkeyPatch, mark
 from snapshottest.module import SnapshotTest
 
@@ -24,12 +26,6 @@ def test_schema_generation(snapshot: SnapshotTest):
 // Struct Type
 //===--------------------------------------------------------------------===//
 struct StructTypeInfo : public ExtraTypeInfo {
-    explicit StructTypeInfo(child_list_t<LogicalType> child_types_p)
-        : ExtraTypeInfo(ExtraTypeInfoType::STRUCT_TYPE_INFO), child_types(std::move(child_types_p)) {
-    }
-
-    child_list_t<LogicalType> child_types;
-}
     """
             ),
             "Struct Type",
@@ -44,6 +40,16 @@ enum class ExtraTypeInfoType : uint8_t {
             ),
             "Extra Type Info Type",
         ),
+        (
+            dedent(
+                """
+
+//===
+struct StructTypeInfo : public ExtraTypeInfo {
+    """
+            ),
+            "",
+        ),
     ],
 )
 def test_comment_extraction(comments: str, expected: str, monkeypatch: MonkeyPatch):
@@ -52,4 +58,7 @@ def test_comment_extraction(comments: str, expected: str, monkeypatch: MonkeyPat
 
     monkeypatch.setattr(gh_link, "get_file", lambda filename: comments.splitlines())
 
-    assert gh_link.get_doc("src/include/duckdb/types.cpp#L4") == expected
+    assert (
+        gh_link.get_doc(MagicMock(spec=Reporter), "src/include/duckdb/types.cpp#L4")
+        == expected
+    )
