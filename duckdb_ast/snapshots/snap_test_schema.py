@@ -467,7 +467,8 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
         },
         'DecimalTypeInfo': {
             'additionalProperties': False,
-            'description': 'src/common/types.cpp#L868',
+            'description': '''Decimal Type
+src/common/types.cpp#L868''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -713,7 +714,8 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
         },
         'ListTypeInfo': {
             'additionalProperties': False,
-            'description': 'src/common/types.cpp#L991',
+            'description': '''List Type
+src/common/types.cpp#L991''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -782,7 +784,8 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
             'type': 'object'
         },
         'LogicalTypeId': {
-            'description': 'src/include/duckdb/common/types.hpp#L246',
+            'description': '''SQL Types
+src/include/duckdb/common/types.hpp#L246''',
             'enum': [
                 'INVALID',
                 'NULL',
@@ -1396,7 +1399,8 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
         },
         'StructTypeInfo': {
             'additionalProperties': False,
-            'description': 'src/common/types.cpp#L1040',
+            'description': '''Struct Type
+src/common/types.cpp#L1040''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1643,7 +1647,8 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
         },
         'UserTypeInfo': {
             'additionalProperties': False,
-            'description': 'src/common/types.cpp#L1263',
+            'description': '''User Type
+src/common/types.cpp#L1263''',
             'properties': {
                 'alias': {
                     'title': 'Alias',

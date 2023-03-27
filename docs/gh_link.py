@@ -36,9 +36,12 @@ def get_file(filename: str) -> list[str]:
     )
 
 
+BOUNDARY = "//==="
+PREFIX = "//! "
+
+
 def get_doc(filename: str) -> str:
     sep = "#L"
-    prefix = "//! "
 
     assert sep in filename, filename
     filename, lineno = filename.split(sep)
@@ -46,10 +49,32 @@ def get_doc(filename: str) -> str:
 
     start = int(lineno) - 1 - 1
 
+    first = lines[start]
+
+    if first.startswith(PREFIX):
+        return prefixed(lines, start)
+    elif first.startswith(BOUNDARY):
+        return bounded(lines, start)
+    else:
+        return ""
+
+
+def bounded(lines: list[str], start: int) -> str:
+    start -= 1
     extracted: list[str] = []
 
-    while lines[start].startswith(prefix):
-        extracted.insert(0, lines[start][len(prefix) :].strip())
+    while not lines[start].startswith(BOUNDARY):
+        extracted.insert(0, lines[start].split(" ", 1)[1].strip())
+        start -= 1
+
+    return "\n".join(extracted)
+
+
+def prefixed(lines: list[str], start: int) -> str:
+    extracted: list[str] = []
+
+    while lines[start].startswith(PREFIX):
+        extracted.insert(0, lines[start][len(PREFIX) :].strip())
         start -= 1
 
     return "\n".join(extracted)
