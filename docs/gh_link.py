@@ -5,6 +5,7 @@ from typing import Callable, TypeVar
 from urllib.request import urlopen
 
 from docutils import nodes
+from docutils.utils import Reporter
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
@@ -36,9 +37,12 @@ def get_file(filename: str) -> list[str]:
     )
 
 
-def get_doc(filename: str) -> str:
+BOUNDARY = "//==="
+PREFIX = "//! "
+
+
+def get_doc(reporter: Reporter, filename: str) -> str:
     sep = "#L"
-    prefix = "//! "
 
     assert sep in filename, filename
     filename, lineno = filename.split(sep)
@@ -46,10 +50,35 @@ def get_doc(filename: str) -> str:
 
     start = int(lineno) - 1 - 1
 
+    first = lines[start]
+
+    try:
+        if first.startswith(PREFIX):
+            return prefixed(lines, start)
+        if first.startswith(BOUNDARY):
+            return bounded(lines, start)
+    except IndexError:
+        reporter.warning(f"failed to extract docs for {filename} on lineno {lineno}")
+
+    return ""
+
+
+def bounded(lines: list[str], start: int) -> str:
+    start -= 1
     extracted: list[str] = []
 
-    while lines[start].startswith(prefix):
-        extracted.insert(0, lines[start][len(prefix) :].strip())
+    while not lines[start].startswith(BOUNDARY):
+        extracted.insert(0, lines[start].split(" ", 1)[1].strip())
+        start -= 1
+
+    return "\n".join(extracted)
+
+
+def prefixed(lines: list[str], start: int) -> str:
+    extracted: list[str] = []
+
+    while lines[start].startswith(PREFIX):
+        extracted.insert(0, lines[start][len(PREFIX) :].strip())
         start -= 1
 
     return "\n".join(extracted)
@@ -64,7 +93,7 @@ class GitHubLinkDirective(SphinxDirective):
     def run(self) -> list[nodes.Node]:
         sig = self.arguments[0]
 
-        doc = get_doc(sig)
+        doc = get_doc(self.reporter, sig)
         ref = nodes.reference("", sig, refuri=template(gh_ref, sig))
 
         return [nodes.Text(doc), nodes.paragraph("", "", ref)]
