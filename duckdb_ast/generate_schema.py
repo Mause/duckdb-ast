@@ -1,39 +1,28 @@
 import json
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import duckdb
-from docutils import nodes
 from docutils.core import Publisher
-from docutils.io import StringInput
+from docutils.io import StringInput, StringOutput
 from pydantic import TypeAdapter
-from sphinx import addnodes
 from sphinx.application import Sphinx
+from sphinx.builders.text import TextBuilder
 from sphinx.util.docutils import sphinx_domains
 
-from .models import Root
+from duckdb_ast.models import Root
 
 __all__ = ["generate_schema"]
-
-
-def render_node(node: nodes.Node) -> str:
-    if isinstance(node, nodes.Text):
-        return str(node)
-    else:
-        sep = (
-            " "
-            if any(isinstance(child, addnodes.pending_xref) for child in node.children)
-            else "\n"
-        )
-
-        return sep.join(render_node(child).strip() for child in node.children)
 
 
 def render_field(has_description: dict[str, str], publisher: Publisher) -> None:
     publisher.set_source(has_description["description"])
     publisher.publish()
 
-    has_description["description"] = render_node(publisher.document).strip()
+    has_description["description"] = write_to_string(
+        publisher.app.builder, publisher
+    ).strip()
 
 
 def update_docs(root: object, publisher: Publisher) -> None:
@@ -54,33 +43,50 @@ def generate_schema() -> dict[str, Any]:
     Fetches docstrings from github, and inserts current DuckDB version
     """
 
-    docs = Path(__file__).parent.parent / "docs"
+    schema = {"version": duckdb.__version__}
+    schema.update(TypeAdapter(Root).json_schema())
 
+    with sphinx() as (app, publisher):
+        update_docs(schema, publisher)
+
+    return schema
+
+
+@contextmanager
+def sphinx():
+    docs = Path(__file__).parent.parent / "docs"
     srcdir = docs / "source"
     build = docs / "build"
-    buildername = "html"
+    buildername = "text"
     app = Sphinx(
-        srcdir=srcdir,
-        confdir=srcdir,
-        outdir=build / buildername,
-        doctreedir=build / "doctrees",
+        srcdir=str(srcdir),
+        confdir=str(srcdir),
+        outdir=str(build / buildername),
+        doctreedir=str(build / "doctrees"),
         buildername=buildername,
         confoverrides={"extensions": ["gh_link"]},
     )
-
     env = app.env
     env.prepare_settings("docname")
     env.srcdir = "<string>"
     publisher = app.registry.get_publisher(app, "restructuredtext")
     publisher.source_class = StringInput
+    publisher.app = app
 
     schema = {"version": duckdb.__version__}
     schema.update(TypeAdapter(Root).json_schema())
 
     with sphinx_domains(app.env):
-        update_docs(schema, publisher)
+        yield app, publisher
+    app.events.emit("build-finished")
 
-    return schema
+
+def write_to_string(builder: TextBuilder, publisher: Publisher) -> str:
+    document = publisher.document
+    builder.prepare_writing(set())
+    destination = StringOutput(encoding="utf-8")
+    builder.writer.write(document, destination)
+    return cast(bytes, destination.destination).decode()
 
 
 if __name__ == "__main__":
