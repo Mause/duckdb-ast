@@ -793,7 +793,8 @@ class LimitPercentModifier(ResultModifier):
 
 
 class ResultModifierSubclasses(Base):
-    "Union of :class:`ResultModifier` subclasses"
+    """Union of :class:`ResultModifier` subclasses"""
+
     __root__: Union[
         LimitPercentModifier, DistinctModifier, LimitModifier, OrderModifier
     ] = Field(discriminator="type")
@@ -839,7 +840,8 @@ class SubqueryRef(TableRef):
 
 
 class TableRefSubclasses(Base):
-    "Union of :class:`TableRef` subclasses"
+    """Union of :class:`TableRef` subclasses"""
+
     __root__: Union[BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef] = Field(
         discriminator="type"
     )
@@ -866,7 +868,8 @@ class SelectNode(QueryNode):
 
 
 class ErrorResponse(Base):
-    "Error shape for when parsing fails"
+    """Error shape for when parsing fails"""
+
     error: Literal[True]
     error_message: str
     error_type: str
@@ -899,7 +902,8 @@ class RecursiveCTENode(QueryNode):
 
 
 class QueryNodeSubclasses(Base):
-    "Union of :class:`QueryNode` subclasses"
+    """Union of :class:`QueryNode` subclasses"""
+
     __root__: Union[SelectNode, SetOperationNode, RecursiveCTENode] = Field(
         discriminator="type"
     )
@@ -951,13 +955,15 @@ class SelectStatement(Base):
 
 
 class SuccessResponse(Base):
-    "Returned when parsing succeeds"
+    """Returned when parsing succeeds"""
+
     error: Literal[False]
     statements: list[QueryNodeSubclasses]
 
 
 class Root(Base):
-    "Union of possible responses"
+    """Union of possible responses"""
+
     __root__: Union[ErrorResponse, SuccessResponse] = Field(discriminator="error")
 
 
