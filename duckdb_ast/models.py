@@ -944,7 +944,8 @@ class SelectNode(QueryNode):
 
 
 class ErrorResponse(Base):
-    "Error shape for when parsing fails"
+    """Error shape for when parsing fails"""
+
     error: Literal[True]
     error_message: str
     error_type: str
@@ -1033,7 +1034,8 @@ class SelectStatement(Base):
 
 
 class SuccessResponse(Base):
-    "Returned when parsing succeeds"
+    """Returned when parsing succeeds"""
+
     error: Literal[False]
     statements: list[SelectStatement]
 
