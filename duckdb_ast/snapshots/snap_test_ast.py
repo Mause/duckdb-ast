@@ -2645,7 +2645,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
             sample=None,
             type='SUBQUERY',
             subquery=SelectStatement(
-                __root__=QueryNodeSubclasses(
+                node=QueryNodeSubclasses(
                     __root__=SelectNode(
                         type='SELECT_NODE',
                         modifiers=[],

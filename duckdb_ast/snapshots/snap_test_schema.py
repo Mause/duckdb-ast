@@ -1280,11 +1280,19 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
             'type': 'object'
         },
         'SelectStatement': {
-            '$ref': '#/definitions/QueryNodeSubclasses',
             'additionalProperties': False,
             'description': '''SelectStatement is a typical SELECT clause
 src/include/duckdb/parser/statement/select_statement.hpp#L24''',
-            'title': 'SelectStatement'
+            'properties': {
+                'node': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                }
+            },
+            'required': [
+                'node'
+            ],
+            'title': 'SelectStatement',
+            'type': 'object'
         },
         'SetOperationNode': {
             'additionalProperties': False,
@@ -1467,7 +1475,7 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     'type': 'string'
                 },
                 'subquery': {
-                    '$ref': '#/definitions/QueryNodeSubclasses'
+                    '$ref': '#/definitions/SelectStatement'
                 },
                 'subquery_type': {
                     'enum': [
@@ -1551,7 +1559,7 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                 },
                 'statements': {
                     'items': {
-                        '$ref': '#/definitions/QueryNodeSubclasses'
+                        '$ref': '#/definitions/SelectStatement'
                     },
                     'title': 'Statements',
                     'type': 'array'

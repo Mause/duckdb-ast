@@ -546,7 +546,7 @@ class SubqueryExpression(ParsedExpression):
 
     child: Optional["ParsedExpressionSubclasses"]
     comparison_type: Literal["INVALID", "EQUAL"]
-    subquery: "QueryNodeSubclasses"
+    subquery: "SelectStatement"
     subquery_type: Literal["SCALAR", "ANY", "EXISTS", "INVALID", "NOT_EXISTS"]
 
 
@@ -947,13 +947,13 @@ class SelectStatement(Base):
     .. gh_link:: src/include/duckdb/parser/statement/select_statement.hpp#L24
     """
 
-    __root__: "QueryNodeSubclasses"
+    node: "QueryNodeSubclasses"
 
 
 class SuccessResponse(Base):
     "Returned when parsing succeeds"
     error: Literal[False]
-    statements: list[QueryNodeSubclasses]
+    statements: list[SelectStatement]
 
 
 class Root(Base):
