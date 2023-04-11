@@ -327,11 +327,7 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
             'description': 'src/include/duckdb/parser/query_node.hpp#L32',
             'properties': {
                 'map': {
-                    'additionalProperties': {
-                        '$ref': '#/definitions/CommonTableExpressionInfo'
-                    },
-                    'title': 'Map',
-                    'type': 'object'
+                    '$ref': '#/definitions/OrderedDict_str__CommonTableExpressionInfo_'
                 }
             },
             'required': [
@@ -660,6 +656,68 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
             'title': 'FunctionExpression',
             'type': 'object'
         },
+        'JoinRef': {
+            'additionalProperties': False,
+            'description': '''Represents a JOIN between two expressions
+src/include/duckdb/parser/tableref/joinref.hpp#L21''',
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'condition': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'join_type': {
+                    'enum': [
+                        'INNER'
+                    ],
+                    'title': 'Join Type',
+                    'type': 'string'
+                },
+                'left': {
+                    '$ref': '#/definitions/TableRefSubclasses'
+                },
+                'ref_type': {
+                    'enum': [
+                        'CROSS'
+                    ],
+                    'title': 'Ref Type',
+                    'type': 'string'
+                },
+                'right': {
+                    '$ref': '#/definitions/TableRefSubclasses'
+                },
+                'sample': {
+                    '$ref': '#/definitions/SampleOptions'
+                },
+                'type': {
+                    'enum': [
+                        'JOIN'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                },
+                'using_columns': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Using Columns',
+                    'type': 'array'
+                }
+            },
+            'required': [
+                'alias',
+                'type',
+                'right',
+                'left',
+                'join_type',
+                'ref_type',
+                'using_columns'
+            ],
+            'title': 'JoinRef',
+            'type': 'object'
+        },
         'LimitModifier': {
             'additionalProperties': False,
             'description': 'src/include/duckdb/parser/result_modifier.hpp#L137',
@@ -948,6 +1006,78 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             ],
             'title': 'OrderType'
         },
+        'OrderedDict_str__CommonTableExpressionInfo_': {
+            'items': {
+                '$ref': '#/definitions/Pair_str__CommonTableExpressionInfo_'
+            },
+            'title': 'OrderedDict[str, CommonTableExpressionInfo]',
+            'type': 'array'
+        },
+        'OrderedDict_str__LogicalType_': {
+            'items': {
+                '$ref': '#/definitions/Pair_str__LogicalType_'
+            },
+            'title': 'OrderedDict[str, LogicalType]',
+            'type': 'array'
+        },
+        'OrderedDict_str__ParsedExpressionSubclasses_': {
+            'items': {
+                '$ref': '#/definitions/Pair_str__ParsedExpressionSubclasses_'
+            },
+            'title': 'OrderedDict[str, ParsedExpressionSubclasses]',
+            'type': 'array'
+        },
+        'Pair_str__CommonTableExpressionInfo_': {
+            'properties': {
+                'key': {
+                    'title': 'Key',
+                    'type': 'string'
+                },
+                'value': {
+                    '$ref': '#/definitions/CommonTableExpressionInfo'
+                }
+            },
+            'required': [
+                'key',
+                'value'
+            ],
+            'title': 'Pair[str, CommonTableExpressionInfo]',
+            'type': 'object'
+        },
+        'Pair_str__LogicalType_': {
+            'properties': {
+                'key': {
+                    'title': 'Key',
+                    'type': 'string'
+                },
+                'value': {
+                    '$ref': '#/definitions/LogicalType'
+                }
+            },
+            'required': [
+                'key',
+                'value'
+            ],
+            'title': 'Pair[str, LogicalType]',
+            'type': 'object'
+        },
+        'Pair_str__ParsedExpressionSubclasses_': {
+            'properties': {
+                'key': {
+                    'title': 'Key',
+                    'type': 'string'
+                },
+                'value': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                }
+            },
+            'required': [
+                'key',
+                'value'
+            ],
+            'title': 'Pair[str, ParsedExpressionSubclasses]',
+            'type': 'object'
+        },
         'ParsedExpressionSubclasses': {
             'additionalProperties': False,
             'description': 'Union of ParsedExpression subclasses',
@@ -1076,8 +1206,8 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'cte_map': {
                     '$ref': '#/definitions/CommonTableExpressionMap'
                 },
-                'ctename': {
-                    'title': 'Ctename',
+                'cte_name': {
+                    'title': 'Cte Name',
                     'type': 'string'
                 },
                 'left': {
@@ -1109,7 +1239,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'type',
                 'modifiers',
                 'cte_map',
-                'ctename',
+                'cte_name',
                 'union_all',
                 'left',
                 'right',
@@ -1280,11 +1410,19 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
             'type': 'object'
         },
         'SelectStatement': {
-            '$ref': '#/definitions/QueryNodeSubclasses',
             'additionalProperties': False,
             'description': '''SelectStatement is a typical SELECT clause
 src/include/duckdb/parser/statement/select_statement.hpp#L24''',
-            'title': 'SelectStatement'
+            'properties': {
+                'node': {
+                    '$ref': '#/definitions/QueryNodeSubclasses'
+                }
+            },
+            'required': [
+                'node'
+            ],
+            'title': 'SelectStatement',
+            'type': 'object'
         },
         'SetOperationNode': {
             'additionalProperties': False,
@@ -1371,11 +1509,7 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                     'type': 'string'
                 },
                 'replace_list': {
-                    'additionalProperties': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
-                    },
-                    'title': 'Replace List',
-                    'type': 'object'
+                    '$ref': '#/definitions/OrderedDict_str__ParsedExpressionSubclasses_'
                 },
                 'type': {
                     'enum': [
@@ -1410,18 +1544,7 @@ src/common/types.cpp#L1040''',
                     '$ref': '#/definitions/TypeCatalogEntry'
                 },
                 'child_types': {
-                    'items': {
-                        'anyOf': [
-                            {
-                                'type': 'string'
-                            },
-                            {
-                                '$ref': '#/definitions/LogicalType'
-                            }
-                        ]
-                    },
-                    'title': 'Child Types',
-                    'type': 'array'
+                    '$ref': '#/definitions/OrderedDict_str__LogicalType_'
                 },
                 'type': {
                     'enum': [
@@ -1467,7 +1590,7 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     'type': 'string'
                 },
                 'subquery': {
-                    '$ref': '#/definitions/QueryNodeSubclasses'
+                    '$ref': '#/definitions/SelectStatement'
                 },
                 'subquery_type': {
                     'enum': [
@@ -1551,7 +1674,7 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                 },
                 'statements': {
                     'items': {
-                        '$ref': '#/definitions/QueryNodeSubclasses'
+                        '$ref': '#/definitions/SelectStatement'
                     },
                     'title': 'Statements',
                     'type': 'array'
@@ -1609,6 +1732,7 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
                 'mapping': {
                     'BASE_TABLE': '#/definitions/BaseTableRef',
                     'EMPTY': '#/definitions/EmptyTableRef',
+                    'JOIN': '#/definitions/JoinRef',
                     'SUBQUERY': '#/definitions/SubqueryRef',
                     'TABLE_FUNCTION': '#/definitions/TableFunctionRef'
                 },
@@ -1626,6 +1750,9 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
                 },
                 {
                     '$ref': '#/definitions/SubqueryRef'
+                },
+                {
+                    '$ref': '#/definitions/JoinRef'
                 }
             ],
             'title': 'TableRefSubclasses'
