@@ -891,7 +891,7 @@ class RecursiveCTENode(QueryNode):
 
     type: Literal["RECURSIVE_CTE_NODE"]
 
-    ctename: str
+    cte_name: str
     union_all: bool
     left: "QueryNodeSubclasses"
     right: "QueryNodeSubclasses"

@@ -1076,8 +1076,8 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'cte_map': {
                     '$ref': '#/definitions/CommonTableExpressionMap'
                 },
-                'ctename': {
-                    'title': 'Ctename',
+                'cte_name': {
+                    'title': 'Cte Name',
                     'type': 'string'
                 },
                 'left': {
@@ -1109,7 +1109,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'type',
                 'modifiers',
                 'cte_map',
-                'ctename',
+                'cte_name',
                 'union_all',
                 'left',
                 'right',
