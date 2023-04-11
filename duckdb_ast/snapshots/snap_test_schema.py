@@ -660,6 +660,68 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
             'title': 'FunctionExpression',
             'type': 'object'
         },
+        'JoinRef': {
+            'additionalProperties': False,
+            'description': '''Represents a JOIN between two expressions
+src/include/duckdb/parser/tableref/joinref.hpp#L21''',
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'condition': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'join_type': {
+                    'enum': [
+                        'INNER'
+                    ],
+                    'title': 'Join Type',
+                    'type': 'string'
+                },
+                'left': {
+                    '$ref': '#/definitions/TableRefSubclasses'
+                },
+                'ref_type': {
+                    'enum': [
+                        'CROSS'
+                    ],
+                    'title': 'Ref Type',
+                    'type': 'string'
+                },
+                'right': {
+                    '$ref': '#/definitions/TableRefSubclasses'
+                },
+                'sample': {
+                    '$ref': '#/definitions/SampleOptions'
+                },
+                'type': {
+                    'enum': [
+                        'JOIN'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                },
+                'using_columns': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Using Columns',
+                    'type': 'array'
+                }
+            },
+            'required': [
+                'alias',
+                'type',
+                'right',
+                'left',
+                'join_type',
+                'ref_type',
+                'using_columns'
+            ],
+            'title': 'JoinRef',
+            'type': 'object'
+        },
         'LimitModifier': {
             'additionalProperties': False,
             'description': 'src/include/duckdb/parser/result_modifier.hpp#L137',
@@ -1617,6 +1679,7 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
                 'mapping': {
                     'BASE_TABLE': '#/definitions/BaseTableRef',
                     'EMPTY': '#/definitions/EmptyTableRef',
+                    'JOIN': '#/definitions/JoinRef',
                     'SUBQUERY': '#/definitions/SubqueryRef',
                     'TABLE_FUNCTION': '#/definitions/TableFunctionRef'
                 },
@@ -1634,6 +1697,9 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
                 },
                 {
                     '$ref': '#/definitions/SubqueryRef'
+                },
+                {
+                    '$ref': '#/definitions/JoinRef'
                 }
             ],
             'title': 'TableRefSubclasses'

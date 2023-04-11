@@ -667,6 +667,21 @@ class EmptyTableRef(TableRef):
     type: Literal["EMPTY"]
 
 
+class JoinRef(TableRef):
+    """
+    .. gh_link:: src/include/duckdb/parser/tableref/joinref.hpp#L21
+    """
+
+    type: Literal["JOIN"]
+
+    right: "TableRefSubclasses"
+    left: "TableRefSubclasses"
+    join_type: Literal["INNER"]
+    ref_type: Literal["CROSS"]
+    condition: Optional["ParsedExpressionSubclasses"]
+    using_columns: list[str]
+
+
 class OrderType(Enum):
     """
     .. gh_link:: src/include/duckdb/common/enums/order_type.hpp#L16
@@ -840,9 +855,9 @@ class SubqueryRef(TableRef):
 
 class TableRefSubclasses(Base):
     "Union of :class:`TableRef` subclasses"
-    __root__: Union[BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef] = Field(
-        discriminator="type"
-    )
+    __root__: Union[
+        BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef, JoinRef
+    ] = Field(discriminator="type")
 
 
 GroupingSet = set[int]
@@ -979,4 +994,5 @@ SetOperationNode.update_forward_refs()
 SelectStatement.update_forward_refs()
 RecursiveCTENode.update_forward_refs()
 WindowExpression.update_forward_refs()
+JoinRef.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
