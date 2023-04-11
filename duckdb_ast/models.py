@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Generic, Literal, Optional, TypeVar, Union
 
 from pydantic import BaseModel, Extra, Field
+from pydantic.generics import GenericModel
 
 __all__ = [
     "AggregateHandling",
@@ -27,6 +28,7 @@ __all__ = [
     "ExpressionType",
     "ExtraTypeInfo",
     "FunctionExpression",
+    "JoinRef",
     "LimitModifier",
     "LimitPercentModifier",
     "ListTypeInfo",
@@ -37,6 +39,8 @@ __all__ = [
     "OrderByNullType",
     "OrderModifier",
     "OrderType",
+    "OrderedDict",
+    "Pair",
     "ParsedExpression",
     "ParsedExpressionSubclasses",
     "QueryNode",
@@ -68,6 +72,8 @@ __all__ = [
 ]
 
 T = TypeVar("T")
+K = TypeVar("K")
+V = TypeVar("V")
 
 
 class Base(BaseModel):
@@ -77,6 +83,15 @@ class Base(BaseModel):
 
     class Config:
         extra = Extra.forbid
+
+
+class Pair(GenericModel, Generic[K, V]):
+    key: K
+    value: V
+
+
+class OrderedDict(GenericModel, Generic[K, V]):
+    __root__: list[Pair[K, V]]
 
 
 class BaseExpression(Base):
@@ -195,15 +210,6 @@ class DecimalTypeInfo(ExtraTypeInfo):
     scale: int
 
 
-class StructTypeInfo(ExtraTypeInfo):
-    """
-    .. gh_link:: src/common/types.cpp#L1040
-    """
-
-    type: Literal["STRUCT_TYPE_INFO"]
-    child_types: list[Union[str, "LogicalType"]]
-
-
 class UserTypeInfo(ExtraTypeInfo):
     """
     .. gh_link:: src/common/types.cpp#L1263
@@ -220,11 +226,17 @@ class LogicalType(Base):
 
     id: LogicalTypeId
     type_info: Optional[
-        Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo, StructTypeInfo]
+        Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo, "StructTypeInfo"]
     ] = Field(discriminator="type")
 
 
-StructTypeInfo.update_forward_refs()
+class StructTypeInfo(ExtraTypeInfo):
+    """
+    .. gh_link:: src/common/types.cpp#L1040
+    """
+
+    type: Literal["STRUCT_TYPE_INFO"]
+    child_types: OrderedDict[str, LogicalType]
 
 
 class Value(Base, Generic[T]):
@@ -246,22 +258,6 @@ class ColumnRefExpression(ParsedExpression):
     clazz: Literal["COLUMN_REF"] = Field(alias="class")
 
     column_names: list[str]
-
-
-class StarExpression(ParsedExpression):
-    """
-    .. gh_link:: src/include/duckdb/parser/expression/star_expression.hpp#L17
-    """
-
-    type: Literal["STAR"]
-    clazz: Literal["STAR"] = Field(alias="class")
-
-    columns: bool
-
-    replace_list: dict[str, "ParsedExpressionSubclasses"]
-    relation_name: str
-    exclude_list: list[str]
-    expr: Optional["ParsedExpressionSubclasses"]
 
 
 class ConstantExpression(ParsedExpression):
@@ -546,7 +542,7 @@ class SubqueryExpression(ParsedExpression):
 
     child: Optional["ParsedExpressionSubclasses"]
     comparison_type: Literal["INVALID", "EQUAL"]
-    subquery: "QueryNodeSubclasses"
+    subquery: "SelectStatement"
     subquery_type: Literal["SCALAR", "ANY", "EXISTS", "INVALID", "NOT_EXISTS"]
 
 
@@ -602,7 +598,7 @@ class ParsedExpressionSubclasses(Base):
     __root__: Union[
         "FunctionExpression",
         ColumnRefExpression,
-        StarExpression,
+        "StarExpression",
         ConstantExpression,
         CastExpression,
         ComparisonExpression,
@@ -614,6 +610,22 @@ class ParsedExpressionSubclasses(Base):
         BetweenExpression,
         WindowExpression,
     ] = Field(discriminator="type")
+
+
+class StarExpression(ParsedExpression):
+    """
+    .. gh_link:: src/include/duckdb/parser/expression/star_expression.hpp#L17
+    """
+
+    type: Literal["STAR"]
+    clazz: Literal["STAR"] = Field(alias="class")
+
+    columns: bool
+
+    replace_list: OrderedDict[str, ParsedExpressionSubclasses]
+    relation_name: str
+    exclude_list: list[str]
+    expr: Optional["ParsedExpressionSubclasses"]
 
 
 class SampleMethod(Enum):
@@ -665,6 +677,21 @@ class EmptyTableRef(TableRef):
     """
 
     type: Literal["EMPTY"]
+
+
+class JoinRef(TableRef):
+    """
+    .. gh_link:: src/include/duckdb/parser/tableref/joinref.hpp#L21
+    """
+
+    type: Literal["JOIN"]
+
+    right: "TableRefSubclasses"
+    left: "TableRefSubclasses"
+    join_type: Literal["INNER"]
+    ref_type: Literal["CROSS"]
+    condition: Optional["ParsedExpressionSubclasses"]
+    using_columns: list[str]
 
 
 class OrderType(Enum):
@@ -814,7 +841,7 @@ class CommonTableExpressionMap(Base):
     .. gh_link:: src/include/duckdb/parser/query_node.hpp#L32
     """
 
-    map: dict[str, CommonTableExpressionInfo]
+    map: OrderedDict[str, CommonTableExpressionInfo]
 
 
 class QueryNode(Base):
@@ -842,9 +869,10 @@ class SubqueryRef(TableRef):
 class TableRefSubclasses(Base):
     """Union of :class:`TableRef` subclasses"""
 
-    __root__: Union[BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef] = Field(
-        discriminator="type"
-    )
+    "Union of :class:`TableRef` subclasses"
+    __root__: Union[
+        BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef, JoinRef
+    ] = Field(discriminator="type")
 
 
 GroupingSet = set[int]
@@ -894,7 +922,7 @@ class RecursiveCTENode(QueryNode):
 
     type: Literal["RECURSIVE_CTE_NODE"]
 
-    ctename: str
+    cte_name: str
     union_all: bool
     left: "QueryNodeSubclasses"
     right: "QueryNodeSubclasses"
@@ -951,14 +979,14 @@ class SelectStatement(Base):
     .. gh_link:: src/include/duckdb/parser/statement/select_statement.hpp#L24
     """
 
-    __root__: "QueryNodeSubclasses"
+    node: "QueryNodeSubclasses"
 
 
 class SuccessResponse(Base):
     """Returned when parsing succeeds"""
 
     error: Literal[False]
-    statements: list[QueryNodeSubclasses]
+    statements: list[SelectStatement]
 
 
 class Root(Base):
@@ -985,4 +1013,7 @@ SetOperationNode.update_forward_refs()
 SelectStatement.update_forward_refs()
 RecursiveCTENode.update_forward_refs()
 WindowExpression.update_forward_refs()
+JoinRef.update_forward_refs()
+StructTypeInfo.update_forward_refs()
+LogicalType.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
