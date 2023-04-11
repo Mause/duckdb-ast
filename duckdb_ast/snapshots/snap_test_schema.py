@@ -327,11 +327,7 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
             'description': 'src/include/duckdb/parser/query_node.hpp#L32',
             'properties': {
                 'map': {
-                    'additionalProperties': {
-                        '$ref': '#/definitions/CommonTableExpressionInfo'
-                    },
-                    'title': 'Map',
-                    'type': 'object'
+                    '$ref': '#/definitions/OrderedDict_str__CommonTableExpressionInfo_'
                 }
             },
             'required': [
@@ -1010,6 +1006,78 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             ],
             'title': 'OrderType'
         },
+        'OrderedDict_str__CommonTableExpressionInfo_': {
+            'items': {
+                '$ref': '#/definitions/Pair_str__CommonTableExpressionInfo_'
+            },
+            'title': 'OrderedDict[str, CommonTableExpressionInfo]',
+            'type': 'array'
+        },
+        'OrderedDict_str__LogicalType_': {
+            'items': {
+                '$ref': '#/definitions/Pair_str__LogicalType_'
+            },
+            'title': 'OrderedDict[str, LogicalType]',
+            'type': 'array'
+        },
+        'OrderedDict_str__ParsedExpressionSubclasses_': {
+            'items': {
+                '$ref': '#/definitions/Pair_str__ParsedExpressionSubclasses_'
+            },
+            'title': 'OrderedDict[str, ParsedExpressionSubclasses]',
+            'type': 'array'
+        },
+        'Pair_str__CommonTableExpressionInfo_': {
+            'properties': {
+                'key': {
+                    'title': 'Key',
+                    'type': 'string'
+                },
+                'value': {
+                    '$ref': '#/definitions/CommonTableExpressionInfo'
+                }
+            },
+            'required': [
+                'key',
+                'value'
+            ],
+            'title': 'Pair[str, CommonTableExpressionInfo]',
+            'type': 'object'
+        },
+        'Pair_str__LogicalType_': {
+            'properties': {
+                'key': {
+                    'title': 'Key',
+                    'type': 'string'
+                },
+                'value': {
+                    '$ref': '#/definitions/LogicalType'
+                }
+            },
+            'required': [
+                'key',
+                'value'
+            ],
+            'title': 'Pair[str, LogicalType]',
+            'type': 'object'
+        },
+        'Pair_str__ParsedExpressionSubclasses_': {
+            'properties': {
+                'key': {
+                    'title': 'Key',
+                    'type': 'string'
+                },
+                'value': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                }
+            },
+            'required': [
+                'key',
+                'value'
+            ],
+            'title': 'Pair[str, ParsedExpressionSubclasses]',
+            'type': 'object'
+        },
         'ParsedExpressionSubclasses': {
             'additionalProperties': False,
             'description': 'Union of ParsedExpression subclasses',
@@ -1441,11 +1509,7 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                     'type': 'string'
                 },
                 'replace_list': {
-                    'additionalProperties': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
-                    },
-                    'title': 'Replace List',
-                    'type': 'object'
+                    '$ref': '#/definitions/OrderedDict_str__ParsedExpressionSubclasses_'
                 },
                 'type': {
                     'enum': [
@@ -1480,18 +1544,7 @@ src/common/types.cpp#L1040''',
                     '$ref': '#/definitions/TypeCatalogEntry'
                 },
                 'child_types': {
-                    'items': {
-                        'anyOf': [
-                            {
-                                'type': 'string'
-                            },
-                            {
-                                '$ref': '#/definitions/LogicalType'
-                            }
-                        ]
-                    },
-                    'title': 'Child Types',
-                    'type': 'array'
+                    '$ref': '#/definitions/OrderedDict_str__LogicalType_'
                 },
                 'type': {
                     'enum': [
