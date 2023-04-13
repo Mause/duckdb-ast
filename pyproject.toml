@@ -9,7 +9,7 @@ packages = [{include = "duckdb_ast"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-duckdb = {version = "^0.7.2.dev1637", allow-prereleases = true}
+duckdb = {version = "^0.7.2.dev1671", allow-prereleases = true}
 pydantic = "^1.10.7"
 
 [tool.poetry.group.dev.dependencies]
