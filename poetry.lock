@@ -194,32 +194,13 @@ files = [
 
 [[package]]
 name = "duckdb"
-version = "0.7.2.dev1671"
+version = "0.7.2.dev1901"
 description = "DuckDB embedded database"
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "duckdb-0.7.2.dev1671-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:0e79137976075197ab1ebe7968dce2a848624f0dda99ee11b4c44d4fca16d539"},
-    {file = "duckdb-0.7.2.dev1671-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:fa15c34d486406c0553b3346a1c0079d35a770554c4ea2bb4b43a19bab3bbd5c"},
-    {file = "duckdb-0.7.2.dev1671-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:92f57aa68a4808b2f995c2a668dd10ac7b032cea730a7aff03a8f51dbafce8c7"},
-    {file = "duckdb-0.7.2.dev1671-cp310-cp310-win32.whl", hash = "sha256:1784f11b488c4e91cf7ad7b9bba27a2c2ef21fd1ebaca5a74c9bd732674b51b7"},
-    {file = "duckdb-0.7.2.dev1671-cp310-cp310-win_amd64.whl", hash = "sha256:be61a4e82fb23072829c464f0d558af53c19347ed67e4970bb9e6a2ec472f522"},
-    {file = "duckdb-0.7.2.dev1671-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:59e3e2799a1deba010bf0ef22611e6d4f49a7588331ffb61a46a57baea889fc7"},
-    {file = "duckdb-0.7.2.dev1671-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:be19166dd39721a19867746aecdcf02717763486c7c2f59342d1852286b82974"},
-    {file = "duckdb-0.7.2.dev1671-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:652784e76f45c9219b7603b0f9d90ae2907eccd1ec791f417bfe2905ad56716c"},
-    {file = "duckdb-0.7.2.dev1671-cp311-cp311-win32.whl", hash = "sha256:b065b7a8c1005bf80be44da8410c055abda31b702ba3ad0cee1cf37e24968c57"},
-    {file = "duckdb-0.7.2.dev1671-cp311-cp311-win_amd64.whl", hash = "sha256:28051ad856393912760a0de7a4f386bf98ce67182f6bdfc93eb8f92dfb074802"},
-    {file = "duckdb-0.7.2.dev1671-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:778539704b0f8dbf0bb4fff4a0f5d4ec5b7349b8649622cdbb6f2e6bb38c9c0d"},
-    {file = "duckdb-0.7.2.dev1671-cp36-cp36m-win32.whl", hash = "sha256:8b6aac28d1ac3bd0ccfd0cb27773c57e732e97335a0184e4660e96c76af37288"},
-    {file = "duckdb-0.7.2.dev1671-cp36-cp36m-win_amd64.whl", hash = "sha256:bd35b2a4792bc0d8e8ae0de58f2515adc4ccd73e56c4b04e248a0cbb200cab08"},
-    {file = "duckdb-0.7.2.dev1671-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:f85ddfd618c661c9ba41b072e45a88b30c75cacd4f9946f334a9a77f9415a9b9"},
-    {file = "duckdb-0.7.2.dev1671-cp37-cp37m-win32.whl", hash = "sha256:b4c478bc50b8755f7aa70b53b74aee217ff3bf1a536a3e69dc3eb72932b7eef6"},
-    {file = "duckdb-0.7.2.dev1671-cp37-cp37m-win_amd64.whl", hash = "sha256:414e6e605be7372b245c203ff2d39d9f31fea8dc735adf0ab0ebb41fc90c48a0"},
-    {file = "duckdb-0.7.2.dev1671-cp38-cp38-win32.whl", hash = "sha256:8348b3ef4d665809fbc0692b7c11dc8ccbae8452bca94129dc76a7fc25ac0155"},
-    {file = "duckdb-0.7.2.dev1671-cp38-cp38-win_amd64.whl", hash = "sha256:7596faba7f20247d551892e04d2c602fc17d91d61926839c2bcf3a94191c5cf9"},
-    {file = "duckdb-0.7.2.dev1671-cp39-cp39-win32.whl", hash = "sha256:21914c6a6ac76f100a02511c597676da3bd9db30570507f7c50a2c3de84c3873"},
-    {file = "duckdb-0.7.2.dev1671-cp39-cp39-win_amd64.whl", hash = "sha256:af9894e9a5b315c05fa85e6464c962861bdb727d9bccd8a33b475ed123555710"},
+    {file = "duckdb-0.7.2.dev1901-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:5fb3533b9257ccbf9f7b453ef2159a42642d84ed9fb490cc80e15bec49bf1339"},
 ]
 
 [[package]]
@@ -1353,4 +1334,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "918348418c431206462b2e47d8b105ca15e0ad79fa387bee340ba1768640b086"
+content-hash = "93a8c934660358da27169f9f3cebe32656fce45c8986b8ab3642022ccff04381"
