@@ -157,7 +157,7 @@ src/include/duckdb/parser/expression/case_expression.hpp#L25''',
                 },
                 'type': {
                     'enum': [
-                        'CASE'
+                        'CASE_EXPR'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -201,7 +201,7 @@ src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
                 },
                 'type': {
                     'enum': [
-                        'CAST'
+                        'OPERATOR_CAST'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -361,14 +361,14 @@ src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
                 },
                 'type': {
                     'enum': [
-                        'GREATERTHAN',
-                        'EQUAL',
-                        'NOTEQUAL',
-                        'GREATERTHANOREQUALTO',
-                        'NOT_DISTINCT_FROM',
-                        'DISTINCT_FROM',
-                        'LESSTHANOREQUALTO',
-                        'LESSTHAN'
+                        'COMPARE_GREATERTHAN',
+                        'COMPARE_EQUAL',
+                        'COMPARE_NOTEQUAL',
+                        'COMPARE_GREATERTHANOREQUALTO',
+                        'COMPARE_NOT_DISTINCT_FROM',
+                        'COMPARE_DISTINCT_FROM',
+                        'COMPARE_LESSTHANOREQUALTO',
+                        'COMPARE_LESSTHAN'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -409,8 +409,8 @@ src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
                 },
                 'type': {
                     'enum': [
-                        'AND',
-                        'OR'
+                        'CONJUNCTION_AND',
+                        'CONJUNCTION_OR'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -443,7 +443,7 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 },
                 'type': {
                     'enum': [
-                        'CONSTANT'
+                        'VALUE_CONSTANT'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -915,11 +915,12 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
                 },
                 'type': {
                     'enum': [
-                        'IS_NULL',
-                        'IN',
-                        'NOT',
-                        'IS_NOT_NULL',
+                        'OPERATOR_IS_NULL',
+                        'OPERATOR_IN',
+                        'OPERATOR_NOT',
+                        'OPERATOR_IS_NOT_NULL',
                         'COMPARE_NOT_IN',
+                        'COMPARE_IN',
                         'ARRAY_EXTRACT',
                         'ARRAY_SLICE',
                         'STRUCT_EXTRACT'
@@ -1083,45 +1084,46 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'description': 'Union of ParsedExpression subclasses',
             'discriminator': {
                 'mapping': {
-                    'AND': '#/definitions/ConjunctionExpression',
                     'ARRAY_EXTRACT': '#/definitions/OperatorExpression',
                     'ARRAY_SLICE': '#/definitions/OperatorExpression',
-                    'CASE': '#/definitions/CaseExpression',
-                    'CAST': '#/definitions/CastExpression',
+                    'CASE_EXPR': '#/definitions/CaseExpression',
                     'COLLATE': '#/definitions/CollateExpression',
                     'COLUMN_REF': '#/definitions/ColumnRefExpression',
                     'COMPARE_BETWEEN': '#/definitions/BetweenExpression',
+                    'COMPARE_DISTINCT_FROM': '#/definitions/ComparisonExpression',
+                    'COMPARE_EQUAL': '#/definitions/ComparisonExpression',
+                    'COMPARE_GREATERTHAN': '#/definitions/ComparisonExpression',
+                    'COMPARE_GREATERTHANOREQUALTO': '#/definitions/ComparisonExpression',
+                    'COMPARE_IN': '#/definitions/OperatorExpression',
+                    'COMPARE_LESSTHAN': '#/definitions/ComparisonExpression',
+                    'COMPARE_LESSTHANOREQUALTO': '#/definitions/ComparisonExpression',
+                    'COMPARE_NOTEQUAL': '#/definitions/ComparisonExpression',
+                    'COMPARE_NOT_DISTINCT_FROM': '#/definitions/ComparisonExpression',
                     'COMPARE_NOT_IN': '#/definitions/OperatorExpression',
-                    'CONSTANT': '#/definitions/ConstantExpression',
-                    'CUME_DIST': '#/definitions/WindowExpression',
-                    'DISTINCT_FROM': '#/definitions/ComparisonExpression',
-                    'EQUAL': '#/definitions/ComparisonExpression',
-                    'FIRST_VALUE': '#/definitions/WindowExpression',
+                    'CONJUNCTION_AND': '#/definitions/ConjunctionExpression',
+                    'CONJUNCTION_OR': '#/definitions/ConjunctionExpression',
                     'FUNCTION': '#/definitions/FunctionExpression',
-                    'GREATERTHAN': '#/definitions/ComparisonExpression',
-                    'GREATERTHANOREQUALTO': '#/definitions/ComparisonExpression',
-                    'IN': '#/definitions/OperatorExpression',
-                    'IS_NOT_NULL': '#/definitions/OperatorExpression',
-                    'IS_NULL': '#/definitions/OperatorExpression',
-                    'LAG': '#/definitions/WindowExpression',
-                    'LAST_VALUE': '#/definitions/WindowExpression',
-                    'LEAD': '#/definitions/WindowExpression',
-                    'LESSTHAN': '#/definitions/ComparisonExpression',
-                    'LESSTHANOREQUALTO': '#/definitions/ComparisonExpression',
-                    'NOT': '#/definitions/OperatorExpression',
-                    'NOTEQUAL': '#/definitions/ComparisonExpression',
-                    'NOT_DISTINCT_FROM': '#/definitions/ComparisonExpression',
-                    'NTH_VALUE': '#/definitions/WindowExpression',
-                    'NTILE': '#/definitions/WindowExpression',
-                    'OR': '#/definitions/ConjunctionExpression',
-                    'PERCENT_RANK': '#/definitions/WindowExpression',
-                    'RANK': '#/definitions/WindowExpression',
-                    'RANK_DENSE': '#/definitions/WindowExpression',
-                    'ROW_NUMBER': '#/definitions/WindowExpression',
+                    'OPERATOR_CAST': '#/definitions/CastExpression',
+                    'OPERATOR_IN': '#/definitions/OperatorExpression',
+                    'OPERATOR_IS_NOT_NULL': '#/definitions/OperatorExpression',
+                    'OPERATOR_IS_NULL': '#/definitions/OperatorExpression',
+                    'OPERATOR_NOT': '#/definitions/OperatorExpression',
                     'STAR': '#/definitions/StarExpression',
                     'STRUCT_EXTRACT': '#/definitions/OperatorExpression',
                     'SUBQUERY': '#/definitions/SubqueryExpression',
-                    'WINDOW_AGGREGATE': '#/definitions/WindowExpression'
+                    'VALUE_CONSTANT': '#/definitions/ConstantExpression',
+                    'WINDOW_AGGREGATE': '#/definitions/WindowExpression',
+                    'WINDOW_CUME_DIST': '#/definitions/WindowExpression',
+                    'WINDOW_FIRST_VALUE': '#/definitions/WindowExpression',
+                    'WINDOW_LAG': '#/definitions/WindowExpression',
+                    'WINDOW_LAST_VALUE': '#/definitions/WindowExpression',
+                    'WINDOW_LEAD': '#/definitions/WindowExpression',
+                    'WINDOW_NTH_VALUE': '#/definitions/WindowExpression',
+                    'WINDOW_NTILE': '#/definitions/WindowExpression',
+                    'WINDOW_PERCENT_RANK': '#/definitions/WindowExpression',
+                    'WINDOW_RANK': '#/definitions/WindowExpression',
+                    'WINDOW_RANK_DENSE': '#/definitions/WindowExpression',
+                    'WINDOW_ROW_NUMBER': '#/definitions/WindowExpression'
                 },
                 'propertyName': 'type'
             },
@@ -1584,7 +1586,7 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                 'comparison_type': {
                     'enum': [
                         'INVALID',
-                        'EQUAL'
+                        'COMPARE_EQUAL'
                     ],
                     'title': 'Comparison Type',
                     'type': 'string'
@@ -1931,17 +1933,17 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                 'type': {
                     'enum': [
                         'WINDOW_AGGREGATE',
-                        'ROW_NUMBER',
-                        'FIRST_VALUE',
-                        'LAST_VALUE',
-                        'NTH_VALUE',
-                        'RANK',
-                        'RANK_DENSE',
-                        'PERCENT_RANK',
-                        'CUME_DIST',
-                        'LEAD',
-                        'LAG',
-                        'NTILE'
+                        'WINDOW_ROW_NUMBER',
+                        'WINDOW_FIRST_VALUE',
+                        'WINDOW_LAST_VALUE',
+                        'WINDOW_NTH_VALUE',
+                        'WINDOW_RANK',
+                        'WINDOW_RANK_DENSE',
+                        'WINDOW_PERCENT_RANK',
+                        'WINDOW_CUME_DIST',
+                        'WINDOW_LEAD',
+                        'WINDOW_LAG',
+                        'WINDOW_NTILE'
                     ],
                     'title': 'Type',
                     'type': 'string'

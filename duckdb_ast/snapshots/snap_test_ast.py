@@ -44,7 +44,7 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                                                 children=[
                                                     ParsedExpressionSubclasses(
                                                         __root__=ConstantExpression(
-                                                            type='CONSTANT',
+                                                            type='VALUE_CONSTANT',
                                                             clazz='CONSTANT',
                                                             alias='',
                                                             value=Value(
@@ -76,7 +76,7 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                                                 children=[
                                                     ParsedExpressionSubclasses(
                                                         __root__=ConstantExpression(
-                                                            type='CONSTANT',
+                                                            type='VALUE_CONSTANT',
                                                             clazz='CONSTANT',
                                                             alias='',
                                                             value=Value(
@@ -164,7 +164,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
     ],
     where_clause=ParsedExpressionSubclasses(
         __root__=ComparisonExpression(
-            type='EQUAL',
+            type='COMPARE_EQUAL',
             clazz='COMPARISON',
             alias='',
             left=ParsedExpressionSubclasses(
@@ -214,7 +214,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                                 ],
                                 where_clause=ParsedExpressionSubclasses(
                                     __root__=ComparisonExpression(
-                                        type='EQUAL',
+                                        type='COMPARE_EQUAL',
                                         clazz='COMPARISON',
                                         alias='',
                                         left=ParsedExpressionSubclasses(
@@ -327,7 +327,7 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                         children=[
                             ParsedExpressionSubclasses(
                                 __root__=ConstantExpression(
-                                    type='CONSTANT',
+                                    type='VALUE_CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
@@ -390,7 +390,7 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                         children=[
                             ParsedExpressionSubclasses(
                                 __root__=ConstantExpression(
-                                    type='CONSTANT',
+                                    type='VALUE_CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
@@ -426,7 +426,7 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             __root__=ConstantExpression(
-                                type='CONSTANT',
+                                type='VALUE_CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
@@ -442,7 +442,7 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             __root__=ConstantExpression(
-                                type='CONSTANT',
+                                type='VALUE_CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
@@ -523,12 +523,12 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                         children=[
                             ParsedExpressionSubclasses(
                                 __root__=CastExpression(
-                                    type='CAST',
+                                    type='OPERATOR_CAST',
                                     clazz='CAST',
                                     alias='',
                                     child=ParsedExpressionSubclasses(
                                         __root__=ConstantExpression(
-                                            type='CONSTANT',
+                                            type='VALUE_CONSTANT',
                                             clazz='CONSTANT',
                                             alias='',
                                             value=Value(
@@ -564,12 +564,12 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                         children=[
                             ParsedExpressionSubclasses(
                                 __root__=CastExpression(
-                                    type='CAST',
+                                    type='OPERATOR_CAST',
                                     clazz='CAST',
                                     alias='',
                                     child=ParsedExpressionSubclasses(
                                         __root__=ConstantExpression(
-                                            type='CONSTANT',
+                                            type='VALUE_CONSTANT',
                                             clazz='CONSTANT',
                                             alias='',
                                             value=Value(
@@ -644,7 +644,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                     ),
                     ParsedExpressionSubclasses(
                         __root__=WindowExpression(
-                            type='LEAD',
+                            type='WINDOW_LEAD',
                             clazz='WINDOW',
                             alias='',
                             catalog='',
@@ -712,7 +712,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                     ),
                     ParsedExpressionSubclasses(
                         __root__=WindowExpression(
-                            type='LAG',
+                            type='WINDOW_LAG',
                             clazz='WINDOW',
                             alias='',
                             catalog='',
@@ -826,7 +826,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
         ),
         ParsedExpressionSubclasses(
             __root__=WindowExpression(
-                type='FIRST_VALUE',
+                type='WINDOW_FIRST_VALUE',
                 clazz='WINDOW',
                 alias='',
                 catalog='',
@@ -869,7 +869,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
         ),
         ParsedExpressionSubclasses(
             __root__=WindowExpression(
-                type='LAST_VALUE',
+                type='WINDOW_LAST_VALUE',
                 clazz='WINDOW',
                 alias='',
                 catalog='',
@@ -912,7 +912,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
         ),
         ParsedExpressionSubclasses(
             __root__=WindowExpression(
-                type='NTH_VALUE',
+                type='WINDOW_NTH_VALUE',
                 clazz='WINDOW',
                 alias='',
                 catalog='',
@@ -929,7 +929,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -1017,7 +1017,7 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
     qualify=None,
     having=ParsedExpressionSubclasses(
         __root__=ComparisonExpression(
-            type='GREATERTHANOREQUALTO',
+            type='COMPARE_GREATERTHANOREQUALTO',
             clazz='COMPARISON',
             alias='',
             left=ParsedExpressionSubclasses(
@@ -1038,7 +1038,7 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
             ),
             right=ParsedExpressionSubclasses(
                 __root__=ConstantExpression(
-                    type='CONSTANT',
+                    type='VALUE_CONSTANT',
                     clazz='CONSTANT',
                     alias='',
                     value=Value(
@@ -1133,7 +1133,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                             select_list=[
                                                 ParsedExpressionSubclasses(
                                                     __root__=ConstantExpression(
-                                                        type='CONSTANT',
+                                                        type='VALUE_CONSTANT',
                                                         clazz='CONSTANT',
                                                         alias='investors_number',
                                                         value=Value(
@@ -1148,7 +1148,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     __root__=ConstantExpression(
-                                                        type='CONSTANT',
+                                                        type='VALUE_CONSTANT',
                                                         clazz='CONSTANT',
                                                         alias='investment_amount',
                                                         value=Value(
@@ -1169,7 +1169,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     __root__=ConstantExpression(
-                                                        type='CONSTANT',
+                                                        type='VALUE_CONSTANT',
                                                         clazz='CONSTANT',
                                                         alias='individual_amount',
                                                         value=Value(
@@ -1230,7 +1230,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                             ),
                                                             ParsedExpressionSubclasses(
                                                                 __root__=ConstantExpression(
-                                                                    type='CONSTANT',
+                                                                    type='VALUE_CONSTANT',
                                                                     clazz='CONSTANT',
                                                                     alias='',
                                                                     value=Value(
@@ -1296,7 +1296,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                                         ),
                                                                         ParsedExpressionSubclasses(
                                                                             __root__=ConstantExpression(
-                                                                                type='CONSTANT',
+                                                                                type='VALUE_CONSTANT',
                                                                                 clazz='CONSTANT',
                                                                                 alias='',
                                                                                 value=Value(
@@ -1348,7 +1348,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                         ),
                                                         ParsedExpressionSubclasses(
                                                             __root__=ConstantExpression(
-                                                                type='CONSTANT',
+                                                                type='VALUE_CONSTANT',
                                                                 clazz='CONSTANT',
                                                                 alias='',
                                                                 value=Value(
@@ -1526,7 +1526,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                             ],
                                             where_clause=ParsedExpressionSubclasses(
                                                 __root__=OperatorExpression(
-                                                    type='IS_NULL',
+                                                    type='OPERATOR_IS_NULL',
                                                     clazz='OPERATOR',
                                                     alias='',
                                                     children=[
@@ -1621,7 +1621,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                             ],
                                             where_clause=ParsedExpressionSubclasses(
                                                 __root__=ComparisonExpression(
-                                                    type='EQUAL',
+                                                    type='COMPARE_EQUAL',
                                                     clazz='COMPARISON',
                                                     alias='',
                                                     left=ParsedExpressionSubclasses(
@@ -1700,7 +1700,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
     ],
     where_clause=ParsedExpressionSubclasses(
         __root__=ComparisonExpression(
-            type='EQUAL',
+            type='COMPARE_EQUAL',
             clazz='COMPARISON',
             alias='',
             left=ParsedExpressionSubclasses(
@@ -1708,7 +1708,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
             ),
             right=ParsedExpressionSubclasses(
                 __root__=ConstantExpression(
-                    type='CONSTANT',
+                    type='VALUE_CONSTANT',
                     clazz='CONSTANT',
                     alias='',
                     value=Value(
@@ -1777,7 +1777,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                         ),
                                         ParsedExpressionSubclasses(
                                             __root__=WindowExpression(
-                                                type='ROW_NUMBER',
+                                                type='WINDOW_ROW_NUMBER',
                                                 clazz='WINDOW',
                                                 alias='function_rank',
                                                 catalog='',
@@ -1872,7 +1872,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
     ],
     where_clause=ParsedExpressionSubclasses(
         __root__=ComparisonExpression(
-            type='LESSTHAN',
+            type='COMPARE_LESSTHAN',
             clazz='COMPARISON',
             alias='',
             left=ParsedExpressionSubclasses(
@@ -1885,7 +1885,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
             ),
             right=ParsedExpressionSubclasses(
                 __root__=ConstantExpression(
-                    type='CONSTANT',
+                    type='VALUE_CONSTANT',
                     clazz='CONSTANT',
                     alias='',
                     value=Value(
@@ -1940,7 +1940,7 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''SelectNode(
                             select_list=[
                                 ParsedExpressionSubclasses(
                                     __root__=ConstantExpression(
-                                        type='CONSTANT',
+                                        type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
@@ -1998,7 +1998,7 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2027,7 +2027,7 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2056,7 +2056,7 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2068,7 +2068,7 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2099,7 +2099,7 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                             children=[
                                 ParsedExpressionSubclasses(
                                     __root__=ConstantExpression(
-                                        type='CONSTANT',
+                                        type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='hello',
                                         value=Value(
@@ -2118,7 +2118,7 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2150,12 +2150,12 @@ snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2188,13 +2188,13 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
     select_list=[
         ParsedExpressionSubclasses(
             __root__=OperatorExpression(
-                type='IN',
+                type='COMPARE_IN',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2206,7 +2206,7 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2218,7 +2218,7 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2247,7 +2247,7 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2259,7 +2259,7 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -2296,7 +2296,7 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Se
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2306,7 +2306,7 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Se
                         )
                     )
                 ),
-                comparison_type='EQUAL',
+                comparison_type='COMPARE_EQUAL',
                 subquery=SelectStatement(
                     node=QueryNodeSubclasses(
                         __root__=SelectNode(
@@ -2373,7 +2373,7 @@ snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''SelectNode(
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2453,12 +2453,12 @@ snapshots['test_sql[SELECT 0::HUGEINT] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2491,12 +2491,12 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2552,12 +2552,12 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='LESSTHAN',
+                type='COMPARE_LESSTHAN',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2569,7 +2569,7 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2583,12 +2583,12 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
         ),
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='LESSTHANOREQUALTO',
+                type='COMPARE_LESSTHANOREQUALTO',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2600,7 +2600,7 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2631,12 +2631,12 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
     select_list=[
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='LESSTHAN',
+                type='COMPARE_LESSTHAN',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2648,7 +2648,7 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2662,12 +2662,12 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='GREATERTHAN',
+                type='COMPARE_GREATERTHAN',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2679,7 +2679,7 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2693,12 +2693,12 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='LESSTHANOREQUALTO',
+                type='COMPARE_LESSTHANOREQUALTO',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2710,7 +2710,7 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2724,12 +2724,12 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='GREATERTHANOREQUALTO',
+                type='COMPARE_GREATERTHANOREQUALTO',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2741,7 +2741,7 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2755,12 +2755,12 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='EQUAL',
+                type='COMPARE_EQUAL',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2772,7 +2772,7 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2786,12 +2786,12 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='NOTEQUAL',
+                type='COMPARE_NOTEQUAL',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2803,7 +2803,7 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2834,12 +2834,12 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
     select_list=[
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='DISTINCT_FROM',
+                type='COMPARE_DISTINCT_FROM',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2851,7 +2851,7 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2865,12 +2865,12 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
         ),
         ParsedExpressionSubclasses(
             __root__=ComparisonExpression(
-                type='NOT_DISTINCT_FROM',
+                type='COMPARE_NOT_DISTINCT_FROM',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2882,7 +2882,7 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
                 ),
                 right=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2913,12 +2913,12 @@ snapshots['test_sql[SELECT DATE \'1992-09-20\'] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -2980,7 +2980,7 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
                             ],
                             where_clause=ParsedExpressionSubclasses(
                                 __root__=ComparisonExpression(
-                                    type='EQUAL',
+                                    type='COMPARE_EQUAL',
                                     clazz='COMPARISON',
                                     alias='',
                                     left=ParsedExpressionSubclasses(
@@ -2993,7 +2993,7 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
                                     ),
                                     right=ParsedExpressionSubclasses(
                                         __root__=ConstantExpression(
-                                            type='CONSTANT',
+                                            type='VALUE_CONSTANT',
                                             clazz='CONSTANT',
                                             alias='',
                                             value=Value(
@@ -3060,12 +3060,12 @@ snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''SelectNode(
                 children=[
                     ParsedExpressionSubclasses(
                         __root__=CastExpression(
-                            type='CAST',
+                            type='OPERATOR_CAST',
                             clazz='CAST',
                             alias='',
                             child=ParsedExpressionSubclasses(
                                 __root__=ConstantExpression(
-                                    type='CONSTANT',
+                                    type='VALUE_CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
@@ -3190,13 +3190,13 @@ snapshots['test_sql[SELECT NULL IS NULL] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=OperatorExpression(
-                type='IS_NULL',
+                type='OPERATOR_IS_NULL',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -3228,12 +3228,12 @@ snapshots['test_sql[SELECT TIMESTAMP \'1992-09-20 11:30:00\'] 1'] = '''SelectNod
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -3266,12 +3266,12 @@ snapshots['test_sql[SELECT TIMESTAMPTZ \'1992-09-20 11:30:00\'] 1'] = '''SelectN
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -3337,7 +3337,7 @@ snapshots['test_sql[SELECT a NOT BETWEEN x AND y] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=OperatorExpression(
-                type='NOT',
+                type='OPERATOR_NOT',
                 clazz='OPERATOR',
                 alias='',
                 children=[
@@ -3436,7 +3436,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                                     children=[
                                         ParsedExpressionSubclasses(
                                             __root__=ConstantExpression(
-                                                type='CONSTANT',
+                                                type='VALUE_CONSTANT',
                                                 clazz='CONSTANT',
                                                 alias='x',
                                                 value=Value(
@@ -3451,7 +3451,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                                         ),
                                         ParsedExpressionSubclasses(
                                             __root__=ConstantExpression(
-                                                type='CONSTANT',
+                                                type='VALUE_CONSTANT',
                                                 clazz='CONSTANT',
                                                 alias='y',
                                                 value=Value(
@@ -3466,7 +3466,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                                         ),
                                         ParsedExpressionSubclasses(
                                             __root__=ConstantExpression(
-                                                type='CONSTANT',
+                                                type='VALUE_CONSTANT',
                                                 clazz='CONSTANT',
                                                 alias='z',
                                                 value=Value(
@@ -3511,7 +3511,7 @@ snapshots['test_sql[SELECT expression IS NOT NULL] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=OperatorExpression(
-                type='IS_NOT_NULL',
+                type='OPERATOR_IS_NOT_NULL',
                 clazz='OPERATOR',
                 alias='',
                 children=[
@@ -3548,14 +3548,14 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
         ),
         ParsedExpressionSubclasses(
             __root__=CaseExpression(
-                type='CASE',
+                type='CASE_EXPR',
                 clazz='CASE',
                 alias='test',
                 case_checks=[
                     CaseCheck(
                         when_expr=ParsedExpressionSubclasses(
                             __root__=ComparisonExpression(
-                                type='GREATERTHAN',
+                                type='COMPARE_GREATERTHAN',
                                 clazz='COMPARISON',
                                 alias='',
                                 left=ParsedExpressionSubclasses(
@@ -3568,7 +3568,7 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
                                 ),
                                 right=ParsedExpressionSubclasses(
                                     __root__=ConstantExpression(
-                                        type='CONSTANT',
+                                        type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
@@ -3582,7 +3582,7 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
                         ),
                         then_expr=ParsedExpressionSubclasses(
                             __root__=ConstantExpression(
-                                type='CONSTANT',
+                                type='VALUE_CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
@@ -3596,7 +3596,7 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
                 ],
                 else_expr=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -3637,7 +3637,7 @@ snapshots['test_sql[SELECT row_number() OVER () FROM sales;] 1'] = '''SelectNode
     select_list=[
         ParsedExpressionSubclasses(
             __root__=WindowExpression(
-                type='ROW_NUMBER',
+                type='WINDOW_ROW_NUMBER',
                 clazz='WINDOW',
                 alias='',
                 catalog='',
@@ -3685,7 +3685,7 @@ snapshots['test_sql[SELECT row_number() OVER (ORDER BY time) FROM sales;] 1'] = 
     select_list=[
         ParsedExpressionSubclasses(
             __root__=WindowExpression(
-                type='ROW_NUMBER',
+                type='WINDOW_ROW_NUMBER',
                 clazz='WINDOW',
                 alias='',
                 catalog='',
@@ -3746,7 +3746,7 @@ snapshots['test_sql[SELECT row_number() OVER (PARTITION BY region ORDER BY time)
     select_list=[
         ParsedExpressionSubclasses(
             __root__=WindowExpression(
-                type='ROW_NUMBER',
+                type='WINDOW_ROW_NUMBER',
                 clazz='WINDOW',
                 alias='',
                 catalog='',
@@ -3889,7 +3889,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
                 children=[
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -3901,7 +3901,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -3930,12 +3930,12 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -3977,12 +3977,12 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -4030,12 +4030,12 @@ snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     __root__=ConstantExpression(
-                        type='CONSTANT',
+                        type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
@@ -4086,7 +4086,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SelectNode(
                 children=[
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -4098,7 +4098,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SelectNode(
                     ),
                     ParsedExpressionSubclasses(
                         __root__=ConstantExpression(
-                            type='CONSTANT',
+                            type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
@@ -4134,7 +4134,7 @@ snapshots['test_sql[select 1] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=ConstantExpression(
-                type='CONSTANT',
+                type='VALUE_CONSTANT',
                 clazz='CONSTANT',
                 alias='',
                 value=Value(
@@ -4163,7 +4163,7 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             __root__=CastExpression(
-                type='CAST',
+                type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
@@ -4217,13 +4217,13 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
     ],
     where_clause=ParsedExpressionSubclasses(
         __root__=ConjunctionExpression(
-            type='AND',
+            type='CONJUNCTION_AND',
             clazz='CONJUNCTION',
             alias='',
             children=[
                 ParsedExpressionSubclasses(
                     __root__=ComparisonExpression(
-                        type='GREATERTHAN',
+                        type='COMPARE_GREATERTHAN',
                         clazz='COMPARISON',
                         alias='',
                         left=ParsedExpressionSubclasses(
@@ -4236,7 +4236,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                         ),
                         right=ParsedExpressionSubclasses(
                             __root__=ConstantExpression(
-                                type='CONSTANT',
+                                type='VALUE_CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
@@ -4250,7 +4250,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                 ),
                 ParsedExpressionSubclasses(
                     __root__=ComparisonExpression(
-                        type='EQUAL',
+                        type='COMPARE_EQUAL',
                         clazz='COMPARISON',
                         alias='',
                         left=ParsedExpressionSubclasses(
@@ -4263,12 +4263,12 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                         ),
                         right=ParsedExpressionSubclasses(
                             __root__=CastExpression(
-                                type='CAST',
+                                type='OPERATOR_CAST',
                                 clazz='CAST',
                                 alias='',
                                 child=ParsedExpressionSubclasses(
                                     __root__=ConstantExpression(
-                                        type='CONSTANT',
+                                        type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
@@ -4438,7 +4438,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                             children=[
                                 ParsedExpressionSubclasses(
                                     __root__=ConstantExpression(
-                                        type='CONSTANT',
+                                        type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
@@ -4450,7 +4450,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                                 ),
                                 ParsedExpressionSubclasses(
                                     __root__=ConstantExpression(
-                                        type='CONSTANT',
+                                        type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
@@ -4462,7 +4462,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                                 ),
                                 ParsedExpressionSubclasses(
                                     __root__=ConstantExpression(
-                                        type='CONSTANT',
+                                        type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
@@ -4499,7 +4499,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                                 ),
                                 ParsedExpressionSubclasses(
                                     __root__=ConstantExpression(
-                                        type='CONSTANT',
+                                        type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(

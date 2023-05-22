@@ -265,7 +265,7 @@ class ConstantExpression(ParsedExpression):
     .. gh_link:: src/include/duckdb/parser/expression/constant_expression.hpp#L17
     """
 
-    type: Literal["CONSTANT"]
+    type: Literal["VALUE_CONSTANT"]
     clazz: Literal["CONSTANT"] = Field(alias="class")
 
     value: Value
@@ -276,7 +276,7 @@ class CastExpression(ParsedExpression):
     .. gh_link:: src/include/duckdb/parser/expression/cast_expression.hpp#L17
     """
 
-    type: Literal["CAST"]
+    type: Literal["OPERATOR_CAST"]
     clazz: Literal["CAST"] = Field(alias="class")
     child: "ParsedExpressionSubclasses"
     cast_type: LogicalType
@@ -290,14 +290,15 @@ class ComparisonExpression(ParsedExpression):
 
     clazz: Literal["COMPARISON"] = Field(alias="class")
     type: Literal[
-        "GREATERTHAN",
-        "EQUAL",
-        "NOTEQUAL",
-        "GREATERTHANOREQUALTO",
-        "NOT_DISTINCT_FROM",
-        "DISTINCT_FROM",
-        "LESSTHANOREQUALTO",
-        "LESSTHAN",
+        "COMPARE_GREATERTHAN",
+        "COMPARE_EQUAL",
+        "COMPARE_EQUAL",
+        "COMPARE_NOTEQUAL",
+        "COMPARE_GREATERTHANOREQUALTO",
+        "COMPARE_NOT_DISTINCT_FROM",
+        "COMPARE_DISTINCT_FROM",
+        "COMPARE_LESSTHANOREQUALTO",
+        "COMPARE_LESSTHAN",
     ]
     left: "ParsedExpressionSubclasses"
     right: "ParsedExpressionSubclasses"
@@ -309,7 +310,7 @@ class ConjunctionExpression(ParsedExpression):
     """
 
     clazz: Literal["CONJUNCTION"] = Field(alias="class")
-    type: Literal["AND", "OR"]
+    type: Literal["CONJUNCTION_AND", "CONJUNCTION_OR"]
     children: list["ParsedExpressionSubclasses"]
 
 
@@ -456,11 +457,12 @@ class OperatorExpression(ParsedExpression):
 
     clazz: Literal["OPERATOR"] = Field(alias="class")
     type: Literal[
-        "IS_NULL",
-        "IN",
-        "NOT",
-        "IS_NOT_NULL",
+        "OPERATOR_IS_NULL",
+        "OPERATOR_IN",
+        "OPERATOR_NOT",
+        "OPERATOR_IS_NOT_NULL",
         "COMPARE_NOT_IN",
+        "COMPARE_IN",
         "ARRAY_EXTRACT",
         "ARRAY_SLICE",
         "STRUCT_EXTRACT",
@@ -492,17 +494,17 @@ class WindowExpression(ParsedExpression):
     clazz: Literal["WINDOW"] = Field(alias="class")
     type: Literal[
         "WINDOW_AGGREGATE",
-        "ROW_NUMBER",
-        "FIRST_VALUE",
-        "LAST_VALUE",
-        "NTH_VALUE",
-        "RANK",
-        "RANK_DENSE",
-        "PERCENT_RANK",
-        "CUME_DIST",
-        "LEAD",
-        "LAG",
-        "NTILE",
+        "WINDOW_ROW_NUMBER",
+        "WINDOW_FIRST_VALUE",
+        "WINDOW_LAST_VALUE",
+        "WINDOW_NTH_VALUE",
+        "WINDOW_RANK",
+        "WINDOW_RANK_DENSE",
+        "WINDOW_PERCENT_RANK",
+        "WINDOW_CUME_DIST",
+        "WINDOW_LEAD",
+        "WINDOW_LAG",
+        "WINDOW_NTILE",
     ]
 
     # Catalog of the aggregate function
@@ -541,7 +543,7 @@ class SubqueryExpression(ParsedExpression):
     clazz: Literal["SUBQUERY"] = Field(alias="class")
 
     child: Optional["ParsedExpressionSubclasses"]
-    comparison_type: Literal["INVALID", "EQUAL"]
+    comparison_type: Literal["INVALID", "COMPARE_EQUAL"]
     subquery: "SelectStatement"
     subquery_type: Literal["SCALAR", "ANY", "EXISTS", "INVALID", "NOT_EXISTS"]
 
@@ -572,7 +574,7 @@ class CaseExpression(ParsedExpression):
     .. gh_link:: src/include/duckdb/parser/expression/case_expression.hpp#L25
     """
 
-    type: Literal["CASE"]
+    type: Literal["CASE_EXPR"]
     clazz: Literal["CASE"] = Field(alias="class")
 
     case_checks: list[CaseCheck]
