@@ -19,14 +19,13 @@ __all__ = ["generate_schema"]
 def render_node(node: nodes.Node) -> str:
     if isinstance(node, nodes.Text):
         return str(node)
-    else:
-        sep = (
-            " "
-            if any(isinstance(child, addnodes.pending_xref) for child in node.children)
-            else "\n"
-        )
+    sep = (
+        " "
+        if any(isinstance(child, addnodes.pending_xref) for child in node.children)
+        else "\n"
+    )
 
-        return sep.join(render_node(child).strip() for child in node.children)
+    return sep.join(render_node(child).strip() for child in node.children)
 
 
 def render_field(has_description: dict[str, str], publisher: Publisher) -> None:
@@ -74,8 +73,7 @@ def generate_schema() -> dict[str, Any]:
     publisher = app.registry.get_publisher(app, "restructuredtext")
     publisher.source_class = StringInput
 
-    schema = {"version": duckdb.__version__}
-    schema.update(schema_of(Root))
+    schema = {"version": duckdb.__version__} | schema_of(Root)
 
     with sphinx_domains(app.env):
         update_docs(schema, publisher)

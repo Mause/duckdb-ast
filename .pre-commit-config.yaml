@@ -1,3 +1,5 @@
+ci:
+  skip: [sourcery]
 exclude: .*snapshots.*
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -49,3 +51,12 @@ repos:
       args:
         - --jobs=1
         - --extend-ignore=W503,E203,E501
+
+  - repo: https://github.com/sourcery-ai/sourcery
+    rev: v1.1.0
+    hooks:
+    - id: sourcery
+      # The best way to use Sourcery in a pre-commit hook:
+      # * review only changed lines:
+      # * omit the summary
+      args: [--diff=git diff HEAD, --no-summary]
