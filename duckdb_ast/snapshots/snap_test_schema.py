@@ -664,15 +664,34 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                     'default': None
                 },
                 'join_type': {
-                    'const': 'INNER',
-                    'title': 'Join Type'
+                    'enum': [
+                        'INVALID',
+                        'LEFT',
+                        'RIGHT',
+                        'INNER',
+                        'OUTER',
+                        'SEMI',
+                        'ANTI',
+                        'MARK',
+                        'SINGLE'
+                    ],
+                    'title': 'Join Type',
+                    'type': 'string'
                 },
                 'left': {
                     '$ref': '#/$defs/TableRefSubclasses'
                 },
                 'ref_type': {
-                    'const': 'CROSS',
-                    'title': 'Ref Type'
+                    'enum': [
+                        'CROSS',
+                        'ASOF',
+                        'NATURAL',
+                        'REGULAR',
+                        'DEPENDENT',
+                        'POSITIONAL'
+                    ],
+                    'title': 'Ref Type',
+                    'type': 'string'
                 },
                 'right': {
                     '$ref': '#/$defs/TableRefSubclasses'
