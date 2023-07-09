@@ -686,12 +686,11 @@ class JoinRef(TableRef):
     .. gh_link:: src/include/duckdb/parser/tableref/joinref.hpp#L21
     """
 
-    type: Literal["JOIN"]
+    type: Literal["JOIN", "INNER"]
 
     right: "TableRefSubclasses"
     left: "TableRefSubclasses"
-    join_type: Literal["INNER"]
-    ref_type: Literal["CROSS"]
+    ref_type: Literal["CROSS", "ASOF", "NATURAL", "REGULAR", "DEPENDENT", "POSITIONAL"]
     condition: Optional["ParsedExpressionSubclasses"]
     using_columns: list[str]
 
@@ -910,7 +909,7 @@ class SetOperationNode(QueryNode):
     """
 
     type: Literal["SET_OPERATION_NODE"]
-    set_op_type: Literal["NONE", "UNION", "EXCEPT", "INTERSECT", "UNION_BY_NAME"]
+    setop_type: Literal["NONE", "UNION", "EXCEPT", "INTERSECT", "UNION_BY_NAME"]
 
     left: "QueryNodeSubclasses"
     right: "QueryNodeSubclasses"

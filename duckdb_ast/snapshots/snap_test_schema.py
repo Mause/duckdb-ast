@@ -1456,7 +1456,7 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                 'right': {
                     '$ref': '#/definitions/QueryNodeSubclasses'
                 },
-                'set_op_type': {
+                'setop_type': {
                     'enum': [
                         'NONE',
                         'UNION',
@@ -1464,7 +1464,7 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                         'INTERSECT',
                         'UNION_BY_NAME'
                     ],
-                    'title': 'Set Op Type',
+                    'title': 'Setop Type',
                     'type': 'string'
                 },
                 'type': {
@@ -1479,7 +1479,7 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                 'type',
                 'modifiers',
                 'cte_map',
-                'set_op_type',
+                'setop_type',
                 'left',
                 'right'
             ],
