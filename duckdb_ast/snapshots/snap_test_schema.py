@@ -311,13 +311,23 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                     'title': 'Aliases',
                     'type': 'array'
                 },
+                'materialized': {
+                    'enum': [
+                        'CTE_MATERIALIZE_DEFAULT',
+                        'CTE_MATERIALIZE_ALWAYS',
+                        'CTE_MATERIALIZE_NEVER'
+                    ],
+                    'title': 'Materialized',
+                    'type': 'string'
+                },
                 'query': {
                     '$ref': '#/definitions/SelectStatement'
                 }
             },
             'required': [
                 'aliases',
-                'query'
+                'query',
+                'materialized'
             ],
             'title': 'CommonTableExpressionInfo',
             'type': 'object'

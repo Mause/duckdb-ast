@@ -835,6 +835,9 @@ class CommonTableExpressionInfo(Base):
 
     aliases: list[str]
     query: "SelectStatement"
+    materialized: Literal[
+        "CTE_MATERIALIZE_DEFAULT", "CTE_MATERIALIZE_ALWAYS", "CTE_MATERIALIZE_NEVER"
+    ]
 
 
 class CommonTableExpressionMap(Base):
