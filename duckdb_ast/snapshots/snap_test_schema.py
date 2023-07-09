@@ -678,19 +678,17 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                 'condition': {
                     '$ref': '#/definitions/ParsedExpressionSubclasses'
                 },
-                'join_type': {
-                    'enum': [
-                        'INNER'
-                    ],
-                    'title': 'Join Type',
-                    'type': 'string'
-                },
                 'left': {
                     '$ref': '#/definitions/TableRefSubclasses'
                 },
                 'ref_type': {
                     'enum': [
-                        'CROSS'
+                        'CROSS',
+                        'ASOF',
+                        'NATURAL',
+                        'REGULAR',
+                        'DEPENDENT',
+                        'POSITIONAL'
                     ],
                     'title': 'Ref Type',
                     'type': 'string'
@@ -703,7 +701,15 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                 },
                 'type': {
                     'enum': [
-                        'JOIN'
+                        'INVALID',
+                        'LEFT',
+                        'RIGHT',
+                        'INNER',
+                        'OUTER',
+                        'SEMI',
+                        'ANTI',
+                        'MARK',
+                        'SINGLE'
                     ],
                     'title': 'Type',
                     'type': 'string'
@@ -721,7 +727,6 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                 'type',
                 'right',
                 'left',
-                'join_type',
                 'ref_type',
                 'using_columns'
             ],
@@ -1742,9 +1747,17 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
             'description': 'Union of TableRef subclasses',
             'discriminator': {
                 'mapping': {
+                    'ANTI': '#/definitions/JoinRef',
                     'BASE_TABLE': '#/definitions/BaseTableRef',
                     'EMPTY': '#/definitions/EmptyTableRef',
-                    'JOIN': '#/definitions/JoinRef',
+                    'INNER': '#/definitions/JoinRef',
+                    'INVALID': '#/definitions/JoinRef',
+                    'LEFT': '#/definitions/JoinRef',
+                    'MARK': '#/definitions/JoinRef',
+                    'OUTER': '#/definitions/JoinRef',
+                    'RIGHT': '#/definitions/JoinRef',
+                    'SEMI': '#/definitions/JoinRef',
+                    'SINGLE': '#/definitions/JoinRef',
                     'SUBQUERY': '#/definitions/SubqueryRef',
                     'TABLE_FUNCTION': '#/definitions/TableFunctionRef'
                 },

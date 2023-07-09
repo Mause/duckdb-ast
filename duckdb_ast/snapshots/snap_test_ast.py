@@ -1379,7 +1379,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                 __root__=JoinRef(
                                                     alias='',
                                                     sample=None,
-                                                    type='JOIN',
+                                                    type='INNER',
                                                     right=TableRefSubclasses(
                                                         __root__=BaseTableRef(
                                                             alias='pia',
@@ -1402,7 +1402,6 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                             column_name_alias=[]
                                                         )
                                                     ),
-                                                    join_type='INNER',
                                                     ref_type='CROSS',
                                                     condition=None,
                                                     using_columns=[]
@@ -1654,7 +1653,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                 __root__=JoinRef(
                                                     alias='',
                                                     sample=None,
-                                                    type='JOIN',
+                                                    type='INNER',
                                                     right=TableRefSubclasses(
                                                         __root__=BaseTableRef(
                                                             alias='',
@@ -1677,7 +1676,6 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                             column_name_alias=[]
                                                         )
                                                     ),
-                                                    join_type='INNER',
                                                     ref_type='CROSS',
                                                     condition=None,
                                                     using_columns=[]
