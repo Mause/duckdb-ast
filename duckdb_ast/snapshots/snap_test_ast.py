@@ -2583,7 +2583,7 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
                             root=[
                                 Pair[str, LogicalType](
                                     key='',
-                                    value=LogicalType(id=<LogicalTypeId.TINYINT: 'TINYINT'>, type_info=None)
+                                    value=LogicalType(id=<LogicalTypeId.UTINYINT: 'UTINYINT'>, type_info=None)
                                 ),
                                 Pair[str, LogicalType](
                                     key='num',
