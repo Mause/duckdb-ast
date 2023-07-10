@@ -20,7 +20,7 @@ snapshottest = {git = "https://github.com/syrusakbary/snapshottest"}
 pre-commit = "^3.2.1"
 sphinx = "^7.0.0"
 mypy = "^1.1.1"
-sphinx-autoapi = "^2.0.1"
+sphinx-autoapi = "^2.1.1"
 
 [build-system]
 requires = ["poetry-core"]
