@@ -284,7 +284,7 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
     type='SET_OPERATION_NODE',
     modifiers=[],
     cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](__root__=[])),
-    setop_type='UNION',
+    set_op_type='UNION',
     left=QueryNodeSubclasses(
         __root__=SelectNode(
             type='SELECT_NODE',
