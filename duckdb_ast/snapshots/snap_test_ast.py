@@ -284,7 +284,7 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
     type='SET_OPERATION_NODE',
     modifiers=[],
     cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](__root__=[])),
-    setop_type='UNION',
+    set_op_type='UNION',
     left=QueryNodeSubclasses(
         __root__=SelectNode(
             type='SELECT_NODE',
@@ -1379,7 +1379,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                 __root__=JoinRef(
                                                     alias='',
                                                     sample=None,
-                                                    type='INNER',
+                                                    type='JOIN',
                                                     right=TableRefSubclasses(
                                                         __root__=BaseTableRef(
                                                             alias='pia',
@@ -1402,6 +1402,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                             column_name_alias=[]
                                                         )
                                                     ),
+                                                    join_type='INNER',
                                                     ref_type='CROSS',
                                                     condition=None,
                                                     using_columns=[]
@@ -1412,8 +1413,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                     aliases=[]
                                 )
                             )
-                        ),
-                        materialized='CTE_MATERIALIZE_DEFAULT'
+                        )
                     )
                 )
             ]
@@ -1653,7 +1653,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                 __root__=JoinRef(
                                                     alias='',
                                                     sample=None,
-                                                    type='INNER',
+                                                    type='JOIN',
                                                     right=TableRefSubclasses(
                                                         __root__=BaseTableRef(
                                                             alias='',
@@ -1676,6 +1676,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                             column_name_alias=[]
                                                         )
                                                     ),
+                                                    join_type='INNER',
                                                     ref_type='CROSS',
                                                     condition=None,
                                                     using_columns=[]
@@ -1686,8 +1687,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                     aliases=['id', 'source', 'path']
                                 )
                             )
-                        ),
-                        materialized='CTE_MATERIALIZE_DEFAULT'
+                        )
                     )
                 )
             ]
@@ -1850,8 +1850,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                     )
                                 )
                             )
-                        ),
-                        materialized='CTE_MATERIALIZE_DEFAULT'
+                        )
                     )
                 )
             ]
