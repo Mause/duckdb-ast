@@ -686,23 +686,12 @@ class JoinRef(TableRef):
     .. gh_link:: src/include/duckdb/parser/tableref/joinref.hpp#L21
     """
 
-    type: Literal[
-        "INVALID",  # invalid join type
-        "LEFT",  # left
-        "RIGHT",  # right
-        "INNER",  # inner
-        "OUTER",  # outer
-        "SEMI",  # SEMI join returns left side row ONLY if it has a join partner, no duplicates
-        "ANTI",  # ANTI join returns left side row ONLY if it has NO join partner, no duplicates
-        "MARK",  # MARK join returns marker indicating whether or not there is a join partner (true), there is no join
-        # partner (false)
-        "SINGLE"  # SINGLE join is like LEFT OUTER JOIN, BUT returns at most one join partner per entry on the LEFT side
-        # (and NULL if no partner is found)
-    ]
+    type: Literal["JOIN"]
 
     right: "TableRefSubclasses"
     left: "TableRefSubclasses"
-    ref_type: Literal["CROSS", "ASOF", "NATURAL", "REGULAR", "DEPENDENT", "POSITIONAL"]
+    join_type: Literal["INNER"]
+    ref_type: Literal["CROSS"]
     condition: Optional["ParsedExpressionSubclasses"]
     using_columns: list[str]
 
@@ -846,9 +835,6 @@ class CommonTableExpressionInfo(Base):
 
     aliases: list[str]
     query: "SelectStatement"
-    materialized: Literal[
-        "CTE_MATERIALIZE_DEFAULT", "CTE_MATERIALIZE_ALWAYS", "CTE_MATERIALIZE_NEVER"
-    ]
 
 
 class CommonTableExpressionMap(Base):
@@ -921,7 +907,7 @@ class SetOperationNode(QueryNode):
     """
 
     type: Literal["SET_OPERATION_NODE"]
-    setop_type: Literal["NONE", "UNION", "EXCEPT", "INTERSECT", "UNION_BY_NAME"]
+    set_op_type: Literal["NONE", "UNION", "EXCEPT", "INTERSECT", "UNION_BY_NAME"]
 
     left: "QueryNodeSubclasses"
     right: "QueryNodeSubclasses"
