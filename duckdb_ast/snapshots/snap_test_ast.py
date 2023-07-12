@@ -1413,8 +1413,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                     aliases=[]
                                 )
                             )
-                        ),
-                        materialized='CTE_MATERIALIZE_DEFAULT'
+                        )
                     )
                 )
             ]
@@ -1688,8 +1687,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                     aliases=['id', 'source', 'path']
                                 )
                             )
-                        ),
-                        materialized='CTE_MATERIALIZE_DEFAULT'
+                        )
                     )
                 )
             ]
@@ -1852,8 +1850,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                     )
                                 )
                             )
-                        ),
-                        materialized='CTE_MATERIALIZE_DEFAULT'
+                        )
                     )
                 )
             ]
