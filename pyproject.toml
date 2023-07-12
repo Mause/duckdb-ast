@@ -17,7 +17,7 @@ pdbpp = "^0.10.3"
 rich = "^13.3.5"
 pytest = "^7.3.1"
 snapshottest = {git = "https://github.com/syrusakbary/snapshottest"}
-pre-commit = "^3.2.1"
+pre-commit = "^3.3.3"
 sphinx = "^7.0.0"
 mypy = "^1.1.1"
 sphinx-autoapi = "^2.1.1"
