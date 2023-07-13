@@ -594,6 +594,38 @@ class BetweenExpression(ParsedExpression):
     upper: "ParsedExpressionSubclasses"
 
 
+class PositionalReferenceExpression(ParsedExpression):
+    """
+    .. gh_link:: src/include/duckdb/parser/expression/positional_reference_expression.hpp#L14
+    """
+
+    type: Literal["POSITIONAL_REFERENCE"]
+    clazz: Literal["POSITIONAL_REFERENCE"] = Field(alias="class")
+    index: int
+
+
+class ParameterExpression(ParsedExpression):
+    """
+    .. gh_link:: src/include/duckdb/parser/expression/parameter_expression.hpp#L14
+    """
+
+    type: Literal["VALUE_PARAMETER"]
+    clazz: Literal["PARAMETER"] = Field(alias="class")
+    parameter_nr: int
+
+
+class LambdaExpression(ParsedExpression):
+    """
+    .. gh_link:: src/include/duckdb/parser/expression/lambda_expression.hpp#L20
+    """
+
+    type: Literal["LAMBDA"]
+    clazz: Literal["LAMBDA"] = Field(alias="class")
+    lhs: "ParsedExpressionSubclasses"
+    # params: Optional[List['ParsedExpressionSubclasses']] not included in serialization
+    expr: "ParsedExpressionSubclasses"
+
+
 class ParsedExpressionSubclasses(Base):
     """Union of :class:`ParsedExpression` subclasses"""
 
@@ -605,6 +637,9 @@ class ParsedExpressionSubclasses(Base):
         CastExpression,
         ComparisonExpression,
         ConjunctionExpression,
+        LambdaExpression,
+        ParameterExpression,
+        PositionalReferenceExpression,
         SubqueryExpression,
         OperatorExpression,
         CaseExpression,
@@ -1012,3 +1047,4 @@ JoinRef.update_forward_refs()
 StructTypeInfo.update_forward_refs()
 LogicalType.update_forward_refs()
 ParsedExpressionSubclasses.update_forward_refs()
+LambdaExpression.update_forward_refs()

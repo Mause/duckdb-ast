@@ -718,6 +718,49 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
             'title': 'JoinRef',
             'type': 'object'
         },
+        'LambdaExpression': {
+            'additionalProperties': False,
+            'description': '''LambdaExpression represents either:
+1. A lambda operator that can be used for e.g. mapping an expression to a list
+2. An OperatorExpression with the "->" operator
+Lambda expressions are written in the form of "params -> expr", e.g. "x -> x + 1"
+src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'class': {
+                    'enum': [
+                        'LAMBDA'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'expr': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'lhs': {
+                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                },
+                'type': {
+                    'enum': [
+                        'LAMBDA'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'lhs',
+                'expr'
+            ],
+            'title': 'LambdaExpression',
+            'type': 'object'
+        },
         'LimitModifier': {
             'additionalProperties': False,
             'description': 'src/include/duckdb/parser/result_modifier.hpp#L137',
@@ -1079,6 +1122,42 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'title': 'Pair[str, ParsedExpressionSubclasses]',
             'type': 'object'
         },
+        'ParameterExpression': {
+            'additionalProperties': False,
+            'description': 'src/include/duckdb/parser/expression/parameter_expression.hpp#L14',
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'class': {
+                    'enum': [
+                        'PARAMETER'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'parameter_nr': {
+                    'title': 'Parameter Nr',
+                    'type': 'integer'
+                },
+                'type': {
+                    'enum': [
+                        'VALUE_PARAMETER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'parameter_nr'
+            ],
+            'title': 'ParameterExpression',
+            'type': 'object'
+        },
         'ParsedExpressionSubclasses': {
             'additionalProperties': False,
             'description': 'Union of ParsedExpression subclasses',
@@ -1103,15 +1182,18 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'CONJUNCTION_AND': '#/definitions/ConjunctionExpression',
                     'CONJUNCTION_OR': '#/definitions/ConjunctionExpression',
                     'FUNCTION': '#/definitions/FunctionExpression',
+                    'LAMBDA': '#/definitions/LambdaExpression',
                     'OPERATOR_CAST': '#/definitions/CastExpression',
                     'OPERATOR_IN': '#/definitions/OperatorExpression',
                     'OPERATOR_IS_NOT_NULL': '#/definitions/OperatorExpression',
                     'OPERATOR_IS_NULL': '#/definitions/OperatorExpression',
                     'OPERATOR_NOT': '#/definitions/OperatorExpression',
+                    'POSITIONAL_REFERENCE': '#/definitions/PositionalReferenceExpression',
                     'STAR': '#/definitions/StarExpression',
                     'STRUCT_EXTRACT': '#/definitions/OperatorExpression',
                     'SUBQUERY': '#/definitions/SubqueryExpression',
                     'VALUE_CONSTANT': '#/definitions/ConstantExpression',
+                    'VALUE_PARAMETER': '#/definitions/ParameterExpression',
                     'WINDOW_AGGREGATE': '#/definitions/WindowExpression',
                     'WINDOW_CUME_DIST': '#/definitions/WindowExpression',
                     'WINDOW_FIRST_VALUE': '#/definitions/WindowExpression',
@@ -1150,6 +1232,15 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     '$ref': '#/definitions/ConjunctionExpression'
                 },
                 {
+                    '$ref': '#/definitions/LambdaExpression'
+                },
+                {
+                    '$ref': '#/definitions/ParameterExpression'
+                },
+                {
+                    '$ref': '#/definitions/PositionalReferenceExpression'
+                },
+                {
                     '$ref': '#/definitions/SubqueryExpression'
                 },
                 {
@@ -1169,6 +1260,42 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 }
             ],
             'title': 'ParsedExpressionSubclasses'
+        },
+        'PositionalReferenceExpression': {
+            'additionalProperties': False,
+            'description': 'src/include/duckdb/parser/expression/positional_reference_expression.hpp#L14',
+            'properties': {
+                'alias': {
+                    'title': 'Alias',
+                    'type': 'string'
+                },
+                'class': {
+                    'enum': [
+                        'POSITIONAL_REFERENCE'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
+                },
+                'index': {
+                    'title': 'Index',
+                    'type': 'integer'
+                },
+                'type': {
+                    'enum': [
+                        'POSITIONAL_REFERENCE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
+                }
+            },
+            'required': [
+                'type',
+                'class',
+                'alias',
+                'index'
+            ],
+            'title': 'PositionalReferenceExpression',
+            'type': 'object'
         },
         'QueryNodeSubclasses': {
             'additionalProperties': False,

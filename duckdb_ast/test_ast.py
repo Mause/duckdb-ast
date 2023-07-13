@@ -152,6 +152,9 @@ WHERE source = 'Oasis';
 FROM 'Generation History'
 ORDER BY 1, 2
         """,
+        "SELECT #1, #2 FROM tbl",
+        "SELECT $hello FROM tbl",
+        "SELECT list_map(x -> x * 2)",
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
