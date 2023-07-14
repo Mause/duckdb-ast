@@ -45,7 +45,7 @@ __all__ = [
     "ParameterExpression",
     "ParsedExpression",
     "ParsedExpressionSubclasses",
-    "PositionalReferenceExpression"
+    "PositionalReferenceExpression",
     "QueryNode",
     "QueryNodeSubclasses",
     "RecursiveCTENode",
