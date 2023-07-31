@@ -18,7 +18,7 @@ rich = "^13.4.2"
 pytest = "^7.3.1"
 snapshottest = {git = "https://github.com/syrusakbary/snapshottest"}
 pre-commit = "^3.3.3"
-sphinx = "^7.0.1"
+sphinx = "^7.1.1"
 mypy = "^1.4.1"
 sphinx-autoapi = "^2.1.1"
 
