@@ -8,8 +8,7 @@ from snapshottest import Snapshot
 snapshots = Snapshot()
 
 snapshots['test_schema_generation 1'] = {
-    '$ref': '#/definitions/Root',
-    'definitions': {
+    '$defs': {
         'AggregateHandling': {
             'description': 'src/include/duckdb/common/enums/aggregate_handling.hpp#L16',
             'enum': [
@@ -17,7 +16,8 @@ snapshots['test_schema_generation 1'] = {
                 'NO_AGGREGATES_ALLOWED',
                 'FORCE_AGGREGATES'
             ],
-            'title': 'AggregateHandling'
+            'title': 'AggregateHandling',
+            'type': 'string'
         },
         'BaseTableRef': {
             'additionalProperties': False,
@@ -33,14 +33,30 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                     'type': 'string'
                 },
                 'column_name_alias': {
-                    'items': {
-                        'type': 'string'
-                    },
-                    'title': 'Column Name Alias',
-                    'type': 'array'
+                    'anyOf': [
+                        {
+                            'items': {
+                                'type': 'string'
+                            },
+                            'type': 'array'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Column Name Alias'
                 },
                 'sample': {
-                    '$ref': '#/definitions/SampleOptions'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/SampleOptions'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'schema_name': {
                     'title': 'Schema Name',
@@ -51,11 +67,8 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                     'type': 'string'
                 },
                 'type': {
-                    'enum': [
-                        'BASE_TABLE'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'BASE_TABLE',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -77,27 +90,21 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                     'type': 'string'
                 },
                 'class': {
-                    'enum': [
-                        'BETWEEN'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'BETWEEN',
+                    'title': 'Class'
                 },
                 'input': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'lower': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'type': {
-                    'enum': [
-                        'COMPARE_BETWEEN'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'COMPARE_BETWEEN',
+                    'title': 'Type'
                 },
                 'upper': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 }
             },
             'required': [
@@ -116,10 +123,10 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
             'description': 'src/include/duckdb/parser/expression/case_expression.hpp#L16',
             'properties': {
                 'then_expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'when_expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 }
             },
             'required': [
@@ -140,27 +147,21 @@ src/include/duckdb/parser/expression/case_expression.hpp#L25''',
                 },
                 'case_checks': {
                     'items': {
-                        '$ref': '#/definitions/CaseCheck'
+                        '$ref': '#/$defs/CaseCheck'
                     },
                     'title': 'Case Checks',
                     'type': 'array'
                 },
                 'class': {
-                    'enum': [
-                        'CASE'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'CASE',
+                    'title': 'Class'
                 },
                 'else_expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'type': {
-                    'enum': [
-                        'CASE_EXPR'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'CASE_EXPR',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -183,28 +184,22 @@ src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
                     'type': 'string'
                 },
                 'cast_type': {
-                    '$ref': '#/definitions/LogicalType'
+                    '$ref': '#/$defs/LogicalType'
                 },
                 'child': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'class': {
-                    'enum': [
-                        'CAST'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'CAST',
+                    'title': 'Class'
                 },
                 'try_cast': {
                     'title': 'Try Cast',
                     'type': 'boolean'
                 },
                 'type': {
-                    'enum': [
-                        'OPERATOR_CAST'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'OPERATOR_CAST',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -228,25 +223,19 @@ src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
                     'type': 'string'
                 },
                 'child': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'class': {
-                    'enum': [
-                        'COLLATE'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'COLLATE',
+                    'title': 'Class'
                 },
                 'collation': {
                     'title': 'Collation',
                     'type': 'string'
                 },
                 'type': {
-                    'enum': [
-                        'COLLATE'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'COLLATE',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -270,11 +259,8 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                     'type': 'string'
                 },
                 'class': {
-                    'enum': [
-                        'COLUMN_REF'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'COLUMN_REF',
+                    'title': 'Class'
                 },
                 'column_names': {
                     'items': {
@@ -284,11 +270,8 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                     'type': 'array'
                 },
                 'type': {
-                    'enum': [
-                        'COLUMN_REF'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'COLUMN_REF',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -312,7 +295,7 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                     'type': 'array'
                 },
                 'query': {
-                    '$ref': '#/definitions/SelectStatement'
+                    '$ref': '#/$defs/SelectStatement'
                 }
             },
             'required': [
@@ -327,7 +310,7 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
             'description': 'src/include/duckdb/parser/query_node.hpp#L32',
             'properties': {
                 'map': {
-                    '$ref': '#/definitions/OrderedDict_str__CommonTableExpressionInfo_'
+                    '$ref': '#/$defs/OrderedDict_str_CommonTableExpressionInfo_'
                 }
             },
             'required': [
@@ -347,17 +330,14 @@ src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
                     'type': 'string'
                 },
                 'class': {
-                    'enum': [
-                        'COMPARISON'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'COMPARISON',
+                    'title': 'Class'
                 },
                 'left': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'right': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'type': {
                     'enum': [
@@ -395,17 +375,14 @@ src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
                 },
                 'children': {
                     'items': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                        '$ref': '#/$defs/ParsedExpressionSubclasses'
                     },
                     'title': 'Children',
                     'type': 'array'
                 },
                 'class': {
-                    'enum': [
-                        'CONJUNCTION'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'CONJUNCTION',
+                    'title': 'Class'
                 },
                 'type': {
                     'enum': [
@@ -435,21 +412,15 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                     'type': 'string'
                 },
                 'class': {
-                    'enum': [
-                        'CONSTANT'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'CONSTANT',
+                    'title': 'Class'
                 },
                 'type': {
-                    'enum': [
-                        'VALUE_CONSTANT'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'VALUE_CONSTANT',
+                    'title': 'Type'
                 },
                 'value': {
-                    '$ref': '#/definitions/Value'
+                    '$ref': '#/$defs/Value'
                 }
             },
             'required': [
@@ -471,18 +442,23 @@ src/common/types.cpp#L868''',
                     'type': 'string'
                 },
                 'catalog_entry': {
-                    '$ref': '#/definitions/TypeCatalogEntry'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/TypeCatalogEntry'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'scale': {
                     'title': 'Scale',
                     'type': 'integer'
                 },
                 'type': {
-                    'enum': [
-                        'DECIMAL_TYPE_INFO'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'DECIMAL_TYPE_INFO',
+                    'title': 'Type'
                 },
                 'width': {
                     'title': 'Width',
@@ -504,17 +480,14 @@ src/common/types.cpp#L868''',
             'properties': {
                 'distinct_on_targets': {
                     'items': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                        '$ref': '#/$defs/ParsedExpressionSubclasses'
                     },
                     'title': 'Distinct On Targets',
                     'type': 'array'
                 },
                 'type': {
-                    'enum': [
-                        'DISTINCT_MODIFIER'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'DISTINCT_MODIFIER',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -534,14 +507,19 @@ src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
                     'type': 'string'
                 },
                 'sample': {
-                    '$ref': '#/definitions/SampleOptions'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/SampleOptions'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'type': {
-                    'enum': [
-                        'EMPTY'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'EMPTY',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -556,11 +534,8 @@ src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
             'description': 'Error shape for when parsing fails',
             'properties': {
                 'error': {
-                    'enum': [
-                        True
-                    ],
-                    'title': 'Error',
-                    'type': 'boolean'
+                    'const': True,
+                    'title': 'Error'
                 },
                 'error_message': {
                     'title': 'Error Message',
@@ -594,17 +569,14 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
                 },
                 'children': {
                     'items': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                        '$ref': '#/$defs/ParsedExpressionSubclasses'
                     },
                     'title': 'Children',
                     'type': 'array'
                 },
                 'class': {
-                    'enum': [
-                        'FUNCTION'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'FUNCTION',
+                    'title': 'Class'
                 },
                 'distinct': {
                     'title': 'Distinct',
@@ -615,7 +587,15 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
                     'type': 'boolean'
                 },
                 'filter': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'function_name': {
                     'title': 'Function Name',
@@ -626,18 +606,15 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
                     'type': 'boolean'
                 },
                 'order_bys': {
-                    '$ref': '#/definitions/OrderModifier'
+                    '$ref': '#/$defs/OrderModifier'
                 },
                 'schema': {
                     'title': 'Schema',
                     'type': 'string'
                 },
                 'type': {
-                    'enum': [
-                        'FUNCTION'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'FUNCTION',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -666,37 +643,44 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                     'type': 'string'
                 },
                 'condition': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'join_type': {
-                    'enum': [
-                        'INNER'
-                    ],
-                    'title': 'Join Type',
-                    'type': 'string'
+                    'const': 'INNER',
+                    'title': 'Join Type'
                 },
                 'left': {
-                    '$ref': '#/definitions/TableRefSubclasses'
+                    '$ref': '#/$defs/TableRefSubclasses'
                 },
                 'ref_type': {
-                    'enum': [
-                        'CROSS'
-                    ],
-                    'title': 'Ref Type',
-                    'type': 'string'
+                    'const': 'CROSS',
+                    'title': 'Ref Type'
                 },
                 'right': {
-                    '$ref': '#/definitions/TableRefSubclasses'
+                    '$ref': '#/$defs/TableRefSubclasses'
                 },
                 'sample': {
-                    '$ref': '#/definitions/SampleOptions'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/SampleOptions'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'type': {
-                    'enum': [
-                        'JOIN'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'JOIN',
+                    'title': 'Type'
                 },
                 'using_columns': {
                     'items': {
@@ -731,24 +715,18 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                     'type': 'string'
                 },
                 'class': {
-                    'enum': [
-                        'LAMBDA'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'LAMBDA',
+                    'title': 'Class'
                 },
                 'expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'lhs': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'type': {
-                    'enum': [
-                        'LAMBDA'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'LAMBDA',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -766,17 +744,14 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
             'description': 'src/include/duckdb/parser/result_modifier.hpp#L137',
             'properties': {
                 'limit': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'offset': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'type': {
-                    'enum': [
-                        'LIMIT_MODIFIER'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'LIMIT_MODIFIER',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -792,17 +767,14 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
             'description': 'src/include/duckdb/parser/result_modifier.hpp#L81',
             'properties': {
                 'limit': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'offset': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'type': {
-                    'enum': [
-                        'LIMIT_PERCENT_MODIFIER'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'LIMIT_PERCENT_MODIFIER',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -823,17 +795,22 @@ src/common/types.cpp#L991''',
                     'type': 'string'
                 },
                 'catalog_entry': {
-                    '$ref': '#/definitions/TypeCatalogEntry'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/TypeCatalogEntry'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'child_type': {
-                    '$ref': '#/definitions/LogicalType'
+                    '$ref': '#/$defs/LogicalType'
                 },
                 'type': {
-                    'enum': [
-                        'LIST_TYPE_INFO'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'LIST_TYPE_INFO',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -849,37 +826,45 @@ src/common/types.cpp#L991''',
             'description': 'src/include/duckdb/common/types.hpp#L298',
             'properties': {
                 'id': {
-                    '$ref': '#/definitions/LogicalTypeId'
+                    '$ref': '#/$defs/LogicalTypeId'
                 },
                 'type_info': {
-                    'discriminator': {
-                        'mapping': {
-                            'DECIMAL_TYPE_INFO': '#/definitions/DecimalTypeInfo',
-                            'LIST_TYPE_INFO': '#/definitions/ListTypeInfo',
-                            'STRUCT_TYPE_INFO': '#/definitions/StructTypeInfo',
-                            'USER_TYPE_INFO': '#/definitions/UserTypeInfo'
-                        },
-                        'propertyName': 'type'
-                    },
-                    'oneOf': [
+                    'anyOf': [
                         {
-                            '$ref': '#/definitions/ListTypeInfo'
+                            'discriminator': {
+                                'mapping': {
+                                    'DECIMAL_TYPE_INFO': '#/$defs/DecimalTypeInfo',
+                                    'LIST_TYPE_INFO': '#/$defs/ListTypeInfo',
+                                    'STRUCT_TYPE_INFO': '#/$defs/StructTypeInfo',
+                                    'USER_TYPE_INFO': '#/$defs/UserTypeInfo'
+                                },
+                                'propertyName': 'type'
+                            },
+                            'oneOf': [
+                                {
+                                    '$ref': '#/$defs/ListTypeInfo'
+                                },
+                                {
+                                    '$ref': '#/$defs/DecimalTypeInfo'
+                                },
+                                {
+                                    '$ref': '#/$defs/UserTypeInfo'
+                                },
+                                {
+                                    '$ref': '#/$defs/StructTypeInfo'
+                                }
+                            ]
                         },
                         {
-                            '$ref': '#/definitions/DecimalTypeInfo'
-                        },
-                        {
-                            '$ref': '#/definitions/UserTypeInfo'
-                        },
-                        {
-                            '$ref': '#/definitions/StructTypeInfo'
+                            'type': 'null'
                         }
                     ],
                     'title': 'Type Info'
                 }
             },
             'required': [
-                'id'
+                'id',
+                'type_info'
             ],
             'title': 'LogicalType',
             'type': 'object'
@@ -931,7 +916,8 @@ src/include/duckdb/common/types.hpp#L246''',
                 'LAMBDA',
                 'UNION'
             ],
-            'title': 'LogicalTypeId'
+            'title': 'LogicalTypeId',
+            'type': 'string'
         },
         'OperatorExpression': {
             'additionalProperties': False,
@@ -944,17 +930,14 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
                 },
                 'children': {
                     'items': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                        '$ref': '#/$defs/ParsedExpressionSubclasses'
                     },
                     'title': 'Children',
                     'type': 'array'
                 },
                 'class': {
-                    'enum': [
-                        'OPERATOR'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'OPERATOR',
+                    'title': 'Class'
                 },
                 'type': {
                     'enum': [
@@ -987,13 +970,13 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
 src/include/duckdb/parser/result_modifier.hpp#L60''',
             'properties': {
                 'expression': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
                 'null_order': {
-                    '$ref': '#/definitions/OrderByNullType'
+                    '$ref': '#/$defs/OrderByNullType'
                 },
                 'type': {
-                    '$ref': '#/definitions/OrderType'
+                    '$ref': '#/$defs/OrderType'
                 }
             },
             'required': [
@@ -1012,7 +995,8 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'NULLS_FIRST',
                 'NULLS_LAST'
             ],
-            'title': 'OrderByNullType'
+            'title': 'OrderByNullType',
+            'type': 'string'
         },
         'OrderModifier': {
             'additionalProperties': False,
@@ -1020,17 +1004,14 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'properties': {
                 'orders': {
                     'items': {
-                        '$ref': '#/definitions/OrderByNode'
+                        '$ref': '#/$defs/OrderByNode'
                     },
                     'title': 'Orders',
                     'type': 'array'
                 },
                 'type': {
-                    'enum': [
-                        'ORDER_MODIFIER'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'ORDER_MODIFIER',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1048,37 +1029,38 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'ASCENDING',
                 'DESCENDING'
             ],
-            'title': 'OrderType'
+            'title': 'OrderType',
+            'type': 'string'
         },
-        'OrderedDict_str__CommonTableExpressionInfo_': {
+        'OrderedDict_str_CommonTableExpressionInfo_': {
             'items': {
-                '$ref': '#/definitions/Pair_str__CommonTableExpressionInfo_'
+                '$ref': '#/$defs/Pair_str_CommonTableExpressionInfo_'
             },
             'title': 'OrderedDict[str, CommonTableExpressionInfo]',
             'type': 'array'
         },
-        'OrderedDict_str__LogicalType_': {
+        'OrderedDict_str_LogicalType_': {
             'items': {
-                '$ref': '#/definitions/Pair_str__LogicalType_'
+                '$ref': '#/$defs/Pair_str_LogicalType_'
             },
             'title': 'OrderedDict[str, LogicalType]',
             'type': 'array'
         },
-        'OrderedDict_str__ParsedExpressionSubclasses_': {
+        'OrderedDict_str_ParsedExpressionSubclasses_': {
             'items': {
-                '$ref': '#/definitions/Pair_str__ParsedExpressionSubclasses_'
+                '$ref': '#/$defs/Pair_str_ParsedExpressionSubclasses_'
             },
             'title': 'OrderedDict[str, ParsedExpressionSubclasses]',
             'type': 'array'
         },
-        'Pair_str__CommonTableExpressionInfo_': {
+        'Pair_str_CommonTableExpressionInfo_': {
             'properties': {
                 'key': {
                     'title': 'Key',
                     'type': 'string'
                 },
                 'value': {
-                    '$ref': '#/definitions/CommonTableExpressionInfo'
+                    '$ref': '#/$defs/CommonTableExpressionInfo'
                 }
             },
             'required': [
@@ -1088,14 +1070,14 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'title': 'Pair[str, CommonTableExpressionInfo]',
             'type': 'object'
         },
-        'Pair_str__LogicalType_': {
+        'Pair_str_LogicalType_': {
             'properties': {
                 'key': {
                     'title': 'Key',
                     'type': 'string'
                 },
                 'value': {
-                    '$ref': '#/definitions/LogicalType'
+                    '$ref': '#/$defs/LogicalType'
                 }
             },
             'required': [
@@ -1105,14 +1087,14 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'title': 'Pair[str, LogicalType]',
             'type': 'object'
         },
-        'Pair_str__ParsedExpressionSubclasses_': {
+        'Pair_str_ParsedExpressionSubclasses_': {
             'properties': {
                 'key': {
                     'title': 'Key',
                     'type': 'string'
                 },
                 'value': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    '$ref': '#/$defs/ParsedExpressionSubclasses'
                 }
             },
             'required': [
@@ -1131,22 +1113,16 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'type': 'string'
                 },
                 'class': {
-                    'enum': [
-                        'PARAMETER'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'PARAMETER',
+                    'title': 'Class'
                 },
                 'parameter_nr': {
                     'title': 'Parameter Nr',
                     'type': 'integer'
                 },
                 'type': {
-                    'enum': [
-                        'VALUE_PARAMETER'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'VALUE_PARAMETER',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1159,104 +1135,103 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'type': 'object'
         },
         'ParsedExpressionSubclasses': {
-            'additionalProperties': False,
             'description': 'Union of ParsedExpression subclasses',
             'discriminator': {
                 'mapping': {
-                    'ARRAY_EXTRACT': '#/definitions/OperatorExpression',
-                    'ARRAY_SLICE': '#/definitions/OperatorExpression',
-                    'CASE_EXPR': '#/definitions/CaseExpression',
-                    'COLLATE': '#/definitions/CollateExpression',
-                    'COLUMN_REF': '#/definitions/ColumnRefExpression',
-                    'COMPARE_BETWEEN': '#/definitions/BetweenExpression',
-                    'COMPARE_DISTINCT_FROM': '#/definitions/ComparisonExpression',
-                    'COMPARE_EQUAL': '#/definitions/ComparisonExpression',
-                    'COMPARE_GREATERTHAN': '#/definitions/ComparisonExpression',
-                    'COMPARE_GREATERTHANOREQUALTO': '#/definitions/ComparisonExpression',
-                    'COMPARE_IN': '#/definitions/OperatorExpression',
-                    'COMPARE_LESSTHAN': '#/definitions/ComparisonExpression',
-                    'COMPARE_LESSTHANOREQUALTO': '#/definitions/ComparisonExpression',
-                    'COMPARE_NOTEQUAL': '#/definitions/ComparisonExpression',
-                    'COMPARE_NOT_DISTINCT_FROM': '#/definitions/ComparisonExpression',
-                    'COMPARE_NOT_IN': '#/definitions/OperatorExpression',
-                    'CONJUNCTION_AND': '#/definitions/ConjunctionExpression',
-                    'CONJUNCTION_OR': '#/definitions/ConjunctionExpression',
-                    'FUNCTION': '#/definitions/FunctionExpression',
-                    'LAMBDA': '#/definitions/LambdaExpression',
-                    'OPERATOR_CAST': '#/definitions/CastExpression',
-                    'OPERATOR_IN': '#/definitions/OperatorExpression',
-                    'OPERATOR_IS_NOT_NULL': '#/definitions/OperatorExpression',
-                    'OPERATOR_IS_NULL': '#/definitions/OperatorExpression',
-                    'OPERATOR_NOT': '#/definitions/OperatorExpression',
-                    'POSITIONAL_REFERENCE': '#/definitions/PositionalReferenceExpression',
-                    'STAR': '#/definitions/StarExpression',
-                    'STRUCT_EXTRACT': '#/definitions/OperatorExpression',
-                    'SUBQUERY': '#/definitions/SubqueryExpression',
-                    'VALUE_CONSTANT': '#/definitions/ConstantExpression',
-                    'VALUE_PARAMETER': '#/definitions/ParameterExpression',
-                    'WINDOW_AGGREGATE': '#/definitions/WindowExpression',
-                    'WINDOW_CUME_DIST': '#/definitions/WindowExpression',
-                    'WINDOW_FIRST_VALUE': '#/definitions/WindowExpression',
-                    'WINDOW_LAG': '#/definitions/WindowExpression',
-                    'WINDOW_LAST_VALUE': '#/definitions/WindowExpression',
-                    'WINDOW_LEAD': '#/definitions/WindowExpression',
-                    'WINDOW_NTH_VALUE': '#/definitions/WindowExpression',
-                    'WINDOW_NTILE': '#/definitions/WindowExpression',
-                    'WINDOW_PERCENT_RANK': '#/definitions/WindowExpression',
-                    'WINDOW_RANK': '#/definitions/WindowExpression',
-                    'WINDOW_RANK_DENSE': '#/definitions/WindowExpression',
-                    'WINDOW_ROW_NUMBER': '#/definitions/WindowExpression'
+                    'ARRAY_EXTRACT': '#/$defs/OperatorExpression',
+                    'ARRAY_SLICE': '#/$defs/OperatorExpression',
+                    'CASE_EXPR': '#/$defs/CaseExpression',
+                    'COLLATE': '#/$defs/CollateExpression',
+                    'COLUMN_REF': '#/$defs/ColumnRefExpression',
+                    'COMPARE_BETWEEN': '#/$defs/BetweenExpression',
+                    'COMPARE_DISTINCT_FROM': '#/$defs/ComparisonExpression',
+                    'COMPARE_EQUAL': '#/$defs/ComparisonExpression',
+                    'COMPARE_GREATERTHAN': '#/$defs/ComparisonExpression',
+                    'COMPARE_GREATERTHANOREQUALTO': '#/$defs/ComparisonExpression',
+                    'COMPARE_IN': '#/$defs/OperatorExpression',
+                    'COMPARE_LESSTHAN': '#/$defs/ComparisonExpression',
+                    'COMPARE_LESSTHANOREQUALTO': '#/$defs/ComparisonExpression',
+                    'COMPARE_NOTEQUAL': '#/$defs/ComparisonExpression',
+                    'COMPARE_NOT_DISTINCT_FROM': '#/$defs/ComparisonExpression',
+                    'COMPARE_NOT_IN': '#/$defs/OperatorExpression',
+                    'CONJUNCTION_AND': '#/$defs/ConjunctionExpression',
+                    'CONJUNCTION_OR': '#/$defs/ConjunctionExpression',
+                    'FUNCTION': '#/$defs/FunctionExpression',
+                    'LAMBDA': '#/$defs/LambdaExpression',
+                    'OPERATOR_CAST': '#/$defs/CastExpression',
+                    'OPERATOR_IN': '#/$defs/OperatorExpression',
+                    'OPERATOR_IS_NOT_NULL': '#/$defs/OperatorExpression',
+                    'OPERATOR_IS_NULL': '#/$defs/OperatorExpression',
+                    'OPERATOR_NOT': '#/$defs/OperatorExpression',
+                    'POSITIONAL_REFERENCE': '#/$defs/PositionalReferenceExpression',
+                    'STAR': '#/$defs/StarExpression',
+                    'STRUCT_EXTRACT': '#/$defs/OperatorExpression',
+                    'SUBQUERY': '#/$defs/SubqueryExpression',
+                    'VALUE_CONSTANT': '#/$defs/ConstantExpression',
+                    'VALUE_PARAMETER': '#/$defs/ParameterExpression',
+                    'WINDOW_AGGREGATE': '#/$defs/WindowExpression',
+                    'WINDOW_CUME_DIST': '#/$defs/WindowExpression',
+                    'WINDOW_FIRST_VALUE': '#/$defs/WindowExpression',
+                    'WINDOW_LAG': '#/$defs/WindowExpression',
+                    'WINDOW_LAST_VALUE': '#/$defs/WindowExpression',
+                    'WINDOW_LEAD': '#/$defs/WindowExpression',
+                    'WINDOW_NTH_VALUE': '#/$defs/WindowExpression',
+                    'WINDOW_NTILE': '#/$defs/WindowExpression',
+                    'WINDOW_PERCENT_RANK': '#/$defs/WindowExpression',
+                    'WINDOW_RANK': '#/$defs/WindowExpression',
+                    'WINDOW_RANK_DENSE': '#/$defs/WindowExpression',
+                    'WINDOW_ROW_NUMBER': '#/$defs/WindowExpression'
                 },
                 'propertyName': 'type'
             },
             'oneOf': [
                 {
-                    '$ref': '#/definitions/FunctionExpression'
+                    '$ref': '#/$defs/FunctionExpression'
                 },
                 {
-                    '$ref': '#/definitions/ColumnRefExpression'
+                    '$ref': '#/$defs/ColumnRefExpression'
                 },
                 {
-                    '$ref': '#/definitions/StarExpression'
+                    '$ref': '#/$defs/StarExpression'
                 },
                 {
-                    '$ref': '#/definitions/ConstantExpression'
+                    '$ref': '#/$defs/ConstantExpression'
                 },
                 {
-                    '$ref': '#/definitions/CastExpression'
+                    '$ref': '#/$defs/CastExpression'
                 },
                 {
-                    '$ref': '#/definitions/ComparisonExpression'
+                    '$ref': '#/$defs/ComparisonExpression'
                 },
                 {
-                    '$ref': '#/definitions/ConjunctionExpression'
+                    '$ref': '#/$defs/ConjunctionExpression'
                 },
                 {
-                    '$ref': '#/definitions/LambdaExpression'
+                    '$ref': '#/$defs/LambdaExpression'
                 },
                 {
-                    '$ref': '#/definitions/ParameterExpression'
+                    '$ref': '#/$defs/ParameterExpression'
                 },
                 {
-                    '$ref': '#/definitions/PositionalReferenceExpression'
+                    '$ref': '#/$defs/PositionalReferenceExpression'
                 },
                 {
-                    '$ref': '#/definitions/SubqueryExpression'
+                    '$ref': '#/$defs/SubqueryExpression'
                 },
                 {
-                    '$ref': '#/definitions/OperatorExpression'
+                    '$ref': '#/$defs/OperatorExpression'
                 },
                 {
-                    '$ref': '#/definitions/CaseExpression'
+                    '$ref': '#/$defs/CaseExpression'
                 },
                 {
-                    '$ref': '#/definitions/CollateExpression'
+                    '$ref': '#/$defs/CollateExpression'
                 },
                 {
-                    '$ref': '#/definitions/BetweenExpression'
+                    '$ref': '#/$defs/BetweenExpression'
                 },
                 {
-                    '$ref': '#/definitions/WindowExpression'
+                    '$ref': '#/$defs/WindowExpression'
                 }
             ],
             'title': 'ParsedExpressionSubclasses'
@@ -1270,22 +1245,16 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'type': 'string'
                 },
                 'class': {
-                    'enum': [
-                        'POSITIONAL_REFERENCE'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'POSITIONAL_REFERENCE',
+                    'title': 'Class'
                 },
                 'index': {
                     'title': 'Index',
                     'type': 'integer'
                 },
                 'type': {
-                    'enum': [
-                        'POSITIONAL_REFERENCE'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'POSITIONAL_REFERENCE',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1298,25 +1267,24 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'type': 'object'
         },
         'QueryNodeSubclasses': {
-            'additionalProperties': False,
             'description': 'Union of QueryNode subclasses',
             'discriminator': {
                 'mapping': {
-                    'RECURSIVE_CTE_NODE': '#/definitions/RecursiveCTENode',
-                    'SELECT_NODE': '#/definitions/SelectNode',
-                    'SET_OPERATION_NODE': '#/definitions/SetOperationNode'
+                    'RECURSIVE_CTE_NODE': '#/$defs/RecursiveCTENode',
+                    'SELECT_NODE': '#/$defs/SelectNode',
+                    'SET_OPERATION_NODE': '#/$defs/SetOperationNode'
                 },
                 'propertyName': 'type'
             },
             'oneOf': [
                 {
-                    '$ref': '#/definitions/SelectNode'
+                    '$ref': '#/$defs/SelectNode'
                 },
                 {
-                    '$ref': '#/definitions/SetOperationNode'
+                    '$ref': '#/$defs/SetOperationNode'
                 },
                 {
-                    '$ref': '#/definitions/RecursiveCTENode'
+                    '$ref': '#/$defs/RecursiveCTENode'
                 }
             ],
             'title': 'QueryNodeSubclasses'
@@ -1333,31 +1301,28 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'type': 'array'
                 },
                 'cte_map': {
-                    '$ref': '#/definitions/CommonTableExpressionMap'
+                    '$ref': '#/$defs/CommonTableExpressionMap'
                 },
                 'cte_name': {
                     'title': 'Cte Name',
                     'type': 'string'
                 },
                 'left': {
-                    '$ref': '#/definitions/QueryNodeSubclasses'
+                    '$ref': '#/$defs/QueryNodeSubclasses'
                 },
                 'modifiers': {
                     'items': {
-                        '$ref': '#/definitions/ResultModifierSubclasses'
+                        '$ref': '#/$defs/ResultModifierSubclasses'
                     },
                     'title': 'Modifiers',
                     'type': 'array'
                 },
                 'right': {
-                    '$ref': '#/definitions/QueryNodeSubclasses'
+                    '$ref': '#/$defs/QueryNodeSubclasses'
                 },
                 'type': {
-                    'enum': [
-                        'RECURSIVE_CTE_NODE'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'RECURSIVE_CTE_NODE',
+                    'title': 'Type'
                 },
                 'union_all': {
                     'title': 'Union All',
@@ -1378,52 +1343,31 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'type': 'object'
         },
         'ResultModifierSubclasses': {
-            'additionalProperties': False,
             'description': 'Union of ResultModifier subclasses',
             'discriminator': {
                 'mapping': {
-                    'DISTINCT_MODIFIER': '#/definitions/DistinctModifier',
-                    'LIMIT_MODIFIER': '#/definitions/LimitModifier',
-                    'LIMIT_PERCENT_MODIFIER': '#/definitions/LimitPercentModifier',
-                    'ORDER_MODIFIER': '#/definitions/OrderModifier'
+                    'DISTINCT_MODIFIER': '#/$defs/DistinctModifier',
+                    'LIMIT_MODIFIER': '#/$defs/LimitModifier',
+                    'LIMIT_PERCENT_MODIFIER': '#/$defs/LimitPercentModifier',
+                    'ORDER_MODIFIER': '#/$defs/OrderModifier'
                 },
                 'propertyName': 'type'
             },
             'oneOf': [
                 {
-                    '$ref': '#/definitions/LimitPercentModifier'
+                    '$ref': '#/$defs/LimitPercentModifier'
                 },
                 {
-                    '$ref': '#/definitions/DistinctModifier'
+                    '$ref': '#/$defs/DistinctModifier'
                 },
                 {
-                    '$ref': '#/definitions/LimitModifier'
+                    '$ref': '#/$defs/LimitModifier'
                 },
                 {
-                    '$ref': '#/definitions/OrderModifier'
+                    '$ref': '#/$defs/OrderModifier'
                 }
             ],
             'title': 'ResultModifierSubclasses'
-        },
-        'Root': {
-            'additionalProperties': False,
-            'description': 'Union of possible responses',
-            'discriminator': {
-                'mapping': {
-                    False: '#/definitions/SuccessResponse',
-                    True: '#/definitions/ErrorResponse'
-                },
-                'propertyName': 'error'
-            },
-            'oneOf': [
-                {
-                    '$ref': '#/definitions/ErrorResponse'
-                },
-                {
-                    '$ref': '#/definitions/SuccessResponse'
-                }
-            ],
-            'title': 'Root'
         },
         'SampleMethod': {
             'description': 'src/include/duckdb/parser/parsed_data/sample_options.hpp#L18',
@@ -1432,7 +1376,8 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'Bernoulli',
                 'Reservoir'
             ],
-            'title': 'SampleMethod'
+            'title': 'SampleMethod',
+            'type': 'string'
         },
         'SampleOptions': {
             'additionalProperties': False,
@@ -1443,10 +1388,10 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'type': 'boolean'
                 },
                 'method': {
-                    '$ref': '#/definitions/SampleMethod'
+                    '$ref': '#/$defs/SampleMethod'
                 },
                 'sample_size': {
-                    '$ref': '#/definitions/Value'
+                    '$ref': '#/$defs/Value'
                 },
                 'seed': {
                     'default': -1,
@@ -1468,64 +1413,117 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
 src/include/duckdb/parser/query_node/select_node.hpp#L22''',
             'properties': {
                 'aggregate_handling': {
-                    '$ref': '#/definitions/AggregateHandling'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/AggregateHandling'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'cte_map': {
-                    '$ref': '#/definitions/CommonTableExpressionMap'
+                    '$ref': '#/$defs/CommonTableExpressionMap'
                 },
                 'from_table': {
-                    '$ref': '#/definitions/TableRefSubclasses'
+                    '$ref': '#/$defs/TableRefSubclasses'
                 },
                 'group_expressions': {
-                    'items': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
-                    },
-                    'title': 'Group Expressions',
-                    'type': 'array'
+                    'anyOf': [
+                        {
+                            'items': {
+                                '$ref': '#/$defs/ParsedExpressionSubclasses'
+                            },
+                            'type': 'array'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Group Expressions'
                 },
                 'group_sets': {
-                    'items': {
-                        'items': {
-                            'type': 'integer'
+                    'anyOf': [
+                        {
+                            'items': {
+                                'items': {
+                                    'type': 'integer'
+                                },
+                                'type': 'array',
+                                'uniqueItems': True
+                            },
+                            'type': 'array'
                         },
-                        'type': 'array',
-                        'uniqueItems': True
-                    },
-                    'title': 'Group Sets',
-                    'type': 'array'
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Group Sets'
                 },
                 'having': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'modifiers': {
                     'items': {
-                        '$ref': '#/definitions/ResultModifierSubclasses'
+                        '$ref': '#/$defs/ResultModifierSubclasses'
                     },
                     'title': 'Modifiers',
                     'type': 'array'
                 },
                 'qualify': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'sample': {
-                    '$ref': '#/definitions/SampleOptions'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/SampleOptions'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'select_list': {
                     'items': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                        '$ref': '#/$defs/ParsedExpressionSubclasses'
                     },
                     'title': 'Select List',
                     'type': 'array'
                 },
                 'type': {
-                    'enum': [
-                        'SELECT_NODE'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'SELECT_NODE',
+                    'title': 'Type'
                 },
                 'where_clause': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 }
             },
             'required': [
@@ -1544,7 +1542,7 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
 src/include/duckdb/parser/statement/select_statement.hpp#L24''',
             'properties': {
                 'node': {
-                    '$ref': '#/definitions/QueryNodeSubclasses'
+                    '$ref': '#/$defs/QueryNodeSubclasses'
                 }
             },
             'required': [
@@ -1558,20 +1556,20 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
             'description': 'src/include/duckdb/parser/query_node/set_operation_node.hpp#L18',
             'properties': {
                 'cte_map': {
-                    '$ref': '#/definitions/CommonTableExpressionMap'
+                    '$ref': '#/$defs/CommonTableExpressionMap'
                 },
                 'left': {
-                    '$ref': '#/definitions/QueryNodeSubclasses'
+                    '$ref': '#/$defs/QueryNodeSubclasses'
                 },
                 'modifiers': {
                     'items': {
-                        '$ref': '#/definitions/ResultModifierSubclasses'
+                        '$ref': '#/$defs/ResultModifierSubclasses'
                     },
                     'title': 'Modifiers',
                     'type': 'array'
                 },
                 'right': {
-                    '$ref': '#/definitions/QueryNodeSubclasses'
+                    '$ref': '#/$defs/QueryNodeSubclasses'
                 },
                 'set_op_type': {
                     'enum': [
@@ -1585,11 +1583,8 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                     'type': 'string'
                 },
                 'type': {
-                    'enum': [
-                        'SET_OPERATION_NODE'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'SET_OPERATION_NODE',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1613,11 +1608,8 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                     'type': 'string'
                 },
                 'class': {
-                    'enum': [
-                        'STAR'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'STAR',
+                    'title': 'Class'
                 },
                 'columns': {
                     'title': 'Columns',
@@ -1631,21 +1623,26 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                     'type': 'array'
                 },
                 'expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'relation_name': {
                     'title': 'Relation Name',
                     'type': 'string'
                 },
                 'replace_list': {
-                    '$ref': '#/definitions/OrderedDict_str__ParsedExpressionSubclasses_'
+                    '$ref': '#/$defs/OrderedDict_str_ParsedExpressionSubclasses_'
                 },
                 'type': {
-                    'enum': [
-                        'STAR'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'STAR',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1670,17 +1667,22 @@ src/common/types.cpp#L1040''',
                     'type': 'string'
                 },
                 'catalog_entry': {
-                    '$ref': '#/definitions/TypeCatalogEntry'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/TypeCatalogEntry'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'child_types': {
-                    '$ref': '#/definitions/OrderedDict_str__LogicalType_'
+                    '$ref': '#/$defs/OrderedDict_str_LogicalType_'
                 },
                 'type': {
-                    'enum': [
-                        'STRUCT_TYPE_INFO'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'STRUCT_TYPE_INFO',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1701,14 +1703,19 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     'type': 'string'
                 },
                 'child': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'class': {
-                    'enum': [
-                        'SUBQUERY'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'SUBQUERY',
+                    'title': 'Class'
                 },
                 'comparison_type': {
                     'enum': [
@@ -1719,7 +1726,7 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     'type': 'string'
                 },
                 'subquery': {
-                    '$ref': '#/definitions/SelectStatement'
+                    '$ref': '#/$defs/SelectStatement'
                 },
                 'subquery_type': {
                     'enum': [
@@ -1733,11 +1740,8 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     'type': 'string'
                 },
                 'type': {
-                    'enum': [
-                        'SUBQUERY'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'SUBQUERY',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1768,17 +1772,22 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                     'type': 'array'
                 },
                 'sample': {
-                    '$ref': '#/definitions/SampleOptions'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/SampleOptions'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'subquery': {
-                    '$ref': '#/definitions/SelectStatement'
+                    '$ref': '#/$defs/SelectStatement'
                 },
                 'type': {
-                    'enum': [
-                        'SUBQUERY'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'SUBQUERY',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1795,15 +1804,12 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
             'description': 'Returned when parsing succeeds',
             'properties': {
                 'error': {
-                    'enum': [
-                        False
-                    ],
-                    'title': 'Error',
-                    'type': 'boolean'
+                    'const': False,
+                    'title': 'Error'
                 },
                 'statements': {
                     'items': {
-                        '$ref': '#/definitions/SelectStatement'
+                        '$ref': '#/$defs/SelectStatement'
                     },
                     'title': 'Statements',
                     'type': 'array'
@@ -1826,24 +1832,37 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
                     'type': 'string'
                 },
                 'column_name_alias': {
-                    'items': {
-                        'type': 'string'
-                    },
-                    'title': 'Column Name Alias',
-                    'type': 'array'
+                    'anyOf': [
+                        {
+                            'items': {
+                                'type': 'string'
+                            },
+                            'type': 'array'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Column Name Alias'
                 },
                 'function': {
-                    '$ref': '#/definitions/FunctionExpression'
+                    '$ref': '#/$defs/FunctionExpression'
                 },
                 'sample': {
-                    '$ref': '#/definitions/SampleOptions'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/SampleOptions'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'type': {
-                    'enum': [
-                        'TABLE_FUNCTION'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'TABLE_FUNCTION',
+                    'title': 'Type'
                 }
             },
             'required': [
@@ -1855,33 +1874,32 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
             'type': 'object'
         },
         'TableRefSubclasses': {
-            'additionalProperties': False,
             'description': 'Union of TableRef subclasses',
             'discriminator': {
                 'mapping': {
-                    'BASE_TABLE': '#/definitions/BaseTableRef',
-                    'EMPTY': '#/definitions/EmptyTableRef',
-                    'JOIN': '#/definitions/JoinRef',
-                    'SUBQUERY': '#/definitions/SubqueryRef',
-                    'TABLE_FUNCTION': '#/definitions/TableFunctionRef'
+                    'BASE_TABLE': '#/$defs/BaseTableRef',
+                    'EMPTY': '#/$defs/EmptyTableRef',
+                    'JOIN': '#/$defs/JoinRef',
+                    'SUBQUERY': '#/$defs/SubqueryRef',
+                    'TABLE_FUNCTION': '#/$defs/TableFunctionRef'
                 },
                 'propertyName': 'type'
             },
             'oneOf': [
                 {
-                    '$ref': '#/definitions/BaseTableRef'
+                    '$ref': '#/$defs/BaseTableRef'
                 },
                 {
-                    '$ref': '#/definitions/EmptyTableRef'
+                    '$ref': '#/$defs/EmptyTableRef'
                 },
                 {
-                    '$ref': '#/definitions/TableFunctionRef'
+                    '$ref': '#/$defs/TableFunctionRef'
                 },
                 {
-                    '$ref': '#/definitions/SubqueryRef'
+                    '$ref': '#/$defs/SubqueryRef'
                 },
                 {
-                    '$ref': '#/definitions/JoinRef'
+                    '$ref': '#/$defs/JoinRef'
                 }
             ],
             'title': 'TableRefSubclasses'
@@ -1892,7 +1910,7 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
 src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
             'properties': {
                 'user_type': {
-                    '$ref': '#/definitions/LogicalType'
+                    '$ref': '#/$defs/LogicalType'
                 }
             },
             'required': [
@@ -1911,14 +1929,19 @@ src/common/types.cpp#L1263''',
                     'type': 'string'
                 },
                 'catalog_entry': {
-                    '$ref': '#/definitions/TypeCatalogEntry'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/TypeCatalogEntry'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'type': {
-                    'enum': [
-                        'USER_TYPE_INFO'
-                    ],
-                    'title': 'Type',
-                    'type': 'string'
+                    'const': 'USER_TYPE_INFO',
+                    'title': 'Type'
                 },
                 'user_type_name': {
                     'title': 'User Type Name',
@@ -1944,9 +1967,17 @@ src/include/duckdb/common/types/value.hpp#L30''',
                     'type': 'boolean'
                 },
                 'type': {
-                    '$ref': '#/definitions/LogicalType'
+                    '$ref': '#/$defs/LogicalType'
                 },
                 'value': {
+                    'anyOf': [
+                        {
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
                     'title': 'Value'
                 }
             },
@@ -1970,7 +2001,8 @@ src/include/duckdb/common/types/value.hpp#L30''',
                 'EXPR_PRECEDING_RANGE',
                 'EXPR_FOLLOWING_RANGE'
             ],
-            'title': 'WindowBoundary'
+            'title': 'WindowBoundary',
+            'type': 'string'
         },
         'WindowExpression': {
             'additionalProperties': False,
@@ -1988,34 +2020,55 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                 },
                 'children': {
                     'items': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                        '$ref': '#/$defs/ParsedExpressionSubclasses'
                     },
                     'title': 'Children',
                     'type': 'array'
                 },
                 'class': {
-                    'enum': [
-                        'WINDOW'
-                    ],
-                    'title': 'Class',
-                    'type': 'string'
+                    'const': 'WINDOW',
+                    'title': 'Class'
                 },
                 'default_expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'end': {
                     'allOf': [
                         {
-                            '$ref': '#/definitions/WindowBoundary'
+                            '$ref': '#/$defs/WindowBoundary'
                         }
                     ],
                     'default': 'INVALID'
                 },
                 'end_expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'filter_expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'function_name': {
                     'title': 'Function Name',
@@ -2026,18 +2079,26 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                     'type': 'boolean'
                 },
                 'offset_expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'orders': {
                     'items': {
-                        '$ref': '#/definitions/OrderByNode'
+                        '$ref': '#/$defs/OrderByNode'
                     },
                     'title': 'Orders',
                     'type': 'array'
                 },
                 'partitions': {
                     'items': {
-                        '$ref': '#/definitions/ParsedExpressionSubclasses'
+                        '$ref': '#/$defs/ParsedExpressionSubclasses'
                     },
                     'title': 'Partitions',
                     'type': 'array'
@@ -2049,13 +2110,21 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                 'start': {
                     'allOf': [
                         {
-                            '$ref': '#/definitions/WindowBoundary'
+                            '$ref': '#/$defs/WindowBoundary'
                         }
                     ],
                     'default': 'INVALID'
                 },
                 'start_expr': {
-                    '$ref': '#/definitions/ParsedExpressionSubclasses'
+                    'anyOf': [
+                        {
+                            '$ref': '#/$defs/ParsedExpressionSubclasses'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None
                 },
                 'type': {
                     'enum': [
@@ -2092,5 +2161,21 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
             'type': 'object'
         }
     },
-    'title': 'ParsingModel[Root]'
+    'description': 'Union of possible responses',
+    'discriminator': {
+        'mapping': {
+            'False': '#/$defs/SuccessResponse',
+            'True': '#/$defs/ErrorResponse'
+        },
+        'propertyName': 'error'
+    },
+    'oneOf': [
+        {
+            '$ref': '#/$defs/ErrorResponse'
+        },
+        {
+            '$ref': '#/$defs/SuccessResponse'
+        }
+    ],
+    'title': 'Root'
 }
