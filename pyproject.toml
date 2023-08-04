@@ -14,7 +14,7 @@ pydantic = "^1.10.8"
 
 [tool.poetry.group.dev.dependencies]
 pdbpp = "^0.10.3"
-rich = "^13.4.2"
+rich = "^13.5.2"
 pytest = "^7.4.0"
 snapshottest = {git = "https://github.com/syrusakbary/snapshottest"}
 pre-commit = "^3.3.3"
