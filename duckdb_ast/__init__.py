@@ -4,7 +4,6 @@ from importlib.resources import open_text
 from typing import Any, Union
 
 import duckdb
-from pydantic import parse_raw_as
 
 from .models import ErrorResponse, Root, SuccessResponse
 
@@ -42,7 +41,7 @@ def parse_sql_to_json(sql: str) -> str:
 def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
     "Parses DuckDB flavoured SQL"
     ast = parse_sql_to_json(sql)
-    return parse_raw_as(Root, ast).__root__
+    return Root.model_validate_json(ast).root
 
 
 def get_schema() -> dict[str, Any]:
