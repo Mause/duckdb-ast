@@ -22,7 +22,8 @@ snapshots['test_schema_generation 1'] = {
         'BaseTableRef': {
             'additionalProperties': False,
             'description': '''Represents a TableReference to a base table in the schema
-src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
+
+   src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -139,7 +140,8 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
         'CaseExpression': {
             'additionalProperties': False,
             'description': '''The CaseExpression represents a CASE expression in the query
-src/include/duckdb/parser/expression/case_expression.hpp#L25''',
+
+   src/include/duckdb/parser/expression/case_expression.hpp#L25''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -176,8 +178,10 @@ src/include/duckdb/parser/expression/case_expression.hpp#L25''',
         },
         'CastExpression': {
             'additionalProperties': False,
-            'description': '''CastExpression represents a type cast from one SQL type to another SQL type
-src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
+            'description': '''CastExpression represents a type cast from one SQL type to another
+   SQL type
+
+   src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -216,7 +220,8 @@ src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
         'CollateExpression': {
             'additionalProperties': False,
             'description': '''CollateExpression represents a COLLATE statement
-src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
+
+   src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -250,9 +255,10 @@ src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
         },
         'ColumnRefExpression': {
             'additionalProperties': False,
-            'description': '''Represents a reference to a column from either the FROM clause or from an
-alias
-src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
+            'description': '''Represents a reference to a column from either the FROM clause or
+   from an alias
+
+   src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -321,9 +327,10 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
         },
         'ComparisonExpression': {
             'additionalProperties': False,
-            'description': '''ComparisonExpression represents a boolean comparison (e.g. =, >=, <>). Always returns a boolean
-and has two children.
-src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
+            'description': '''ComparisonExpression represents a boolean comparison (e.g. =, >=,
+   <>). Always returns a boolean and has two children.
+
+   src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -367,7 +374,8 @@ src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
         'ConjunctionExpression': {
             'additionalProperties': False,
             'description': '''Represents a conjunction (AND/OR)
-src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
+
+   src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -405,7 +413,8 @@ src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
         'ConstantExpression': {
             'additionalProperties': False,
             'description': '''ConstantExpression represents a constant value in the query
-src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
+
+   src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -435,7 +444,8 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
         'DecimalTypeInfo': {
             'additionalProperties': False,
             'description': '''Decimal Type
-src/common/types.cpp#L868''',
+
+   src/common/types.cpp#L868''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -500,7 +510,8 @@ src/common/types.cpp#L868''',
         'EmptyTableRef': {
             'additionalProperties': False,
             'description': '''Represents a cross product
-src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
+
+   src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -557,7 +568,8 @@ src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
         'FunctionExpression': {
             'additionalProperties': False,
             'description': '''Represents a function call
-src/include/duckdb/parser/expression/function_expression.hpp#L17''',
+
+   src/include/duckdb/parser/expression/function_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -636,7 +648,8 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
         'JoinRef': {
             'additionalProperties': False,
             'description': '''Represents a JOIN between two expressions
-src/include/duckdb/parser/tableref/joinref.hpp#L21''',
+
+   src/include/duckdb/parser/tableref/joinref.hpp#L21''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -704,11 +717,12 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
         },
         'LambdaExpression': {
             'additionalProperties': False,
-            'description': '''LambdaExpression represents either:
-1. A lambda operator that can be used for e.g. mapping an expression to a list
-2. An OperatorExpression with the "->" operator
-Lambda expressions are written in the form of "params -> expr", e.g. "x -> x + 1"
-src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
+            'description': '''LambdaExpression represents either: 1. A lambda operator that can
+   be used for e.g. mapping an expression to a list 2. An
+   OperatorExpression with the "->" operator Lambda expressions are
+   written in the form of "params -> expr", e.g. "x -> x + 1"
+
+   src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -788,7 +802,8 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
         'ListTypeInfo': {
             'additionalProperties': False,
             'description': '''List Type
-src/common/types.cpp#L991''',
+
+   src/common/types.cpp#L991''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -871,6 +886,7 @@ src/common/types.cpp#L991''',
         },
         'LogicalTypeId': {
             'description': '''SQL Types
+
 src/include/duckdb/common/types.hpp#L246''',
             'enum': [
                 'INVALID',
@@ -922,7 +938,8 @@ src/include/duckdb/common/types.hpp#L246''',
         'OperatorExpression': {
             'additionalProperties': False,
             'description': '''Represents a built-in operator expression
-src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
+
+   src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -967,7 +984,8 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
         'OrderByNode': {
             'additionalProperties': False,
             'description': '''Single node in ORDER BY statement
-src/include/duckdb/parser/result_modifier.hpp#L60''',
+
+   src/include/duckdb/parser/result_modifier.hpp#L60''',
             'properties': {
                 'expression': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -1135,7 +1153,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'type': 'object'
         },
         'ParsedExpressionSubclasses': {
-            'description': 'Union of ParsedExpression subclasses',
+            'description': 'Union of "ParsedExpression" subclasses',
             'discriminator': {
                 'mapping': {
                     'ARRAY_EXTRACT': '#/$defs/OperatorExpression',
@@ -1238,7 +1256,8 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
         },
         'PositionalReferenceExpression': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/expression/positional_reference_expression.hpp#L14',
+            'description': '''src/include/duckdb/parser/expression/positional_reference_expressi
+   on.hpp#L14''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1267,7 +1286,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'type': 'object'
         },
         'QueryNodeSubclasses': {
-            'description': 'Union of QueryNode subclasses',
+            'description': 'Union of "QueryNode" subclasses',
             'discriminator': {
                 'mapping': {
                     'RECURSIVE_CTE_NODE': '#/$defs/RecursiveCTENode',
@@ -1343,7 +1362,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'type': 'object'
         },
         'ResultModifierSubclasses': {
-            'description': 'Union of ResultModifier subclasses',
+            'description': 'Union of "ResultModifier" subclasses',
             'discriminator': {
                 'mapping': {
                     'DISTINCT_MODIFIER': '#/$defs/DistinctModifier',
@@ -1410,7 +1429,8 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
         'SelectNode': {
             'additionalProperties': False,
             'description': '''SelectNode represents a standard SELECT statement
-src/include/duckdb/parser/query_node/select_node.hpp#L22''',
+
+   src/include/duckdb/parser/query_node/select_node.hpp#L22''',
             'properties': {
                 'aggregate_handling': {
                     'anyOf': [
@@ -1539,7 +1559,8 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
         'SelectStatement': {
             'additionalProperties': False,
             'description': '''SelectStatement is a typical SELECT clause
-src/include/duckdb/parser/statement/select_statement.hpp#L24''',
+
+   src/include/duckdb/parser/statement/select_statement.hpp#L24''',
             'properties': {
                 'node': {
                     '$ref': '#/$defs/QueryNodeSubclasses'
@@ -1601,7 +1622,8 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
         'StarExpression': {
             'additionalProperties': False,
             'description': '''Represents a * expression in the SELECT clause
-src/include/duckdb/parser/expression/star_expression.hpp#L17''',
+
+   src/include/duckdb/parser/expression/star_expression.hpp#L17''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1660,7 +1682,8 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
         'StructTypeInfo': {
             'additionalProperties': False,
             'description': '''Struct Type
-src/common/types.cpp#L1040''',
+
+   src/common/types.cpp#L1040''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1696,7 +1719,8 @@ src/common/types.cpp#L1040''',
         'SubqueryExpression': {
             'additionalProperties': False,
             'description': '''Represents a subquery
-src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
+
+   src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1758,7 +1782,8 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
         'SubqueryRef': {
             'additionalProperties': False,
             'description': '''Represents a subquery
-src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
+
+   src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1825,7 +1850,8 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
         'TableFunctionRef': {
             'additionalProperties': False,
             'description': '''Represents a Table producing function
-src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
+
+   src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1874,7 +1900,7 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
             'type': 'object'
         },
         'TableRefSubclasses': {
-            'description': 'Union of TableRef subclasses',
+            'description': 'Union of "TableRef" subclasses',
             'discriminator': {
                 'mapping': {
                     'BASE_TABLE': '#/$defs/BaseTableRef',
@@ -1907,7 +1933,8 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
         'TypeCatalogEntry': {
             'additionalProperties': False,
             'description': '''A type catalog entry
-src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
+
+   src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
             'properties': {
                 'user_type': {
                     '$ref': '#/$defs/LogicalType'
@@ -1922,7 +1949,8 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
         'UserTypeInfo': {
             'additionalProperties': False,
             'description': '''User Type
-src/common/types.cpp#L1263''',
+
+   src/common/types.cpp#L1263''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1958,9 +1986,10 @@ src/common/types.cpp#L1263''',
         },
         'Value': {
             'additionalProperties': False,
-            'description': '''The Value object holds a single arbitrary value of any type that can be
-stored in the database.
-src/include/duckdb/common/types/value.hpp#L30''',
+            'description': '''The Value object holds a single arbitrary value of any type that
+   can be stored in the database.
+
+   src/include/duckdb/common/types/value.hpp#L30''',
             'properties': {
                 'is_null': {
                     'title': 'Is Null',
@@ -2006,9 +2035,11 @@ src/include/duckdb/common/types/value.hpp#L30''',
         },
         'WindowExpression': {
             'additionalProperties': False,
-            'description': '''The WindowExpression represents a window function in the query. They are a special case of aggregates which is why
-they inherit from them.
-src/include/duckdb/parser/expression/window_expression.hpp#L32''',
+            'description': '''The WindowExpression represents a window function in the query.
+   They are a special case of aggregates which is why they inherit
+   from them.
+
+   src/include/duckdb/parser/expression/window_expression.hpp#L32''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
