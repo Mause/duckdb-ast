@@ -6,7 +6,7 @@ import duckdb
 from docutils import nodes
 from docutils.core import Publisher
 from docutils.io import StringInput
-from pydantic import schema_of
+from pydantic import TypeAdapter
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.util.docutils import sphinx_domains
@@ -75,7 +75,7 @@ def generate_schema() -> dict[str, Any]:
     publisher.source_class = StringInput
 
     schema = {"version": duckdb.__version__}
-    schema.update(schema_of(Root))
+    schema.update(TypeAdapter(Root).json_schema())
 
     with sphinx_domains(app.env):
         update_docs(schema, publisher)

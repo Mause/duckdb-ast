@@ -171,7 +171,7 @@ def test_sql(sql, snapshot: SnapshotTest):
     statements = root.statements
     assert len(statements) == 1
 
-    statement = statements[0].node.__root__
+    statement = statements[0].node.root
 
     snapshot.assert_match(render(statement))
 

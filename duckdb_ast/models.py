@@ -1,8 +1,7 @@
 from enum import Enum
-from typing import Generic, Literal, Optional, TypeVar, Union
+from typing import Annotated, Generic, Literal, Optional, TypeVar, Union
 
-from pydantic import BaseModel, Extra, Field
-from pydantic.generics import GenericModel
+from pydantic import BaseModel, ConfigDict, Field, RootModel
 
 __all__ = [
     "AggregateHandling",
@@ -84,17 +83,16 @@ class Base(BaseModel):
     Base model with config
     """
 
-    class Config:
-        extra = Extra.forbid
+    model_config = ConfigDict(extra="forbid")
 
 
-class Pair(GenericModel, Generic[K, V]):
+class Pair(BaseModel, Generic[K, V]):
     key: K
     value: V
 
 
-class OrderedDict(GenericModel, Generic[K, V]):
-    __root__: list[Pair[K, V]]
+class OrderedDict(RootModel[list[Pair[K, V]]], Generic[K, V]):
+    pass
 
 
 class BaseExpression(Base):
@@ -191,7 +189,7 @@ class ExtraTypeInfo(Base):
 
     type: str
     alias: str
-    catalog_entry: Optional[TypeCatalogEntry]
+    catalog_entry: Optional[TypeCatalogEntry] = None
 
 
 class ListTypeInfo(ExtraTypeInfo):
@@ -248,7 +246,7 @@ class Value(Base, Generic[T]):
     """
 
     type: LogicalType
-    value: T
+    value: Optional[T] = None
     is_null: bool
 
 
@@ -523,18 +521,18 @@ class WindowExpression(ParsedExpression):
     # The set of ordering clauses
     orders: list["OrderByNode"]
     # Expression representing a filter, only used for aggregates
-    filter_expr: Optional["ParsedExpressionSubclasses"]
+    filter_expr: Optional["ParsedExpressionSubclasses"] = None
     # True to ignore NULL values
     ignore_nulls: bool
     # The window boundaries
     start: WindowBoundary = WindowBoundary.INVALID
     end: WindowBoundary = WindowBoundary.INVALID
 
-    start_expr: Optional["ParsedExpressionSubclasses"]
-    end_expr: Optional["ParsedExpressionSubclasses"]
+    start_expr: Optional["ParsedExpressionSubclasses"] = None
+    end_expr: Optional["ParsedExpressionSubclasses"] = None
     # Offset and default expressions for WINDOW_LEAD and WINDOW_LAG functions
-    offset_expr: Optional["ParsedExpressionSubclasses"]
-    default_expr: Optional["ParsedExpressionSubclasses"]
+    offset_expr: Optional["ParsedExpressionSubclasses"] = None
+    default_expr: Optional["ParsedExpressionSubclasses"] = None
 
 
 class SubqueryExpression(ParsedExpression):
@@ -545,7 +543,7 @@ class SubqueryExpression(ParsedExpression):
     type: Literal["SUBQUERY"]
     clazz: Literal["SUBQUERY"] = Field(alias="class")
 
-    child: Optional["ParsedExpressionSubclasses"]
+    child: Optional["ParsedExpressionSubclasses"] = None
     comparison_type: Literal["INVALID", "COMPARE_EQUAL"]
     subquery: "SelectStatement"
     subquery_type: Literal["SCALAR", "ANY", "EXISTS", "INVALID", "NOT_EXISTS"]
@@ -629,27 +627,32 @@ class LambdaExpression(ParsedExpression):
     expr: "ParsedExpressionSubclasses"
 
 
-class ParsedExpressionSubclasses(Base):
+class ParsedExpressionSubclasses(
+    RootModel[
+        Annotated[
+            Union[
+                "FunctionExpression",
+                ColumnRefExpression,
+                "StarExpression",
+                ConstantExpression,
+                CastExpression,
+                ComparisonExpression,
+                ConjunctionExpression,
+                LambdaExpression,
+                ParameterExpression,
+                PositionalReferenceExpression,
+                SubqueryExpression,
+                OperatorExpression,
+                CaseExpression,
+                CollateExpression,
+                BetweenExpression,
+                WindowExpression,
+            ],
+            Field(discriminator="type"),
+        ]
+    ]
+):
     """Union of :class:`ParsedExpression` subclasses"""
-
-    __root__: Union[
-        "FunctionExpression",
-        ColumnRefExpression,
-        "StarExpression",
-        ConstantExpression,
-        CastExpression,
-        ComparisonExpression,
-        ConjunctionExpression,
-        LambdaExpression,
-        ParameterExpression,
-        PositionalReferenceExpression,
-        SubqueryExpression,
-        OperatorExpression,
-        CaseExpression,
-        CollateExpression,
-        BetweenExpression,
-        WindowExpression,
-    ] = Field(discriminator="type")
 
 
 class StarExpression(ParsedExpression):
@@ -665,7 +668,7 @@ class StarExpression(ParsedExpression):
     replace_list: OrderedDict[str, ParsedExpressionSubclasses]
     relation_name: str
     exclude_list: list[str]
-    expr: Optional["ParsedExpressionSubclasses"]
+    expr: Optional["ParsedExpressionSubclasses"] = None
 
 
 class SampleMethod(Enum):
@@ -695,7 +698,7 @@ class TableRef(Base):
     """
 
     alias: str
-    sample: Optional[SampleOptions]
+    sample: Optional[SampleOptions] = None
 
 
 class BaseTableRef(TableRef):
@@ -708,7 +711,7 @@ class BaseTableRef(TableRef):
     schema_name: str
     table_name: str
     catalog_name: str
-    column_name_alias: Optional[list[str]]
+    column_name_alias: Optional[list[str]] = None
 
 
 class EmptyTableRef(TableRef):
@@ -730,7 +733,7 @@ class JoinRef(TableRef):
     left: "TableRefSubclasses"
     join_type: Literal["INNER"]
     ref_type: Literal["CROSS"]
-    condition: Optional["ParsedExpressionSubclasses"]
+    condition: Optional["ParsedExpressionSubclasses"] = None
     using_columns: list[str]
 
 
@@ -790,7 +793,7 @@ class FunctionExpression(ParsedExpression):
     distinct: bool
     order_bys: OrderModifier
     export_state: bool
-    filter: Optional[ParsedExpressionSubclasses]
+    filter: Optional[ParsedExpressionSubclasses] = None
 
 
 class TableFunctionRef(TableRef):
@@ -801,7 +804,7 @@ class TableFunctionRef(TableRef):
     type: Literal["TABLE_FUNCTION"]
 
     function: FunctionExpression
-    column_name_alias: Optional[list[str]]
+    column_name_alias: Optional[list[str]] = None
 
 
 class AggregateHandling(Enum):
@@ -859,11 +862,15 @@ class LimitPercentModifier(ResultModifier):
     offset: "ParsedExpressionSubclasses"
 
 
-class ResultModifierSubclasses(Base):
+class ResultModifierSubclasses(
+    RootModel[
+        Annotated[
+            Union[LimitPercentModifier, DistinctModifier, LimitModifier, OrderModifier],
+            Field(discriminator="type"),
+        ]
+    ]
+):
     "Union of :class:`ResultModifier` subclasses"
-    __root__: Union[
-        LimitPercentModifier, DistinctModifier, LimitModifier, OrderModifier
-    ] = Field(discriminator="type")
 
 
 class CommonTableExpressionInfo(Base):
@@ -905,11 +912,15 @@ class SubqueryRef(TableRef):
     column_name_alias: list[str]
 
 
-class TableRefSubclasses(Base):
+class TableRefSubclasses(
+    RootModel[
+        Annotated[
+            Union[BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef, JoinRef],
+            Field(discriminator="type"),
+        ]
+    ]
+):
     "Union of :class:`TableRef` subclasses"
-    __root__: Union[
-        BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef, JoinRef
-    ] = Field(discriminator="type")
 
 
 GroupingSet = set[int]
@@ -922,13 +933,13 @@ class SelectNode(QueryNode):
 
     type: Literal["SELECT_NODE"]
     select_list: list[ParsedExpressionSubclasses]
-    where_clause: Optional[ParsedExpressionSubclasses]
-    sample: Optional[SampleOptions]
-    qualify: Optional[ParsedExpressionSubclasses]
-    having: Optional[ParsedExpressionSubclasses]
-    group_sets: Optional[list[GroupingSet]]
-    group_expressions: Optional[list[ParsedExpressionSubclasses]]
-    aggregate_handling: Optional[AggregateHandling]
+    where_clause: Optional[ParsedExpressionSubclasses] = None
+    sample: Optional[SampleOptions] = None
+    qualify: Optional[ParsedExpressionSubclasses] = None
+    having: Optional[ParsedExpressionSubclasses] = None
+    group_sets: Optional[list[GroupingSet]] = None
+    group_expressions: Optional[list[ParsedExpressionSubclasses]] = None
+    aggregate_handling: Optional[AggregateHandling] = None
     from_table: TableRefSubclasses
 
 
@@ -965,11 +976,15 @@ class RecursiveCTENode(QueryNode):
     aliases: list[str]
 
 
-class QueryNodeSubclasses(Base):
+class QueryNodeSubclasses(
+    RootModel[
+        Annotated[
+            Union[SelectNode, SetOperationNode, RecursiveCTENode],
+            Field(discriminator="type"),
+        ]
+    ]
+):
     "Union of :class:`QueryNode` subclasses"
-    __root__: Union[SelectNode, SetOperationNode, RecursiveCTENode] = Field(
-        discriminator="type"
-    )
 
 
 class StatementType(Enum):
@@ -1023,31 +1038,34 @@ class SuccessResponse(Base):
     statements: list[SelectStatement]
 
 
-class Root(Base):
+class Root(
+    RootModel[
+        Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="error")]
+    ]
+):
     "Union of possible responses"
-    __root__: Union[ErrorResponse, SuccessResponse] = Field(discriminator="error")
 
 
-CastExpression.update_forward_refs()
-ComparisonExpression.update_forward_refs()
-ListTypeInfo.update_forward_refs()
-StarExpression.update_forward_refs()
-ConjunctionExpression.update_forward_refs()
-TypeCatalogEntry.update_forward_refs()
-SubqueryExpression.update_forward_refs()
-OperatorExpression.update_forward_refs()
-CaseExpression.update_forward_refs()
-CaseCheck.update_forward_refs()
-SubqueryRef.update_forward_refs()
-CollateExpression.update_forward_refs()
-CommonTableExpressionInfo.update_forward_refs()
-BetweenExpression.update_forward_refs()
-SetOperationNode.update_forward_refs()
-SelectStatement.update_forward_refs()
-RecursiveCTENode.update_forward_refs()
-WindowExpression.update_forward_refs()
-JoinRef.update_forward_refs()
-StructTypeInfo.update_forward_refs()
-LogicalType.update_forward_refs()
-ParsedExpressionSubclasses.update_forward_refs()
-LambdaExpression.update_forward_refs()
+CastExpression.model_rebuild()
+ComparisonExpression.model_rebuild()
+ListTypeInfo.model_rebuild()
+StarExpression.model_rebuild()
+ConjunctionExpression.model_rebuild()
+TypeCatalogEntry.model_rebuild()
+SubqueryExpression.model_rebuild()
+OperatorExpression.model_rebuild()
+CaseExpression.model_rebuild()
+CaseCheck.model_rebuild()
+SubqueryRef.model_rebuild()
+CollateExpression.model_rebuild()
+CommonTableExpressionInfo.model_rebuild()
+BetweenExpression.model_rebuild()
+SetOperationNode.model_rebuild()
+SelectStatement.model_rebuild()
+RecursiveCTENode.model_rebuild()
+WindowExpression.model_rebuild()
+JoinRef.model_rebuild()
+StructTypeInfo.model_rebuild()
+LogicalType.model_rebuild()
+ParsedExpressionSubclasses.model_rebuild()
+LambdaExpression.model_rebuild()
