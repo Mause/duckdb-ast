@@ -2193,7 +2193,7 @@ snapshots['test_sql[SELECT $hello FROM tbl] 1'] = '''SelectNode(
     cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ParameterExpression(type='VALUE_PARAMETER', clazz='PARAMETER', alias='', parameter_nr=1)
+            root=ParameterExpression(type='VALUE_PARAMETER', clazz='PARAMETER', alias='', identifier='hello')
         )
     ],
     where_clause=None,
