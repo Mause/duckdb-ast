@@ -1145,9 +1145,9 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'const': 'PARAMETER',
                     'title': 'Class'
                 },
-                'parameter_nr': {
-                    'title': 'Parameter Nr',
-                    'type': 'integer'
+                'identifier': {
+                    'title': 'Identifier',
+                    'type': 'string'
                 },
                 'type': {
                     'const': 'VALUE_PARAMETER',
@@ -1158,7 +1158,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'type',
                 'class',
                 'alias',
-                'parameter_nr'
+                'identifier'
             ],
             'title': 'ParameterExpression',
             'type': 'object'

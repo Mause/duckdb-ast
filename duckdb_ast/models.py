@@ -612,7 +612,7 @@ class ParameterExpression(ParsedExpression):
 
     type: Literal["VALUE_PARAMETER"]
     clazz: Literal["PARAMETER"] = Field(alias="class")
-    parameter_nr: int
+    identifier: str
 
 
 class LambdaExpression(ParsedExpression):
