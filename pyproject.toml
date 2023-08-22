@@ -10,7 +10,7 @@ packages = [{include = "duckdb_ast"}]
 [tool.poetry.dependencies]
 python = "^3.8"
 duckdb = "^0.8.1"
-pydantic = "^2.1.1"
+pydantic = "^2.2.1"
 
 [tool.poetry.group.dev.dependencies]
 pdbpp = "^0.10.3"
