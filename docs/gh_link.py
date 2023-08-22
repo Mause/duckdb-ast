@@ -9,7 +9,7 @@ from docutils.utils import Reporter
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
-gh_ref = "88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1"
+gh_ref = "4c2de0a942a80879ace9a9bbc2b81f8acf1960b8"
 template = "https://github.com/duckdb/duckdb/blob/{}/{}".format
 
 T = TypeVar("T")
