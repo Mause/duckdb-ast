@@ -9,32 +9,36 @@ from docutils.utils import Reporter
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
-gh_ref = "88b1bfa74d2b79a51ffc4bab18ddeb6a034652f1"
+gh_ref = "4c2de0a942a80879ace9a9bbc2b81f8acf1960b8"
 template = "https://github.com/duckdb/duckdb/blob/{}/{}".format
 
 T = TypeVar("T")
 
 
-def cached(func: Callable[[str], T]) -> Callable[[str], T]:
+def cached(func: Callable[[str, str], T]) -> Callable[[str, str], T]:
     cache = shelve.open(str(Path(__file__).parent / "disk_cache.db"))
     atexit.register(cache.close)
 
-    def wrapper(key: str) -> T:
+    def wrapper(ref: str, key: str) -> T:
         if key not in cache:
-            cache[key] = func(key)
+            cache[key] = func(ref, key)
         return cache[key]
 
     return wrapper
 
 
 @cached
-def get_file(filename: str) -> list[str]:
+def _get_file(ref: str, filename: str) -> list[str]:
     return (
-        urlopen(f"https://raw.githubusercontent.com/duckdb/duckdb/{gh_ref}/{filename}")
+        urlopen(f"https://raw.githubusercontent.com/duckdb/duckdb/{ref}/{filename}")
         .read()
         .decode()
         .splitlines()
     )
+
+
+def get_file(filename: str) -> list[str]:
+    return _get_file(gh_ref, filename)
 
 
 BOUNDARY = "//==="

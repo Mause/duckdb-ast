@@ -285,7 +285,7 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
         },
         'CommonTableExpressionInfo': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/common_table_expression_info.hpp#L17',
+            'description': 'src/include/duckdb/parser/common_table_expression_info.hpp#L18',
             'properties': {
                 'aliases': {
                     'items': {
@@ -444,8 +444,7 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
         },
         'DecimalTypeInfo': {
             'additionalProperties': False,
-            'description': '''Decimal Type
-src/common/types.cpp#L868''',
+            'description': 'src/include/duckdb/common/extra_type_info.hpp#L66',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -486,7 +485,7 @@ src/common/types.cpp#L868''',
         },
         'DistinctModifier': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/result_modifier.hpp#L119',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L144',
             'properties': {
                 'distinct_on_targets': {
                     'items': {
@@ -509,8 +508,7 @@ src/common/types.cpp#L868''',
         },
         'EmptyTableRef': {
             'additionalProperties': False,
-            'description': '''Represents a cross product
-src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
+            'description': 'src/include/duckdb/parser/tableref/emptytableref.hpp#L15',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -787,7 +785,7 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
         },
         'LimitModifier': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/result_modifier.hpp#L137',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L98',
             'properties': {
                 'limit': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -810,7 +808,7 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
         },
         'LimitPercentModifier': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/result_modifier.hpp#L81',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L165',
             'properties': {
                 'limit': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -833,8 +831,7 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
         },
         'ListTypeInfo': {
             'additionalProperties': False,
-            'description': '''List Type
-src/common/types.cpp#L991''',
+            'description': 'src/include/duckdb/common/extra_type_info.hpp#L105',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -869,7 +866,7 @@ src/common/types.cpp#L991''',
         },
         'LogicalType': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/common/types.hpp#L298',
+            'description': 'src/include/duckdb/common/types.hpp#L238',
             'properties': {
                 'id': {
                     '$ref': '#/$defs/LogicalTypeId'
@@ -917,7 +914,7 @@ src/common/types.cpp#L991''',
         },
         'LogicalTypeId': {
             'description': '''SQL Types
-src/include/duckdb/common/types.hpp#L246''',
+src/include/duckdb/common/types.hpp#L186''',
             'enum': [
                 'INVALID',
                 'NULL',
@@ -968,7 +965,7 @@ src/include/duckdb/common/types.hpp#L246''',
         'OperatorExpression': {
             'additionalProperties': False,
             'description': '''Represents a built-in operator expression
-src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
+src/include/duckdb/parser/expression/operator_expression.hpp#L19''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1013,7 +1010,7 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L18''',
         'OrderByNode': {
             'additionalProperties': False,
             'description': '''Single node in ORDER BY statement
-src/include/duckdb/parser/result_modifier.hpp#L60''',
+src/include/duckdb/parser/result_modifier.hpp#L77''',
             'properties': {
                 'expression': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -1046,7 +1043,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
         },
         'OrderModifier': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/result_modifier.hpp#L101',
+            'description': 'src/include/duckdb/parser/result_modifier.hpp#L121',
             'properties': {
                 'orders': {
                     'items': {
@@ -1128,7 +1125,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
         },
         'ParameterExpression': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/expression/parameter_expression.hpp#L14',
+            'description': 'src/include/duckdb/parser/expression/parameter_expression.hpp#L30',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1403,7 +1400,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
         },
         'SampleOptions': {
             'additionalProperties': False,
-            'description': 'src/include/duckdb/parser/parsed_data/sample_options.hpp#L22',
+            'description': 'src/include/duckdb/parser/parsed_data/sample_options.hpp#L23',
             'properties': {
                 'is_percentage': {
                     'title': 'Is Percentage',
@@ -1681,8 +1678,7 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
         },
         'StructTypeInfo': {
             'additionalProperties': False,
-            'description': '''Struct Type
-src/common/types.cpp#L1040''',
+            'description': 'src/include/duckdb/common/extra_type_info.hpp#L124',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -1947,8 +1943,7 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
         },
         'UserTypeInfo': {
             'additionalProperties': False,
-            'description': '''User Type
-src/common/types.cpp#L1263''',
+            'description': 'src/include/duckdb/common/extra_type_info.hpp#L163',
             'properties': {
                 'alias': {
                     'title': 'Alias',

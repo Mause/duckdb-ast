@@ -113,7 +113,7 @@ class ParsedExpression(BaseExpression):
 
 class LogicalTypeId(Enum):
     """
-    .. gh_link:: src/include/duckdb/common/types.hpp#L246
+    .. gh_link:: src/include/duckdb/common/types.hpp#L186
     """
 
     INVALID = "INVALID"
@@ -184,7 +184,7 @@ class TypeCatalogEntry(StandardEntry):
 
 class ExtraTypeInfo(Base):
     """
-    .. gh_link:: src/common/types.cpp#L766
+    .. gh_link:: src/include/duckdb/common/extra_type_info.hpp#L31
     """
 
     type: str
@@ -194,7 +194,7 @@ class ExtraTypeInfo(Base):
 
 class ListTypeInfo(ExtraTypeInfo):
     """
-    .. gh_link:: src/common/types.cpp#L991
+    .. gh_link:: src/include/duckdb/common/extra_type_info.hpp#L105
     """
 
     type: Literal["LIST_TYPE_INFO"]
@@ -203,7 +203,7 @@ class ListTypeInfo(ExtraTypeInfo):
 
 class DecimalTypeInfo(ExtraTypeInfo):
     """
-    .. gh_link:: src/common/types.cpp#L868
+    .. gh_link:: src/include/duckdb/common/extra_type_info.hpp#L66
     """
 
     type: Literal["DECIMAL_TYPE_INFO"]
@@ -213,7 +213,7 @@ class DecimalTypeInfo(ExtraTypeInfo):
 
 class UserTypeInfo(ExtraTypeInfo):
     """
-    .. gh_link:: src/common/types.cpp#L1263
+    .. gh_link:: src/include/duckdb/common/extra_type_info.hpp#L163
     """
 
     type: Literal["USER_TYPE_INFO"]
@@ -222,7 +222,7 @@ class UserTypeInfo(ExtraTypeInfo):
 
 class LogicalType(Base):
     """
-    .. gh_link:: src/include/duckdb/common/types.hpp#L298
+    .. gh_link:: src/include/duckdb/common/types.hpp#L238
     """
 
     id: LogicalTypeId
@@ -238,7 +238,7 @@ class FirstSecond(BaseModel, Generic[K, V]):
 
 class StructTypeInfo(ExtraTypeInfo):
     """
-    .. gh_link:: src/common/types.cpp#L1040
+    .. gh_link:: src/include/duckdb/common/extra_type_info.hpp#L124
     """
 
     type: Literal["STRUCT_TYPE_INFO"]
@@ -458,7 +458,7 @@ class ExpressionType(Enum):
 
 class OperatorExpression(ParsedExpression):
     """
-    .. gh_link:: src/include/duckdb/parser/expression/operator_expression.hpp#L18
+    .. gh_link:: src/include/duckdb/parser/expression/operator_expression.hpp#L19
     """
 
     clazz: Literal["OPERATOR"] = Field(alias="class")
@@ -612,7 +612,7 @@ class PositionalReferenceExpression(ParsedExpression):
 
 class ParameterExpression(ParsedExpression):
     """
-    .. gh_link:: src/include/duckdb/parser/expression/parameter_expression.hpp#L14
+    .. gh_link:: src/include/duckdb/parser/expression/parameter_expression.hpp#L30
     """
 
     type: Literal["VALUE_PARAMETER"]
@@ -688,7 +688,7 @@ class SampleMethod(Enum):
 
 class SampleOptions(Base):
     """
-    .. gh_link:: src/include/duckdb/parser/parsed_data/sample_options.hpp#L22
+    .. gh_link:: src/include/duckdb/parser/parsed_data/sample_options.hpp#L23
     """
 
     sample_size: Value
@@ -778,7 +778,7 @@ class OrderByNullType(Enum):
 
 class OrderByNode(Base):
     """
-    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L60
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L77
     """
 
     type: OrderType
@@ -788,7 +788,7 @@ class OrderByNode(Base):
 
 class OrderModifier(Base):
     """
-    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L101
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L121
     """
 
     type: Literal["ORDER_MODIFIER"]
@@ -849,7 +849,7 @@ class ResultModifier(Base):
 
 class LimitModifier(ResultModifier):
     """
-    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L137
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L98
     """
 
     type: Literal["LIMIT_MODIFIER"]
@@ -860,7 +860,7 @@ class LimitModifier(ResultModifier):
 
 class DistinctModifier(ResultModifier):
     """
-    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L119
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L144
     """
 
     type: Literal["DISTINCT_MODIFIER"]
@@ -870,7 +870,7 @@ class DistinctModifier(ResultModifier):
 
 class LimitPercentModifier(ResultModifier):
     """
-    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L81
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L165
     """
 
     type: Literal["LIMIT_PERCENT_MODIFIER"]
@@ -892,7 +892,7 @@ class ResultModifierSubclasses(
 
 class CommonTableExpressionInfo(Base):
     """
-    .. gh_link:: src/include/duckdb/parser/common_table_expression_info.hpp#L17
+    .. gh_link:: src/include/duckdb/parser/common_table_expression_info.hpp#L18
     """
 
     aliases: list[str]
