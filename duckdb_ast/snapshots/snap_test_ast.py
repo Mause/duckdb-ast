@@ -284,7 +284,7 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
     type='SET_OPERATION_NODE',
     modifiers=[],
     cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
-    set_op_type='UNION',
+    setop_type='UNION',
     left=QueryNodeSubclasses(
         root=SelectNode(
             type='SELECT_NODE',
@@ -1413,7 +1413,8 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                     aliases=[]
                                 )
                             )
-                        )
+                        ),
+                        materialized='CTE_MATERIALIZE_DEFAULT'
                     )
                 )
             ]
@@ -1687,7 +1688,8 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                     aliases=['id', 'source', 'path']
                                 )
                             )
-                        )
+                        ),
+                        materialized='CTE_MATERIALIZE_DEFAULT'
                     )
                 )
             ]
@@ -1850,7 +1852,8 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                     )
                                 )
                             )
-                        )
+                        ),
+                        materialized='CTE_MATERIALIZE_DEFAULT'
                     )
                 )
             ]
@@ -2190,7 +2193,7 @@ snapshots['test_sql[SELECT $hello FROM tbl] 1'] = '''SelectNode(
     cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ParameterExpression(type='VALUE_PARAMETER', clazz='PARAMETER', alias='', parameter_nr=1)
+            root=ParameterExpression(type='VALUE_PARAMETER', clazz='PARAMETER', alias='', identifier='hello')
         )
     ],
     where_clause=None,
@@ -2576,22 +2579,20 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
                         type='STRUCT_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
-                        child_types=OrderedDict[str, LogicalType](
-                            root=[
-                                Pair[str, LogicalType](
-                                    key='',
-                                    value=LogicalType(id=<LogicalTypeId.TINYINT: 'TINYINT'>, type_info=None)
-                                ),
-                                Pair[str, LogicalType](
-                                    key='num',
-                                    value=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
-                                ),
-                                Pair[str, LogicalType](
-                                    key='str',
-                                    value=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None)
-                                )
-                            ]
-                        )
+                        child_types=[
+                            FirstSecond[str, LogicalType](
+                                first='',
+                                second=LogicalType(id=<LogicalTypeId.UTINYINT: 'UTINYINT'>, type_info=None)
+                            ),
+                            FirstSecond[str, LogicalType](
+                                first='num',
+                                second=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
+                            ),
+                            FirstSecond[str, LogicalType](
+                                first='str',
+                                second=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None)
+                            )
+                        ]
                     )
                 ),
                 try_cast=False
@@ -4149,14 +4150,12 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SelectNode(
                         type='STRUCT_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
-                        child_types=OrderedDict[str, LogicalType](
-                            root=[
-                                Pair[str, LogicalType](
-                                    key='a',
-                                    value=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
-                                )
-                            ]
-                        )
+                        child_types=[
+                            FirstSecond[str, LogicalType](
+                                first='a',
+                                second=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
+                            )
+                        ]
                     )
                 ),
                 try_cast=False

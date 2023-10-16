@@ -294,13 +294,23 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                     'title': 'Aliases',
                     'type': 'array'
                 },
+                'materialized': {
+                    'enum': [
+                        'CTE_MATERIALIZE_DEFAULT',
+                        'CTE_MATERIALIZE_ALWAYS',
+                        'CTE_MATERIALIZE_NEVER'
+                    ],
+                    'title': 'Materialized',
+                    'type': 'string'
+                },
                 'query': {
                     '$ref': '#/$defs/SelectStatement'
                 }
             },
             'required': [
                 'aliases',
-                'query'
+                'query',
+                'materialized'
             ],
             'title': 'CommonTableExpressionInfo',
             'type': 'object'
@@ -554,6 +564,23 @@ src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
             'title': 'ErrorResponse',
             'type': 'object'
         },
+        'FirstSecond_str_LogicalType_': {
+            'properties': {
+                'first': {
+                    'title': 'First',
+                    'type': 'string'
+                },
+                'second': {
+                    '$ref': '#/$defs/LogicalType'
+                }
+            },
+            'required': [
+                'first',
+                'second'
+            ],
+            'title': 'FirstSecond[str, LogicalType]',
+            'type': 'object'
+        },
         'FunctionExpression': {
             'additionalProperties': False,
             'description': '''Represents a function call
@@ -654,15 +681,34 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                     'default': None
                 },
                 'join_type': {
-                    'const': 'INNER',
-                    'title': 'Join Type'
+                    'enum': [
+                        'INVALID',
+                        'LEFT',
+                        'RIGHT',
+                        'INNER',
+                        'OUTER',
+                        'SEMI',
+                        'ANTI',
+                        'MARK',
+                        'SINGLE'
+                    ],
+                    'title': 'Join Type',
+                    'type': 'string'
                 },
                 'left': {
                     '$ref': '#/$defs/TableRefSubclasses'
                 },
                 'ref_type': {
-                    'const': 'CROSS',
-                    'title': 'Ref Type'
+                    'enum': [
+                        'CROSS',
+                        'ASOF',
+                        'NATURAL',
+                        'REGULAR',
+                        'DEPENDENT',
+                        'POSITIONAL'
+                    ],
+                    'title': 'Ref Type',
+                    'type': 'string'
                 },
                 'right': {
                     '$ref': '#/$defs/TableRefSubclasses'
@@ -1039,13 +1085,6 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'title': 'OrderedDict[str, CommonTableExpressionInfo]',
             'type': 'array'
         },
-        'OrderedDict_str_LogicalType_': {
-            'items': {
-                '$ref': '#/$defs/Pair_str_LogicalType_'
-            },
-            'title': 'OrderedDict[str, LogicalType]',
-            'type': 'array'
-        },
         'OrderedDict_str_ParsedExpressionSubclasses_': {
             'items': {
                 '$ref': '#/$defs/Pair_str_ParsedExpressionSubclasses_'
@@ -1068,23 +1107,6 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'value'
             ],
             'title': 'Pair[str, CommonTableExpressionInfo]',
-            'type': 'object'
-        },
-        'Pair_str_LogicalType_': {
-            'properties': {
-                'key': {
-                    'title': 'Key',
-                    'type': 'string'
-                },
-                'value': {
-                    '$ref': '#/$defs/LogicalType'
-                }
-            },
-            'required': [
-                'key',
-                'value'
-            ],
-            'title': 'Pair[str, LogicalType]',
             'type': 'object'
         },
         'Pair_str_ParsedExpressionSubclasses_': {
@@ -1116,9 +1138,9 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                     'const': 'PARAMETER',
                     'title': 'Class'
                 },
-                'parameter_nr': {
-                    'title': 'Parameter Nr',
-                    'type': 'integer'
+                'identifier': {
+                    'title': 'Identifier',
+                    'type': 'string'
                 },
                 'type': {
                     'const': 'VALUE_PARAMETER',
@@ -1129,7 +1151,7 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'type',
                 'class',
                 'alias',
-                'parameter_nr'
+                'identifier'
             ],
             'title': 'ParameterExpression',
             'type': 'object'
@@ -1571,7 +1593,7 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                 'right': {
                     '$ref': '#/$defs/QueryNodeSubclasses'
                 },
-                'set_op_type': {
+                'setop_type': {
                     'enum': [
                         'NONE',
                         'UNION',
@@ -1579,7 +1601,7 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                         'INTERSECT',
                         'UNION_BY_NAME'
                     ],
-                    'title': 'Set Op Type',
+                    'title': 'Setop Type',
                     'type': 'string'
                 },
                 'type': {
@@ -1591,7 +1613,7 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                 'type',
                 'modifiers',
                 'cte_map',
-                'set_op_type',
+                'setop_type',
                 'left',
                 'right'
             ],
@@ -1678,7 +1700,11 @@ src/common/types.cpp#L1040''',
                     'default': None
                 },
                 'child_types': {
-                    '$ref': '#/$defs/OrderedDict_str_LogicalType_'
+                    'items': {
+                        '$ref': '#/$defs/FirstSecond_str_LogicalType_'
+                    },
+                    'title': 'Child Types',
+                    'type': 'array'
                 },
                 'type': {
                     'const': 'STRUCT_TYPE_INFO',
