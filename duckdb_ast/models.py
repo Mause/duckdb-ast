@@ -231,13 +231,18 @@ class LogicalType(Base):
     ] = Field(discriminator="type")
 
 
+class FirstSecond(BaseModel, Generic[K, V]):
+    first: K
+    second: V
+
+
 class StructTypeInfo(ExtraTypeInfo):
     """
     .. gh_link:: src/common/types.cpp#L1040
     """
 
     type: Literal["STRUCT_TYPE_INFO"]
-    child_types: OrderedDict[str, LogicalType]
+    child_types: list[FirstSecond[str, LogicalType]]
 
 
 class Value(Base, Generic[T]):

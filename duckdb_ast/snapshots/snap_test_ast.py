@@ -2579,22 +2579,20 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
                         type='STRUCT_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
-                        child_types=OrderedDict[str, LogicalType](
-                            root=[
-                                Pair[str, LogicalType](
-                                    key='',
-                                    value=LogicalType(id=<LogicalTypeId.UTINYINT: 'UTINYINT'>, type_info=None)
-                                ),
-                                Pair[str, LogicalType](
-                                    key='num',
-                                    value=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
-                                ),
-                                Pair[str, LogicalType](
-                                    key='str',
-                                    value=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None)
-                                )
-                            ]
-                        )
+                        child_types=[
+                            FirstSecond[str, LogicalType](
+                                first='',
+                                second=LogicalType(id=<LogicalTypeId.UTINYINT: 'UTINYINT'>, type_info=None)
+                            ),
+                            FirstSecond[str, LogicalType](
+                                first='num',
+                                second=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
+                            ),
+                            FirstSecond[str, LogicalType](
+                                first='str',
+                                second=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None)
+                            )
+                        ]
                     )
                 ),
                 try_cast=False
@@ -4152,14 +4150,12 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SelectNode(
                         type='STRUCT_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
-                        child_types=OrderedDict[str, LogicalType](
-                            root=[
-                                Pair[str, LogicalType](
-                                    key='a',
-                                    value=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
-                                )
-                            ]
-                        )
+                        child_types=[
+                            FirstSecond[str, LogicalType](
+                                first='a',
+                                second=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
+                            )
+                        ]
                     )
                 ),
                 try_cast=False

@@ -564,6 +564,23 @@ src/include/duckdb/parser/tableref/emptytableref.hpp#L15''',
             'title': 'ErrorResponse',
             'type': 'object'
         },
+        'FirstSecond_str_LogicalType_': {
+            'properties': {
+                'first': {
+                    'title': 'First',
+                    'type': 'string'
+                },
+                'second': {
+                    '$ref': '#/$defs/LogicalType'
+                }
+            },
+            'required': [
+                'first',
+                'second'
+            ],
+            'title': 'FirstSecond[str, LogicalType]',
+            'type': 'object'
+        },
         'FunctionExpression': {
             'additionalProperties': False,
             'description': '''Represents a function call
@@ -1068,13 +1085,6 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
             'title': 'OrderedDict[str, CommonTableExpressionInfo]',
             'type': 'array'
         },
-        'OrderedDict_str_LogicalType_': {
-            'items': {
-                '$ref': '#/$defs/Pair_str_LogicalType_'
-            },
-            'title': 'OrderedDict[str, LogicalType]',
-            'type': 'array'
-        },
         'OrderedDict_str_ParsedExpressionSubclasses_': {
             'items': {
                 '$ref': '#/$defs/Pair_str_ParsedExpressionSubclasses_'
@@ -1097,23 +1107,6 @@ src/include/duckdb/parser/result_modifier.hpp#L60''',
                 'value'
             ],
             'title': 'Pair[str, CommonTableExpressionInfo]',
-            'type': 'object'
-        },
-        'Pair_str_LogicalType_': {
-            'properties': {
-                'key': {
-                    'title': 'Key',
-                    'type': 'string'
-                },
-                'value': {
-                    '$ref': '#/$defs/LogicalType'
-                }
-            },
-            'required': [
-                'key',
-                'value'
-            ],
-            'title': 'Pair[str, LogicalType]',
             'type': 'object'
         },
         'Pair_str_ParsedExpressionSubclasses_': {
@@ -1707,7 +1700,11 @@ src/common/types.cpp#L1040''',
                     'default': None
                 },
                 'child_types': {
-                    '$ref': '#/$defs/OrderedDict_str_LogicalType_'
+                    'items': {
+                        '$ref': '#/$defs/FirstSecond_str_LogicalType_'
+                    },
+                    'title': 'Child Types',
+                    'type': 'array'
                 },
                 'type': {
                     'const': 'STRUCT_TYPE_INFO',
