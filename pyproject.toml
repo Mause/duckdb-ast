@@ -19,7 +19,7 @@ pytest = "^7.4.2"
 snapshottest = {git = "https://github.com/syrusakbary/snapshottest"}
 pre-commit = "^3.5.0"
 sphinx = "^7.1.2"
-mypy = "^1.5.1"
+mypy = "^1.7.0"
 sphinx-autoapi = "^3.0.0"
 
 [build-system]
