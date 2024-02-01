@@ -874,29 +874,16 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 'type_info': {
                     'anyOf': [
                         {
-                            'discriminator': {
-                                'mapping': {
-                                    'DECIMAL_TYPE_INFO': '#/$defs/DecimalTypeInfo',
-                                    'LIST_TYPE_INFO': '#/$defs/ListTypeInfo',
-                                    'STRUCT_TYPE_INFO': '#/$defs/StructTypeInfo',
-                                    'USER_TYPE_INFO': '#/$defs/UserTypeInfo'
-                                },
-                                'propertyName': 'type'
-                            },
-                            'oneOf': [
-                                {
-                                    '$ref': '#/$defs/ListTypeInfo'
-                                },
-                                {
-                                    '$ref': '#/$defs/DecimalTypeInfo'
-                                },
-                                {
-                                    '$ref': '#/$defs/UserTypeInfo'
-                                },
-                                {
-                                    '$ref': '#/$defs/StructTypeInfo'
-                                }
-                            ]
+                            '$ref': '#/$defs/ListTypeInfo'
+                        },
+                        {
+                            '$ref': '#/$defs/DecimalTypeInfo'
+                        },
+                        {
+                            '$ref': '#/$defs/UserTypeInfo'
+                        },
+                        {
+                            '$ref': '#/$defs/StructTypeInfo'
                         },
                         {
                             'type': 'null'
@@ -1154,56 +1141,7 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
             'type': 'object'
         },
         'ParsedExpressionSubclasses': {
-            'description': 'Union of ParsedExpression subclasses',
-            'discriminator': {
-                'mapping': {
-                    'ARRAY_EXTRACT': '#/$defs/OperatorExpression',
-                    'ARRAY_SLICE': '#/$defs/OperatorExpression',
-                    'CASE_EXPR': '#/$defs/CaseExpression',
-                    'COLLATE': '#/$defs/CollateExpression',
-                    'COLUMN_REF': '#/$defs/ColumnRefExpression',
-                    'COMPARE_BETWEEN': '#/$defs/BetweenExpression',
-                    'COMPARE_DISTINCT_FROM': '#/$defs/ComparisonExpression',
-                    'COMPARE_EQUAL': '#/$defs/ComparisonExpression',
-                    'COMPARE_GREATERTHAN': '#/$defs/ComparisonExpression',
-                    'COMPARE_GREATERTHANOREQUALTO': '#/$defs/ComparisonExpression',
-                    'COMPARE_IN': '#/$defs/OperatorExpression',
-                    'COMPARE_LESSTHAN': '#/$defs/ComparisonExpression',
-                    'COMPARE_LESSTHANOREQUALTO': '#/$defs/ComparisonExpression',
-                    'COMPARE_NOTEQUAL': '#/$defs/ComparisonExpression',
-                    'COMPARE_NOT_DISTINCT_FROM': '#/$defs/ComparisonExpression',
-                    'COMPARE_NOT_IN': '#/$defs/OperatorExpression',
-                    'CONJUNCTION_AND': '#/$defs/ConjunctionExpression',
-                    'CONJUNCTION_OR': '#/$defs/ConjunctionExpression',
-                    'FUNCTION': '#/$defs/FunctionExpression',
-                    'LAMBDA': '#/$defs/LambdaExpression',
-                    'OPERATOR_CAST': '#/$defs/CastExpression',
-                    'OPERATOR_IN': '#/$defs/OperatorExpression',
-                    'OPERATOR_IS_NOT_NULL': '#/$defs/OperatorExpression',
-                    'OPERATOR_IS_NULL': '#/$defs/OperatorExpression',
-                    'OPERATOR_NOT': '#/$defs/OperatorExpression',
-                    'POSITIONAL_REFERENCE': '#/$defs/PositionalReferenceExpression',
-                    'STAR': '#/$defs/StarExpression',
-                    'STRUCT_EXTRACT': '#/$defs/OperatorExpression',
-                    'SUBQUERY': '#/$defs/SubqueryExpression',
-                    'VALUE_CONSTANT': '#/$defs/ConstantExpression',
-                    'VALUE_PARAMETER': '#/$defs/ParameterExpression',
-                    'WINDOW_AGGREGATE': '#/$defs/WindowExpression',
-                    'WINDOW_CUME_DIST': '#/$defs/WindowExpression',
-                    'WINDOW_FIRST_VALUE': '#/$defs/WindowExpression',
-                    'WINDOW_LAG': '#/$defs/WindowExpression',
-                    'WINDOW_LAST_VALUE': '#/$defs/WindowExpression',
-                    'WINDOW_LEAD': '#/$defs/WindowExpression',
-                    'WINDOW_NTH_VALUE': '#/$defs/WindowExpression',
-                    'WINDOW_NTILE': '#/$defs/WindowExpression',
-                    'WINDOW_PERCENT_RANK': '#/$defs/WindowExpression',
-                    'WINDOW_RANK': '#/$defs/WindowExpression',
-                    'WINDOW_RANK_DENSE': '#/$defs/WindowExpression',
-                    'WINDOW_ROW_NUMBER': '#/$defs/WindowExpression'
-                },
-                'propertyName': 'type'
-            },
-            'oneOf': [
+            'anyOf': [
                 {
                     '$ref': '#/$defs/FunctionExpression'
                 },
@@ -1253,6 +1191,7 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                     '$ref': '#/$defs/WindowExpression'
                 }
             ],
+            'description': 'Union of ParsedExpression subclasses',
             'title': 'ParsedExpressionSubclasses'
         },
         'PositionalReferenceExpression': {
@@ -1286,16 +1225,7 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
             'type': 'object'
         },
         'QueryNodeSubclasses': {
-            'description': 'Union of QueryNode subclasses',
-            'discriminator': {
-                'mapping': {
-                    'RECURSIVE_CTE_NODE': '#/$defs/RecursiveCTENode',
-                    'SELECT_NODE': '#/$defs/SelectNode',
-                    'SET_OPERATION_NODE': '#/$defs/SetOperationNode'
-                },
-                'propertyName': 'type'
-            },
-            'oneOf': [
+            'anyOf': [
                 {
                     '$ref': '#/$defs/SelectNode'
                 },
@@ -1306,6 +1236,7 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                     '$ref': '#/$defs/RecursiveCTENode'
                 }
             ],
+            'description': 'Union of QueryNode subclasses',
             'title': 'QueryNodeSubclasses'
         },
         'RecursiveCTENode': {
@@ -1362,17 +1293,7 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
             'type': 'object'
         },
         'ResultModifierSubclasses': {
-            'description': 'Union of ResultModifier subclasses',
-            'discriminator': {
-                'mapping': {
-                    'DISTINCT_MODIFIER': '#/$defs/DistinctModifier',
-                    'LIMIT_MODIFIER': '#/$defs/LimitModifier',
-                    'LIMIT_PERCENT_MODIFIER': '#/$defs/LimitPercentModifier',
-                    'ORDER_MODIFIER': '#/$defs/OrderModifier'
-                },
-                'propertyName': 'type'
-            },
-            'oneOf': [
+            'anyOf': [
                 {
                     '$ref': '#/$defs/LimitPercentModifier'
                 },
@@ -1386,6 +1307,7 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                     '$ref': '#/$defs/OrderModifier'
                 }
             ],
+            'description': 'Union of ResultModifier subclasses',
             'title': 'ResultModifierSubclasses'
         },
         'SampleMethod': {
@@ -1896,18 +1818,7 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
             'type': 'object'
         },
         'TableRefSubclasses': {
-            'description': 'Union of TableRef subclasses',
-            'discriminator': {
-                'mapping': {
-                    'BASE_TABLE': '#/$defs/BaseTableRef',
-                    'EMPTY': '#/$defs/EmptyTableRef',
-                    'JOIN': '#/$defs/JoinRef',
-                    'SUBQUERY': '#/$defs/SubqueryRef',
-                    'TABLE_FUNCTION': '#/$defs/TableFunctionRef'
-                },
-                'propertyName': 'type'
-            },
-            'oneOf': [
+            'anyOf': [
                 {
                     '$ref': '#/$defs/BaseTableRef'
                 },
@@ -1924,6 +1835,7 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
                     '$ref': '#/$defs/JoinRef'
                 }
             ],
+            'description': 'Union of TableRef subclasses',
             'title': 'TableRefSubclasses'
         },
         'TypeCatalogEntry': {
