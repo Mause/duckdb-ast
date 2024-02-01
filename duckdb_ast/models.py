@@ -746,7 +746,7 @@ class JoinRef(TableRef):
         "ANTI",  # ANTI join returns left side row ONLY if it has NO join partner, no duplicates
         "MARK",  # MARK join returns marker indicating whether or not there is a join partner (true), there is no join
         # partner (false)
-        "SINGLE"  # SINGLE join is like LEFT OUTER JOIN, BUT returns at most one join partner per entry on the LEFT side
+        "SINGLE",  # SINGLE join is like LEFT OUTER JOIN, BUT returns at most one join partner per entry on the LEFT side
         # (and NULL if no partner is found)
     ]
     ref_type: Literal["CROSS", "ASOF", "NATURAL", "REGULAR", "DEPENDENT", "POSITIONAL"]
