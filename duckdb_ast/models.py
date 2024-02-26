@@ -84,6 +84,7 @@ class Base(BaseModel):
     """
 
     model_config = ConfigDict(extra="forbid")
+    query_location: Optional[int] = None
 
 
 class Pair(BaseModel, Generic[K, V]):
@@ -218,6 +219,8 @@ class UserTypeInfo(ExtraTypeInfo):
 
     type: Literal["USER_TYPE_INFO"]
     user_type_name: str
+    schema_name: str = Field(alias="schema")
+    catalog: str
 
 
 class LogicalType(Base):
@@ -492,6 +495,17 @@ class WindowBoundary(Enum):
     EXPR_FOLLOWING_RANGE = "EXPR_FOLLOWING_RANGE"
 
 
+class WindowExcludeMode(Enum):
+    """
+    .. gh_link:: src/include/duckdb/parser/expression/window_expression.hpp#L29
+    """
+
+    NO_OTHER = "NO_OTHER"
+    CURRENT_ROW = "CURRENT_ROW"
+    GROUP = "GROUP"
+    TIES = "TIES"
+
+
 class WindowExpression(ParsedExpression):
     """
     .. gh_link:: src/include/duckdb/parser/expression/window_expression.hpp#L32
@@ -538,6 +552,9 @@ class WindowExpression(ParsedExpression):
     # Offset and default expressions for WINDOW_LEAD and WINDOW_LAG functions
     offset_expr: Optional["ParsedExpressionSubclasses"] = None
     default_expr: Optional["ParsedExpressionSubclasses"] = None
+
+    exclude_clause: WindowExcludeMode = WindowExcludeMode.NO_OTHER
+    distinct: bool
 
 
 class SubqueryExpression(ParsedExpression):
@@ -980,6 +997,7 @@ class SetOperationNode(QueryNode):
 
     left: "QueryNodeSubclasses"
     right: "QueryNodeSubclasses"
+    setop_all: bool = True
 
 
 class RecursiveCTENode(QueryNode):
@@ -996,10 +1014,23 @@ class RecursiveCTENode(QueryNode):
     aliases: list[str]
 
 
+class CTENode(QueryNode):
+    """
+    .. gh_link:: src/include/duckdb/parser/query_node/cte_node.hpp#L17
+    """
+
+    type: Literal["CTE_NODE"]
+
+    cte_name: str
+    query: "QueryNodeSubclasses"
+    child: "QueryNodeSubclasses"
+    aliases: list[str]
+
+
 class QueryNodeSubclasses(
     RootModel[
         Annotated[
-            Union[SelectNode, SetOperationNode, RecursiveCTENode],
+            Union[SelectNode, SetOperationNode, CTENode, RecursiveCTENode],
             Field(discriminator="type"),
         ]
     ]

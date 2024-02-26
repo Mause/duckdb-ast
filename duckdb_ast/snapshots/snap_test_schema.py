@@ -47,6 +47,18 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                     'default': None,
                     'title': 'Column Name Alias'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'sample': {
                     'anyOf': [
                         {
@@ -99,6 +111,18 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                 'lower': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'COMPARE_BETWEEN',
                     'title': 'Type'
@@ -118,10 +142,82 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
             'title': 'BetweenExpression',
             'type': 'object'
         },
+        'CTENode': {
+            'additionalProperties': False,
+            'description': 'src/include/duckdb/parser/query_node/cte_node.hpp#L17',
+            'properties': {
+                'aliases': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Aliases',
+                    'type': 'array'
+                },
+                'child': {
+                    '$ref': '#/$defs/QueryNodeSubclasses'
+                },
+                'cte_map': {
+                    '$ref': '#/$defs/CommonTableExpressionMap'
+                },
+                'cte_name': {
+                    'title': 'Cte Name',
+                    'type': 'string'
+                },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/$defs/ResultModifierSubclasses'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
+                'query': {
+                    '$ref': '#/$defs/QueryNodeSubclasses'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
+                'type': {
+                    'const': 'CTE_NODE',
+                    'title': 'Type'
+                }
+            },
+            'required': [
+                'type',
+                'modifiers',
+                'cte_map',
+                'cte_name',
+                'query',
+                'child',
+                'aliases'
+            ],
+            'title': 'CTENode',
+            'type': 'object'
+        },
         'CaseCheck': {
             'additionalProperties': False,
             'description': 'src/include/duckdb/parser/expression/case_expression.hpp#L16',
             'properties': {
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'then_expr': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
@@ -159,6 +255,18 @@ src/include/duckdb/parser/expression/case_expression.hpp#L25''',
                 'else_expr': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'CASE_EXPR',
                     'title': 'Type'
@@ -192,6 +300,18 @@ src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
                 'class': {
                     'const': 'CAST',
                     'title': 'Class'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'try_cast': {
                     'title': 'Try Cast',
@@ -233,6 +353,18 @@ src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
                     'title': 'Collation',
                     'type': 'string'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'COLLATE',
                     'title': 'Type'
@@ -268,6 +400,18 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                     },
                     'title': 'Column Names',
                     'type': 'array'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'type': {
                     'const': 'COLUMN_REF',
@@ -305,6 +449,18 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                 },
                 'query': {
                     '$ref': '#/$defs/SelectStatement'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 }
             },
             'required': [
@@ -321,6 +477,18 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
             'properties': {
                 'map': {
                     '$ref': '#/$defs/OrderedDict_str_CommonTableExpressionInfo_'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 }
             },
             'required': [
@@ -345,6 +513,18 @@ src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
                 },
                 'left': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'right': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -394,6 +574,18 @@ src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
                     'const': 'CONJUNCTION',
                     'title': 'Class'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'enum': [
                         'CONJUNCTION_AND',
@@ -424,6 +616,18 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 'class': {
                     'const': 'CONSTANT',
                     'title': 'Class'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'type': {
                     'const': 'VALUE_CONSTANT',
@@ -461,6 +665,18 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                     ],
                     'default': None
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'scale': {
                     'title': 'Scale',
                     'type': 'integer'
@@ -494,6 +710,18 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                     'title': 'Distinct On Targets',
                     'type': 'array'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'DISTINCT_MODIFIER',
                     'title': 'Type'
@@ -513,6 +741,18 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 'alias': {
                     'title': 'Alias',
                     'type': 'string'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'sample': {
                     'anyOf': [
@@ -552,6 +792,18 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 'error_type': {
                     'title': 'Error Type',
                     'type': 'string'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 }
             },
             'required': [
@@ -633,6 +885,18 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
                 'order_bys': {
                     '$ref': '#/$defs/OrderModifier'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'schema': {
                     'title': 'Schema',
                     'type': 'string'
@@ -695,6 +959,18 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                 },
                 'left': {
                     '$ref': '#/$defs/TableRefSubclasses'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'ref_type': {
                     'enum': [
@@ -768,6 +1044,18 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 'lhs': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'LAMBDA',
                     'title': 'Type'
@@ -793,6 +1081,18 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 'offset': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'LIMIT_MODIFIER',
                     'title': 'Type'
@@ -815,6 +1115,18 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 },
                 'offset': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'type': {
                     'const': 'LIMIT_PERCENT_MODIFIER',
@@ -851,6 +1163,18 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 'child_type': {
                     '$ref': '#/$defs/LogicalType'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'LIST_TYPE_INFO',
                     'title': 'Type'
@@ -870,6 +1194,18 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
             'properties': {
                 'id': {
                     '$ref': '#/$defs/LogicalTypeId'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'type_info': {
                     'anyOf': [
@@ -969,6 +1305,18 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L19''',
                     'const': 'OPERATOR',
                     'title': 'Class'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'enum': [
                         'OPERATOR_IS_NULL',
@@ -1005,6 +1353,18 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 'null_order': {
                     '$ref': '#/$defs/OrderByNullType'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     '$ref': '#/$defs/OrderType'
                 }
@@ -1038,6 +1398,18 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                     },
                     'title': 'Orders',
                     'type': 'array'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'type': {
                     'const': 'ORDER_MODIFIER',
@@ -1126,6 +1498,18 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                     'title': 'Identifier',
                     'type': 'string'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'VALUE_PARAMETER',
                     'title': 'Type'
@@ -1210,6 +1594,18 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                     'title': 'Index',
                     'type': 'integer'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'POSITIONAL_REFERENCE',
                     'title': 'Type'
@@ -1231,6 +1627,9 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 {
                     '$ref': '#/$defs/SetOperationNode'
+                },
+                {
+                    '$ref': '#/$defs/CTENode'
                 },
                 {
                     '$ref': '#/$defs/RecursiveCTENode'
@@ -1266,6 +1665,18 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                     },
                     'title': 'Modifiers',
                     'type': 'array'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'right': {
                     '$ref': '#/$defs/QueryNodeSubclasses'
@@ -1330,6 +1741,18 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 'method': {
                     '$ref': '#/$defs/SampleMethod'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'sample_size': {
                     '$ref': '#/$defs/Value'
@@ -1433,6 +1856,18 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
                     ],
                     'default': None
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'sample': {
                     'anyOf': [
                         {
@@ -1484,6 +1919,18 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
             'properties': {
                 'node': {
                     '$ref': '#/$defs/QueryNodeSubclasses'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 }
             },
             'required': [
@@ -1509,8 +1956,25 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                     'title': 'Modifiers',
                     'type': 'array'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'right': {
                     '$ref': '#/$defs/QueryNodeSubclasses'
+                },
+                'setop_all': {
+                    'default': True,
+                    'title': 'Setop All',
+                    'type': 'boolean'
                 },
                 'setop_type': {
                     'enum': [
@@ -1574,6 +2038,18 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                     ],
                     'default': None
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'relation_name': {
                     'title': 'Relation Name',
                     'type': 'string'
@@ -1624,6 +2100,18 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                     'title': 'Child Types',
                     'type': 'array'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'type': {
                     'const': 'STRUCT_TYPE_INFO',
                     'title': 'Type'
@@ -1668,6 +2156,18 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                     ],
                     'title': 'Comparison Type',
                     'type': 'string'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'subquery': {
                     '$ref': '#/$defs/SelectStatement'
@@ -1715,6 +2215,18 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                     'title': 'Column Name Alias',
                     'type': 'array'
                 },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'sample': {
                     'anyOf': [
                         {
@@ -1750,6 +2262,18 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                 'error': {
                     'const': False,
                     'title': 'Error'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'statements': {
                     'items': {
@@ -1792,6 +2316,18 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
                 },
                 'function': {
                     '$ref': '#/$defs/FunctionExpression'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'sample': {
                     'anyOf': [
@@ -1843,6 +2379,18 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
             'description': '''A type catalog entry
 src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
             'properties': {
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
                 'user_type': {
                     '$ref': '#/$defs/LogicalType'
                 }
@@ -1861,6 +2409,10 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
                     'title': 'Alias',
                     'type': 'string'
                 },
+                'catalog': {
+                    'title': 'Catalog',
+                    'type': 'string'
+                },
                 'catalog_entry': {
                     'anyOf': [
                         {
@@ -1871,6 +2423,22 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
                         }
                     ],
                     'default': None
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
+                'schema': {
+                    'title': 'Schema',
+                    'type': 'string'
                 },
                 'type': {
                     'const': 'USER_TYPE_INFO',
@@ -1884,7 +2452,9 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
             'required': [
                 'type',
                 'alias',
-                'user_type_name'
+                'user_type_name',
+                'schema',
+                'catalog'
             ],
             'title': 'UserTypeInfo',
             'type': 'object'
@@ -1898,6 +2468,18 @@ src/include/duckdb/common/types/value.hpp#L30''',
                 'is_null': {
                     'title': 'Is Null',
                     'type': 'boolean'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'type': {
                     '$ref': '#/$defs/LogicalType'
@@ -1937,6 +2519,17 @@ src/include/duckdb/common/types/value.hpp#L30''',
             'title': 'WindowBoundary',
             'type': 'string'
         },
+        'WindowExcludeMode': {
+            'description': 'src/include/duckdb/parser/expression/window_expression.hpp#L29',
+            'enum': [
+                'NO_OTHER',
+                'CURRENT_ROW',
+                'GROUP',
+                'TIES'
+            ],
+            'title': 'WindowExcludeMode',
+            'type': 'string'
+        },
         'WindowExpression': {
             'additionalProperties': False,
             'description': '''The WindowExpression represents a window function in the query. They are a special case of aggregates which is why
@@ -1973,6 +2566,10 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                     ],
                     'default': None
                 },
+                'distinct': {
+                    'title': 'Distinct',
+                    'type': 'boolean'
+                },
                 'end': {
                     'allOf': [
                         {
@@ -1991,6 +2588,14 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                         }
                     ],
                     'default': None
+                },
+                'exclude_clause': {
+                    'allOf': [
+                        {
+                            '$ref': '#/$defs/WindowExcludeMode'
+                        }
+                    ],
+                    'default': 'NO_OTHER'
                 },
                 'filter_expr': {
                     'anyOf': [
@@ -2035,6 +2640,18 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                     },
                     'title': 'Partitions',
                     'type': 'array'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
                 },
                 'schema': {
                     'title': 'Schema',
@@ -2088,7 +2705,8 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                 'children',
                 'partitions',
                 'orders',
-                'ignore_nulls'
+                'ignore_nulls',
+                'distinct'
             ],
             'title': 'WindowExpression',
             'type': 'object'
