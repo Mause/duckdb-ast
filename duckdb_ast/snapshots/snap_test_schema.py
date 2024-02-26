@@ -142,6 +142,66 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
             'title': 'BetweenExpression',
             'type': 'object'
         },
+        'CTENode': {
+            'additionalProperties': False,
+            'description': 'src/include/duckdb/parser/query_node/cte_node.hpp#L17',
+            'properties': {
+                'aliases': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Aliases',
+                    'type': 'array'
+                },
+                'child': {
+                    '$ref': '#/$defs/QueryNodeSubclasses'
+                },
+                'cte_map': {
+                    '$ref': '#/$defs/CommonTableExpressionMap'
+                },
+                'cte_name': {
+                    'title': 'Cte Name',
+                    'type': 'string'
+                },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/$defs/ResultModifierSubclasses'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
+                'query': {
+                    '$ref': '#/$defs/QueryNodeSubclasses'
+                },
+                'query_location': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Query Location'
+                },
+                'type': {
+                    'const': 'CTE_NODE',
+                    'title': 'Type'
+                }
+            },
+            'required': [
+                'type',
+                'modifiers',
+                'cte_map',
+                'cte_name',
+                'query',
+                'child',
+                'aliases'
+            ],
+            'title': 'CTENode',
+            'type': 'object'
+        },
         'CaseCheck': {
             'additionalProperties': False,
             'description': 'src/include/duckdb/parser/expression/case_expression.hpp#L16',
@@ -1567,6 +1627,9 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 {
                     '$ref': '#/$defs/SetOperationNode'
+                },
+                {
+                    '$ref': '#/$defs/CTENode'
                 },
                 {
                     '$ref': '#/$defs/RecursiveCTENode'

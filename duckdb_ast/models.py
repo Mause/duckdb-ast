@@ -1014,10 +1014,23 @@ class RecursiveCTENode(QueryNode):
     aliases: list[str]
 
 
+class CTENode(QueryNode):
+    """
+    .. gh_link:: src/include/duckdb/parser/query_node/cte_node.hpp#L17
+    """
+
+    type: Literal["CTE_NODE"]
+
+    cte_name: str
+    query: "QueryNodeSubclasses"
+    child: "QueryNodeSubclasses"
+    aliases: list[str]
+
+
 class QueryNodeSubclasses(
     RootModel[
         Annotated[
-            Union[SelectNode, SetOperationNode, RecursiveCTENode],
+            Union[SelectNode, SetOperationNode, CTENode, RecursiveCTENode],
             Field(discriminator="type"),
         ]
     ]
