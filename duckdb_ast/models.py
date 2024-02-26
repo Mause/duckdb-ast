@@ -219,6 +219,8 @@ class UserTypeInfo(ExtraTypeInfo):
 
     type: Literal["USER_TYPE_INFO"]
     user_type_name: str
+    schema_name: str = Field(alias="schema")
+    catalog: str
 
 
 class LogicalType(Base):

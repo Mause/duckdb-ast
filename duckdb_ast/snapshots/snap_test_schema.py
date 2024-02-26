@@ -2341,6 +2341,10 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
                     'title': 'Alias',
                     'type': 'string'
                 },
+                'catalog': {
+                    'title': 'Catalog',
+                    'type': 'string'
+                },
                 'catalog_entry': {
                     'anyOf': [
                         {
@@ -2364,6 +2368,10 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
                     'default': None,
                     'title': 'Query Location'
                 },
+                'schema': {
+                    'title': 'Schema',
+                    'type': 'string'
+                },
                 'type': {
                     'const': 'USER_TYPE_INFO',
                     'title': 'Type'
@@ -2376,7 +2384,9 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
             'required': [
                 'type',
                 'alias',
-                'user_type_name'
+                'user_type_name',
+                'schema',
+                'catalog'
             ],
             'title': 'UserTypeInfo',
             'type': 'object'
