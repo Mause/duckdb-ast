@@ -495,6 +495,17 @@ class WindowBoundary(Enum):
     EXPR_FOLLOWING_RANGE = "EXPR_FOLLOWING_RANGE"
 
 
+class WindowExcludeMode(Enum):
+    """
+    .. gh_link:: src/include/duckdb/parser/expression/window_expression.hpp#L29
+    """
+
+    NO_OTHER = "NO_OTHER"
+    CURRENT_ROW = "CURRENT_ROW"
+    GROUP = "GROUP"
+    TIES = "TIES"
+
+
 class WindowExpression(ParsedExpression):
     """
     .. gh_link:: src/include/duckdb/parser/expression/window_expression.hpp#L32
@@ -541,6 +552,9 @@ class WindowExpression(ParsedExpression):
     # Offset and default expressions for WINDOW_LEAD and WINDOW_LAG functions
     offset_expr: Optional["ParsedExpressionSubclasses"] = None
     default_expr: Optional["ParsedExpressionSubclasses"] = None
+
+    exclude_clause: WindowExcludeMode = WindowExcludeMode.NO_OTHER
+    distinct: bool
 
 
 class SubqueryExpression(ParsedExpression):

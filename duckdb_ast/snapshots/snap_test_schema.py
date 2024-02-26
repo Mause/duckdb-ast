@@ -2456,6 +2456,17 @@ src/include/duckdb/common/types/value.hpp#L30''',
             'title': 'WindowBoundary',
             'type': 'string'
         },
+        'WindowExcludeMode': {
+            'description': 'src/include/duckdb/parser/expression/window_expression.hpp#L29',
+            'enum': [
+                'NO_OTHER',
+                'CURRENT_ROW',
+                'GROUP',
+                'TIES'
+            ],
+            'title': 'WindowExcludeMode',
+            'type': 'string'
+        },
         'WindowExpression': {
             'additionalProperties': False,
             'description': '''The WindowExpression represents a window function in the query. They are a special case of aggregates which is why
@@ -2492,6 +2503,10 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                     ],
                     'default': None
                 },
+                'distinct': {
+                    'title': 'Distinct',
+                    'type': 'boolean'
+                },
                 'end': {
                     'allOf': [
                         {
@@ -2510,6 +2525,14 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                         }
                     ],
                     'default': None
+                },
+                'exclude_clause': {
+                    'allOf': [
+                        {
+                            '$ref': '#/$defs/WindowExcludeMode'
+                        }
+                    ],
+                    'default': 'NO_OTHER'
                 },
                 'filter_expr': {
                     'anyOf': [
@@ -2619,7 +2642,8 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                 'children',
                 'partitions',
                 'orders',
-                'ignore_nulls'
+                'ignore_nulls',
+                'distinct'
             ],
             'title': 'WindowExpression',
             'type': 'object'
