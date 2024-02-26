@@ -84,6 +84,7 @@ class Base(BaseModel):
     """
 
     model_config = ConfigDict(extra="forbid")
+    query_location: Optional[int] = None
 
 
 class Pair(BaseModel, Generic[K, V]):
