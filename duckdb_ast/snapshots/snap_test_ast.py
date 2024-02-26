@@ -8,12 +8,14 @@ from snapshottest import Snapshot
 snapshots = Snapshot()
 
 snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(chr(0), chr(10)) AS whatever) FROM test_all_types() ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=8,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -24,6 +26,7 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                             key='whatever',
                             value=ParsedExpressionSubclasses(
                                 root=FunctionExpression(
+                                    query_location=42,
                                     type='FUNCTION',
                                     clazz='FUNCTION',
                                     alias='',
@@ -34,6 +37,7 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                                     children=[
                                         ParsedExpressionSubclasses(
                                             root=FunctionExpression(
+                                                query_location=58,
                                                 type='FUNCTION',
                                                 clazz='FUNCTION',
                                                 alias='',
@@ -44,11 +48,14 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                                                 children=[
                                                     ParsedExpressionSubclasses(
                                                         root=ConstantExpression(
+                                                            query_location=62,
                                                             type='VALUE_CONSTANT',
                                                             clazz='CONSTANT',
                                                             alias='',
                                                             value=Value(
+                                                                query_location=None,
                                                                 type=LogicalType(
+                                                                    query_location=None,
                                                                     id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                                     type_info=None
                                                                 ),
@@ -59,13 +66,18 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                                                     )
                                                 ],
                                                 distinct=False,
-                                                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                order_bys=OrderModifier(
+                                                    query_location=None,
+                                                    type='ORDER_MODIFIER',
+                                                    orders=[]
+                                                ),
                                                 export_state=False,
                                                 filter=None
                                             )
                                         ),
                                         ParsedExpressionSubclasses(
                                             root=FunctionExpression(
+                                                query_location=66,
                                                 type='FUNCTION',
                                                 clazz='FUNCTION',
                                                 alias='',
@@ -76,11 +88,14 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                                                 children=[
                                                     ParsedExpressionSubclasses(
                                                         root=ConstantExpression(
+                                                            query_location=70,
                                                             type='VALUE_CONSTANT',
                                                             clazz='CONSTANT',
                                                             alias='',
                                                             value=Value(
+                                                                query_location=None,
                                                                 type=LogicalType(
+                                                                    query_location=None,
                                                                     id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                                     type_info=None
                                                                 ),
@@ -91,14 +106,18 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                                                     )
                                                 ],
                                                 distinct=False,
-                                                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                order_bys=OrderModifier(
+                                                    query_location=None,
+                                                    type='ORDER_MODIFIER',
+                                                    orders=[]
+                                                ),
                                                 export_state=False,
                                                 filter=None
                                             )
                                         )
                                     ],
                                     distinct=False,
-                                    order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                    order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                                     export_state=False,
                                     filter=None
                                 )
@@ -121,10 +140,12 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=TableFunctionRef(
+            query_location=93,
             alias='',
             sample=None,
             type='TABLE_FUNCTION',
             function=FunctionExpression(
+                query_location=93,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -134,7 +155,7 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                 is_operator=False,
                 children=[],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             ),
@@ -145,12 +166,14 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
 '''
 
 snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN(grade) FROM grades WHERE grades.course=grades_parent.course); ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=16,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -164,30 +187,42 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
     ],
     where_clause=ParsedExpressionSubclasses(
         root=ComparisonExpression(
+            query_location=71,
             type='COMPARE_EQUAL',
             clazz='COMPARISON',
             alias='',
             left=ParsedExpressionSubclasses(
-                root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['grade'])
+                root=ColumnRefExpression(
+                    query_location=66,
+                    type='COLUMN_REF',
+                    clazz='COLUMN_REF',
+                    alias='',
+                    column_names=['grade']
+                )
             ),
             right=ParsedExpressionSubclasses(
                 root=SubqueryExpression(
+                    query_location=85,
                     type='SUBQUERY',
                     clazz='SUBQUERY',
                     alias='',
                     child=None,
                     comparison_type='INVALID',
                     subquery=SelectStatement(
+                        query_location=None,
                         node=QueryNodeSubclasses(
                             root=SelectNode(
+                                query_location=None,
                                 type='SELECT_NODE',
                                 modifiers=[],
                                 cte_map=CommonTableExpressionMap(
+                                    query_location=None,
                                     map=OrderedDict[str, CommonTableExpressionInfo](root=[])
                                 ),
                                 select_list=[
                                     ParsedExpressionSubclasses(
                                         root=FunctionExpression(
+                                            query_location=93,
                                             type='FUNCTION',
                                             clazz='FUNCTION',
                                             alias='',
@@ -198,6 +233,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                                             children=[
                                                 ParsedExpressionSubclasses(
                                                     root=ColumnRefExpression(
+                                                        query_location=97,
                                                         type='COLUMN_REF',
                                                         clazz='COLUMN_REF',
                                                         alias='',
@@ -206,7 +242,11 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                                                 )
                                             ],
                                             distinct=False,
-                                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                            order_bys=OrderModifier(
+                                                query_location=None,
+                                                type='ORDER_MODIFIER',
+                                                orders=[]
+                                            ),
                                             export_state=False,
                                             filter=None
                                         )
@@ -214,11 +254,13 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                                 ],
                                 where_clause=ParsedExpressionSubclasses(
                                     root=ComparisonExpression(
+                                        query_location=161,
                                         type='COMPARE_EQUAL',
                                         clazz='COMPARISON',
                                         alias='',
                                         left=ParsedExpressionSubclasses(
                                             root=ColumnRefExpression(
+                                                query_location=148,
                                                 type='COLUMN_REF',
                                                 clazz='COLUMN_REF',
                                                 alias='',
@@ -227,6 +269,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                                         ),
                                         right=ParsedExpressionSubclasses(
                                             root=ColumnRefExpression(
+                                                query_location=162,
                                                 type='COLUMN_REF',
                                                 clazz='COLUMN_REF',
                                                 alias='',
@@ -243,6 +286,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                                 aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                                 from_table=TableRefSubclasses(
                                     root=BaseTableRef(
+                                        query_location=122,
                                         alias='',
                                         sample=None,
                                         type='BASE_TABLE',
@@ -268,6 +312,7 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=31,
             alias='grades_parent',
             sample=None,
             type='BASE_TABLE',
@@ -281,18 +326,24 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
 '''
 
 snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5) t2; ] 1'] = '''SetOperationNode(
+    query_location=None,
     type='SET_OPERATION_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     setop_type='UNION',
     left=QueryNodeSubclasses(
         root=SelectNode(
+            query_location=None,
             type='SELECT_NODE',
             modifiers=[],
-            cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+            cte_map=CommonTableExpressionMap(
+                query_location=None,
+                map=OrderedDict[str, CommonTableExpressionInfo](root=[])
+            ),
             select_list=[
                 ParsedExpressionSubclasses(
                     root=StarExpression(
+                        query_location=16,
                         type='STAR',
                         clazz='STAR',
                         alias='',
@@ -313,10 +364,12 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
             aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
             from_table=TableRefSubclasses(
                 root=TableFunctionRef(
+                    query_location=23,
                     alias='t1',
                     sample=None,
                     type='TABLE_FUNCTION',
                     function=FunctionExpression(
+                        query_location=23,
                         type='FUNCTION',
                         clazz='FUNCTION',
                         alias='',
@@ -327,11 +380,17 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                         children=[
                             ParsedExpressionSubclasses(
                                 root=ConstantExpression(
+                                    query_location=29,
                                     type='VALUE_CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
-                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        query_location=None,
+                                        type=LogicalType(
+                                            query_location=None,
+                                            id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                            type_info=None
+                                        ),
                                         value=10,
                                         is_null=False
                                     )
@@ -339,7 +398,7 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                             )
                         ],
                         distinct=False,
-                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                        order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                         export_state=False,
                         filter=None
                     ),
@@ -350,12 +409,17 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
     ),
     right=QueryNodeSubclasses(
         root=SelectNode(
+            query_location=None,
             type='SELECT_NODE',
             modifiers=[],
-            cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+            cte_map=CommonTableExpressionMap(
+                query_location=None,
+                map=OrderedDict[str, CommonTableExpressionInfo](root=[])
+            ),
             select_list=[
                 ParsedExpressionSubclasses(
                     root=StarExpression(
+                        query_location=53,
                         type='STAR',
                         clazz='STAR',
                         alias='',
@@ -376,10 +440,12 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
             aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
             from_table=TableRefSubclasses(
                 root=TableFunctionRef(
+                    query_location=60,
                     alias='t2',
                     sample=None,
                     type='TABLE_FUNCTION',
                     function=FunctionExpression(
+                        query_location=60,
                         type='FUNCTION',
                         clazz='FUNCTION',
                         alias='',
@@ -390,11 +456,17 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                         children=[
                             ParsedExpressionSubclasses(
                                 root=ConstantExpression(
+                                    query_location=66,
                                     type='VALUE_CONSTANT',
                                     clazz='CONSTANT',
                                     alias='',
                                     value=Value(
-                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                        query_location=None,
+                                        type=LogicalType(
+                                            query_location=None,
+                                            id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                            type_info=None
+                                        ),
                                         value=5,
                                         is_null=False
                                     )
@@ -402,7 +474,7 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                             )
                         ],
                         distinct=False,
-                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                        order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                         export_state=False,
                         filter=None
                     ),
@@ -410,27 +482,37 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                 )
             )
         )
-    )
+    ),
+    setop_all=True
 )
 '''
 
 snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDER BY Date ASC RANGE BETWEEN INTERVAL 3 DAYS PRECEDING AND INTERVAL 3 DAYS FOLLOWING) AS \'MWh 7-day Moving Average\' FROM \'Generation History\' ORDER BY 1, 2 ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[
         ResultModifierSubclasses(
             root=OrderModifier(
+                query_location=None,
                 type='ORDER_MODIFIER',
                 orders=[
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ConstantExpression(
+                                query_location=272,
                                 type='VALUE_CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
-                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    query_location=None,
+                                    type=LogicalType(
+                                        query_location=None,
+                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                        type_info=None
+                                    ),
                                     value=1,
                                     is_null=False
                                 )
@@ -438,15 +520,22 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                         )
                     ),
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ConstantExpression(
+                                query_location=275,
                                 type='VALUE_CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
-                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    query_location=None,
+                                    type=LogicalType(
+                                        query_location=None,
+                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                        type_info=None
+                                    ),
                                     value=2,
                                     is_null=False
                                 )
@@ -457,16 +546,29 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
             )
         )
     ],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['Plant'])
+            root=ColumnRefExpression(
+                query_location=16,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['Plant']
+            )
         ),
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['Date'])
+            root=ColumnRefExpression(
+                query_location=23,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['Date']
+            )
         ),
         ParsedExpressionSubclasses(
             root=WindowExpression(
+                query_location=33,
                 type='WINDOW_AGGREGATE',
                 clazz='WINDOW',
                 alias='MWh 7-day Moving Average',
@@ -476,6 +578,7 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=37,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -486,6 +589,7 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                 partitions=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=70,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -495,10 +599,12 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                 ],
                 orders=[
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.ASCENDING: 'ASCENDING'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=93,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -513,6 +619,7 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                 end=<WindowBoundary.EXPR_FOLLOWING_RANGE: 'EXPR_FOLLOWING_RANGE'>,
                 start_expr=ParsedExpressionSubclasses(
                     root=FunctionExpression(
+                        query_location=18446744073709551615,
                         type='FUNCTION',
                         clazz='FUNCTION',
                         alias='',
@@ -523,37 +630,82 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                         children=[
                             ParsedExpressionSubclasses(
                                 root=CastExpression(
+                                    query_location=18446744073709551615,
                                     type='OPERATOR_CAST',
                                     clazz='CAST',
                                     alias='',
                                     child=ParsedExpressionSubclasses(
-                                        root=ConstantExpression(
-                                            type='VALUE_CONSTANT',
-                                            clazz='CONSTANT',
+                                        root=FunctionExpression(
+                                            query_location=18446744073709551615,
+                                            type='FUNCTION',
+                                            clazz='FUNCTION',
                                             alias='',
-                                            value=Value(
-                                                type=LogicalType(
-                                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
-                                                    type_info=None
-                                                ),
-                                                value=3,
-                                                is_null=False
-                                            )
+                                            schema_name='',
+                                            function_name='trunc',
+                                            catalog='',
+                                            is_operator=False,
+                                            children=[
+                                                ParsedExpressionSubclasses(
+                                                    root=CastExpression(
+                                                        query_location=18446744073709551615,
+                                                        type='OPERATOR_CAST',
+                                                        clazz='CAST',
+                                                        alias='',
+                                                        child=ParsedExpressionSubclasses(
+                                                            root=ConstantExpression(
+                                                                query_location=18446744073709551615,
+                                                                type='VALUE_CONSTANT',
+                                                                clazz='CONSTANT',
+                                                                alias='',
+                                                                value=Value(
+                                                                    query_location=None,
+                                                                    type=LogicalType(
+                                                                        query_location=None,
+                                                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                                        type_info=None
+                                                                    ),
+                                                                    value=3,
+                                                                    is_null=False
+                                                                )
+                                                            )
+                                                        ),
+                                                        cast_type=LogicalType(
+                                                            query_location=None,
+                                                            id=<LogicalTypeId.DOUBLE: 'DOUBLE'>,
+                                                            type_info=None
+                                                        ),
+                                                        try_cast=False
+                                                    )
+                                                )
+                                            ],
+                                            distinct=False,
+                                            order_bys=OrderModifier(
+                                                query_location=None,
+                                                type='ORDER_MODIFIER',
+                                                orders=[]
+                                            ),
+                                            export_state=False,
+                                            filter=None
                                         )
                                     ),
-                                    cast_type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    cast_type=LogicalType(
+                                        query_location=None,
+                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                        type_info=None
+                                    ),
                                     try_cast=False
                                 )
                             )
                         ],
                         distinct=False,
-                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                        order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                         export_state=False,
                         filter=None
                     )
                 ),
                 end_expr=ParsedExpressionSubclasses(
                     root=FunctionExpression(
+                        query_location=18446744073709551615,
                         type='FUNCTION',
                         clazz='FUNCTION',
                         alias='',
@@ -564,37 +716,83 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
                         children=[
                             ParsedExpressionSubclasses(
                                 root=CastExpression(
+                                    query_location=18446744073709551615,
                                     type='OPERATOR_CAST',
                                     clazz='CAST',
                                     alias='',
                                     child=ParsedExpressionSubclasses(
-                                        root=ConstantExpression(
-                                            type='VALUE_CONSTANT',
-                                            clazz='CONSTANT',
+                                        root=FunctionExpression(
+                                            query_location=18446744073709551615,
+                                            type='FUNCTION',
+                                            clazz='FUNCTION',
                                             alias='',
-                                            value=Value(
-                                                type=LogicalType(
-                                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
-                                                    type_info=None
-                                                ),
-                                                value=3,
-                                                is_null=False
-                                            )
+                                            schema_name='',
+                                            function_name='trunc',
+                                            catalog='',
+                                            is_operator=False,
+                                            children=[
+                                                ParsedExpressionSubclasses(
+                                                    root=CastExpression(
+                                                        query_location=18446744073709551615,
+                                                        type='OPERATOR_CAST',
+                                                        clazz='CAST',
+                                                        alias='',
+                                                        child=ParsedExpressionSubclasses(
+                                                            root=ConstantExpression(
+                                                                query_location=18446744073709551615,
+                                                                type='VALUE_CONSTANT',
+                                                                clazz='CONSTANT',
+                                                                alias='',
+                                                                value=Value(
+                                                                    query_location=None,
+                                                                    type=LogicalType(
+                                                                        query_location=None,
+                                                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                                        type_info=None
+                                                                    ),
+                                                                    value=3,
+                                                                    is_null=False
+                                                                )
+                                                            )
+                                                        ),
+                                                        cast_type=LogicalType(
+                                                            query_location=None,
+                                                            id=<LogicalTypeId.DOUBLE: 'DOUBLE'>,
+                                                            type_info=None
+                                                        ),
+                                                        try_cast=False
+                                                    )
+                                                )
+                                            ],
+                                            distinct=False,
+                                            order_bys=OrderModifier(
+                                                query_location=None,
+                                                type='ORDER_MODIFIER',
+                                                orders=[]
+                                            ),
+                                            export_state=False,
+                                            filter=None
                                         )
                                     ),
-                                    cast_type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    cast_type=LogicalType(
+                                        query_location=None,
+                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                        type_info=None
+                                    ),
                                     try_cast=False
                                 )
                             )
                         ],
                         distinct=False,
-                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                        order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                         export_state=False,
                         filter=None
                     )
                 ),
                 offset_expr=None,
-                default_expr=None
+                default_expr=None,
+                exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                distinct=False
             )
         )
     ],
@@ -607,6 +805,7 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=242,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -620,12 +819,14 @@ snapshots['test_sql[ SELECT Plant, Date, AVG(MWh) OVER ( PARTITION BY Plant ORDE
 '''
 
 snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount - lag(amount) OVER (ORDER BY time), amount / SUM(amount) OVER (PARTITION BY region), FIRST(employee_name) OVER (ORDER BY salary DESC), LAST(employee_name) OVER (ORDER BY salary DESC), NTH_VALUE(employee_name, 2) OVER (ORDER BY salary DESC) FROM basic_pays ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=23,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -636,6 +837,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=16,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -644,6 +846,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                     ),
                     ParsedExpressionSubclasses(
                         root=WindowExpression(
+                            query_location=25,
                             type='WINDOW_LEAD',
                             clazz='WINDOW',
                             alias='',
@@ -653,6 +856,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             children=[
                                 ParsedExpressionSubclasses(
                                     root=ColumnRefExpression(
+                                        query_location=30,
                                         type='COLUMN_REF',
                                         clazz='COLUMN_REF',
                                         alias='',
@@ -663,10 +867,12 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             partitions=[],
                             orders=[
                                 OrderByNode(
+                                    query_location=None,
                                     type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                                     null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                                     expression=ParsedExpressionSubclasses(
                                         root=ColumnRefExpression(
+                                            query_location=53,
                                             type='COLUMN_REF',
                                             clazz='COLUMN_REF',
                                             alias='',
@@ -682,18 +888,21 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             start_expr=None,
                             end_expr=None,
                             offset_expr=None,
-                            default_expr=None
+                            default_expr=None,
+                            exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                            distinct=False
                         )
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
         ),
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=82,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -704,6 +913,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=75,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -712,6 +922,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                     ),
                     ParsedExpressionSubclasses(
                         root=WindowExpression(
+                            query_location=84,
                             type='WINDOW_LAG',
                             clazz='WINDOW',
                             alias='',
@@ -721,6 +932,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             children=[
                                 ParsedExpressionSubclasses(
                                     root=ColumnRefExpression(
+                                        query_location=88,
                                         type='COLUMN_REF',
                                         clazz='COLUMN_REF',
                                         alias='',
@@ -731,10 +943,12 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             partitions=[],
                             orders=[
                                 OrderByNode(
+                                    query_location=None,
                                     type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                                     null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                                     expression=ParsedExpressionSubclasses(
                                         root=ColumnRefExpression(
+                                            query_location=111,
                                             type='COLUMN_REF',
                                             clazz='COLUMN_REF',
                                             alias='',
@@ -750,18 +964,21 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             start_expr=None,
                             end_expr=None,
                             offset_expr=None,
-                            default_expr=None
+                            default_expr=None,
+                            exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                            distinct=False
                         )
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
         ),
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=140,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -772,6 +989,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=133,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -780,6 +998,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                     ),
                     ParsedExpressionSubclasses(
                         root=WindowExpression(
+                            query_location=142,
                             type='WINDOW_AGGREGATE',
                             clazz='WINDOW',
                             alias='',
@@ -789,6 +1008,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             children=[
                                 ParsedExpressionSubclasses(
                                     root=ColumnRefExpression(
+                                        query_location=146,
                                         type='COLUMN_REF',
                                         clazz='COLUMN_REF',
                                         alias='',
@@ -799,6 +1019,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             partitions=[
                                 ParsedExpressionSubclasses(
                                     root=ColumnRefExpression(
+                                        query_location=173,
                                         type='COLUMN_REF',
                                         clazz='COLUMN_REF',
                                         alias='',
@@ -814,18 +1035,21 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                             start_expr=None,
                             end_expr=None,
                             offset_expr=None,
-                            default_expr=None
+                            default_expr=None,
+                            exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                            distinct=False
                         )
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
         ),
         ParsedExpressionSubclasses(
             root=WindowExpression(
+                query_location=197,
                 type='WINDOW_FIRST_VALUE',
                 clazz='WINDOW',
                 alias='',
@@ -835,6 +1059,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=203,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -845,10 +1070,12 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 partitions=[],
                 orders=[
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.DESCENDING: 'DESCENDING'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=233,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -864,11 +1091,14 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 start_expr=None,
                 end_expr=None,
                 offset_expr=None,
-                default_expr=None
+                default_expr=None,
+                exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                distinct=False
             )
         ),
         ParsedExpressionSubclasses(
             root=WindowExpression(
+                query_location=262,
                 type='WINDOW_LAST_VALUE',
                 clazz='WINDOW',
                 alias='',
@@ -878,6 +1108,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=267,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -888,10 +1119,12 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 partitions=[],
                 orders=[
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.DESCENDING: 'DESCENDING'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=298,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -907,11 +1140,14 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 start_expr=None,
                 end_expr=None,
                 offset_expr=None,
-                default_expr=None
+                default_expr=None,
+                exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                distinct=False
             )
         ),
         ParsedExpressionSubclasses(
             root=WindowExpression(
+                query_location=327,
                 type='WINDOW_NTH_VALUE',
                 clazz='WINDOW',
                 alias='',
@@ -921,6 +1157,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=337,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -929,11 +1166,17 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=352,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                ),
                                 value=2,
                                 is_null=False
                             )
@@ -943,10 +1186,12 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 partitions=[],
                 orders=[
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.DESCENDING: 'DESCENDING'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=370,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -962,7 +1207,9 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
                 start_expr=None,
                 end_expr=None,
                 offset_expr=None,
-                default_expr=None
+                default_expr=None,
+                exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                distinct=False
             )
         )
     ],
@@ -975,6 +1222,7 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=396,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -988,15 +1236,23 @@ snapshots['test_sql[ SELECT amount - lead(amount) OVER (ORDER BY time), amount -
 '''
 
 snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING COUNT(*) >= 50; ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['city'])
+            root=ColumnRefExpression(
+                query_location=16,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['city']
+            )
         ),
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=22,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -1006,7 +1262,7 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
                 is_operator=False,
                 children=[],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
@@ -1017,11 +1273,13 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
     qualify=None,
     having=ParsedExpressionSubclasses(
         root=ComparisonExpression(
+            query_location=100,
             type='COMPARE_GREATERTHANOREQUALTO',
             clazz='COMPARISON',
             alias='',
             left=ParsedExpressionSubclasses(
                 root=FunctionExpression(
+                    query_location=91,
                     type='FUNCTION',
                     clazz='FUNCTION',
                     alias='',
@@ -1031,18 +1289,20 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
                     is_operator=False,
                     children=[],
                     distinct=False,
-                    order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                    order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                     export_state=False,
                     filter=None
                 )
             ),
             right=ParsedExpressionSubclasses(
                 root=ConstantExpression(
+                    query_location=103,
                     type='VALUE_CONSTANT',
                     clazz='CONSTANT',
                     alias='',
                     value=Value(
-                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                        query_location=None,
+                        type=LogicalType(query_location=None, id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                         value=50,
                         is_null=False
                     )
@@ -1053,12 +1313,19 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
     group_sets=[{0}],
     group_expressions=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['city'])
+            root=ColumnRefExpression(
+                query_location=71,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['city']
+            )
         )
     ],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=44,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -1072,17 +1339,21 @@ snapshots['test_sql[ SELECT city, COUNT(*) FROM addresses GROUP BY city HAVING C
 '''
 
 snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investors_number, 0.00 AS investment_amount, 0.00 AS individual_amount UNION SELECT investors_number + 1, i.investment_amount, i.investment_amount / (investors_number + 1) FROM investment i, per_investor_amount pia WHERE investors_number << 3 ) SELECT * FROM per_investor_amount ORDER BY investment_amount, investors_number; ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[
         ResultModifierSubclasses(
             root=OrderModifier(
+                query_location=None,
                 type='ORDER_MODIFIER',
                 orders=[
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=526,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -1091,10 +1362,12 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                         )
                     ),
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=545,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -1107,37 +1380,47 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
         )
     ],
     cte_map=CommonTableExpressionMap(
+        query_location=None,
         map=OrderedDict[str, CommonTableExpressionInfo](
             root=[
                 Pair[str, CommonTableExpressionInfo](
                     key='per_investor_amount',
                     value=CommonTableExpressionInfo(
+                        query_location=None,
                         aliases=[],
                         query=SelectStatement(
+                            query_location=None,
                             node=QueryNodeSubclasses(
                                 root=RecursiveCTENode(
+                                    query_location=None,
                                     type='RECURSIVE_CTE_NODE',
                                     modifiers=[],
                                     cte_map=CommonTableExpressionMap(
+                                        query_location=None,
                                         map=OrderedDict[str, CommonTableExpressionInfo](root=[])
                                     ),
                                     cte_name='per_investor_amount',
                                     union_all=False,
                                     left=QueryNodeSubclasses(
                                         root=SelectNode(
+                                            query_location=None,
                                             type='SELECT_NODE',
                                             modifiers=[],
                                             cte_map=CommonTableExpressionMap(
+                                                query_location=None,
                                                 map=OrderedDict[str, CommonTableExpressionInfo](root=[])
                                             ),
                                             select_list=[
                                                 ParsedExpressionSubclasses(
                                                     root=ConstantExpression(
+                                                        query_location=69,
                                                         type='VALUE_CONSTANT',
                                                         clazz='CONSTANT',
                                                         alias='investors_number',
                                                         value=Value(
+                                                            query_location=None,
                                                             type=LogicalType(
+                                                                query_location=None,
                                                                 id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                                 type_info=None
                                                             ),
@@ -1148,13 +1431,17 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     root=ConstantExpression(
+                                                        query_location=112,
                                                         type='VALUE_CONSTANT',
                                                         clazz='CONSTANT',
                                                         alias='investment_amount',
                                                         value=Value(
+                                                            query_location=None,
                                                             type=LogicalType(
+                                                                query_location=None,
                                                                 id=<LogicalTypeId.DECIMAL: 'DECIMAL'>,
                                                                 type_info=DecimalTypeInfo(
+                                                                    query_location=None,
                                                                     type='DECIMAL_TYPE_INFO',
                                                                     alias='',
                                                                     catalog_entry=None,
@@ -1169,13 +1456,17 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     root=ConstantExpression(
+                                                        query_location=159,
                                                         type='VALUE_CONSTANT',
                                                         clazz='CONSTANT',
                                                         alias='individual_amount',
                                                         value=Value(
+                                                            query_location=None,
                                                             type=LogicalType(
+                                                                query_location=None,
                                                                 id=<LogicalTypeId.DECIMAL: 'DECIMAL'>,
                                                                 type_info=DecimalTypeInfo(
+                                                                    query_location=None,
                                                                     type='DECIMAL_TYPE_INFO',
                                                                     alias='',
                                                                     catalog_entry=None,
@@ -1198,20 +1489,28 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                             aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 
 'STANDARD_HANDLING'>,
                                             from_table=TableRefSubclasses(
-                                                root=EmptyTableRef(alias='', sample=None, type='EMPTY')
+                                                root=EmptyTableRef(
+                                                    query_location=18446744073709551615,
+                                                    alias='',
+                                                    sample=None,
+                                                    type='EMPTY'
+                                                )
                                             )
                                         )
                                     ),
                                     right=QueryNodeSubclasses(
                                         root=SelectNode(
+                                            query_location=None,
                                             type='SELECT_NODE',
                                             modifiers=[],
                                             cte_map=CommonTableExpressionMap(
+                                                query_location=None,
                                                 map=OrderedDict[str, CommonTableExpressionInfo](root=[])
                                             ),
                                             select_list=[
                                                 ParsedExpressionSubclasses(
                                                     root=FunctionExpression(
+                                                        query_location=241,
                                                         type='FUNCTION',
                                                         clazz='FUNCTION',
                                                         alias='',
@@ -1222,6 +1521,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                         children=[
                                                             ParsedExpressionSubclasses(
                                                                 root=ColumnRefExpression(
+                                                                    query_location=224,
                                                                     type='COLUMN_REF',
                                                                     clazz='COLUMN_REF',
                                                                     alias='',
@@ -1230,11 +1530,14 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                             ),
                                                             ParsedExpressionSubclasses(
                                                                 root=ConstantExpression(
+                                                                    query_location=243,
                                                                     type='VALUE_CONSTANT',
                                                                     clazz='CONSTANT',
                                                                     alias='',
                                                                     value=Value(
+                                                                        query_location=None,
                                                                         type=LogicalType(
+                                                                            query_location=None,
                                                                             id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                                             type_info=None
                                                                         ),
@@ -1245,13 +1548,18 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                             )
                                                         ],
                                                         distinct=False,
-                                                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                        order_bys=OrderModifier(
+                                                            query_location=None,
+                                                            type='ORDER_MODIFIER',
+                                                            orders=[]
+                                                        ),
                                                         export_state=False,
                                                         filter=None
                                                     )
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     root=ColumnRefExpression(
+                                                        query_location=266,
                                                         type='COLUMN_REF',
                                                         clazz='COLUMN_REF',
                                                         alias='',
@@ -1260,6 +1568,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     root=FunctionExpression(
+                                                        query_location=327,
                                                         type='FUNCTION',
                                                         clazz='FUNCTION',
                                                         alias='',
@@ -1270,6 +1579,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                         children=[
                                                             ParsedExpressionSubclasses(
                                                                 root=ColumnRefExpression(
+                                                                    query_location=307,
                                                                     type='COLUMN_REF',
                                                                     clazz='COLUMN_REF',
                                                                     alias='',
@@ -1278,6 +1588,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                             ),
                                                             ParsedExpressionSubclasses(
                                                                 root=FunctionExpression(
+                                                                    query_location=347,
                                                                     type='FUNCTION',
                                                                     clazz='FUNCTION',
                                                                     alias='',
@@ -1288,6 +1599,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                                     children=[
                                                                         ParsedExpressionSubclasses(
                                                                             root=ColumnRefExpression(
+                                                                                query_location=330,
                                                                                 type='COLUMN_REF',
                                                                                 clazz='COLUMN_REF',
                                                                                 alias='',
@@ -1296,11 +1608,14 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                                         ),
                                                                         ParsedExpressionSubclasses(
                                                                             root=ConstantExpression(
+                                                                                query_location=349,
                                                                                 type='VALUE_CONSTANT',
                                                                                 clazz='CONSTANT',
                                                                                 alias='',
                                                                                 value=Value(
+                                                                                    query_location=None,
                                                                                     type=LogicalType(
+                                                                                        query_location=None,
                                                                                         id=<LogicalTypeId.INTEGER: 
 'INTEGER'>,
                                                                                         type_info=None
@@ -1313,6 +1628,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                                     ],
                                                                     distinct=False,
                                                                     order_bys=OrderModifier(
+                                                                        query_location=None,
                                                                         type='ORDER_MODIFIER',
                                                                         orders=[]
                                                                     ),
@@ -1322,7 +1638,11 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                             )
                                                         ],
                                                         distinct=False,
-                                                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                        order_bys=OrderModifier(
+                                                            query_location=None,
+                                                            type='ORDER_MODIFIER',
+                                                            orders=[]
+                                                        ),
                                                         export_state=False,
                                                         filter=None
                                                     )
@@ -1330,6 +1650,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                             ],
                                             where_clause=ParsedExpressionSubclasses(
                                                 root=FunctionExpression(
+                                                    query_location=442,
                                                     type='FUNCTION',
                                                     clazz='FUNCTION',
                                                     alias='',
@@ -1340,6 +1661,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                     children=[
                                                         ParsedExpressionSubclasses(
                                                             root=ColumnRefExpression(
+                                                                query_location=425,
                                                                 type='COLUMN_REF',
                                                                 clazz='COLUMN_REF',
                                                                 alias='',
@@ -1348,11 +1670,14 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                         ),
                                                         ParsedExpressionSubclasses(
                                                             root=ConstantExpression(
+                                                                query_location=445,
                                                                 type='VALUE_CONSTANT',
                                                                 clazz='CONSTANT',
                                                                 alias='',
                                                                 value=Value(
+                                                                    query_location=None,
                                                                     type=LogicalType(
+                                                                        query_location=None,
                                                                         id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                                         type_info=None
                                                                     ),
@@ -1363,7 +1688,11 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                         )
                                                     ],
                                                     distinct=False,
-                                                    order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                    order_bys=OrderModifier(
+                                                        query_location=None,
+                                                        type='ORDER_MODIFIER',
+                                                        orders=[]
+                                                    ),
                                                     export_state=False,
                                                     filter=None
                                                 )
@@ -1377,11 +1706,13 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
 'STANDARD_HANDLING'>,
                                             from_table=TableRefSubclasses(
                                                 root=JoinRef(
+                                                    query_location=18446744073709551615,
                                                     alias='',
                                                     sample=None,
                                                     type='JOIN',
                                                     right=TableRefSubclasses(
                                                         root=BaseTableRef(
+                                                            query_location=383,
                                                             alias='pia',
                                                             sample=None,
                                                             type='BASE_TABLE',
@@ -1393,6 +1724,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                     ),
                                                     left=TableRefSubclasses(
                                                         root=BaseTableRef(
+                                                            query_location=369,
                                                             alias='i',
                                                             sample=None,
                                                             type='BASE_TABLE',
@@ -1423,6 +1755,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=473,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -1443,6 +1776,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=488,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -1456,35 +1790,44 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
 '''
 
 snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT id, name, [name] AS path FROM tag WHERE subclassof IS NULL UNION ALL SELECT tag.id, tag.name, list_prepend(tag.name, tag_hierarchy.path) FROM tag, tag_hierarchy WHERE tag.subclassof = tag_hierarchy.id ) SELECT path FROM tag_hierarchy WHERE source = \'Oasis\'; ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
     cte_map=CommonTableExpressionMap(
+        query_location=None,
         map=OrderedDict[str, CommonTableExpressionInfo](
             root=[
                 Pair[str, CommonTableExpressionInfo](
                     key='tag_hierarchy',
                     value=CommonTableExpressionInfo(
+                        query_location=None,
                         aliases=['id', 'source', 'path'],
                         query=SelectStatement(
+                            query_location=None,
                             node=QueryNodeSubclasses(
                                 root=RecursiveCTENode(
+                                    query_location=None,
                                     type='RECURSIVE_CTE_NODE',
                                     modifiers=[],
                                     cte_map=CommonTableExpressionMap(
+                                        query_location=None,
                                         map=OrderedDict[str, CommonTableExpressionInfo](root=[])
                                     ),
                                     cte_name='tag_hierarchy',
                                     union_all=True,
                                     left=QueryNodeSubclasses(
                                         root=SelectNode(
+                                            query_location=None,
                                             type='SELECT_NODE',
                                             modifiers=[],
                                             cte_map=CommonTableExpressionMap(
+                                                query_location=None,
                                                 map=OrderedDict[str, CommonTableExpressionInfo](root=[])
                                             ),
                                             select_list=[
                                                 ParsedExpressionSubclasses(
                                                     root=ColumnRefExpression(
+                                                        query_location=70,
                                                         type='COLUMN_REF',
                                                         clazz='COLUMN_REF',
                                                         alias='',
@@ -1493,6 +1836,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     root=ColumnRefExpression(
+                                                        query_location=74,
                                                         type='COLUMN_REF',
                                                         clazz='COLUMN_REF',
                                                         alias='',
@@ -1501,6 +1845,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     root=FunctionExpression(
+                                                        query_location=81,
                                                         type='FUNCTION',
                                                         clazz='FUNCTION',
                                                         alias='path',
@@ -1511,6 +1856,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                         children=[
                                                             ParsedExpressionSubclasses(
                                                                 root=ColumnRefExpression(
+                                                                    query_location=81,
                                                                     type='COLUMN_REF',
                                                                     clazz='COLUMN_REF',
                                                                     alias='',
@@ -1519,7 +1865,11 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                             )
                                                         ],
                                                         distinct=False,
-                                                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                        order_bys=OrderModifier(
+                                                            query_location=None,
+                                                            type='ORDER_MODIFIER',
+                                                            orders=[]
+                                                        ),
                                                         export_state=False,
                                                         filter=None
                                                     )
@@ -1527,12 +1877,14 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                             ],
                                             where_clause=ParsedExpressionSubclasses(
                                                 root=OperatorExpression(
+                                                    query_location=125,
                                                     type='OPERATOR_IS_NULL',
                                                     clazz='OPERATOR',
                                                     alias='',
                                                     children=[
                                                         ParsedExpressionSubclasses(
                                                             root=ColumnRefExpression(
+                                                                query_location=114,
                                                                 type='COLUMN_REF',
                                                                 clazz='COLUMN_REF',
                                                                 alias='',
@@ -1551,6 +1903,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
 'STANDARD_HANDLING'>,
                                             from_table=TableRefSubclasses(
                                                 root=BaseTableRef(
+                                                    query_location=102,
                                                     alias='',
                                                     sample=None,
                                                     type='BASE_TABLE',
@@ -1564,14 +1917,17 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                     ),
                                     right=QueryNodeSubclasses(
                                         root=SelectNode(
+                                            query_location=None,
                                             type='SELECT_NODE',
                                             modifiers=[],
                                             cte_map=CommonTableExpressionMap(
+                                                query_location=None,
                                                 map=OrderedDict[str, CommonTableExpressionInfo](root=[])
                                             ),
                                             select_list=[
                                                 ParsedExpressionSubclasses(
                                                     root=ColumnRefExpression(
+                                                        query_location=152,
                                                         type='COLUMN_REF',
                                                         clazz='COLUMN_REF',
                                                         alias='',
@@ -1580,6 +1936,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     root=ColumnRefExpression(
+                                                        query_location=160,
                                                         type='COLUMN_REF',
                                                         clazz='COLUMN_REF',
                                                         alias='',
@@ -1588,6 +1945,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                 ),
                                                 ParsedExpressionSubclasses(
                                                     root=FunctionExpression(
+                                                        query_location=170,
                                                         type='FUNCTION',
                                                         clazz='FUNCTION',
                                                         alias='',
@@ -1598,6 +1956,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                         children=[
                                                             ParsedExpressionSubclasses(
                                                                 root=ColumnRefExpression(
+                                                                    query_location=183,
                                                                     type='COLUMN_REF',
                                                                     clazz='COLUMN_REF',
                                                                     alias='',
@@ -1606,6 +1965,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                             ),
                                                             ParsedExpressionSubclasses(
                                                                 root=ColumnRefExpression(
+                                                                    query_location=193,
                                                                     type='COLUMN_REF',
                                                                     clazz='COLUMN_REF',
                                                                     alias='',
@@ -1614,7 +1974,11 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                             )
                                                         ],
                                                         distinct=False,
-                                                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                        order_bys=OrderModifier(
+                                                            query_location=None,
+                                                            type='ORDER_MODIFIER',
+                                                            orders=[]
+                                                        ),
                                                         export_state=False,
                                                         filter=None
                                                     )
@@ -1622,11 +1986,13 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                             ],
                                             where_clause=ParsedExpressionSubclasses(
                                                 root=ComparisonExpression(
+                                                    query_location=262,
                                                     type='COMPARE_EQUAL',
                                                     clazz='COMPARISON',
                                                     alias='',
                                                     left=ParsedExpressionSubclasses(
                                                         root=ColumnRefExpression(
+                                                            query_location=247,
                                                             type='COLUMN_REF',
                                                             clazz='COLUMN_REF',
                                                             alias='',
@@ -1635,6 +2001,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                     ),
                                                     right=ParsedExpressionSubclasses(
                                                         root=ColumnRefExpression(
+                                                            query_location=264,
                                                             type='COLUMN_REF',
                                                             clazz='COLUMN_REF',
                                                             alias='',
@@ -1652,11 +2019,13 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
 'STANDARD_HANDLING'>,
                                             from_table=TableRefSubclasses(
                                                 root=JoinRef(
+                                                    query_location=18446744073709551615,
                                                     alias='',
                                                     sample=None,
                                                     type='JOIN',
                                                     right=TableRefSubclasses(
                                                         root=BaseTableRef(
+                                                            query_location=225,
                                                             alias='',
                                                             sample=None,
                                                             type='BASE_TABLE',
@@ -1668,6 +2037,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                     ),
                                                     left=TableRefSubclasses(
                                                         root=BaseTableRef(
+                                                            query_location=220,
                                                             alias='',
                                                             sample=None,
                                                             type='BASE_TABLE',
@@ -1697,24 +2067,39 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
     ),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['path'])
+            root=ColumnRefExpression(
+                query_location=290,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['path']
+            )
         )
     ],
     where_clause=ParsedExpressionSubclasses(
         root=ComparisonExpression(
+            query_location=327,
             type='COMPARE_EQUAL',
             clazz='COMPARISON',
             alias='',
             left=ParsedExpressionSubclasses(
-                root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['source'])
+                root=ColumnRefExpression(
+                    query_location=320,
+                    type='COLUMN_REF',
+                    clazz='COLUMN_REF',
+                    alias='',
+                    column_names=['source']
+                )
             ),
             right=ParsedExpressionSubclasses(
                 root=ConstantExpression(
+                    query_location=329,
                     type='VALUE_CONSTANT',
                     clazz='CONSTANT',
                     alias='',
                     value=Value(
-                        type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                        query_location=None,
+                        type=LogicalType(query_location=None, id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
                         value='Oasis',
                         is_null=False
                     )
@@ -1730,6 +2115,7 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=300,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -1743,26 +2129,33 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
 '''
 
 snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_name, row_number() over (partition by schema_name order by function_name) as function_rank FROM duckdb_functions() ) SELECT * FROM ranked_functions WHERE function_rank < 3; ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
     cte_map=CommonTableExpressionMap(
+        query_location=None,
         map=OrderedDict[str, CommonTableExpressionInfo](
             root=[
                 Pair[str, CommonTableExpressionInfo](
                     key='ranked_functions',
                     value=CommonTableExpressionInfo(
+                        query_location=None,
                         aliases=[],
                         query=SelectStatement(
+                            query_location=None,
                             node=QueryNodeSubclasses(
                                 root=SelectNode(
+                                    query_location=None,
                                     type='SELECT_NODE',
                                     modifiers=[],
                                     cte_map=CommonTableExpressionMap(
+                                        query_location=None,
                                         map=OrderedDict[str, CommonTableExpressionInfo](root=[])
                                     ),
                                     select_list=[
                                         ParsedExpressionSubclasses(
                                             root=ColumnRefExpression(
+                                                query_location=71,
                                                 type='COLUMN_REF',
                                                 clazz='COLUMN_REF',
                                                 alias='',
@@ -1771,6 +2164,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                         ),
                                         ParsedExpressionSubclasses(
                                             root=ColumnRefExpression(
+                                                query_location=100,
                                                 type='COLUMN_REF',
                                                 clazz='COLUMN_REF',
                                                 alias='',
@@ -1779,6 +2173,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                         ),
                                         ParsedExpressionSubclasses(
                                             root=WindowExpression(
+                                                query_location=131,
                                                 type='WINDOW_ROW_NUMBER',
                                                 clazz='WINDOW',
                                                 alias='function_rank',
@@ -1789,6 +2184,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                                 partitions=[
                                                     ParsedExpressionSubclasses(
                                                         root=ColumnRefExpression(
+                                                            query_location=163,
                                                             type='COLUMN_REF',
                                                             clazz='COLUMN_REF',
                                                             alias='',
@@ -1798,10 +2194,12 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                                 ],
                                                 orders=[
                                                     OrderByNode(
+                                                        query_location=None,
                                                         type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                                                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                                                         expression=ParsedExpressionSubclasses(
                                                             root=ColumnRefExpression(
+                                                                query_location=184,
                                                                 type='COLUMN_REF',
                                                                 clazz='COLUMN_REF',
                                                                 alias='',
@@ -1817,7 +2215,9 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                                 start_expr=None,
                                                 end_expr=None,
                                                 offset_expr=None,
-                                                default_expr=None
+                                                default_expr=None,
+                                                exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                                                distinct=False
                                             )
                                         )
                                     ],
@@ -1830,10 +2230,12 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                                     from_table=TableRefSubclasses(
                                         root=TableFunctionRef(
+                                            query_location=233,
                                             alias='',
                                             sample=None,
                                             type='TABLE_FUNCTION',
                                             function=FunctionExpression(
+                                                query_location=233,
                                                 type='FUNCTION',
                                                 clazz='FUNCTION',
                                                 alias='',
@@ -1843,7 +2245,11 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                                                 is_operator=False,
                                                 children=[],
                                                 distinct=False,
-                                                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                                order_bys=OrderModifier(
+                                                    query_location=None,
+                                                    type='ORDER_MODIFIER',
+                                                    orders=[]
+                                                ),
                                                 export_state=False,
                                                 filter=None
                                             ),
@@ -1862,6 +2268,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=289,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -1875,11 +2282,13 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
     ],
     where_clause=ParsedExpressionSubclasses(
         root=ComparisonExpression(
+            query_location=361,
             type='COMPARE_LESSTHAN',
             clazz='COMPARISON',
             alias='',
             left=ParsedExpressionSubclasses(
                 root=ColumnRefExpression(
+                    query_location=347,
                     type='COLUMN_REF',
                     clazz='COLUMN_REF',
                     alias='',
@@ -1888,11 +2297,13 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
             ),
             right=ParsedExpressionSubclasses(
                 root=ConstantExpression(
+                    query_location=363,
                     type='VALUE_CONSTANT',
                     clazz='CONSTANT',
                     alias='',
                     value=Value(
-                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                        query_location=None,
+                        type=LogicalType(query_location=None, id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                         value=3,
                         is_null=False
                     )
@@ -1908,6 +2319,7 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=304,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -1921,31 +2333,44 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
 '''
 
 snapshots['test_sql[ select (select 1) as one ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=SubqueryExpression(
+                query_location=16,
                 type='SUBQUERY',
                 clazz='SUBQUERY',
                 alias='one',
                 child=None,
                 comparison_type='INVALID',
                 subquery=SelectStatement(
+                    query_location=None,
                     node=QueryNodeSubclasses(
                         root=SelectNode(
+                            query_location=None,
                             type='SELECT_NODE',
                             modifiers=[],
-                            cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+                            cte_map=CommonTableExpressionMap(
+                                query_location=None,
+                                map=OrderedDict[str, CommonTableExpressionInfo](root=[])
+                            ),
                             select_list=[
                                 ParsedExpressionSubclasses(
                                     root=ConstantExpression(
+                                        query_location=24,
                                         type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
-                                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                            query_location=None,
+                                            type=LogicalType(
+                                                query_location=None,
+                                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                type_info=None
+                                            ),
                                             value=1,
                                             is_null=False
                                         )
@@ -1959,7 +2384,14 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''SelectNode(
                             group_sets=[],
                             group_expressions=[],
                             aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-                            from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+                            from_table=TableRefSubclasses(
+                                root=EmptyTableRef(
+                                    query_location=18446744073709551615,
+                                    alias='',
+                                    sample=None,
+                                    type='EMPTY'
+                                )
+                            )
                         )
                     )
                 ),
@@ -1974,23 +2406,28 @@ snapshots['test_sql[ select (select 1) as one ] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(hello := \'world\').hello, ] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=18446744073709551615,
                 type='ARRAY_EXTRACT',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=28,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -1999,11 +2436,17 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=34,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                ),
                                 value=0,
                                 is_null=False
                             )
@@ -2014,12 +2457,14 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
         ),
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=18446744073709551615,
                 type='ARRAY_EXTRACT',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=50,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -2028,11 +2473,17 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=56,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                ),
                                 value='hello',
                                 is_null=False
                             )
@@ -2043,12 +2494,14 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
         ),
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=18446744073709551615,
                 type='ARRAY_SLICE',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=78,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -2057,11 +2510,17 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=84,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                ),
                                 value=1,
                                 is_null=False
                             )
@@ -2069,11 +2528,17 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=86,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                ),
                                 value=3,
                                 is_null=False
                             )
@@ -2084,12 +2549,14 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
         ),
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=18446744073709551615,
                 type='STRUCT_EXTRACT',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         root=FunctionExpression(
+                            query_location=102,
                             type='FUNCTION',
                             clazz='FUNCTION',
                             alias='',
@@ -2100,11 +2567,17 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                             children=[
                                 ParsedExpressionSubclasses(
                                     root=ConstantExpression(
+                                        query_location=123,
                                         type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='hello',
                                         value=Value(
-                                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                            query_location=None,
+                                            type=LogicalType(
+                                                query_location=None,
+                                                id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                                type_info=None
+                                            ),
                                             value='world',
                                             is_null=False
                                         )
@@ -2112,18 +2585,24 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
                                 )
                             ],
                             distinct=False,
-                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                             export_state=False,
                             filter=None
                         )
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=18446744073709551615,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                ),
                                 value='hello',
                                 is_null=False
                             )
@@ -2140,17 +2619,21 @@ snapshots['test_sql[ select thing[0], thing[\'hello\'], thing[1:3], struct_pack(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT #1, #2 FROM tbl] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=PositionalReferenceExpression(
+                query_location=7,
                 type='POSITIONAL_REFERENCE',
                 clazz='POSITIONAL_REFERENCE',
                 alias='',
@@ -2159,6 +2642,7 @@ snapshots['test_sql[SELECT #1, #2 FROM tbl] 1'] = '''SelectNode(
         ),
         ParsedExpressionSubclasses(
             root=PositionalReferenceExpression(
+                query_location=11,
                 type='POSITIONAL_REFERENCE',
                 clazz='POSITIONAL_REFERENCE',
                 alias='',
@@ -2175,6 +2659,7 @@ snapshots['test_sql[SELECT #1, #2 FROM tbl] 1'] = '''SelectNode(
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=19,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -2188,12 +2673,19 @@ snapshots['test_sql[SELECT #1, #2 FROM tbl] 1'] = '''SelectNode(
 '''
 
 snapshots['test_sql[SELECT $hello FROM tbl] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ParameterExpression(type='VALUE_PARAMETER', clazz='PARAMETER', alias='', identifier='hello')
+            root=ParameterExpression(
+                query_location=18446744073709551615,
+                type='VALUE_PARAMETER',
+                clazz='PARAMETER',
+                alias='',
+                identifier='hello'
+            )
         )
     ],
     where_clause=None,
@@ -2205,6 +2697,7 @@ snapshots['test_sql[SELECT $hello FROM tbl] 1'] = '''SelectNode(
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=19,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -2218,28 +2711,36 @@ snapshots['test_sql[SELECT $hello FROM tbl] 1'] = '''SelectNode(
 '''
 
 snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                type_info=None
+                            ),
                             value='101010',
                             is_null=False
                         )
                     )
                 ),
-                cast_type=LogicalType(id=<LogicalTypeId.BIT: 'BIT'>, type_info=None),
+                cast_type=LogicalType(query_location=None, id=<LogicalTypeId.BIT: 'BIT'>, type_info=None),
                 try_cast=False
             )
         )
@@ -2251,28 +2752,38 @@ snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'Math\')] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=14,
                 type='COMPARE_IN',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=7,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                ),
                                 value='Math',
                                 is_null=False
                             )
@@ -2280,11 +2791,17 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=18,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                ),
                                 value='CS',
                                 is_null=False
                             )
@@ -2292,11 +2809,17 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=24,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                ),
                                 value='Math',
                                 is_null=False
                             )
@@ -2307,20 +2830,33 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
         ),
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=35,
                 type='COMPARE_NOT_IN',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
-                        root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['X'])
+                        root=ColumnRefExpression(
+                            query_location=33,
+                            type='COLUMN_REF',
+                            clazz='COLUMN_REF',
+                            alias='',
+                            column_names=['X']
+                        )
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=43,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                ),
                                 value='CS',
                                 is_null=False
                             )
@@ -2328,11 +2864,17 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=49,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                ),
                                 value='Math',
                                 is_null=False
                             )
@@ -2349,27 +2891,37 @@ snapshots['test_sql[SELECT \'Math\' IN (\'CS\', \'Math\'), X NOT IN (\'CS\', \'M
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=SubqueryExpression(
+                query_location=14,
                 type='SUBQUERY',
                 clazz='SUBQUERY',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                type_info=None
+                            ),
                             value='Math',
                             is_null=False
                         )
@@ -2377,14 +2929,20 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Se
                 ),
                 comparison_type='COMPARE_EQUAL',
                 subquery=SelectStatement(
+                    query_location=None,
                     node=QueryNodeSubclasses(
                         root=SelectNode(
+                            query_location=None,
                             type='SELECT_NODE',
                             modifiers=[],
-                            cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+                            cte_map=CommonTableExpressionMap(
+                                query_location=None,
+                                map=OrderedDict[str, CommonTableExpressionInfo](root=[])
+                            ),
                             select_list=[
                                 ParsedExpressionSubclasses(
                                     root=ColumnRefExpression(
+                                        query_location=25,
                                         type='COLUMN_REF',
                                         clazz='COLUMN_REF',
                                         alias='',
@@ -2401,6 +2959,7 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Se
                             aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                             from_table=TableRefSubclasses(
                                 root=BaseTableRef(
+                                    query_location=37,
                                     alias='',
                                     sample=None,
                                     type='BASE_TABLE',
@@ -2424,27 +2983,37 @@ snapshots['test_sql[SELECT \'Math\' IN (SELECT course FROM grades);] 1'] = '''Se
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CollateExpression(
+                query_location=18446744073709551615,
                 type='COLLATE',
                 clazz='COLLATE',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                type_info=None
+                            ),
                             value='hello',
                             is_null=False
                         )
@@ -2461,17 +3030,21 @@ snapshots['test_sql[SELECT \'hello\' COLLATE NOCASE] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=7,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -2485,8 +3058,10 @@ snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''S
     ],
     where_clause=None,
     sample=SampleOptions(
+        query_location=None,
         sample_size=Value(
-            type=LogicalType(id=<LogicalTypeId.DOUBLE: 'DOUBLE'>, type_info=None),
+            query_location=None,
+            type=LogicalType(query_location=None, id=<LogicalTypeId.DOUBLE: 'DOUBLE'>, type_info=None),
             value=1.0,
             is_null=False
         ),
@@ -2501,6 +3076,7 @@ snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''S
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=14,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -2514,28 +3090,36 @@ snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''S
 '''
 
 snapshots['test_sql[SELECT 0::HUGEINT] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=0,
                             is_null=False
                         )
                     )
                 ),
-                cast_type=LogicalType(id=<LogicalTypeId.HUGEINT: 'HUGEINT'>, type_info=None),
+                cast_type=LogicalType(query_location=None, id=<LogicalTypeId.HUGEINT: 'HUGEINT'>, type_info=None),
                 try_cast=False
             )
         )
@@ -2547,50 +3131,74 @@ snapshots['test_sql[SELECT 0::HUGEINT] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=0,
                             is_null=False
                         )
                     )
                 ),
                 cast_type=LogicalType(
+                    query_location=None,
                     id=<LogicalTypeId.UNION: 'UNION'>,
                     type_info=StructTypeInfo(
+                        query_location=None,
                         type='STRUCT_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
                         child_types=[
                             FirstSecond[str, LogicalType](
                                 first='',
-                                second=LogicalType(id=<LogicalTypeId.UTINYINT: 'UTINYINT'>, type_info=None)
+                                second=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.UTINYINT: 'UTINYINT'>,
+                                    type_info=None
+                                )
                             ),
                             FirstSecond[str, LogicalType](
                                 first='num',
-                                second=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
+                                second=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                )
                             ),
                             FirstSecond[str, LogicalType](
                                 first='str',
-                                second=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None)
+                                second=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                )
                             )
                         ]
                     )
@@ -2606,27 +3214,37 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=9,
                 type='COMPARE_LESSTHAN',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=1,
                             is_null=False
                         )
@@ -2634,11 +3252,17 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=11,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=1,
                             is_null=False
                         )
@@ -2648,16 +3272,23 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
         ),
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=16,
                 type='COMPARE_LESSTHANOREQUALTO',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=14,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=1,
                             is_null=False
                         )
@@ -2665,11 +3296,17 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=19,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=2,
                             is_null=False
                         )
@@ -2685,27 +3322,37 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=9,
                 type='COMPARE_LESSTHAN',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=2,
                             is_null=False
                         )
@@ -2713,11 +3360,17 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=11,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=3,
                             is_null=False
                         )
@@ -2727,16 +3380,23 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=16,
                 type='COMPARE_GREATERTHAN',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=14,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=2,
                             is_null=False
                         )
@@ -2744,11 +3404,17 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=18,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=3,
                             is_null=False
                         )
@@ -2758,16 +3424,23 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=23,
                 type='COMPARE_LESSTHANOREQUALTO',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=21,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=2,
                             is_null=False
                         )
@@ -2775,11 +3448,17 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=26,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=3,
                             is_null=False
                         )
@@ -2789,16 +3468,23 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=31,
                 type='COMPARE_GREATERTHANOREQUALTO',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=29,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=4,
                             is_null=False
                         )
@@ -2806,11 +3492,13 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=34,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(query_location=None, id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
                             value=None,
                             is_null=True
                         )
@@ -2820,16 +3508,19 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=45,
                 type='COMPARE_EQUAL',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=40,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(query_location=None, id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
                             value=None,
                             is_null=True
                         )
@@ -2837,11 +3528,13 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=47,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(query_location=None, id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
                             value=None,
                             is_null=True
                         )
@@ -2851,16 +3544,23 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
         ),
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=55,
                 type='COMPARE_NOTEQUAL',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=53,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=2,
                             is_null=False
                         )
@@ -2868,11 +3568,17 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=58,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=2,
                             is_null=False
                         )
@@ -2888,27 +3594,37 @@ snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2]
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NULL] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=9,
                 type='COMPARE_DISTINCT_FROM',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=2,
                             is_null=False
                         )
@@ -2916,11 +3632,13 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=26,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(query_location=None, id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
                             value=None,
                             is_null=True
                         )
@@ -2930,16 +3648,19 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
         ),
         ParsedExpressionSubclasses(
             root=ComparisonExpression(
+                query_location=37,
                 type='COMPARE_NOT_DISTINCT_FROM',
                 clazz='COMPARISON',
                 alias='',
                 left=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=32,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(query_location=None, id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
                             value=None,
                             is_null=True
                         )
@@ -2947,11 +3668,13 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
                 ),
                 right=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=58,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(query_location=None, id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
                             value=None,
                             is_null=True
                         )
@@ -2967,33 +3690,43 @@ snapshots['test_sql[SELECT 2 IS DISTINCT FROM NULL, NULL IS NOT DISTINCT FROM NU
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT DATE \'1992-09-20\'] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=12,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                type_info=None
+                            ),
                             value='1992-09-20',
                             is_null=False
                         )
                     )
                 ),
-                cast_type=LogicalType(id=<LogicalTypeId.DATE: 'DATE'>, type_info=None),
+                cast_type=LogicalType(query_location=None, id=<LogicalTypeId.DATE: 'DATE'>, type_info=None),
                 try_cast=False
             )
         )
@@ -3005,31 +3738,41 @@ snapshots['test_sql[SELECT DATE \'1992-09-20\'] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=SubqueryExpression(
+                query_location=7,
                 type='SUBQUERY',
                 clazz='SUBQUERY',
                 alias='',
                 child=None,
                 comparison_type='INVALID',
                 subquery=SelectStatement(
+                    query_location=None,
                     node=QueryNodeSubclasses(
                         root=SelectNode(
+                            query_location=None,
                             type='SELECT_NODE',
                             modifiers=[],
-                            cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+                            cte_map=CommonTableExpressionMap(
+                                query_location=None,
+                                map=OrderedDict[str, CommonTableExpressionInfo](root=[])
+                            ),
                             select_list=[
                                 ParsedExpressionSubclasses(
                                     root=StarExpression(
+                                        query_location=21,
                                         type='STAR',
                                         clazz='STAR',
                                         alias='',
@@ -3043,11 +3786,13 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
                             ],
                             where_clause=ParsedExpressionSubclasses(
                                 root=ComparisonExpression(
+                                    query_location=47,
                                     type='COMPARE_EQUAL',
                                     clazz='COMPARISON',
                                     alias='',
                                     left=ParsedExpressionSubclasses(
                                         root=ColumnRefExpression(
+                                            query_location=41,
                                             type='COLUMN_REF',
                                             clazz='COLUMN_REF',
                                             alias='',
@@ -3056,11 +3801,14 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
                                     ),
                                     right=ParsedExpressionSubclasses(
                                         root=ConstantExpression(
+                                            query_location=48,
                                             type='VALUE_CONSTANT',
                                             clazz='CONSTANT',
                                             alias='',
                                             value=Value(
+                                                query_location=None,
                                                 type=LogicalType(
+                                                    query_location=None,
                                                     id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
                                                     type_info=None
                                                 ),
@@ -3079,6 +3827,7 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
                             aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
                             from_table=TableRefSubclasses(
                                 root=BaseTableRef(
+                                    query_location=28,
                                     alias='',
                                     sample=None,
                                     type='BASE_TABLE',
@@ -3102,17 +3851,21 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=18446744073709551615,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -3123,28 +3876,71 @@ snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''SelectNode(
                 children=[
                     ParsedExpressionSubclasses(
                         root=CastExpression(
+                            query_location=18446744073709551615,
                             type='OPERATOR_CAST',
                             clazz='CAST',
                             alias='',
                             child=ParsedExpressionSubclasses(
-                                root=ConstantExpression(
-                                    type='VALUE_CONSTANT',
-                                    clazz='CONSTANT',
+                                root=FunctionExpression(
+                                    query_location=18446744073709551615,
+                                    type='FUNCTION',
+                                    clazz='FUNCTION',
                                     alias='',
-                                    value=Value(
-                                        type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
-                                        value=1,
-                                        is_null=False
-                                    )
+                                    schema_name='',
+                                    function_name='trunc',
+                                    catalog='',
+                                    is_operator=False,
+                                    children=[
+                                        ParsedExpressionSubclasses(
+                                            root=CastExpression(
+                                                query_location=18446744073709551615,
+                                                type='OPERATOR_CAST',
+                                                clazz='CAST',
+                                                alias='',
+                                                child=ParsedExpressionSubclasses(
+                                                    root=ConstantExpression(
+                                                        query_location=18446744073709551615,
+                                                        type='VALUE_CONSTANT',
+                                                        clazz='CONSTANT',
+                                                        alias='',
+                                                        value=Value(
+                                                            query_location=None,
+                                                            type=LogicalType(
+                                                                query_location=None,
+                                                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                                type_info=None
+                                                            ),
+                                                            value=1,
+                                                            is_null=False
+                                                        )
+                                                    )
+                                                ),
+                                                cast_type=LogicalType(
+                                                    query_location=None,
+                                                    id=<LogicalTypeId.DOUBLE: 'DOUBLE'>,
+                                                    type_info=None
+                                                ),
+                                                try_cast=False
+                                            )
+                                        )
+                                    ],
+                                    distinct=False,
+                                    order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
+                                    export_state=False,
+                                    filter=None
                                 )
                             ),
-                            cast_type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            cast_type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             try_cast=False
                         )
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
@@ -3157,17 +3953,21 @@ snapshots['test_sql[SELECT INTERVAL 1 YEAR] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=7,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -3178,6 +3978,7 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
                 children=[
                     ParsedExpressionSubclasses(
                         root=StarExpression(
+                            query_location=11,
                             type='STAR',
                             clazz='STAR',
                             alias='',
@@ -3190,13 +3991,14 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
         ),
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=24,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -3207,6 +4009,7 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
                 children=[
                     ParsedExpressionSubclasses(
                         root=StarExpression(
+                            query_location=30,
                             type='STAR',
                             clazz='STAR',
                             alias='',
@@ -3219,7 +4022,7 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
@@ -3234,6 +4037,7 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=47,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -3247,23 +4051,27 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
 '''
 
 snapshots['test_sql[SELECT NULL IS NULL] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=12,
                 type='OPERATOR_IS_NULL',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=7,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(query_location=None, id=<LogicalTypeId.NULL: 'NULL'>, type_info=None),
                                 value=None,
                                 is_null=True
                             )
@@ -3280,33 +4088,43 @@ snapshots['test_sql[SELECT NULL IS NULL] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT TIMESTAMP \'1992-09-20 11:30:00\'] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=17,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                type_info=None
+                            ),
                             value='1992-09-20 11:30:00',
                             is_null=False
                         )
                     )
                 ),
-                cast_type=LogicalType(id=<LogicalTypeId.TIMESTAMP: 'TIMESTAMP'>, type_info=None),
+                cast_type=LogicalType(query_location=None, id=<LogicalTypeId.TIMESTAMP: 'TIMESTAMP'>, type_info=None),
                 try_cast=False
             )
         )
@@ -3318,33 +4136,47 @@ snapshots['test_sql[SELECT TIMESTAMP \'1992-09-20 11:30:00\'] 1'] = '''SelectNod
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT TIMESTAMPTZ \'1992-09-20 11:30:00\'] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=19,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                type_info=None
+                            ),
                             value='1992-09-20 11:30:00',
                             is_null=False
                         )
                     )
                 ),
-                cast_type=LogicalType(id=<LogicalTypeId.TIMESTAMP_TZ: 'TIMESTAMP WITH TIME ZONE'>, type_info=None),
+                cast_type=LogicalType(
+                    query_location=None,
+                    id=<LogicalTypeId.TIMESTAMP_TZ: 'TIMESTAMP WITH TIME ZONE'>,
+                    type_info=None
+                ),
                 try_cast=False
             )
         )
@@ -3356,28 +4188,50 @@ snapshots['test_sql[SELECT TIMESTAMPTZ \'1992-09-20 11:30:00\'] 1'] = '''SelectN
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT a BETWEEN x AND y] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=BetweenExpression(
+                query_location=9,
                 type='COMPARE_BETWEEN',
                 clazz='BETWEEN',
                 alias='',
                 input=ParsedExpressionSubclasses(
-                    root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['a'])
+                    root=ColumnRefExpression(
+                        query_location=7,
+                        type='COLUMN_REF',
+                        clazz='COLUMN_REF',
+                        alias='',
+                        column_names=['a']
+                    )
                 ),
                 lower=ParsedExpressionSubclasses(
-                    root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['x'])
+                    root=ColumnRefExpression(
+                        query_location=17,
+                        type='COLUMN_REF',
+                        clazz='COLUMN_REF',
+                        alias='',
+                        column_names=['x']
+                    )
                 ),
                 upper=ParsedExpressionSubclasses(
-                    root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['y'])
+                    root=ColumnRefExpression(
+                        query_location=23,
+                        type='COLUMN_REF',
+                        clazz='COLUMN_REF',
+                        alias='',
+                        column_names=['y']
+                    )
                 )
             )
         )
@@ -3389,28 +4243,34 @@ snapshots['test_sql[SELECT a BETWEEN x AND y] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT a NOT BETWEEN x AND y] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=9,
                 type='OPERATOR_NOT',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         root=BetweenExpression(
+                            query_location=18446744073709551615,
                             type='COMPARE_BETWEEN',
                             clazz='BETWEEN',
                             alias='',
                             input=ParsedExpressionSubclasses(
                                 root=ColumnRefExpression(
+                                    query_location=7,
                                     type='COLUMN_REF',
                                     clazz='COLUMN_REF',
                                     alias='',
@@ -3419,6 +4279,7 @@ snapshots['test_sql[SELECT a NOT BETWEEN x AND y] 1'] = '''SelectNode(
                             ),
                             lower=ParsedExpressionSubclasses(
                                 root=ColumnRefExpression(
+                                    query_location=21,
                                     type='COLUMN_REF',
                                     clazz='COLUMN_REF',
                                     alias='',
@@ -3427,6 +4288,7 @@ snapshots['test_sql[SELECT a NOT BETWEEN x AND y] 1'] = '''SelectNode(
                             ),
                             upper=ParsedExpressionSubclasses(
                                 root=ColumnRefExpression(
+                                    query_location=27,
                                     type='COLUMN_REF',
                                     clazz='COLUMN_REF',
                                     alias='',
@@ -3446,17 +4308,21 @@ snapshots['test_sql[SELECT a NOT BETWEEN x AND y] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=7,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -3477,18 +4343,25 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=SubqueryRef(
+            query_location=18446744073709551615,
             alias='',
             sample=None,
             type='SUBQUERY',
             subquery=SelectStatement(
+                query_location=None,
                 node=QueryNodeSubclasses(
                     root=SelectNode(
+                        query_location=None,
                         type='SELECT_NODE',
                         modifiers=[],
-                        cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+                        cte_map=CommonTableExpressionMap(
+                            query_location=None,
+                            map=OrderedDict[str, CommonTableExpressionInfo](root=[])
+                        ),
                         select_list=[
                             ParsedExpressionSubclasses(
                                 root=FunctionExpression(
+                                    query_location=25,
                                     type='FUNCTION',
                                     clazz='FUNCTION',
                                     alias='a',
@@ -3499,11 +4372,14 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                                     children=[
                                         ParsedExpressionSubclasses(
                                             root=ConstantExpression(
+                                                query_location=29,
                                                 type='VALUE_CONSTANT',
                                                 clazz='CONSTANT',
                                                 alias='x',
                                                 value=Value(
+                                                    query_location=None,
                                                     type=LogicalType(
+                                                        query_location=None,
                                                         id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                         type_info=None
                                                     ),
@@ -3514,11 +4390,14 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                                         ),
                                         ParsedExpressionSubclasses(
                                             root=ConstantExpression(
+                                                query_location=36,
                                                 type='VALUE_CONSTANT',
                                                 clazz='CONSTANT',
                                                 alias='y',
                                                 value=Value(
+                                                    query_location=None,
                                                     type=LogicalType(
+                                                        query_location=None,
                                                         id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                         type_info=None
                                                     ),
@@ -3529,11 +4408,14 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                                         ),
                                         ParsedExpressionSubclasses(
                                             root=ConstantExpression(
+                                                query_location=43,
                                                 type='VALUE_CONSTANT',
                                                 clazz='CONSTANT',
                                                 alias='z',
                                                 value=Value(
+                                                    query_location=None,
                                                     type=LogicalType(
+                                                        query_location=None,
                                                         id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                         type_info=None
                                                     ),
@@ -3544,7 +4426,7 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                                         )
                                     ],
                                     distinct=False,
-                                    order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                    order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                                     export_state=False,
                                     filter=None
                                 )
@@ -3557,7 +4439,14 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                         group_sets=[],
                         group_expressions=[],
                         aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-                        from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+                        from_table=TableRefSubclasses(
+                            root=EmptyTableRef(
+                                query_location=18446744073709551615,
+                                alias='',
+                                sample=None,
+                                type='EMPTY'
+                            )
+                        )
                     )
                 )
             ),
@@ -3568,18 +4457,21 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
 '''
 
 snapshots['test_sql[SELECT expression IS NOT NULL] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=OperatorExpression(
+                query_location=18,
                 type='OPERATOR_IS_NOT_NULL',
                 clazz='OPERATOR',
                 alias='',
                 children=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=7,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -3597,32 +4489,45 @@ snapshots['test_sql[SELECT expression IS NOT NULL] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integers] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['i'])
+            root=ColumnRefExpression(
+                query_location=7,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['i']
+            )
         ),
         ParsedExpressionSubclasses(
             root=CaseExpression(
+                query_location=10,
                 type='CASE_EXPR',
                 clazz='CASE',
                 alias='test',
                 case_checks=[
                     CaseCheck(
+                        query_location=None,
                         when_expr=ParsedExpressionSubclasses(
                             root=ComparisonExpression(
+                                query_location=21,
                                 type='COMPARE_GREATERTHAN',
                                 clazz='COMPARISON',
                                 alias='',
                                 left=ParsedExpressionSubclasses(
                                     root=ColumnRefExpression(
+                                        query_location=20,
                                         type='COLUMN_REF',
                                         clazz='COLUMN_REF',
                                         alias='',
@@ -3631,11 +4536,17 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
                                 ),
                                 right=ParsedExpressionSubclasses(
                                     root=ConstantExpression(
+                                        query_location=22,
                                         type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
-                                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                            query_location=None,
+                                            type=LogicalType(
+                                                query_location=None,
+                                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                type_info=None
+                                            ),
                                             value=2,
                                             is_null=False
                                         )
@@ -3645,11 +4556,17 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
                         ),
                         then_expr=ParsedExpressionSubclasses(
                             root=ConstantExpression(
+                                query_location=29,
                                 type='VALUE_CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
-                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    query_location=None,
+                                    type=LogicalType(
+                                        query_location=None,
+                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                        type_info=None
+                                    ),
                                     value=1,
                                     is_null=False
                                 )
@@ -3659,11 +4576,17 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
                 ],
                 else_expr=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=36,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=0,
                             is_null=False
                         )
@@ -3681,6 +4604,7 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=55,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -3694,12 +4618,14 @@ snapshots['test_sql[SELECT i, CASE WHEN i>2 THEN 1 ELSE 0 END AS test FROM integ
 '''
 
 snapshots['test_sql[SELECT list_map(x -> x * 2)] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=7,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -3710,11 +4636,13 @@ snapshots['test_sql[SELECT list_map(x -> x * 2)] 1'] = '''SelectNode(
                 children=[
                     ParsedExpressionSubclasses(
                         root=LambdaExpression(
+                            query_location=18,
                             type='LAMBDA',
                             clazz='LAMBDA',
                             alias='',
                             lhs=ParsedExpressionSubclasses(
                                 root=ColumnRefExpression(
+                                    query_location=16,
                                     type='COLUMN_REF',
                                     clazz='COLUMN_REF',
                                     alias='',
@@ -3723,6 +4651,7 @@ snapshots['test_sql[SELECT list_map(x -> x * 2)] 1'] = '''SelectNode(
                             ),
                             expr=ParsedExpressionSubclasses(
                                 root=FunctionExpression(
+                                    query_location=23,
                                     type='FUNCTION',
                                     clazz='FUNCTION',
                                     alias='',
@@ -3733,6 +4662,7 @@ snapshots['test_sql[SELECT list_map(x -> x * 2)] 1'] = '''SelectNode(
                                     children=[
                                         ParsedExpressionSubclasses(
                                             root=ColumnRefExpression(
+                                                query_location=21,
                                                 type='COLUMN_REF',
                                                 clazz='COLUMN_REF',
                                                 alias='',
@@ -3741,11 +4671,14 @@ snapshots['test_sql[SELECT list_map(x -> x * 2)] 1'] = '''SelectNode(
                                         ),
                                         ParsedExpressionSubclasses(
                                             root=ConstantExpression(
+                                                query_location=25,
                                                 type='VALUE_CONSTANT',
                                                 clazz='CONSTANT',
                                                 alias='',
                                                 value=Value(
+                                                    query_location=None,
                                                     type=LogicalType(
+                                                        query_location=None,
                                                         id=<LogicalTypeId.INTEGER: 'INTEGER'>,
                                                         type_info=None
                                                     ),
@@ -3756,7 +4689,7 @@ snapshots['test_sql[SELECT list_map(x -> x * 2)] 1'] = '''SelectNode(
                                         )
                                     ],
                                     distinct=False,
-                                    order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                                    order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                                     export_state=False,
                                     filter=None
                                 )
@@ -3765,7 +4698,7 @@ snapshots['test_sql[SELECT list_map(x -> x * 2)] 1'] = '''SelectNode(
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
@@ -3778,17 +4711,21 @@ snapshots['test_sql[SELECT list_map(x -> x * 2)] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[SELECT row_number() OVER () FROM sales;] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=WindowExpression(
+                query_location=7,
                 type='WINDOW_ROW_NUMBER',
                 clazz='WINDOW',
                 alias='',
@@ -3805,7 +4742,9 @@ snapshots['test_sql[SELECT row_number() OVER () FROM sales;] 1'] = '''SelectNode
                 start_expr=None,
                 end_expr=None,
                 offset_expr=None,
-                default_expr=None
+                default_expr=None,
+                exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                distinct=False
             )
         )
     ],
@@ -3818,6 +4757,7 @@ snapshots['test_sql[SELECT row_number() OVER () FROM sales;] 1'] = '''SelectNode
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=33,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -3831,12 +4771,14 @@ snapshots['test_sql[SELECT row_number() OVER () FROM sales;] 1'] = '''SelectNode
 '''
 
 snapshots['test_sql[SELECT row_number() OVER (ORDER BY time) FROM sales;] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=WindowExpression(
+                query_location=7,
                 type='WINDOW_ROW_NUMBER',
                 clazz='WINDOW',
                 alias='',
@@ -3847,10 +4789,12 @@ snapshots['test_sql[SELECT row_number() OVER (ORDER BY time) FROM sales;] 1'] = 
                 partitions=[],
                 orders=[
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=35,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -3866,7 +4810,9 @@ snapshots['test_sql[SELECT row_number() OVER (ORDER BY time) FROM sales;] 1'] = 
                 start_expr=None,
                 end_expr=None,
                 offset_expr=None,
-                default_expr=None
+                default_expr=None,
+                exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                distinct=False
             )
         )
     ],
@@ -3879,6 +4825,7 @@ snapshots['test_sql[SELECT row_number() OVER (ORDER BY time) FROM sales;] 1'] = 
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=46,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -3892,12 +4839,14 @@ snapshots['test_sql[SELECT row_number() OVER (ORDER BY time) FROM sales;] 1'] = 
 '''
 
 snapshots['test_sql[SELECT row_number() OVER (PARTITION BY region ORDER BY time) FROM sales;] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=WindowExpression(
+                query_location=7,
                 type='WINDOW_ROW_NUMBER',
                 clazz='WINDOW',
                 alias='',
@@ -3908,6 +4857,7 @@ snapshots['test_sql[SELECT row_number() OVER (PARTITION BY region ORDER BY time)
                 partitions=[
                     ParsedExpressionSubclasses(
                         root=ColumnRefExpression(
+                            query_location=39,
                             type='COLUMN_REF',
                             clazz='COLUMN_REF',
                             alias='',
@@ -3917,10 +4867,12 @@ snapshots['test_sql[SELECT row_number() OVER (PARTITION BY region ORDER BY time)
                 ],
                 orders=[
                     OrderByNode(
+                        query_location=None,
                         type=<OrderType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         null_order=<OrderByNullType.ORDER_DEFAULT: 'ORDER_DEFAULT'>,
                         expression=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=55,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -3936,7 +4888,9 @@ snapshots['test_sql[SELECT row_number() OVER (PARTITION BY region ORDER BY time)
                 start_expr=None,
                 end_expr=None,
                 offset_expr=None,
-                default_expr=None
+                default_expr=None,
+                exclude_clause=<WindowExcludeMode.NO_OTHER: 'NO_OTHER'>,
+                distinct=False
             )
         )
     ],
@@ -3949,6 +4903,7 @@ snapshots['test_sql[SELECT row_number() OVER (PARTITION BY region ORDER BY time)
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=66,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -3962,12 +4917,14 @@ snapshots['test_sql[SELECT row_number() OVER (PARTITION BY region ORDER BY time)
 '''
 
 snapshots['test_sql[select * from duckdb_tables] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=7,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -3988,6 +4945,7 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''SelectNode(
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=14,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -4001,12 +4959,14 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''SelectNode(
 '''
 
 snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=7,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -4027,10 +4987,12 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=TableFunctionRef(
+            query_location=14,
             alias='',
             sample=None,
             type='TABLE_FUNCTION',
             function=FunctionExpression(
+                query_location=14,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -4041,11 +5003,17 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
                 children=[
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=20,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                ),
                                 value=0,
                                 is_null=False
                             )
@@ -4053,11 +5021,17 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=23,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                ),
                                 value=10,
                                 is_null=False
                             )
@@ -4065,7 +5039,7 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             ),
@@ -4076,30 +5050,40 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
 '''
 
 snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=0,
                             is_null=False
                         )
                     )
                 ),
                 cast_type=LogicalType(
+                    query_location=None,
                     id=<LogicalTypeId.DECIMAL: 'DECIMAL'>,
                     type_info=DecimalTypeInfo(
+                        query_location=None,
                         type='DECIMAL_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
@@ -4118,42 +5102,58 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=0,
                             is_null=False
                         )
                     )
                 ),
                 cast_type=LogicalType(
+                    query_location=None,
                     id=<LogicalTypeId.STRUCT: 'STRUCT'>,
                     type_info=StructTypeInfo(
+                        query_location=None,
                         type='STRUCT_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
                         child_types=[
                             FirstSecond[str, LogicalType](
                                 first='a',
-                                second=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None)
+                                second=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                )
                             )
                         ]
                     )
@@ -4169,39 +5169,53 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=ConstantExpression(
+                        query_location=7,
                         type='VALUE_CONSTANT',
                         clazz='CONSTANT',
                         alias='',
                         value=Value(
-                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                            query_location=None,
+                            type=LogicalType(
+                                query_location=None,
+                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                type_info=None
+                            ),
                             value=0,
                             is_null=False
                         )
                     )
                 ),
                 cast_type=LogicalType(
+                    query_location=None,
                     id=<LogicalTypeId.USER: 'USER'>,
                     type_info=UserTypeInfo(
+                        query_location=None,
                         type='USER_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
-                        user_type_name='USER_TYPE'
+                        user_type_name='USER_TYPE',
+                        schema_name='',
+                        catalog=''
                     )
                 ),
                 try_cast=False
@@ -4215,17 +5229,21 @@ snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[select 1 * 1] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=9,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -4236,11 +5254,17 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SelectNode(
                 children=[
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=7,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                ),
                                 value=1,
                                 is_null=False
                             )
@@ -4248,11 +5272,17 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SelectNode(
                     ),
                     ParsedExpressionSubclasses(
                         root=ConstantExpression(
+                            query_location=11,
                             type='VALUE_CONSTANT',
                             clazz='CONSTANT',
                             alias='',
                             value=Value(
-                                type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                    type_info=None
+                                ),
                                 value=1,
                                 is_null=False
                             )
@@ -4260,7 +5290,7 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SelectNode(
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
@@ -4273,22 +5303,27 @@ snapshots['test_sql[select 1 * 1] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[select 1] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=ConstantExpression(
+                query_location=7,
                 type='VALUE_CONSTANT',
                 clazz='CONSTANT',
                 alias='',
                 value=Value(
-                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                    query_location=None,
+                    type=LogicalType(query_location=None, id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
                     value=1,
                     is_null=False
                 )
@@ -4302,22 +5337,27 @@ snapshots['test_sql[select 1] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[select []::boolean[]] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
+                query_location=18446744073709551615,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
                 child=ParsedExpressionSubclasses(
                     root=FunctionExpression(
+                        query_location=18446744073709551615,
                         type='FUNCTION',
                         clazz='FUNCTION',
                         alias='',
@@ -4327,18 +5367,24 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SelectNode(
                         is_operator=False,
                         children=[],
                         distinct=False,
-                        order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                        order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                         export_state=False,
                         filter=None
                     )
                 ),
                 cast_type=LogicalType(
+                    query_location=None,
                     id=<LogicalTypeId.LIST: 'LIST'>,
                     type_info=ListTypeInfo(
+                        query_location=None,
                         type='LIST_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
-                        child_type=LogicalType(id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>, type_info=None)
+                        child_type=LogicalType(
+                            query_location=None,
+                            id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>,
+                            type_info=None
+                        )
                     )
                 ),
                 try_cast=False
@@ -4352,32 +5398,44 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SelectNode(
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])
+            root=ColumnRefExpression(
+                query_location=7,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['frog']
+            )
         )
     ],
     where_clause=ParsedExpressionSubclasses(
         root=ConjunctionExpression(
+            query_location=40,
             type='CONJUNCTION_AND',
             clazz='CONJUNCTION',
             alias='',
             children=[
                 ParsedExpressionSubclasses(
                     root=ComparisonExpression(
+                        query_location=36,
                         type='COMPARE_GREATERTHAN',
                         clazz='COMPARISON',
                         alias='',
                         left=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=29,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -4386,11 +5444,17 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                         ),
                         right=ParsedExpressionSubclasses(
                             root=ConstantExpression(
+                                query_location=38,
                                 type='VALUE_CONSTANT',
                                 clazz='CONSTANT',
                                 alias='',
                                 value=Value(
-                                    type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                    query_location=None,
+                                    type=LogicalType(
+                                        query_location=None,
+                                        id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                        type_info=None
+                                    ),
                                     value=5,
                                     is_null=False
                                 )
@@ -4400,11 +5464,13 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                 ),
                 ParsedExpressionSubclasses(
                     root=ComparisonExpression(
+                        query_location=51,
                         type='COMPARE_EQUAL',
                         clazz='COMPARISON',
                         alias='',
                         left=ParsedExpressionSubclasses(
                             root=ColumnRefExpression(
+                                query_location=44,
                                 type='COLUMN_REF',
                                 clazz='COLUMN_REF',
                                 alias='',
@@ -4413,22 +5479,33 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
                         ),
                         right=ParsedExpressionSubclasses(
                             root=CastExpression(
+                                query_location=18446744073709551615,
                                 type='OPERATOR_CAST',
                                 clazz='CAST',
                                 alias='',
                                 child=ParsedExpressionSubclasses(
                                     root=ConstantExpression(
+                                        query_location=53,
                                         type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
-                                            type=LogicalType(id=<LogicalTypeId.VARCHAR: 'VARCHAR'>, type_info=None),
+                                            query_location=None,
+                                            type=LogicalType(
+                                                query_location=None,
+                                                id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                                type_info=None
+                                            ),
                                             value='t',
                                             is_null=False
                                         )
                                     )
                                 ),
-                                cast_type=LogicalType(id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>, type_info=None),
+                                cast_type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>,
+                                    type_info=None
+                                ),
                                 try_cast=False
                             )
                         )
@@ -4445,6 +5522,7 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=17,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -4458,12 +5536,19 @@ snapshots['test_sql[select frog from frogs where height > 5 and leader = true] 1
 '''
 
 snapshots['test_sql[select frog from frogs] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog'])
+            root=ColumnRefExpression(
+                query_location=7,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['frog']
+            )
         )
     ],
     where_clause=None,
@@ -4475,6 +5560,7 @@ snapshots['test_sql[select frog from frogs] 1'] = '''SelectNode(
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=17,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -4488,12 +5574,14 @@ snapshots['test_sql[select frog from frogs] 1'] = '''SelectNode(
 '''
 
 snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=StarExpression(
+                query_location=7,
                 type='STAR',
                 clazz='STAR',
                 alias='',
@@ -4514,6 +5602,7 @@ snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SelectNode(
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=31,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -4527,12 +5616,19 @@ snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SelectNode(
 '''
 
 snapshots['test_sql[select frog.age from frogs] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['frog', 'age'])
+            root=ColumnRefExpression(
+                query_location=7,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['frog', 'age']
+            )
         )
     ],
     where_clause=None,
@@ -4544,6 +5640,7 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''SelectNode(
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=21,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -4557,12 +5654,14 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''SelectNode(
 '''
 
 snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
             root=FunctionExpression(
+                query_location=7,
                 type='FUNCTION',
                 clazz='FUNCTION',
                 alias='',
@@ -4573,6 +5672,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                 children=[
                     ParsedExpressionSubclasses(
                         root=FunctionExpression(
+                            query_location=19,
                             type='FUNCTION',
                             clazz='FUNCTION',
                             alias='',
@@ -4583,11 +5683,17 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                             children=[
                                 ParsedExpressionSubclasses(
                                     root=ConstantExpression(
+                                        query_location=19,
                                         type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
-                                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                            query_location=None,
+                                            type=LogicalType(
+                                                query_location=None,
+                                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                type_info=None
+                                            ),
                                             value=1,
                                             is_null=False
                                         )
@@ -4595,11 +5701,17 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                                 ),
                                 ParsedExpressionSubclasses(
                                     root=ConstantExpression(
+                                        query_location=22,
                                         type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
-                                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                            query_location=None,
+                                            type=LogicalType(
+                                                query_location=None,
+                                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                type_info=None
+                                            ),
                                             value=2,
                                             is_null=False
                                         )
@@ -4607,11 +5719,17 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                                 ),
                                 ParsedExpressionSubclasses(
                                     root=ConstantExpression(
+                                        query_location=25,
                                         type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
-                                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                            query_location=None,
+                                            type=LogicalType(
+                                                query_location=None,
+                                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                type_info=None
+                                            ),
                                             value=3,
                                             is_null=False
                                         )
@@ -4619,13 +5737,14 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                                 )
                             ],
                             distinct=False,
-                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                             export_state=False,
                             filter=None
                         )
                     ),
                     ParsedExpressionSubclasses(
                         root=FunctionExpression(
+                            query_location=36,
                             type='FUNCTION',
                             clazz='FUNCTION',
                             alias='x',
@@ -4636,6 +5755,7 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                             children=[
                                 ParsedExpressionSubclasses(
                                     root=ColumnRefExpression(
+                                        query_location=34,
                                         type='COLUMN_REF',
                                         clazz='COLUMN_REF',
                                         alias='',
@@ -4644,11 +5764,17 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                                 ),
                                 ParsedExpressionSubclasses(
                                     root=ConstantExpression(
+                                        query_location=38,
                                         type='VALUE_CONSTANT',
                                         clazz='CONSTANT',
                                         alias='',
                                         value=Value(
-                                            type=LogicalType(id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                                            query_location=None,
+                                            type=LogicalType(
+                                                query_location=None,
+                                                id=<LogicalTypeId.INTEGER: 'INTEGER'>,
+                                                type_info=None
+                                            ),
                                             value=2,
                                             is_null=False
                                         )
@@ -4656,14 +5782,14 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
                                 )
                             ],
                             distinct=False,
-                            order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                            order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                             export_state=False,
                             filter=None
                         )
                     )
                 ],
                 distinct=False,
-                order_bys=OrderModifier(type='ORDER_MODIFIER', orders=[]),
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
                 export_state=False,
                 filter=None
             )
@@ -4676,17 +5802,26 @@ snapshots['test_sql[select list_apply([1, 2, 3], x => x * 2)] 1'] = '''SelectNod
     group_sets=[],
     group_expressions=[],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
-    from_table=TableRefSubclasses(root=EmptyTableRef(alias='', sample=None, type='EMPTY'))
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
 )
 '''
 
 snapshots['test_sql[select name from frogs GROUP BY age] 1'] = '''SelectNode(
+    query_location=None,
     type='SELECT_NODE',
     modifiers=[],
-    cte_map=CommonTableExpressionMap(map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
     select_list=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['name'])
+            root=ColumnRefExpression(
+                query_location=7,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['name']
+            )
         )
     ],
     where_clause=None,
@@ -4696,12 +5831,19 @@ snapshots['test_sql[select name from frogs GROUP BY age] 1'] = '''SelectNode(
     group_sets=[{0}],
     group_expressions=[
         ParsedExpressionSubclasses(
-            root=ColumnRefExpression(type='COLUMN_REF', clazz='COLUMN_REF', alias='', column_names=['age'])
+            root=ColumnRefExpression(
+                query_location=32,
+                type='COLUMN_REF',
+                clazz='COLUMN_REF',
+                alias='',
+                column_names=['age']
+            )
         )
     ],
     aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
     from_table=TableRefSubclasses(
         root=BaseTableRef(
+            query_location=17,
             alias='',
             sample=None,
             type='BASE_TABLE',
@@ -4714,10 +5856,16 @@ snapshots['test_sql[select name from frogs GROUP BY age] 1'] = '''SelectNode(
 )
 '''
 
-snapshots['test_sql_errors[select] 1'] = '''ErrorResponse(error=True, error_message='SELECT clause without selection list', error_type='parser')
+snapshots['test_sql_errors[select] 1'] = '''ErrorResponse(
+    query_location=None,
+    error=True,
+    error_message='SELECT clause without selection list',
+    error_type='parser'
+)
 '''
 
 snapshots['test_sql_errors[set threads = 5] 1'] = '''ErrorResponse(
+    query_location=None,
     error=True,
     error_message='Only SELECT statements can be serialized to json!',
     error_type='not implemented'
