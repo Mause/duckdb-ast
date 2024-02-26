@@ -1908,6 +1908,11 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                 'right': {
                     '$ref': '#/$defs/QueryNodeSubclasses'
                 },
+                'setop_all': {
+                    'default': True,
+                    'title': 'Setop All',
+                    'type': 'boolean'
+                },
                 'setop_type': {
                     'enum': [
                         'NONE',

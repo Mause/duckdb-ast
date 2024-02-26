@@ -983,6 +983,7 @@ class SetOperationNode(QueryNode):
 
     left: "QueryNodeSubclasses"
     right: "QueryNodeSubclasses"
+    setop_all: bool = True
 
 
 class RecursiveCTENode(QueryNode):
