@@ -2718,7 +2718,7 @@ snapshots['test_sql[SELECT \'101010\'::BIT] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
-                query_location=18446744073709551615,
+                query_location=15,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
@@ -3097,7 +3097,7 @@ snapshots['test_sql[SELECT 0::HUGEINT] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
-                query_location=18446744073709551615,
+                query_location=8,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
@@ -3145,7 +3145,7 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
-                query_location=18446744073709551615,
+                query_location=8,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
@@ -5057,7 +5057,7 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
-                query_location=18446744073709551615,
+                query_location=8,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
@@ -5116,7 +5116,7 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
-                query_location=18446744073709551615,
+                query_location=8,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
@@ -5183,7 +5183,7 @@ snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
-                query_location=18446744073709551615,
+                query_location=8,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
@@ -5351,7 +5351,7 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SelectNode(
     select_list=[
         ParsedExpressionSubclasses(
             root=CastExpression(
-                query_location=18446744073709551615,
+                query_location=9,
                 type='OPERATOR_CAST',
                 clazz='CAST',
                 alias='',
