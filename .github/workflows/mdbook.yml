@@ -36,7 +36,7 @@ jobs:
           cp duckdb_ast/schema.json docs/source/_static/
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
       - name: Build with sphinx
         working-directory: docs
         run: |
