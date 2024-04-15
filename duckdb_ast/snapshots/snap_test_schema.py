@@ -80,7 +80,11 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                 },
                 'type': {
                     'const': 'BASE_TABLE',
-                    'title': 'Type'
+                    'enum': [
+                        'BASE_TABLE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -103,7 +107,11 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                 },
                 'class': {
                     'const': 'BETWEEN',
-                    'title': 'Class'
+                    'enum': [
+                        'BETWEEN'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'input': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -125,7 +133,11 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                 },
                 'type': {
                     'const': 'COMPARE_BETWEEN',
-                    'title': 'Type'
+                    'enum': [
+                        'COMPARE_BETWEEN'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 },
                 'upper': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -187,7 +199,11 @@ src/include/duckdb/parser/tableref/basetableref.hpp#L16''',
                 },
                 'type': {
                     'const': 'CTE_NODE',
-                    'title': 'Type'
+                    'enum': [
+                        'CTE_NODE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -250,7 +266,11 @@ src/include/duckdb/parser/expression/case_expression.hpp#L25''',
                 },
                 'class': {
                     'const': 'CASE',
-                    'title': 'Class'
+                    'enum': [
+                        'CASE'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'else_expr': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -269,7 +289,11 @@ src/include/duckdb/parser/expression/case_expression.hpp#L25''',
                 },
                 'type': {
                     'const': 'CASE_EXPR',
-                    'title': 'Type'
+                    'enum': [
+                        'CASE_EXPR'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -299,7 +323,11 @@ src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
                 },
                 'class': {
                     'const': 'CAST',
-                    'title': 'Class'
+                    'enum': [
+                        'CAST'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'query_location': {
                     'anyOf': [
@@ -319,7 +347,11 @@ src/include/duckdb/parser/expression/cast_expression.hpp#L17''',
                 },
                 'type': {
                     'const': 'OPERATOR_CAST',
-                    'title': 'Type'
+                    'enum': [
+                        'OPERATOR_CAST'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -347,7 +379,11 @@ src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
                 },
                 'class': {
                     'const': 'COLLATE',
-                    'title': 'Class'
+                    'enum': [
+                        'COLLATE'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'collation': {
                     'title': 'Collation',
@@ -367,7 +403,11 @@ src/include/duckdb/parser/expression/collate_expression.hpp#L16''',
                 },
                 'type': {
                     'const': 'COLLATE',
-                    'title': 'Type'
+                    'enum': [
+                        'COLLATE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -392,7 +432,11 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                 },
                 'class': {
                     'const': 'COLUMN_REF',
-                    'title': 'Class'
+                    'enum': [
+                        'COLUMN_REF'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'column_names': {
                     'items': {
@@ -415,7 +459,11 @@ src/include/duckdb/parser/expression/columnref_expression.hpp#L18''',
                 },
                 'type': {
                     'const': 'COLUMN_REF',
-                    'title': 'Type'
+                    'enum': [
+                        'COLUMN_REF'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -509,7 +557,11 @@ src/include/duckdb/parser/expression/comparison_expression.hpp#L16''',
                 },
                 'class': {
                     'const': 'COMPARISON',
-                    'title': 'Class'
+                    'enum': [
+                        'COMPARISON'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'left': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -572,7 +624,11 @@ src/include/duckdb/parser/expression/conjunction_expression.hpp#L17''',
                 },
                 'class': {
                     'const': 'CONJUNCTION',
-                    'title': 'Class'
+                    'enum': [
+                        'CONJUNCTION'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'query_location': {
                     'anyOf': [
@@ -615,7 +671,11 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 },
                 'class': {
                     'const': 'CONSTANT',
-                    'title': 'Class'
+                    'enum': [
+                        'CONSTANT'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'query_location': {
                     'anyOf': [
@@ -631,7 +691,11 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 },
                 'type': {
                     'const': 'VALUE_CONSTANT',
-                    'title': 'Type'
+                    'enum': [
+                        'VALUE_CONSTANT'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 },
                 'value': {
                     '$ref': '#/$defs/Value'
@@ -683,7 +747,11 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 },
                 'type': {
                     'const': 'DECIMAL_TYPE_INFO',
-                    'title': 'Type'
+                    'enum': [
+                        'DECIMAL_TYPE_INFO'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 },
                 'width': {
                     'title': 'Width',
@@ -724,7 +792,11 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 },
                 'type': {
                     'const': 'DISTINCT_MODIFIER',
-                    'title': 'Type'
+                    'enum': [
+                        'DISTINCT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -767,7 +839,11 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                 },
                 'type': {
                     'const': 'EMPTY',
-                    'title': 'Type'
+                    'enum': [
+                        'EMPTY'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -783,7 +859,11 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
             'properties': {
                 'error': {
                     'const': True,
-                    'title': 'Error'
+                    'enum': [
+                        True
+                    ],
+                    'title': 'Error',
+                    'type': 'boolean'
                 },
                 'error_message': {
                     'title': 'Error Message',
@@ -853,7 +933,11 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
                 },
                 'class': {
                     'const': 'FUNCTION',
-                    'title': 'Class'
+                    'enum': [
+                        'FUNCTION'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'distinct': {
                     'title': 'Distinct',
@@ -903,7 +987,11 @@ src/include/duckdb/parser/expression/function_expression.hpp#L17''',
                 },
                 'type': {
                     'const': 'FUNCTION',
-                    'title': 'Type'
+                    'enum': [
+                        'FUNCTION'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -1000,7 +1088,11 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                 },
                 'type': {
                     'const': 'JOIN',
-                    'title': 'Type'
+                    'enum': [
+                        'JOIN'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 },
                 'using_columns': {
                     'items': {
@@ -1036,7 +1128,11 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 },
                 'class': {
                     'const': 'LAMBDA',
-                    'title': 'Class'
+                    'enum': [
+                        'LAMBDA'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'expr': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -1058,7 +1154,11 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 },
                 'type': {
                     'const': 'LAMBDA',
-                    'title': 'Type'
+                    'enum': [
+                        'LAMBDA'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -1095,7 +1195,11 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 },
                 'type': {
                     'const': 'LIMIT_MODIFIER',
-                    'title': 'Type'
+                    'enum': [
+                        'LIMIT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -1130,7 +1234,11 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 },
                 'type': {
                     'const': 'LIMIT_PERCENT_MODIFIER',
-                    'title': 'Type'
+                    'enum': [
+                        'LIMIT_PERCENT_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -1177,7 +1285,11 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 },
                 'type': {
                     'const': 'LIST_TYPE_INFO',
-                    'title': 'Type'
+                    'enum': [
+                        'LIST_TYPE_INFO'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -1316,7 +1428,11 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L19''',
                 },
                 'class': {
                     'const': 'OPERATOR',
-                    'title': 'Class'
+                    'enum': [
+                        'OPERATOR'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'query_location': {
                     'anyOf': [
@@ -1426,7 +1542,11 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 'type': {
                     'const': 'ORDER_MODIFIER',
-                    'title': 'Type'
+                    'enum': [
+                        'ORDER_MODIFIER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -1505,7 +1625,11 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 'class': {
                     'const': 'PARAMETER',
-                    'title': 'Class'
+                    'enum': [
+                        'PARAMETER'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'identifier': {
                     'title': 'Identifier',
@@ -1525,7 +1649,11 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 'type': {
                     'const': 'VALUE_PARAMETER',
-                    'title': 'Type'
+                    'enum': [
+                        'VALUE_PARAMETER'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -1649,7 +1777,11 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 'class': {
                     'const': 'POSITIONAL_REFERENCE',
-                    'title': 'Class'
+                    'enum': [
+                        'POSITIONAL_REFERENCE'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'index': {
                     'title': 'Index',
@@ -1669,7 +1801,11 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 'type': {
                     'const': 'POSITIONAL_REFERENCE',
-                    'title': 'Type'
+                    'enum': [
+                        'POSITIONAL_REFERENCE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -1753,7 +1889,11 @@ src/include/duckdb/parser/result_modifier.hpp#L77''',
                 },
                 'type': {
                     'const': 'RECURSIVE_CTE_NODE',
-                    'title': 'Type'
+                    'enum': [
+                        'RECURSIVE_CTE_NODE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 },
                 'union_all': {
                     'title': 'Union All',
@@ -1967,7 +2107,11 @@ src/include/duckdb/parser/query_node/select_node.hpp#L22''',
                 },
                 'type': {
                     'const': 'SELECT_NODE',
-                    'title': 'Type'
+                    'enum': [
+                        'SELECT_NODE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 },
                 'where_clause': {
                     'anyOf': [
@@ -2068,7 +2212,11 @@ src/include/duckdb/parser/statement/select_statement.hpp#L24''',
                 },
                 'type': {
                     'const': 'SET_OPERATION_NODE',
-                    'title': 'Type'
+                    'enum': [
+                        'SET_OPERATION_NODE'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -2093,7 +2241,11 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                 },
                 'class': {
                     'const': 'STAR',
-                    'title': 'Class'
+                    'enum': [
+                        'STAR'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'columns': {
                     'title': 'Columns',
@@ -2138,7 +2290,11 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                 },
                 'type': {
                     'const': 'STAR',
-                    'title': 'Type'
+                    'enum': [
+                        'STAR'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -2193,7 +2349,11 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                 },
                 'type': {
                     'const': 'STRUCT_TYPE_INFO',
-                    'title': 'Type'
+                    'enum': [
+                        'STRUCT_TYPE_INFO'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -2226,7 +2386,11 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                 },
                 'class': {
                     'const': 'SUBQUERY',
-                    'title': 'Class'
+                    'enum': [
+                        'SUBQUERY'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'comparison_type': {
                     'enum': [
@@ -2264,7 +2428,11 @@ src/include/duckdb/parser/expression/subquery_expression.hpp#L18''',
                 },
                 'type': {
                     'const': 'SUBQUERY',
-                    'title': 'Type'
+                    'enum': [
+                        'SUBQUERY'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -2322,7 +2490,11 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
                 },
                 'type': {
                     'const': 'SUBQUERY',
-                    'title': 'Type'
+                    'enum': [
+                        'SUBQUERY'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -2340,7 +2512,11 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
             'properties': {
                 'error': {
                     'const': False,
-                    'title': 'Error'
+                    'enum': [
+                        False
+                    ],
+                    'title': 'Error',
+                    'type': 'boolean'
                 },
                 'query_location': {
                     'anyOf': [
@@ -2421,7 +2597,11 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
                 },
                 'type': {
                     'const': 'TABLE_FUNCTION',
-                    'title': 'Type'
+                    'enum': [
+                        'TABLE_FUNCTION'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 }
             },
             'required': [
@@ -2531,7 +2711,11 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
                 },
                 'type': {
                     'const': 'USER_TYPE_INFO',
-                    'title': 'Type'
+                    'enum': [
+                        'USER_TYPE_INFO'
+                    ],
+                    'title': 'Type',
+                    'type': 'string'
                 },
                 'user_type_name': {
                     'title': 'User Type Name',
@@ -2642,7 +2826,11 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                 },
                 'class': {
                     'const': 'WINDOW',
-                    'title': 'Class'
+                    'enum': [
+                        'WINDOW'
+                    ],
+                    'title': 'Class',
+                    'type': 'string'
                 },
                 'default_expr': {
                     'anyOf': [
