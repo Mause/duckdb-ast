@@ -86,6 +86,10 @@ class Base(BaseModel):
     model_config = ConfigDict(extra="forbid")
     query_location: Optional[int] = None
 
+    def model_post_init(self, context):
+        if self.query_location == (2**64 - 1) and not isinstance(self, EmptyTableRef):
+            raise ValueError("query_location is invalid")
+
 
 class Pair(BaseModel, Generic[K, V]):
     key: K

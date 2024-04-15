@@ -3328,6 +3328,40 @@ snapshots['test_sql[SELECT 1 < 1, 1 <= 2] 1'] = '''SelectNode(
 )
 '''
 
+snapshots['test_sql[SELECT 10] 1'] = '''SelectNode(
+    query_location=None,
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    select_list=[
+        ParsedExpressionSubclasses(
+            root=ConstantExpression(
+                query_location=7,
+                type='VALUE_CONSTANT',
+                clazz='CONSTANT',
+                alias='',
+                value=Value(
+                    query_location=None,
+                    type=LogicalType(query_location=None, id=<LogicalTypeId.INTEGER: 'INTEGER'>, type_info=None),
+                    value=10,
+                    is_null=False
+                )
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
+    )
+)
+'''
+
 snapshots['test_sql[SELECT 2 < 3, 2 > 3, 2 <= 3, 4 >= NULL, NULL = NULL, 2 <> 2] 1'] = '''SelectNode(
     query_location=None,
     type='SELECT_NODE',
@@ -5649,6 +5683,62 @@ snapshots['test_sql[select frog.age from frogs] 1'] = '''SelectNode(
             catalog_name='',
             column_name_alias=[]
         )
+    )
+)
+'''
+
+snapshots['test_sql[select json_serialize_sql(\'from (select i from x)\'); -- problem with subquery] 1'] = '''SelectNode(
+    query_location=None,
+    type='SELECT_NODE',
+    modifiers=[],
+    cte_map=CommonTableExpressionMap(query_location=None, map=OrderedDict[str, CommonTableExpressionInfo](root=[])),
+    select_list=[
+        ParsedExpressionSubclasses(
+            root=FunctionExpression(
+                query_location=7,
+                type='FUNCTION',
+                clazz='FUNCTION',
+                alias='',
+                schema_name='',
+                function_name='json_serialize_sql',
+                catalog='',
+                is_operator=False,
+                children=[
+                    ParsedExpressionSubclasses(
+                        root=ConstantExpression(
+                            query_location=26,
+                            type='VALUE_CONSTANT',
+                            clazz='CONSTANT',
+                            alias='',
+                            value=Value(
+                                query_location=None,
+                                type=LogicalType(
+                                    query_location=None,
+                                    id=<LogicalTypeId.VARCHAR: 'VARCHAR'>,
+                                    type_info=None
+                                ),
+                                value='from (select i from x)',
+                                is_null=False
+                            )
+                        )
+                    )
+                ],
+                distinct=False,
+                order_bys=OrderModifier(query_location=None, type='ORDER_MODIFIER', orders=[]),
+                export_state=False,
+                filter=None
+            )
+        )
+    ],
+    where_clause=None,
+    sample=None,
+    qualify=None,
+    having=None,
+    group_sets=[],
+    group_expressions=[],
+    aggregate_handling=<AggregateHandling.STANDARD_HANDLING: 'STANDARD_HANDLING'>,
+    from_table=TableRefSubclasses(
+        root=EmptyTableRef(query_location=18446744073709551615, alias='', sample=None, type='EMPTY')
     )
 )
 '''

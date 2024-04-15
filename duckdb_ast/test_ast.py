@@ -13,6 +13,7 @@ from . import SuccessResponse, parse_sql, parse_sql_to_json
 @mark.parametrize(
     "sql",
     [
+        "select json_serialize_sql('from (select i from x)'); -- problem with subquery",
         "select 1",
         "select * from range(0, 10)",
         "select * from duckdb_tables",
@@ -155,6 +156,7 @@ ORDER BY 1, 2
         "SELECT #1, #2 FROM tbl",
         "SELECT $hello FROM tbl",
         "SELECT list_map(x -> x * 2)",
+        "SELECT 10",
     ],
 )
 def test_sql(sql, snapshot: SnapshotTest):
