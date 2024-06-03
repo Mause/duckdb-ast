@@ -729,6 +729,13 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                     ],
                     'default': None
                 },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/$defs/Value'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
                 'query_location': {
                     'anyOf': [
                         {
@@ -761,6 +768,7 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
             'required': [
                 'type',
                 'alias',
+                'modifiers',
                 'width',
                 'scale'
             ],
@@ -1271,6 +1279,13 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
                 'child_type': {
                     '$ref': '#/$defs/LogicalType'
                 },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/$defs/Value'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
                 'query_location': {
                     'anyOf': [
                         {
@@ -1295,6 +1310,7 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
             'required': [
                 'type',
                 'alias',
+                'modifiers',
                 'child_type'
             ],
             'title': 'ListTypeInfo',
@@ -2335,6 +2351,13 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                     'title': 'Child Types',
                     'type': 'array'
                 },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/$defs/Value'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
                 'query_location': {
                     'anyOf': [
                         {
@@ -2359,6 +2382,7 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
             'required': [
                 'type',
                 'alias',
+                'modifiers',
                 'child_types'
             ],
             'title': 'StructTypeInfo',
@@ -2693,6 +2717,13 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
                     ],
                     'default': None
                 },
+                'modifiers': {
+                    'items': {
+                        '$ref': '#/$defs/Value'
+                    },
+                    'title': 'Modifiers',
+                    'type': 'array'
+                },
                 'query_location': {
                     'anyOf': [
                         {
@@ -2717,6 +2748,13 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
                     'title': 'Type',
                     'type': 'string'
                 },
+                'user_type_modifiers': {
+                    'items': {
+                        '$ref': '#/$defs/Value'
+                    },
+                    'title': 'User Type Modifiers',
+                    'type': 'array'
+                },
                 'user_type_name': {
                     'title': 'User Type Name',
                     'type': 'string'
@@ -2725,9 +2763,11 @@ src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
             'required': [
                 'type',
                 'alias',
+                'modifiers',
                 'user_type_name',
                 'schema',
-                'catalog'
+                'catalog',
+                'user_type_modifiers'
             ],
             'title': 'UserTypeInfo',
             'type': 'object'
