@@ -1445,6 +1445,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                                     type='DECIMAL_TYPE_INFO',
                                                                     alias='',
                                                                     catalog_entry=None,
+                                                                    modifiers=[],
                                                                     width=3,
                                                                     scale=2
                                                                 )
@@ -1470,6 +1471,7 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                                     type='DECIMAL_TYPE_INFO',
                                                                     alias='',
                                                                     catalog_entry=None,
+                                                                    modifiers=[],
                                                                     width=3,
                                                                     scale=2
                                                                 )
@@ -3175,6 +3177,7 @@ snapshots['test_sql[SELECT 0::UNION(num INT, str VARCHAR)] 1'] = '''SelectNode(
                         type='STRUCT_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
+                        modifiers=[],
                         child_types=[
                             FirstSecond[str, LogicalType](
                                 first='',
@@ -5087,6 +5090,7 @@ snapshots['test_sql[select 0::DECIMAL(15, 6)] 1'] = '''SelectNode(
                         type='DECIMAL_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
+                        modifiers=[],
                         width=15,
                         scale=6
                     )
@@ -5146,6 +5150,7 @@ snapshots['test_sql[select 0::STRUCT(a INT)] 1'] = '''SelectNode(
                         type='STRUCT_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
+                        modifiers=[],
                         child_types=[
                             FirstSecond[str, LogicalType](
                                 first='a',
@@ -5213,9 +5218,11 @@ snapshots['test_sql[select 0::USER_TYPE] 1'] = '''SelectNode(
                         type='USER_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
+                        modifiers=[],
                         user_type_name='USER_TYPE',
                         schema_name='',
-                        catalog=''
+                        catalog='',
+                        user_type_modifiers=[]
                     )
                 ),
                 try_cast=False
@@ -5380,6 +5387,7 @@ snapshots['test_sql[select []::boolean[]] 1'] = '''SelectNode(
                         type='LIST_TYPE_INFO',
                         alias='',
                         catalog_entry=None,
+                        modifiers=[],
                         child_type=LogicalType(
                             query_location=None,
                             id=<LogicalTypeId.BOOLEAN: 'BOOLEAN'>,

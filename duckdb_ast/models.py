@@ -191,6 +191,7 @@ class ExtraTypeInfo(Base):
     type: str
     alias: str
     catalog_entry: Optional[TypeCatalogEntry] = None
+    modifiers: list["Value"]
 
 
 class ListTypeInfo(ExtraTypeInfo):
@@ -221,6 +222,7 @@ class UserTypeInfo(ExtraTypeInfo):
     user_type_name: str
     schema_name: str = Field(alias="schema")
     catalog: str
+    user_type_modifiers: list["Value"]
 
 
 class LogicalType(Base):
