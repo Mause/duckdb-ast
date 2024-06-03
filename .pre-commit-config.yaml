@@ -49,3 +49,12 @@ repos:
       args:
         - --jobs=1
         - --extend-ignore=W503,E203,E501
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.4.7
+    hooks:
+      # Run the linter.
+      - id: ruff
+        args: [ --fix ]
+        # Run the formatter.
+      - id: ruff-format
