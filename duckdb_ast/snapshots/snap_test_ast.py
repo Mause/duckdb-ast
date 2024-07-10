@@ -5864,11 +5864,23 @@ snapshots['test_sql[select name from frogs GROUP BY age] 1'] = '''SelectNode(
 )
 '''
 
+snapshots['test_sql_errors[CREATE TYPE my_type AS (a INT, b VARCHAR)] 1'] = '''ErrorResponse(
+    query_location=None,
+    error=True,
+    error_message=\'syntax error at or near "("\',
+    error_type='parser',
+    error_subtype='SYNTAX_ERROR',
+    position=23
+)
+'''
+
 snapshots['test_sql_errors[select] 1'] = '''ErrorResponse(
     query_location=None,
     error=True,
     error_message='SELECT clause without selection list',
-    error_type='parser'
+    error_type='parser',
+    error_subtype=None,
+    position=None
 )
 '''
 
@@ -5876,6 +5888,8 @@ snapshots['test_sql_errors[set threads = 5] 1'] = '''ErrorResponse(
     query_location=None,
     error=True,
     error_message='Only SELECT statements can be serialized to json!',
-    error_type='not implemented'
+    error_type='not implemented',
+    error_subtype=None,
+    position=None
 )
 '''

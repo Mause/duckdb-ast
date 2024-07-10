@@ -877,9 +877,33 @@ src/include/duckdb/parser/expression/constant_expression.hpp#L17''',
                     'title': 'Error Message',
                     'type': 'string'
                 },
+                'error_subtype': {
+                    'anyOf': [
+                        {
+                            'type': 'string'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Error Subtype'
+                },
                 'error_type': {
                     'title': 'Error Type',
                     'type': 'string'
+                },
+                'position': {
+                    'anyOf': [
+                        {
+                            'type': 'integer'
+                        },
+                        {
+                            'type': 'null'
+                        }
+                    ],
+                    'default': None,
+                    'title': 'Position'
                 },
                 'query_location': {
                     'anyOf': [
