@@ -182,7 +182,9 @@ def render(node: object) -> str:
     return fh.getvalue()
 
 
-@mark.parametrize("sql", ["set threads = 5", "select"])
+@mark.parametrize(
+    "sql", ["set threads = 5", "select", "CREATE TYPE my_type AS (a INT, b VARCHAR)"]
+)
 def test_sql_errors(sql, snapshot: SnapshotTest):
     root = parse_sql(sql)
 

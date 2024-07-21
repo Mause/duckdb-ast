@@ -988,6 +988,8 @@ class ErrorResponse(Base):
     error: Literal[True]
     error_message: str
     error_type: str
+    error_subtype: Optional[str] = None
+    position: Optional[int] = None
 
 
 class SetOperationNode(QueryNode):
