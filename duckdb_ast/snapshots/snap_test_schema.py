@@ -2912,11 +2912,7 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                     'type': 'boolean'
                 },
                 'end': {
-                    'allOf': [
-                        {
-                            '$ref': '#/$defs/WindowBoundary'
-                        }
-                    ],
+                    '$ref': '#/$defs/WindowBoundary',
                     'default': 'INVALID'
                 },
                 'end_expr': {
@@ -2931,11 +2927,7 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                     'default': None
                 },
                 'exclude_clause': {
-                    'allOf': [
-                        {
-                            '$ref': '#/$defs/WindowExcludeMode'
-                        }
-                    ],
+                    '$ref': '#/$defs/WindowExcludeMode',
                     'default': 'NO_OTHER'
                 },
                 'filter_expr': {
@@ -2999,11 +2991,7 @@ src/include/duckdb/parser/expression/window_expression.hpp#L32''',
                     'type': 'string'
                 },
                 'start': {
-                    'allOf': [
-                        {
-                            '$ref': '#/$defs/WindowBoundary'
-                        }
-                    ],
+                    '$ref': '#/$defs/WindowBoundary',
                     'default': 'INVALID'
                 },
                 'start_expr': {
