@@ -1162,9 +1162,8 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
         'LambdaExpression': {
             'additionalProperties': False,
             'description': '''LambdaExpression represents either:
-1. A lambda operator that can be used for e.g. mapping an expression to a list
-2. An OperatorExpression with the "->" operator
-Lambda expressions are written in the form of "params -> expr", e.g. "x -> x + 1"
+1. A lambda function that can be used for, e.g., mapping an expression to a list
+2. An OperatorExpression with the "->" operator (JSON)
 src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
             'properties': {
                 'alias': {
@@ -1415,7 +1414,7 @@ src/include/duckdb/parser/expression/lambda_expression.hpp#L20''',
         },
         'LogicalTypeId': {
             'description': '''SQL Types
-src/include/duckdb/common/types.hpp#L186''',
+src/include/duckdb/common/types.hpp#L185''',
             'enum': [
                 'INVALID',
                 'NULL',
@@ -1527,7 +1526,7 @@ src/include/duckdb/parser/expression/operator_expression.hpp#L19''',
         'OrderByNode': {
             'additionalProperties': False,
             'description': '''Single node in ORDER BY statement
-src/include/duckdb/parser/result_modifier.hpp#L77''',
+src/include/duckdb/parser/result_modifier.hpp#L69''',
             'properties': {
                 'expression': {
                     '$ref': '#/$defs/ParsedExpressionSubclasses'
@@ -2614,7 +2613,7 @@ src/include/duckdb/parser/tableref/subqueryref.hpp#L16''',
         'TableFunctionRef': {
             'additionalProperties': False,
             'description': '''Represents a Table producing function
-src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
+src/include/duckdb/parser/tableref/table_function_ref.hpp#L18''',
             'properties': {
                 'alias': {
                     'title': 'Alias',
@@ -2712,7 +2711,7 @@ src/include/duckdb/parser/tableref/table_function_ref.hpp#L19''',
         'TypeCatalogEntry': {
             'additionalProperties': False,
             'description': '''A type catalog entry
-src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20''',
+src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L18''',
             'properties': {
                 'query_location': {
                     'anyOf': [
@@ -2875,7 +2874,8 @@ src/include/duckdb/common/types/value.hpp#L30''',
             'type': 'string'
         },
         'WindowExcludeMode': {
-            'description': 'src/include/duckdb/parser/expression/window_expression.hpp#L29',
+            'description': '''Represents the window exclusion mode
+src/include/duckdb/parser/expression/window_expression.hpp#L29''',
             'enum': [
                 'NO_OTHER',
                 'CURRENT_ROW',
@@ -2889,7 +2889,7 @@ src/include/duckdb/common/types/value.hpp#L30''',
             'additionalProperties': False,
             'description': '''The WindowExpression represents a window function in the query. They are a special case of aggregates which is why
 they inherit from them.
-src/include/duckdb/parser/expression/window_expression.hpp#L32''',
+src/include/duckdb/parser/expression/window_expression.hpp#L35''',
             'properties': {
                 'alias': {
                     'title': 'Alias',

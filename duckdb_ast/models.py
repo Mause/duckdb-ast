@@ -114,7 +114,7 @@ class ParsedExpression(BaseExpression):
 
 class LogicalTypeId(Enum):
     """
-    .. gh_link:: src/include/duckdb/common/types.hpp#L186
+    .. gh_link:: src/include/duckdb/common/types.hpp#L185
     """
 
     INVALID = "INVALID"
@@ -177,7 +177,7 @@ class StandardEntry(CatalogEntry):
 
 class TypeCatalogEntry(StandardEntry):
     """
-    .. gh_link:: src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L20
+    .. gh_link:: src/include/duckdb/catalog/catalog_entry/type_catalog_entry.hpp#L18
     """
 
     user_type: "LogicalType"
@@ -510,7 +510,7 @@ class WindowExcludeMode(Enum):
 
 class WindowExpression(ParsedExpression):
     """
-    .. gh_link:: src/include/duckdb/parser/expression/window_expression.hpp#L32
+    .. gh_link:: src/include/duckdb/parser/expression/window_expression.hpp#L35
     """
 
     clazz: Literal["WINDOW"] = Field(alias="class")
@@ -800,7 +800,7 @@ class OrderByNullType(Enum):
 
 class OrderByNode(Base):
     """
-    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L77
+    .. gh_link:: src/include/duckdb/parser/result_modifier.hpp#L69
     """
 
     type: OrderType
@@ -837,7 +837,7 @@ class FunctionExpression(ParsedExpression):
 
 class TableFunctionRef(TableRef):
     """
-    .. gh_link:: src/include/duckdb/parser/tableref/table_function_ref.hpp#L19
+    .. gh_link:: src/include/duckdb/parser/tableref/table_function_ref.hpp#L18
     """
 
     type: Literal["TABLE_FUNCTION"]
