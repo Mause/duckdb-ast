@@ -1062,6 +1062,17 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                     ],
                     'default': None
                 },
+                'delim_flipped': {
+                    'title': 'Delim Flipped',
+                    'type': 'boolean'
+                },
+                'duplicate_eliminated_columns': {
+                    'items': {
+                        'type': 'string'
+                    },
+                    'title': 'Duplicate Eliminated Columns',
+                    'type': 'array'
+                },
                 'join_type': {
                     'enum': [
                         'INVALID',
@@ -1141,7 +1152,9 @@ src/include/duckdb/parser/tableref/joinref.hpp#L21''',
                 'left',
                 'join_type',
                 'ref_type',
-                'using_columns'
+                'using_columns',
+                'delim_flipped',
+                'duplicate_eliminated_columns'
             ],
             'title': 'JoinRef',
             'type': 'object'
@@ -2335,6 +2348,10 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                     ],
                     'title': 'Type',
                     'type': 'string'
+                },
+                'unpacked': {
+                    'title': 'Unpacked',
+                    'type': 'boolean'
                 }
             },
             'required': [
@@ -2344,7 +2361,8 @@ src/include/duckdb/parser/expression/star_expression.hpp#L17''',
                 'columns',
                 'replace_list',
                 'relation_name',
-                'exclude_list'
+                'exclude_list',
+                'unpacked'
             ],
             'title': 'StarExpression',
             'type': 'object'
