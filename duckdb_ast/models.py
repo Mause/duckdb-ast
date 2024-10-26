@@ -693,6 +693,7 @@ class StarExpression(ParsedExpression):
     relation_name: str
     exclude_list: list[str]
     expr: Optional["ParsedExpressionSubclasses"] = None
+    unpacked: bool
 
 
 class SampleMethod(Enum):
@@ -771,6 +772,8 @@ class JoinRef(TableRef):
     ref_type: Literal["CROSS", "ASOF", "NATURAL", "REGULAR", "DEPENDENT", "POSITIONAL"]
     condition: Optional["ParsedExpressionSubclasses"] = None
     using_columns: list[str]
+    delim_flipped: bool
+    duplicate_eliminated_columns: list[str]
 
 
 class OrderType(Enum):

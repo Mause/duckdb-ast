@@ -127,7 +127,8 @@ snapshots['test_sql[ SELECT * EXCLUDE (timestamp_tz) REPLACE (varchar.replace(ch
                 ),
                 relation_name='',
                 exclude_list=['timestamp_tz'],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
@@ -181,7 +182,8 @@ snapshots['test_sql[ SELECT * FROM grades grades_parent WHERE grade= (SELECT MIN
                 replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                 relation_name='',
                 exclude_list=[],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
@@ -351,7 +353,8 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                         replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                         relation_name='',
                         exclude_list=[],
-                        expr=None
+                        expr=None,
+                        unpacked=False
                     )
                 )
             ],
@@ -427,7 +430,8 @@ snapshots['test_sql[ SELECT * FROM range(10) t1 UNION ALL SELECT * FROM range(5)
                         replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                         relation_name='',
                         exclude_list=[],
-                        expr=None
+                        expr=None,
+                        unpacked=False
                     )
                 )
             ],
@@ -1739,7 +1743,9 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                                                     join_type='INNER',
                                                     ref_type='CROSS',
                                                     condition=None,
-                                                    using_columns=[]
+                                                    using_columns=[],
+                                                    delim_flipped=False,
+                                                    duplicate_eliminated_columns=[]
                                                 )
                                             )
                                         )
@@ -1765,7 +1771,8 @@ snapshots['test_sql[ WITH RECURSIVE per_investor_amount AS ( SELECT 0 AS investo
                 replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                 relation_name='',
                 exclude_list=[],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
@@ -2052,7 +2059,9 @@ snapshots['test_sql[ WITH RECURSIVE tag_hierarchy(id, source, path) AS ( SELECT 
                                                     join_type='INNER',
                                                     ref_type='CROSS',
                                                     condition=None,
-                                                    using_columns=[]
+                                                    using_columns=[],
+                                                    delim_flipped=False,
+                                                    duplicate_eliminated_columns=[]
                                                 )
                                             )
                                         )
@@ -2278,7 +2287,8 @@ snapshots['test_sql[ WITH ranked_functions as ( SELECT schema_name, function_nam
                 replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                 relation_name='',
                 exclude_list=[],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
@@ -3054,7 +3064,8 @@ snapshots['test_sql[SELECT * FROM frogs USING SAMPLE 1% (BERNOULLI);] 1'] = '''S
                 replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                 relation_name='',
                 exclude_list=[],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
@@ -3783,7 +3794,8 @@ snapshots['test_sql[SELECT EXISTS(SELECT * FROM grades WHERE course=\'Math\');] 
                                         replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                                         relation_name='',
                                         exclude_list=[],
-                                        expr=None
+                                        expr=None,
+                                        unpacked=False
                                     )
                                 )
                             ],
@@ -3989,7 +4001,8 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
                             replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                             relation_name='',
                             exclude_list=[],
-                            expr=None
+                            expr=None,
+                            unpacked=False
                         )
                     )
                 ],
@@ -4020,7 +4033,8 @@ snapshots['test_sql[SELECT MIN(COLUMNS(*)), COUNT(COLUMNS(*)) from numbers;] 1']
                             replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                             relation_name='',
                             exclude_list=[],
-                            expr=None
+                            expr=None,
+                            unpacked=False
                         )
                     )
                 ],
@@ -4333,7 +4347,8 @@ snapshots['test_sql[SELECT a.* FROM (SELECT {\'x\':1, \'y\':2, \'z\':3} as a);] 
                 replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                 relation_name='a',
                 exclude_list=[],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
@@ -4935,7 +4950,8 @@ snapshots['test_sql[select * from duckdb_tables] 1'] = '''SelectNode(
                 replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                 relation_name='',
                 exclude_list=[],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
@@ -4977,7 +4993,8 @@ snapshots['test_sql[select * from range(0, 10)] 1'] = '''SelectNode(
                 replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                 relation_name='',
                 exclude_list=[],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
@@ -5597,7 +5614,8 @@ snapshots['test_sql[select frog.* EXCLUDE age from frogs] 1'] = '''SelectNode(
                 replace_list=OrderedDict[str, ParsedExpressionSubclasses](root=[]),
                 relation_name='frog',
                 exclude_list=['age'],
-                expr=None
+                expr=None,
+                unpacked=False
             )
         )
     ],
