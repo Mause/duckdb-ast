@@ -24,9 +24,9 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    - run: python -m pip install --upgrade pip poetry
-    - run: poetry install
+    - run: python -m pip install --upgrade pip uv
+    - run: uv sync
 
     - name: Test with pytest
       run: |
-        poetry run pytest
+        uv run pytest
