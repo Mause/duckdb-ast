@@ -25,7 +25,7 @@ jobs:
   build_sphinx:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Poetry
         uses: Gr1N/setup-poetry@v9
       - run: poetry install
