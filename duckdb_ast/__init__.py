@@ -8,9 +8,9 @@ import duckdb
 from .models import ErrorResponse, Root, SuccessResponse
 
 __all__ = [
-    "parse_sql_to_json",
     "get_schema",
     "parse_sql",
+    "parse_sql_to_json",
 ]
 
 
@@ -38,7 +38,7 @@ def parse_sql_to_json(sql: str) -> str:
     return ast
 
 
-def parse_sql(sql: str) -> Union[ErrorResponse, SuccessResponse]:
+def parse_sql(sql: str) -> ErrorResponse | SuccessResponse:
     "Parses DuckDB flavoured SQL"
     ast = parse_sql_to_json(sql)
     return Root.model_validate_json(ast).root
