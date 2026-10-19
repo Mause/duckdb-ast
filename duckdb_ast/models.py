@@ -37,9 +37,9 @@ __all__ = [
     "OperatorExpression",
     "OrderByNode",
     "OrderByNullType",
-    "OrderedDict",
     "OrderModifier",
     "OrderType",
+    "OrderedDict",
     "Pair",
     "ParameterExpression",
     "ParsedExpression",
@@ -84,7 +84,7 @@ class Base(BaseModel):
     """
 
     model_config = ConfigDict(extra="forbid")
-    query_location: Optional[int] = None
+    query_location: int | None = None
 
 
 class Pair(BaseModel, Generic[K, V]):
@@ -190,7 +190,7 @@ class ExtraTypeInfo(Base):
 
     type: str
     alias: str
-    catalog_entry: Optional[TypeCatalogEntry] = None
+    catalog_entry: TypeCatalogEntry | None = None
     modifiers: list["Value"]
 
 
@@ -231,9 +231,9 @@ class LogicalType(Base):
     """
 
     id: LogicalTypeId
-    type_info: Optional[
-        Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo, "StructTypeInfo"]
-    ] = Field(discriminator="type")
+    type_info: (
+        Union[ListTypeInfo, DecimalTypeInfo, UserTypeInfo, "StructTypeInfo"] | None
+    ) = Field(discriminator="type")
 
 
 class FirstSecond(BaseModel, Generic[K, V]):
@@ -256,7 +256,7 @@ class Value(Base, Generic[T]):
     """
 
     type: LogicalType
-    value: Optional[T] = None
+    value: T | None = None
     is_null: bool
 
 
@@ -302,7 +302,6 @@ class ComparisonExpression(ParsedExpression):
     clazz: Literal["COMPARISON"] = Field(alias="class")
     type: Literal[
         "COMPARE_GREATERTHAN",
-        "COMPARE_EQUAL",
         "COMPARE_EQUAL",
         "COMPARE_NOTEQUAL",
         "COMPARE_GREATERTHANOREQUALTO",
@@ -723,7 +722,7 @@ class TableRef(Base):
     """
 
     alias: str
-    sample: Optional[SampleOptions] = None
+    sample: SampleOptions | None = None
 
 
 class BaseTableRef(TableRef):
@@ -736,7 +735,7 @@ class BaseTableRef(TableRef):
     schema_name: str
     table_name: str
     catalog_name: str
-    column_name_alias: Optional[list[str]] = None
+    column_name_alias: list[str] | None = None
 
 
 class EmptyTableRef(TableRef):
@@ -832,7 +831,7 @@ class FunctionExpression(ParsedExpression):
     distinct: bool
     order_bys: OrderModifier
     export_state: bool
-    filter: Optional[ParsedExpressionSubclasses] = None
+    filter: ParsedExpressionSubclasses | None = None
 
 
 class TableFunctionRef(TableRef):
@@ -843,7 +842,7 @@ class TableFunctionRef(TableRef):
     type: Literal["TABLE_FUNCTION"]
 
     function: FunctionExpression
-    column_name_alias: Optional[list[str]] = None
+    column_name_alias: list[str] | None = None
 
 
 class AggregateHandling(Enum):
@@ -904,7 +903,7 @@ class LimitPercentModifier(ResultModifier):
 class ResultModifierSubclasses(
     RootModel[
         Annotated[
-            Union[LimitPercentModifier, DistinctModifier, LimitModifier, OrderModifier],
+            LimitPercentModifier | DistinctModifier | LimitModifier | OrderModifier,
             Field(discriminator="type"),
         ]
     ]
@@ -957,7 +956,7 @@ class SubqueryRef(TableRef):
 class TableRefSubclasses(
     RootModel[
         Annotated[
-            Union[BaseTableRef, EmptyTableRef, TableFunctionRef, SubqueryRef, JoinRef],
+            BaseTableRef | EmptyTableRef | TableFunctionRef | SubqueryRef | JoinRef,
             Field(discriminator="type"),
         ]
     ]
@@ -975,13 +974,13 @@ class SelectNode(QueryNode):
 
     type: Literal["SELECT_NODE"]
     select_list: list[ParsedExpressionSubclasses]
-    where_clause: Optional[ParsedExpressionSubclasses] = None
-    sample: Optional[SampleOptions] = None
-    qualify: Optional[ParsedExpressionSubclasses] = None
-    having: Optional[ParsedExpressionSubclasses] = None
-    group_sets: Optional[list[GroupingSet]] = None
-    group_expressions: Optional[list[ParsedExpressionSubclasses]] = None
-    aggregate_handling: Optional[AggregateHandling] = None
+    where_clause: ParsedExpressionSubclasses | None = None
+    sample: SampleOptions | None = None
+    qualify: ParsedExpressionSubclasses | None = None
+    having: ParsedExpressionSubclasses | None = None
+    group_sets: list[GroupingSet] | None = None
+    group_expressions: list[ParsedExpressionSubclasses] | None = None
+    aggregate_handling: AggregateHandling | None = None
     from_table: TableRefSubclasses
 
 
@@ -991,8 +990,8 @@ class ErrorResponse(Base):
     error: Literal[True]
     error_message: str
     error_type: str
-    error_subtype: Optional[str] = None
-    position: Optional[int] = None
+    error_subtype: str | None = None
+    position: int | None = None
 
 
 class SetOperationNode(QueryNode):
@@ -1038,7 +1037,7 @@ class CTENode(QueryNode):
 class QueryNodeSubclasses(
     RootModel[
         Annotated[
-            Union[SelectNode, SetOperationNode, CTENode, RecursiveCTENode],
+            SelectNode | SetOperationNode | CTENode | RecursiveCTENode,
             Field(discriminator="type"),
         ]
     ]
@@ -1099,9 +1098,7 @@ class SuccessResponse(Base):
 
 
 class Root(
-    RootModel[
-        Annotated[Union[ErrorResponse, SuccessResponse], Field(discriminator="error")]
-    ]
+    RootModel[Annotated[ErrorResponse | SuccessResponse, Field(discriminator="error")]]
 ):
     "Union of possible responses"
 
