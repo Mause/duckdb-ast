@@ -20,34 +20,28 @@ def test_schema_generation(snapshot: SnapshotTest):
     "comments,expected",
     [
         (
-            dedent(
-                """\
+            dedent("""\
 //===--------------------------------------------------------------------===//
 // Struct Type
 //===--------------------------------------------------------------------===//
 struct StructTypeInfo : public ExtraTypeInfo {
-    """
-            ),
+    """),
             "Struct Type",
         ),
         (
-            dedent(
-                """
+            dedent("""
 
 //! Extra Type Info Type
 enum class ExtraTypeInfoType : uint8_t {
-        """
-            ),
+        """),
             "Extra Type Info Type",
         ),
         (
-            dedent(
-                """
+            dedent("""
 
 //===
 struct StructTypeInfo : public ExtraTypeInfo {
-    """
-            ),
+    """),
             "",
         ),
     ],
