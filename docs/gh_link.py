@@ -1,7 +1,8 @@
 import atexit
 import shelve
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, TypeVar
+from typing import TypeVar
 from urllib.request import urlopen
 
 from docutils import nodes
